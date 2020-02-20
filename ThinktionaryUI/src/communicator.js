@@ -1,3 +1,6 @@
+//import * as JSONBuilder from 'src/JSONBuilder.js'
+var JSONBuilder = require('./JSONBuilder')
+var testTools = require('./testTools')
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 let BASE_URL = 'http://localhost:8090'
 const DELETE = "DELETE"
@@ -5,34 +8,33 @@ const GET = "GET"
 const PUT = "PUT"
 const POST = "POST"
 
-function buildEntry(title, text, topics, year, month, day, hour=0, minute=0, second=0) {
-
-    var created = JSONBUILDER.buildDate(year, month, day, hour, minute, second)
-    var entry = {
-        TITLE: title,
-        TEXT: text,
-        CREATED: created,
-        TOPICS : topics
-    }
-}
-
 function getEntry(userId){
-    url = BASE_URL+ "/users/" + userId + "/entries/getEntry"
+    var url = BASE_URL+ "/users/" + userId + "/entries/getEntry"
     request(url, GET, null, true)
 }
 
-function createEntry(userID, entry){
-    url = BASE_URL+ "/" + userID + "/entries"
+function createEntry(userID, title, text, topics, created) {
+    var entry = JSONBuilder.buildEntryWithCreated(title, text, topics, created)
+    createEntryHelper(entry)
+}
+
+function createEntry(userID, title, text, topics) {
+    var entry = JSONBuilder.buildEntry(title, text, topics)
+    createEntryHelper(entry)
+}
+
+function createEntryHelper(entry){
+    var url = BASE_URL+ "/" + userID + "/entries"
     request(url, POST, entry, false)
 }
 
 function makeAccount(user, pwd){
-    url = BASE_URL+"/users/?user=" + user + "&pwd=" + pwd
+    var url = BASE_URL+"/users/?user=" + user + "&pwd=" + pwd
     request(url, PUT, null, false)
 }
 
 function login(user, pwd){
-    url = BASE_URL+"/?user=" + user + "&pwd=" + pwd
+    var url = BASE_URL+"/?user=" + user + "&pwd=" + pwd
     request(url, GET, null, true)
 }
 
@@ -62,7 +64,12 @@ function sleep(milliseconds) {
     }
 }
 
-//makeAccount("dpk14", "1234")
+function run(){
+    //makeAccount("dpk14", "1234")
 //sleep(1000)
 //login("dpk14", "1234")
-getEntry(1)
+    createEntry(1, "yeet", "oh yeet that shit", testTools.buildTestMap(), JSONBuilder.buildDate("2020", "05", "05", "01", "00", "00"))
+
+}
+
+run()
