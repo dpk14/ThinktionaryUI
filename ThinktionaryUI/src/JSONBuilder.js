@@ -29,4 +29,4 @@ function buildEntry(title, text, topics){
     return entry
 }
 
-module.exports = buildDate, buildEntry, buildEntryWithCreated
+module.exports = {buildDate, buildEntry, buildEntryWithCreated}

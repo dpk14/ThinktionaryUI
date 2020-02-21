@@ -1,7 +1,7 @@
 //import * as JSONBuilder from 'src/JSONBuilder.js'
-var JSONBuilder = require('./JSONBuilder')
-var testTools = require('./testTools')
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
+let JSONBuilder = require('./JSONBuilder')
+let testTools = require('./testTools')
+let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 let BASE_URL = 'http://localhost:8090'
 const DELETE = "DELETE"
 const GET = "GET"
