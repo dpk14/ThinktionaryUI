@@ -69,7 +69,7 @@ function run(){
 //sleep(1000)
 //login("dpk14", "1234")
     //getEntry(1)
-    createEntryWithDate(1, "yeet", "oh yeet that shit", testTools.buildTestMap(), JSONBuilder.buildDate("2020", "05", "05", "01", "00", "00.000"))
+ createEntryWithDate(1, "yeet", "oh yeet that shit", testTools.buildTestMap(), JSONBuilder.buildDate("2020", "05", "05", "01", "00", "00.000"))
 
 }
 
