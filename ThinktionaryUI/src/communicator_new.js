@@ -31,6 +31,11 @@ function getEntry(userId){
     request(url, GET, null, true)
 }
 
+function removeEntry(userId, entryID){
+    url = BASE_URL+ "/users/" + userId + "/entries/" + entryID + "/remove"
+    request(url, DELETE, null, false)
+}
+
 function createEntry(userID, entry){
     url = BASE_URL+ "/" + userID + "/entries"
     request(url, POST, entry, false)
@@ -46,6 +51,10 @@ function login(user, pwd){
     request(url, GET, null, true)
 }
 
+function logout(user, pwd){
+    url = BASE_URL+"/users/logout?user=" + user + "&pwd=" + pwd
+    request(url, GET, null, true)
+}
 
 function request(url, type, json, hasReturn){
     var xhr = new XMLHttpRequest()
@@ -74,11 +83,13 @@ function sleep(milliseconds) {
 
 function run(){
     //makeAccount("dpk14", "1234")
-    //sleep(1000)
-    login("dpk14", "1234")
-    sleep(100)
+
+    //login("dpk14", "1234")
+    //sleep(100)
     //getEntry(1)
-    buildEntryWithDate(1, "yeet", "OH YEET THAT DADDY", testTools.buildTestMap(), JSONBuilder.buildDate("2020", "01", "05", "00", "00", "00.000"))
+    //buildEntryWithDate(1, "yeet", "OH YEET THAT DADDY", testTools.buildTestMap(), JSONBuilder.buildDate("2020", "01", "05", "00", "00", "00.000"))
+    //logout("dpk14", "1234")
+    removeEntry(1, 1);
 }
 
 run()
