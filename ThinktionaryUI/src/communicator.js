@@ -13,19 +13,20 @@ function getEntry(userId){
     request(url, GET, null, true)
 }
 
-function createEntry(userID, title, text, topics, created) {
+function createEntryWithDate(userID, title, text, topics, created) {
     var entry = JSONBuilder.buildEntryWithCreated(title, text, topics, created)
-    createEntryHelper(entry)
+    console.log(entry)
+    createEntryHelper(entry, userID)
 }
 
 function createEntry(userID, title, text, topics) {
     var entry = JSONBuilder.buildEntry(title, text, topics)
-    createEntryHelper(entry)
+    createEntryHelper(entry, userID)
 }
 
-function createEntryHelper(entry){
-    var url = BASE_URL+ "/" + userID + "/entries"
-    request(url, POST, entry, false)
+function createEntryHelper(entry, userID){
+    var url = BASE_URL+ "/users/" + userID + "/entries"
+    request(url, POST, entry, true)
 }
 
 function makeAccount(user, pwd){
@@ -34,10 +35,9 @@ function makeAccount(user, pwd){
 }
 
 function login(user, pwd){
-    var url = BASE_URL+"/?user=" + user + "&pwd=" + pwd
+    var url = BASE_URL+"/users/login?user=" + user + "&pwd=" + pwd
     request(url, GET, null, true)
 }
-
 
 function request(url, type, json, hasReturn){
     var xhr = new XMLHttpRequest()
@@ -68,7 +68,8 @@ function run(){
     //makeAccount("dpk14", "1234")
 //sleep(1000)
 //login("dpk14", "1234")
-    createEntry(1, "yeet", "oh yeet that shit", testTools.buildTestMap(), JSONBuilder.buildDate("2020", "05", "05", "01", "00", "00"))
+    //getEntry(1)
+    createEntryWithDate(1, "yeet", "oh yeet that shit", testTools.buildTestMap(), JSONBuilder.buildDate("2020", "05", "05", "01", "00", "00.000"))
 
 }
 
