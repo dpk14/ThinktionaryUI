@@ -1,14 +1,14 @@
-function buildTestMap(){
-    let map = []
+function buildTestTopics(){
+    let topics = []
     let topic1 = {}
     topic1["myColor"] = "yeet"
     topic1["myTopic"] = "hoe"
     let topic2 = {}
     topic2["myColor"] = "yeet1"
     topic2["myTopic"] = "hoe2"
-    map.push(topic1)
-    map.push(topic2)
-    return map
+    topics.push(topic1)
+    topics.push(topic2)
+    return topics
 }
 
-module.exports = {buildTestMap}
+module.exports = {buildTestTopics}
