@@ -42,7 +42,7 @@ export default class LoginScreen extends Component {
                         <Text style={styles.welcome}>Welcome to React Native!</Text>
                         <Text style={styles.instructions}>To get started, edit App.js</Text>
                         <Text style={styles.instructions}>{instructions}</Text>
-                        <EntryBox>
+                        <EntryBox
                             attrName = 'username'
                             title = 'Username'
                             value = {this.state.username}
@@ -55,7 +55,6 @@ export default class LoginScreen extends Component {
                             maxLength: 12,
                         }}
                             />
-                            </EntryBox>
                     </LinearGradient>
                 </View>
             );

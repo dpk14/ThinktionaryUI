@@ -1,30 +1,44 @@
 import React, { Component } from 'react';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number } from 'prop-types';
+const HP_SIMPLIFIED = "hp-simplified";
 
 export default class EntryBox extends Component {
     static propTypes = {
         attrName: string.isRequired,
         title: string.isRequired,
         value: string.isRequired,
-        updateMasterState: func,
-        //updateMasterState: func.isRequired,
+        updateMasterState: func.isRequired,
         keyboardType: string,
         titleActiveSize: number, // to control size of title when field is active
         titleInActiveSize: number, // to control size of title when field is inactive
         titleActiveColor: string, // to control color of title when field is active
         titleInactiveColor: string, // to control color of title when field is active
+        textInputInactiveMargins : object,
+        textInputActiveMargins : object,
+        containerActiveOpacity: number,
+        containerInactiveOpacity: number,
         textInputStyles: object,
         otherTextInputProps: object,
     }
 
     static defaultProps = {
         keyboardType: 'default',
-        titleActiveSize: 11.5,
+        titleActiveSize: 12,
         titleInActiveSize: 15,
-        titleActiveColor: 'black',
-        titleInactiveColor: 'dimgrey',
-        textInputStyles: {},
+        titleActiveColor: '#512da8',
+        titleInactiveColor: 'white',
+        textInputInactiveMargins: {
+            marginTop : 0,
+            marginBottom : 0,
+        },
+        textInputActiveMargins: {
+            marginTop : 24,
+            marginBottom : 8,
+        },
+        containerActiveOpacity: 1.0,
+        containerInactiveOpacity: .3,
+        textInputStyles : {},
         otherTextInputAttributes: {},
     }
 
@@ -33,8 +47,16 @@ export default class EntryBox extends Component {
         const { value } = this.props;
         this.position = new Animated.Value(value ? 1 : 0);
         this.state = {
+            loading : true,
             isFieldActive: false,
         }
+    }
+
+    async componentWillMount() {
+        await Font.loadAsync({
+            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
+        });
+        this.setState({loading : false})
     }
 
     _handleFocus = () => {
@@ -59,7 +81,7 @@ export default class EntryBox extends Component {
 
     _onChangeText = (updatedValue) => {
         const { attrName, updateMasterState } = this.props;
-        //updateMasterState(attrName, updatedValue);
+        updateMasterState(attrName, updatedValue);
     }
 
     _returnAnimatedTitleStyles = () => {
@@ -78,47 +100,80 @@ export default class EntryBox extends Component {
         }
     }
 
+    _returnAnimatedInputStyles = () => {
+        const { isFieldActive } = this.state;
+        const {
+            textInputActiveMargins, textInputInactiveMargins,
+        } = this.props;
+
+        return {
+            marginTop : isFieldActive ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop,
+            marginBottom : isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom,
+        }
+    }
+
+    _returnAnimatedContainerStyles = () => {
+        const { isFieldActive } = this.state;
+        const { containerActiveOpacity, containerInactiveOpacity
+        } = this.props;
+
+        return {
+            opacity: isFieldActive ? containerActiveOpacity : containerInactiveOpacity,
+        }
+    }
+
     render() {
-        return (
-            <View style = {Styles.container}>
-                <Animated.Text
-                    style = {[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
-                >
-                    {this.props.title}
-                </Animated.Text>
-                <TextInput
-                    value = {this.props.value}
-                    style = {[Styles.textInput, this.props.textInputStyles]}
-                    underlineColorAndroid = 'transparent'
-                    onFocus = {this._handleFocus}
-                    onBlur = {this._handleBlur}
-                    onChangeText = {this._onChangeText}
-                    keyboardType = {this.props.keyboardType}
-                    {...this.props.otherTextInputProps}
-                />
-            </View>
-        )
+        if (!this.loading) {
+            return (
+                <View style={[Styles.container, this._returnAnimatedContainerStyles()]}>
+                    <Animated.Text
+                        style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
+                    >
+                        {this.props.title}
+                    </Animated.Text>
+                    <TextInput
+                        value={this.props.value}
+                        style={[Styles.textInput, this._returnAnimatedInputStyles()]}
+                        underlineColorAndroid='transparent'
+                        onFocus={this._handleFocus}
+                        onBlur={this._handleBlur}
+                        onChangeText={this._onChangeText}
+                        keyboardType={this.props.keyboardType}
+                        {...this.props.otherTextInputProps}
+                    />
+                </View>
+            )
+        }
+        else return null;
     }
 }
 
 const Styles = StyleSheet.create({
     container: {
-        width: '100%',
-        borderRadius: 3,
-        borderStyle: 'solid',
-        borderWidth: 0.5,
-        height: 50,
+        width: '50%',
+        borderRadius: 15,
+        height: 56,
+        position: 'relative',
         marginVertical: 4,
+        backgroundColor : "white",
+        margin: '10%',
     },
     textInput: {
-        fontSize: 15,
-        marginTop: 5,
-        fontFamily: 'Avenir-Medium',
-        color: 'black',
+        fontSize: 16,
+        fontWeight: '400',
+        fontFamily: HP_SIMPLIFIED,
+        color: '#282828',
+        width: '100%',
+        height: 56,
+        position: 'relative',
+        marginHorizontal: 16,
+        borderRadius: 15,
     },
     titleStyles: {
         position: 'absolute',
-        fontFamily: 'Avenir-Medium',
-        left: 4,
+        fontFamily: HP_SIMPLIFIED,
+        left: 16,
+        fontWeight: '600',
+        lineHeight: 24,
     }
 })

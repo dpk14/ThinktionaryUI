@@ -4,6 +4,7 @@ const HP_SIMPLIFIED = 'hp-simplified'
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 
+
 export default class EntryBoxDeprecated extends Component {
 
     constructor(props) {
