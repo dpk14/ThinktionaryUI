@@ -16,7 +16,8 @@ export default class LoginScreen extends Component {
         super(props);
 
         this.state = {
-            loading : true
+            loading : true,
+            username: ''
         };
     }
 
@@ -25,6 +26,10 @@ export default class LoginScreen extends Component {
             'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
+    }
+
+    _updateMasterState = (attrName, value) => {
+        this.setState({ [attrName]: value });
     }
 
     render() {
@@ -37,8 +42,21 @@ export default class LoginScreen extends Component {
                         <Text style={styles.welcome}>Welcome to React Native!</Text>
                         <Text style={styles.instructions}>To get started, edit App.js</Text>
                         <Text style={styles.instructions}>{instructions}</Text>
+                        <EntryBox>
+                            attrName = 'username'
+                            title = 'Username'
+                            value = {this.state.username}
+                            updateMasterState = {this._updateMasterState}
+                            textInputStyles = {{ // here you can add additional TextInput styles
+                            color: 'green',
+                            fontSize: 15,
+                        }}
+                            otherTextInputProps = {{   // here you can add other TextInput props of your choice
+                            maxLength: 12,
+                        }}
+                            />
+                            </EntryBox>
                     </LinearGradient>
-                    <EntryBox></EntryBox>
                 </View>
             );
         }

@@ -1,188 +1,124 @@
 import React, { Component } from 'react';
-import styled from 'styled-components/native'
-const HP_SIMPLIFIED = 'hp-simplified'
-import * as Font from 'expo-font';
-import {AppLoading} from 'expo';
+import { View, Animated, StyleSheet, TextInput } from 'react-native';
+import { string, func, object, number } from 'prop-types';
 
 export default class EntryBox extends Component {
+    static propTypes = {
+        attrName: string.isRequired,
+        title: string.isRequired,
+        value: string.isRequired,
+        updateMasterState: func,
+        //updateMasterState: func.isRequired,
+        keyboardType: string,
+        titleActiveSize: number, // to control size of title when field is active
+        titleInActiveSize: number, // to control size of title when field is inactive
+        titleActiveColor: string, // to control color of title when field is active
+        titleInactiveColor: string, // to control color of title when field is active
+        textInputStyles: object,
+        otherTextInputProps: object,
+    }
+
+    static defaultProps = {
+        keyboardType: 'default',
+        titleActiveSize: 11.5,
+        titleInActiveSize: 15,
+        titleActiveColor: 'black',
+        titleInactiveColor: 'dimgrey',
+        textInputStyles: {},
+        otherTextInputAttributes: {},
+    }
 
     constructor(props) {
         super(props);
-
+        const { value } = this.props;
+        this.position = new Animated.Value(value ? 1 : 0);
         this.state = {
-            active: (props.locked && props.active) || false,
-            value: props.value || "",
-            error: props.error || "",
-            label: props.label || "Label",
-            loading : true
-        };
+            isFieldActive: false,
+        }
     }
 
-    async componentWillMount() {
-        await Font.loadAsync({
-            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
-        });
-        this.setState({loading : false})
+    _handleFocus = () => {
+        if (!this.state.isFieldActive) {
+            this.setState({ isFieldActive: true });
+            Animated.timing(this.position, {
+                toValue: 1,
+                duration: 150,
+            }).start();
+        }
     }
 
-    changeValue(event) {
-        const value = event.target.value;
-        this.setState({ value, error: "" });
+    _handleBlur = () => {
+        if (this.state.isFieldActive && !this.props.value) {
+            this.setState({ isFieldActive: false });
+            Animated.timing(this.position, {
+                toValue: 0,
+                duration: 150,
+            }).start();
+        }
     }
 
-    handleKeyPress(event) {
-        if (event.which === 13) {
-            this.setState({ value: this.props.predicted });
+    _onChangeText = (updatedValue) => {
+        const { attrName, updateMasterState } = this.props;
+        //updateMasterState(attrName, updatedValue);
+    }
+
+    _returnAnimatedTitleStyles = () => {
+        const { isFieldActive } = this.state;
+        const {
+            titleActiveColor, titleInactiveColor, titleActiveSize, titleInActiveSize
+        } = this.props;
+
+        return {
+            top: this.position.interpolate({
+                inputRange: [0, 1],
+                outputRange: [14, 0],
+            }),
+            fontSize: isFieldActive ? titleActiveSize : titleInActiveSize,
+            color: isFieldActive ? titleActiveColor : titleInactiveColor,
         }
     }
 
     render() {
-        if (!this.state.loading) {
-            const {active, value, error, label} = this.state;
-            const {id, predicted, locked} = this.props;
-            const status = `${(locked ? active : active || value) &&
-            "active"} ${locked && !active && "locked"}`;
-
-            //    transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out;
-            const Field = styled.View.attrs()`
-    width: 50%;
-    height: 56px;
-    border-radius: 15px;
-    margin: 10%;
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.3);
-
-    &:hover{
-        background-color: rgba(255, 255, 255, 0.45);
-        shadowColor: rgba(0,0,0, 0.05);  
-        shadowOffset: { 
-            width: 4,
-            height: 0,
-        }
-        shadowOpacity: 20;
-        shadowRadius: 0;
-    }
-
-    &.active {
-        background-color: #ffffff;
-        shadowColor: rgba(0,0,0, 0.2);  
-        shadowOffset: { 
-            width: 4,
-            height: 0,
-        }
-        shadowOpacity: 20;
-        shadowRadius: 0;
-    }
-    
-    &.locked {
-        pointer-events: none;
-    }
-`
-
-//transition: 0.3s background-color ease-in-out, 0.3s box-shadow ease-in-out,0.1s padding ease-in-out;
-            const FieldInput = styled.TextInput.attrs((/* props */) => ({tabIndex: 0}))`
-    width: 100%;
-    height: 56px;
-    position: relative;
-    padding: 0px 16px;
-    border: none;
-    border-radius: 15px;
-    font-family: ${HP_SIMPLIFIED};
-    font-size: 16px;
-    font-weight: 400;
-    background-color: transparent;
-    color: #282828;
-    shadowColor: rgba(0,0,0, 1.0);  
-        shadowOffset: { 
-            width: 4,
-            height: 0,
-        }
-        shadowOpacity: 20;
-        shadowRadius: 0;
-          s
-    .active & {
-        padding: 24px 16px 8px 16px;
-    }
-    
-    &::-webkit-input-placeholder {
-        color: rgba(255, 255, 255, 0.8);
-    }
-
-    &::-moz-placeholder {
-        color: rgba(255, 255, 255, 0.8);
-    }
-
-    &:-ms-input-placeholder {
-        color: rgba(255, 255, 255, 0.8);
-    }
-
-    &:-moz-placeholder {
-        color: rgba(255, 255, 255, 0.8);
-    } 
-`
-// transition: 0.1s all ease-in-out;
-            const FieldLabel = styled.Text.attrs((/* props */) => ({tabIndex: 0}))`
-    input + label {
-    position: absolute;
-    top: 24px;
-    left: 16px;
-    font-family: ${HP_SIMPLIFIED};
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 24px;
-    color: #ffffff;
-    opacity: 0;
-    pointer-events: none;
-
-    &.active {
-        top: 4px;
-        opacity: 1;
-        color: #512da8;
-        font-family: ${HP_SIMPLIFIED};
-    }
-    
-    &.error {
-        color: #ec392f;
+        return (
+            <View style = {Styles.container}>
+                <Animated.Text
+                    style = {[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
+                >
+                    {this.props.title}
+                </Animated.Text>
+                <TextInput
+                    value = {this.props.value}
+                    style = {[Styles.textInput, this.props.textInputStyles]}
+                    underlineColorAndroid = 'transparent'
+                    onFocus = {this._handleFocus}
+                    onBlur = {this._handleBlur}
+                    onChangeText = {this._onChangeText}
+                    keyboardType = {this.props.keyboardType}
+                    {...this.props.otherTextInputProps}
+                />
+            </View>
+        )
     }
 }
-`
 
-            const Predicted = styled.Text.attrs((/* props */) => ({tabIndex: 0}))`    
-        position: absolute;
-        top: 8px;
-        left: 16px;
-        font-family: ${HP_SIMPLIFIED};
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-        color: #e0e0e0;
-        opacity: 1;
-        pointer-events: none;
-}
-`
-
-            return (
-                <Field style={status}>
-                    {active &&
-                    value &&
-                    predicted &&
-                    predicted.includes(value) && <Predicted>{predicted}</Predicted>}
-                    <FieldInput style={status}
-                                id={id}
-                                type="text"
-                                value={value}
-                                placeholder={label}
-                                onChange={this.changeValue.bind(this)}
-                                onKeyPress={this.handleKeyPress.bind(this)}
-                                onFocus={() => !locked && this.setState({active: true})}
-                                onBlur={() => !locked && this.setState({active: false})}
-                    />
-                    <FieldLabel htmlFor={id} style={error && "error"}>
-                        {error || label}
-                    </FieldLabel>
-                </Field>
-            );
-        }
-        else return (<AppLoading/>);
+const Styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        borderRadius: 3,
+        borderStyle: 'solid',
+        borderWidth: 0.5,
+        height: 50,
+        marginVertical: 4,
+    },
+    textInput: {
+        fontSize: 15,
+        marginTop: 5,
+        fontFamily: 'Avenir-Medium',
+        color: 'black',
+    },
+    titleStyles: {
+        position: 'absolute',
+        fontFamily: 'Avenir-Medium',
+        left: 4,
     }
-}
+})
