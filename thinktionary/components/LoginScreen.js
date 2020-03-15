@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
@@ -17,7 +17,8 @@ export default class LoginScreen extends Component {
 
         this.state = {
             loading : true,
-            username: ''
+            username: '',
+            password: ''
         };
     }
 
@@ -36,27 +37,26 @@ export default class LoginScreen extends Component {
         if (this.state.loading) return(<AppLoading/>);
         else {
             return (
-                <View style={styles.container}>
-                    <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
-                                    start={[0, 1]} style={styles.linearGradient}>
-                        <Text style={styles.welcome}>Welcome to React Native!</Text>
-                        <Text style={styles.instructions}>To get started, edit App.js</Text>
-                        <Text style={styles.instructions}>{instructions}</Text>
-                        <EntryBox
-                            attrName = 'username'
-                            title = 'Username'
-                            value = {this.state.username}
-                            updateMasterState = {this._updateMasterState}
-                            textInputStyles = {{ // here you can add additional TextInput styles
-                            color: 'green',
-                            fontSize: 15,
-                        }}
-                            otherTextInputProps = {{   // here you can add other TextInput props of your choice
-                            maxLength: 12,
-                        }}
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <View style={styles.container}>
+                        <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
+                                        start={[0, 1]} style={styles.linearGradient}>
+                            <Text style={styles.title}>Thinktionary</Text>
+                             <EntryBox
+                                attrName = 'username'
+                                title = 'Username'
+                                value = {this.state.username}
+                                updateMasterState = {this._updateMasterState}
                             />
-                    </LinearGradient>
-                </View>
+                            <EntryBox
+                                attrName = 'password'
+                                title = 'Password'
+                                value = {this.state.password}
+                                updateMasterState = {this._updateMasterState}
+                            />
+                        </LinearGradient>
+                    </View>
+                </TouchableWithoutFeedback>
             );
         }
     }
@@ -72,19 +72,19 @@ const styles = StyleSheet.create({
     linearGradient :{
         flex : 2,
         height : "100%",
-        width : "100%"
+        width : "100%",
+        alignItems : 'center'
     },
-    welcome: {
-        fontSize: 20,
+    title: {
+        fontSize: 60,
         textAlign: 'center',
-        margin: 10,
+        marginTop: 100,
+        marginVertical: 50,
         color : '#FFFFFF',
         fontFamily: HP_SIMPLIFIED,
+        shadowOffset: { height: 4},
+        shadowRadius: 20,
+        shadowOpacity: .5
     },
-    instructions: {
-        textAlign: 'center',
-        color : '#FFFFFF',
-        fontFamily: HP_SIMPLIFIED,
-        marginBottom: 5,
-    },
+
 });

@@ -16,8 +16,6 @@ export default class EntryBox extends Component {
         titleInactiveColor: string, // to control color of title when field is active
         textInputInactiveMargins : object,
         textInputActiveMargins : object,
-        containerActiveOpacity: number,
-        containerInactiveOpacity: number,
         textInputStyles: object,
         otherTextInputProps: object,
     }
@@ -27,17 +25,15 @@ export default class EntryBox extends Component {
         titleActiveSize: 12,
         titleInActiveSize: 15,
         titleActiveColor: '#512da8',
-        titleInactiveColor: 'white',
+        titleInactiveColor: 'black',
         textInputInactiveMargins: {
             marginTop : 0,
             marginBottom : 0,
         },
         textInputActiveMargins: {
-            marginTop : 24,
+            marginTop : 6,
             marginBottom : 8,
         },
-        containerActiveOpacity: 1.0,
-        containerInactiveOpacity: .3,
         textInputStyles : {},
         otherTextInputAttributes: {},
     }
@@ -46,6 +42,7 @@ export default class EntryBox extends Component {
         super(props);
         const { value } = this.props;
         this.position = new Animated.Value(value ? 1 : 0);
+        this.shadow = new Animated.Value(value ? 1 : 0);
         this.state = {
             loading : true,
             isFieldActive: false,
@@ -62,20 +59,32 @@ export default class EntryBox extends Component {
     _handleFocus = () => {
         if (!this.state.isFieldActive) {
             this.setState({ isFieldActive: true });
-            Animated.timing(this.position, {
-                toValue: 1,
-                duration: 150,
-            }).start();
+            Animated.parallel([
+                Animated.timing(this.position, {
+                    toValue: 1,
+                    duration: 200,
+                }),
+                Animated.timing(this.shadow, {
+                    toValue: 1,
+                    duration: 300,
+                })
+            ]).start()
         }
     }
 
     _handleBlur = () => {
         if (this.state.isFieldActive && !this.props.value) {
             this.setState({ isFieldActive: false });
-            Animated.timing(this.position, {
-                toValue: 0,
-                duration: 150,
-            }).start();
+            Animated.parallel([
+                Animated.timing(this.position, {
+                    toValue: 0,
+                    duration: 200,
+                }),
+                Animated.timing(this.shadow, {
+                    toValue: 0,
+                    duration: 300,
+                })
+            ]).start()
         }
     }
 
@@ -113,19 +122,22 @@ export default class EntryBox extends Component {
     }
 
     _returnAnimatedContainerStyles = () => {
-        const { isFieldActive } = this.state;
-        const { containerActiveOpacity, containerInactiveOpacity
-        } = this.props;
-
         return {
-            opacity: isFieldActive ? containerActiveOpacity : containerInactiveOpacity,
+            opacity: this.position.interpolate({
+                inputRange: [0, 1],
+                outputRange: [.3, 1]}
+            ),
+            shadowOpacity: this.shadow.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, .2]}
+            ),
         }
     }
 
     render() {
         if (!this.loading) {
             return (
-                <View style={[Styles.container, this._returnAnimatedContainerStyles()]}>
+                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles()]}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >
@@ -141,7 +153,7 @@ export default class EntryBox extends Component {
                         keyboardType={this.props.keyboardType}
                         {...this.props.otherTextInputProps}
                     />
-                </View>
+                </Animated.View>
             )
         }
         else return null;
@@ -150,13 +162,14 @@ export default class EntryBox extends Component {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '50%',
+        width: '65%',
         borderRadius: 15,
         height: 56,
         position: 'relative',
         marginVertical: 4,
         backgroundColor : "white",
-        margin: '10%',
+        shadowOffset: { height: 4},
+        shadowRadius: 20,
     },
     textInput: {
         fontSize: 16,
@@ -176,4 +189,5 @@ const Styles = StyleSheet.create({
         fontWeight: '600',
         lineHeight: 24,
     }
+
 })
