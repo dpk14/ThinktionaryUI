@@ -22,7 +22,7 @@ export default class EntryBox extends Component {
 
     static defaultProps = {
         keyboardType: 'default',
-        titleActiveSize: 12,
+        titleActiveSize: 15,
         titleInActiveSize: 15,
         titleActiveColor: '#512da8',
         titleInactiveColor: 'black',
@@ -102,7 +102,7 @@ export default class EntryBox extends Component {
         return {
             top: this.position.interpolate({
                 inputRange: [0, 1],
-                outputRange: [14, 0],
+                outputRange: [20, 4],
             }),
             fontSize: isFieldActive ? titleActiveSize : titleInActiveSize,
             color: isFieldActive ? titleActiveColor : titleInactiveColor,
@@ -125,7 +125,7 @@ export default class EntryBox extends Component {
         return {
             opacity: this.position.interpolate({
                 inputRange: [0, 1],
-                outputRange: [.3, 1]}
+                outputRange: [.3, .9]}
             ),
             shadowOpacity: this.shadow.interpolate({
                 inputRange: [0, 1],
@@ -162,9 +162,9 @@ export default class EntryBox extends Component {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '65%',
-        borderRadius: 15,
-        height: 56,
+        width: '70%',
+        borderRadius: 25,
+        height: 70,
         position: 'relative',
         marginVertical: 10,
         backgroundColor : "white",
@@ -177,15 +177,16 @@ const Styles = StyleSheet.create({
         fontFamily: HP_SIMPLIFIED,
         color: '#282828',
         width: '100%',
-        height: 56,
+        height: 70,
         position: 'relative',
-        marginHorizontal: 16,
-        borderRadius: 15,
+        marginHorizontal: 25,
+        borderRadius: 30,
+        opacity: .9
     },
     titleStyles: {
         position: 'absolute',
         fontFamily: HP_SIMPLIFIED,
-        left: 16,
+        left: 25,
         fontWeight: '600',
         lineHeight: 24,
     }
