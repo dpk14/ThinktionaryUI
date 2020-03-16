@@ -6,6 +6,7 @@ import {AppLoading} from 'expo';
 import EntryBox from "./EntryBox";
 import CustomButton from "./CustomButton";
 const HP_SIMPLIFIED = "hp-simplified";
+const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
@@ -25,6 +26,7 @@ export default class LoginScreen extends Component {
 
     async componentWillMount() {
         await Font.loadAsync({
+            'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
             'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
@@ -85,10 +87,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 60,
         textAlign: 'center',
-        marginTop: 100,
-        marginVertical: 50,
+        marginTop: 150,
+        marginVertical: 30,
         color : '#FFFFFF',
-        fontFamily: HP_SIMPLIFIED,
+        fontFamily: HP_SIMPLIFIED_BOLD,
         shadowOffset: { height: 4},
         shadowRadius: 20,
         shadowOpacity: .5

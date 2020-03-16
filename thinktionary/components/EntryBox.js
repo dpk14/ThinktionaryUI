@@ -52,8 +52,8 @@ export default class EntryBox extends Component {
 
     async componentWillMount() {
         await Font.loadAsync({
-            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
             'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
     }
@@ -168,7 +168,7 @@ const Styles = StyleSheet.create({
         borderRadius: 20,
         height: 65,
         position: 'relative',
-        marginVertical: 10,
+        marginVertical: 12,
         backgroundColor : "white",
         shadowOffset: { height: 4},
         shadowRadius: 20,
@@ -189,7 +189,7 @@ const Styles = StyleSheet.create({
         position: 'absolute',
         fontFamily: HP_SIMPLIFIED_BOLD,
         left: 25,
-        fontWeight: '900',
+        fontWeight: '300',
         lineHeight: 24,
     }
 

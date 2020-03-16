@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 const HP_SIMPLIFIED = 'hp-simplified';
+const HP_SIMPLIFIED_BOLD = 'hp-simplified-bold';
 
 class customButton extends Component {
 
@@ -12,6 +13,7 @@ class customButton extends Component {
 
     async componentWillMount() {
         await Font.loadAsync({
+            'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
             'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
@@ -39,21 +41,23 @@ customButton.propTypes = {
 
 const styles = StyleSheet.create({
     textStyle: {
-        fontSize: 20,
+        fontSize: 25,
         color: 'white',
         textAlign: 'center',
-        fontFamily: HP_SIMPLIFIED,
+        fontFamily: HP_SIMPLIFIED_BOLD,
         fontWeight: 'bold',
     },
 
     buttonStyle: {
-        marginTop: 10,
+        marginTop: 20,
         padding: 10,
         height: 56,
         width : '30%',
         backgroundColor: '#FFB03F',
         opacity : .95,
-        borderRadius: 20
+        borderRadius: 20,
+        shadowOffset: { height: 4},
+        shadowRadius: 15,
     }
 });
 
