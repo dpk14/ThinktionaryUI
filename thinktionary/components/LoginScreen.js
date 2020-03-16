@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 import EntryBox from "./EntryBox";
+import CustomButton from "./CustomButton";
 const HP_SIMPLIFIED = "hp-simplified";
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -54,6 +55,12 @@ export default class LoginScreen extends Component {
                                 value = {this.state.password}
                                 updateMasterState = {this._updateMasterState}
                             />
+                            <CustomButton
+                                text="Login"
+                                onPress={() => {
+                                    alert("Hi there!!!");
+                                }}
+                                />
                         </LinearGradient>
                     </View>
                 </TouchableWithoutFeedback>

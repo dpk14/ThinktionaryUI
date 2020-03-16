@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number } from 'prop-types';
 const HP_SIMPLIFIED = "hp-simplified";
+const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 
 export default class EntryBox extends Component {
     static propTypes = {
@@ -22,7 +23,7 @@ export default class EntryBox extends Component {
 
     static defaultProps = {
         keyboardType: 'default',
-        titleActiveSize: 15,
+        titleActiveSize: 13,
         titleInActiveSize: 15,
         titleActiveColor: '#512da8',
         titleInactiveColor: 'black',
@@ -52,6 +53,7 @@ export default class EntryBox extends Component {
     async componentWillMount() {
         await Font.loadAsync({
             'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
+            'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
         });
         this.setState({loading : false})
     }
@@ -163,8 +165,8 @@ export default class EntryBox extends Component {
 const Styles = StyleSheet.create({
     container: {
         width: '70%',
-        borderRadius: 25,
-        height: 70,
+        borderRadius: 20,
+        height: 65,
         position: 'relative',
         marginVertical: 10,
         backgroundColor : "white",
@@ -177,17 +179,17 @@ const Styles = StyleSheet.create({
         fontFamily: HP_SIMPLIFIED,
         color: '#282828',
         width: '100%',
-        height: 70,
+        height: 65,
         position: 'relative',
         marginHorizontal: 25,
-        borderRadius: 30,
+        borderRadius: 20,
         opacity: .9
     },
     titleStyles: {
         position: 'absolute',
-        fontFamily: HP_SIMPLIFIED,
+        fontFamily: HP_SIMPLIFIED_BOLD,
         left: 25,
-        fontWeight: '600',
+        fontWeight: '900',
         lineHeight: 24,
     }
 
