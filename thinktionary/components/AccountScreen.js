@@ -6,6 +6,7 @@ import {AppLoading} from 'expo';
 import EntryBox from "./EntryBox";
 import CustomButton from "./CustomButton";
 import {login} from "../communicator/main"
+import {func, object, string} from "prop-types";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -15,14 +16,19 @@ const instructions = Platform.select({
 
 export default class LoginScreen extends Component {
 
+    static propTypes = {
+        fields: object.isRequired,
+        buttonFunc : func.isRequired,
+        buttonName : string.isRequired,
+    }
+
     constructor(props) {
         super(props);
 
         this.state = {
             loading : true,
-            username: '',
-            password: ''
         };
+
     }
 
     async componentWillMount() {
@@ -40,30 +46,35 @@ export default class LoginScreen extends Component {
     render() {
         if (this.state.loading) return(<AppLoading/>);
         else {
+            let arr = [];
+            for(let attrName in this.props.fields){
+                let title = this.props[attrName].title;
+                let value = this.props[attrName].value;
+                const entry = <EntryBox
+                    attrName = {attrName}
+                    title = {title}
+                    value = {value}
+                    updateMasterState = {this._updateMasterState}
+                />;
+                arr.push(entry);
+            }
+            const Entries = arr.map((entry) =>
+                <li>{entry}</li>
+            );
+
             return (
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <View style={styles.container}>
                         <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                         start={[0, 1]} style={styles.linearGradient}>
                             <Text style={styles.title}>Thinktionary</Text>
-                             <EntryBox
-                                attrName = 'username'
-                                title = 'Username'
-                                value = {this.state.username}
-                                updateMasterState = {this._updateMasterState}
-                            />
-                            <EntryBox
-                                attrName = 'password'
-                                title = 'Password'
-                                value = {this.state.password}
-                                updateMasterState = {this._updateMasterState}
-                            />
+                            <Entries/>
                             <CustomButton
-                                text="Login"
+                                text={this.props.buttonName}
                                 onPress={() => {
-                                    alert(login(this.state.username, this.state.password))
+                                    alert(this.props.buttonFunc(this.props.username, this.state.password))
                                 }}
-                                />
+                            />
                         </LinearGradient>
                     </View>
                 </TouchableWithoutFeedback>

@@ -6,6 +6,7 @@ import {AppLoading} from 'expo';
 import EntryBox from "./EntryBox";
 import CustomButton from "./CustomButton";
 import {login} from "../communicator/main"
+import AccountScreen from "./AccountScreen";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -33,40 +34,24 @@ export default class LoginScreen extends Component {
         this.setState({loading : false})
     }
 
-    _updateMasterState = (attrName, value) => {
-        this.setState({ [attrName]: value });
-    }
-
     render() {
         if (this.state.loading) return(<AppLoading/>);
         else {
+            const fields = {
+                'username': {
+                    title: "Username",
+                    value: '',
+                },
+                'password': {
+                    title: "Password",
+                    value: '',
+                }
+            }
             return (
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                    <View style={styles.container}>
-                        <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
-                                        start={[0, 1]} style={styles.linearGradient}>
-                            <Text style={styles.title}>Thinktionary</Text>
-                             <EntryBox
-                                attrName = 'username'
-                                title = 'Username'
-                                value = {this.state.username}
-                                updateMasterState = {this._updateMasterState}
-                            />
-                            <EntryBox
-                                attrName = 'password'
-                                title = 'Password'
-                                value = {this.state.password}
-                                updateMasterState = {this._updateMasterState}
-                            />
-                            <CustomButton
-                                text="Login"
-                                onPress={() => {
-                                    alert(login(this.state.username, this.state.password))
-                                }}
-                                />
-                        </LinearGradient>
-                    </View>
-                </TouchableWithoutFeedback>
+                <AccountScreen>
+                    fields = {fields}
+                    buttonFunc = {login}
+                </AccountScreen>
             );
         }
     }

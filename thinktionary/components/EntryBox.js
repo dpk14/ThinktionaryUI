@@ -19,9 +19,21 @@ export default class EntryBox extends Component {
         textInputActiveMargins : object,
         textInputStyles: object,
         otherTextInputProps: object,
+        marginRight : number,
+        marginLeft : number,
+        marginTop : number,
+        marginBottom : number,
+        width : string,
+        height : number,
     }
 
     static defaultProps = {
+        height : 65,
+        width : '70%',
+        marginRight : 0,
+        marginLeft : 0,
+        marginTop : 12,
+        marginBottom : 12,
         keyboardType: 'default',
         titleActiveSize: 13,
         titleInActiveSize: 15,
@@ -133,6 +145,12 @@ export default class EntryBox extends Component {
                 inputRange: [0, 1],
                 outputRange: [0, .2]}
             ),
+            marginRight : this.props.marginRight,
+            marginLeft : this.props.marginLeft,
+            marginTop : this.props.marginTop,
+            marginBottom : this.props.marginBottom,
+            width : this.props.width,
+            height : this.props.height,
         }
     }
 
@@ -164,11 +182,8 @@ export default class EntryBox extends Component {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '70%',
         borderRadius: 20,
-        height: 65,
         position: 'relative',
-        marginVertical: 12,
         backgroundColor : "white",
         shadowOffset: { height: 4},
         shadowRadius: 20,
