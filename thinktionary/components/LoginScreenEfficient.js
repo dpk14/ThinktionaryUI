@@ -5,7 +5,7 @@ import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 import EntryBox from "./EntryBox";
 import CustomButton from "./CustomButton";
-import {login} from "../communicator/main"
+import {login} from "../requestHandler/main"
 import AccountScreen from "./AccountScreen";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
@@ -14,15 +14,13 @@ const instructions = Platform.select({
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
-export default class LoginScreen extends Component {
+export default class LoginScreenEfficient extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             loading : true,
-            username: '',
-            password: ''
         };
     }
 
@@ -50,7 +48,7 @@ export default class LoginScreen extends Component {
             return (
                 <AccountScreen>
                     fields = {fields}
-                    buttonFunc = {login}
+                    buttonFunc = {login(fields['username'].value, fields['password'].value,)}
                 </AccountScreen>
             );
         }

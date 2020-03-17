@@ -10,6 +10,7 @@
     "expo": "^36.0.0",
     "expo-font": "^8.0.0",
     "expo-linear-gradient": "~8.0.0",
+    "fetch-timeout": "0.0.2",
     "prop-type": "0.0.1",
     "prop-types": "^15.7.2",
     "react": "16.9.0",

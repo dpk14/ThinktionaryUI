@@ -5,7 +5,7 @@ import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 import EntryBox from "./EntryBox";
 import CustomButton from "./CustomButton";
-import {login} from "../communicator/main"
+import {login} from "../requestHandler/main"
 import {func, object, string} from "prop-types";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
@@ -14,7 +14,7 @@ const instructions = Platform.select({
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
-export default class LoginScreen extends Component {
+export default class AccountScreen extends Component {
 
     static propTypes = {
         fields: object.isRequired,
@@ -72,7 +72,7 @@ export default class LoginScreen extends Component {
                             <CustomButton
                                 text={this.props.buttonName}
                                 onPress={() => {
-                                    alert(this.props.buttonFunc(this.props.username, this.state.password))
+                                    alert(this.props.buttonFunc)
                                 }}
                             />
                         </LinearGradient>

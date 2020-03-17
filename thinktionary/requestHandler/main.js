@@ -1,7 +1,7 @@
 import XMLHttpRequest from "react-native"
-let JSONBuilder = require("./JSONBuilder")
-let testTools = require("./testTools")
-let BASE_URL = 'http://localhost:8090'
+let JSONBuilder = require("./Utils/JSONBuilder")
+let testTools = require("./Utils/testTools")
+let BASE_URL = 'https://thinktionary-backend.herokuapp.com'
 const DELETE = "DELETE"
 const GET = "GET"
 const PUT = "PUT"
@@ -20,11 +20,10 @@ function makeAccount(user, pwd){
     return response;
 }
 
-export function login(user, pwd){
-    let url = BASE_URL+"/users/login?user=" + user + "&pwd=" + pwd
-    let response = request(url, GET, null, true)
-    console.log(response);
-    return response;
+export async function login(user, pwd) {
+    let url = BASE_URL + "/users/login?user=" + user + "&pwd=" + pwd
+    return request(url, GET, null, true);
+
 }
 
 function logout(user, pwd){
@@ -46,12 +45,10 @@ function buildEntry(userID, title, text, topics, created=null) {
     request(url, POST, entry, true)
 }
 
-/*
 function buildEntry(userID, title, text, topics) {
     let entry = JSONBuilder.buildEntryWithCreated(title, text, topics)
     buildEntryHelper(userID, entry)
 }
-*/
 
 function modifyEntry(userID, entryID, title, text, topics, created) {
     let entry = {}
@@ -92,7 +89,7 @@ function getRandom(userID, topics){
 
 function getEntry(userId){
     let url = BASE_URL+ "/users/" + userId + "/entries/getEntry"
-    request(url, GET, null, true)
+    return request(url, GET, null, true)
 }
 
 //helpers:
@@ -102,51 +99,6 @@ function buildEntryHelper(userID, entry) {
     request(url, POST, entry, true)
 }
 
-function requestXML(url, type, json, hasReturn){
-    var xhr = new XMLHttpRequest()
-    // get a callback when the server responds
-    xhr.addEventListener('load', () => {
-        // update the state of the component with the result here
-        console.log(xhr.responseText)
-    })
-    // open the request with the verb and the url
-    xhr.open(type, url)
-    if(hasReturn) xhr.setRequestHeader('Content-Type', 'application/json')
-    // send the request
-    if(json!=null) xhr.send(JSON.stringify(json))
-    else xhr.send()
-}
-
-
-function request(url, type, json, hasReturn) {
-    return fetch(url, {
-        method: type,
-        headers: hasReturn ? {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        } : null,
-        body: json==null ? null : JSON.stringify(json),
-    }).then(function(response) {
-        if (!response.ok) {
-            return "ouch!";
-        }
-        return response;
-    }).then(function(response) {
-        console.log("ok");
-    }).catch(function(error) {
-        console.log("daddy");
-        return "daddy";
-    });;
-}
-
-function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-            break;
-        }
-    }
-}
 
 function run(){
     //makeAccount("dpk14", "1234")

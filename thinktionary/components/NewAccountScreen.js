@@ -46,7 +46,7 @@ export default class LoginScreen extends Component {
                         <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                         start={[0, 1]} style={styles.linearGradient}>
                             <Text style={styles.title}>Thinktionary</Text>
-                             <EntryBox
+                            <EntryBox
                                 attrName = 'username'
                                 title = 'Username'
                                 value = {this.state.username}
@@ -63,7 +63,7 @@ export default class LoginScreen extends Component {
                                 onPress={() => {
                                     alert(login(this.state.username, this.state.password))
                                 }}
-                                />
+                            />
                         </LinearGradient>
                     </View>
                 </TouchableWithoutFeedback>

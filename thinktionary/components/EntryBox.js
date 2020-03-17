@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number } from 'prop-types';
 const HP_SIMPLIFIED = "hp-simplified";
