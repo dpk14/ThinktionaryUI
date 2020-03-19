@@ -72,9 +72,7 @@ export default class Request{
         }
 
     fetchAndExecute(callBack){
-        var thee = this.request(this.url, this.type, this.json, this.hasReturn, callBack);
-        console.log(thee);
-        callBack(thee);
+        callBack(this.request(this.url, this.type, this.json, this.hasReturn, callBack));
     }
 
     translateBody(response, callBack){
@@ -85,7 +83,6 @@ export default class Request{
     }
 
     translateException(e, callBack){;
-        console.log(e.response);
         e.response.blob().
         then(blob => {
             ResponseHandler.returnBlobToException(blob, callBack)})

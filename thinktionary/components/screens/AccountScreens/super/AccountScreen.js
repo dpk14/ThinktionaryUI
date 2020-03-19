@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import {AppLoading} from 'expo';
 import AccountScreenCore from "./AccountScreenCore";
 
-export default class LoginScreenEfficient extends Component {
+export default class AccountScreen extends Component {
 
-    constructor(fieldMap, buttonName, buttonRequest, callBack) {
+    constructor(header, fieldMap, buttonName, buttonRequest, callBack) {
         super([]);
 
         this.state = {
+            header : header,
             fields : fieldMap,
             buttonName : buttonName,
             buttonRequest : buttonRequest,
@@ -24,6 +25,7 @@ export default class LoginScreenEfficient extends Component {
         else {
             return (
                 <AccountScreenCore
+                    header = {this.state.header}
                     fields = {this.state.fields}
                     buttonName=  {this.state.buttonName}
                     buttonRequest = {this.state.buttonRequest}

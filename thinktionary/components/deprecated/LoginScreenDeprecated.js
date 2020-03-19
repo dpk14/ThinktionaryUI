@@ -3,9 +3,9 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import EntryBox from "./EntryBox";
-import CustomButton from "./CustomButton";
-import Login from "../requestHandler/Requests/AccountRequests/Login"
+import EntryBox from "../EntryBox";
+import CustomButton from "../CustomButton";
+import Login from "../../requestHandler/Requests/AccountRequests/Login"
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -13,7 +13,7 @@ const instructions = Platform.select({
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
-export default class LoginScreen extends Component {
+export default class LoginScreenDeprecated extends Component {
 
     constructor(props) {
         super(props);
@@ -27,8 +27,8 @@ export default class LoginScreen extends Component {
 
     async componentWillMount() {
         await Font.loadAsync({
-            'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
+            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
     }

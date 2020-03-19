@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import LoginScreen from './components/LoginScreen'
-import LoginScreenEfficient from "./components/PotentialEnhancements/LoginScreenEfficient";
+import LoginScreenDeprecated from './components/deprecated/LoginScreenDeprecated'
+import LoginScreen from "./components/screens/AccountScreens/LoginScreen";
+import NewAccountScreen from "./components/screens/AccountScreens/NewAccountScreen";
 
 export default class App extends Component {
 
   render() {
     return (
-        <LoginScreenEfficient></LoginScreenEfficient>
+        <NewAccountScreen></NewAccountScreen>
     );
   }
 }

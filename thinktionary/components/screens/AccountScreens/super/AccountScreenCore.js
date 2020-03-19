@@ -3,10 +3,10 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import EntryBox from "../EntryBox";
-import CustomButton from "../CustomButton";
+import EntryBox from "../../../EntryBox";
+import CustomButton from "../../../CustomButton";
 import {func, object, string} from "prop-types";
-import {Field, FieldMap} from "../structs/field";
+import {Field, FieldMap} from "../../../structs/field";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 
@@ -18,6 +18,7 @@ export default class AccountScreenCore extends Component {
         updateMasterComponent : func.isRequired,
         buttonName : string.isRequired,
         callBack : func.isRequired,
+        header : string.isRequired,
     }
 
     constructor(props) {
@@ -31,8 +32,8 @@ export default class AccountScreenCore extends Component {
 
     async componentWillMount() {
         await Font.loadAsync({
-            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
+            'hp-simplified-bold': require('../../../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../../../../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
     }
@@ -73,7 +74,7 @@ export default class AccountScreenCore extends Component {
                     <View style={styles.container}>
                         <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                         start={[0, 1]} style={styles.linearGradient}>
-                            <Text style={styles.title}>Thinktionary</Text>
+                            <Text style={styles.title}>{this.props.header}</Text>
                             {Entries}
                             <CustomButton
                                 text={this.props.buttonName}

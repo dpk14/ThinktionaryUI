@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import AccountScreenCore from "./AccountScreenCore";
-import Login from "../../requestHandler/Requests/AccountRequests/Login";
-import {Field, FieldMap} from "../structs/field";
-import AccountScreen from "./AccountScreen";
+import Login from "../../../requestHandler/Requests/AccountRequests/Login";
+import {Field, FieldMap} from "../../structs/field";
+import AccountScreen from "./super/AccountScreen";
 
 
-export default class LoginScreenEfficient extends AccountScreen {
+export default class LoginScreen extends AccountScreen {
 
     constructor() {
 
+        let header = "Thinktionary"
         let fieldsMap = new FieldMap([new Field('username', 'Username', ''),
                 new Field('password', 'Password', '')]);
 
@@ -22,7 +22,7 @@ export default class LoginScreenEfficient extends AccountScreen {
             }
         }
 
-        super(fieldsMap, buttonName, buttonFunc, callBack);
+        super(header, fieldsMap, buttonName, buttonFunc, callBack);
     }
 
 }
