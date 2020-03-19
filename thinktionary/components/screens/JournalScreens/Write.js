@@ -27,7 +27,7 @@ export default class Write extends Screen {
                                     value={this.state.title}
                                     updateMasterState={this._updateMasterState}
                                     scale = {0.8}
-                                    width={"60%"}
+                                    width={210}
                                 />
                                 <EntryBox
                                     attrName='date'
@@ -35,7 +35,7 @@ export default class Write extends Screen {
                                     value={this.state.date}
                                     updateMasterState={this._updateMasterState}
                                     scale = {0.8}
-                                    width={"60%"}
+                                    width={210}
                                 />
                             </View>
                             <View style = {newStyles.bottomFrame}>
@@ -45,7 +45,7 @@ export default class Write extends Screen {
                                     value={this.state.topics}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.8}
-                                    width={"120%"}
+                                    width={450}
                                 />
                                 <EntryBox
                                     attrName='text'
@@ -53,8 +53,8 @@ export default class Write extends Screen {
                                     value={this.state.text}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.8}
-                                    width={"120%"}
-                                    height = {400}
+                                    width={450}
+                                    height = {450}
                                     multiline = {true}
 
                                 />
@@ -86,7 +86,7 @@ export const newStyles = StyleSheet.create({
     },
     outerFrame:{
         flex : 1,
-        marginHorizontal : 20
+        marginHorizontal : 15
     }
 
 });

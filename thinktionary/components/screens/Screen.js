@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView } from 'react-native';
+import { Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoidingView} from 'react-native';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 import {ABSTRACT_CLASS, ABSTRACT_METHOD, HP_SIMPLIFIED_BOLD} from "../../configStrings";
@@ -38,12 +38,14 @@ export default class Screen extends Component{
         else {
             const Body = this.fillBody()
             return (
+                <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <ScrollView contentContainerStyle = {{flexGrow : 1}}>
                     <TouchableWithoutFeedback style = {{flex : 1}}
                                               onPress={Keyboard.dismiss} accessible={false}>
                         {Body}
                     </TouchableWithoutFeedback>
                 </ScrollView>
+                </KeyboardAvoidingView>
             );
         }
     }
@@ -52,12 +54,11 @@ export default class Screen extends Component{
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
     },
     linearGradient :{
         flex : 1,
-        alignItems : 'center'
+        flexDirection: 'column',
+        alignItems : 'center',
     },
     title: {
         fontSize: 60,

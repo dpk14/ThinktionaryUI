@@ -3,6 +3,8 @@ import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
 import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
+const MULTILINE_TOPMARGIN_ADJUSTER = 4
+
 
 export default class EntryBox extends Component {
     static propTypes = {
@@ -23,7 +25,7 @@ export default class EntryBox extends Component {
         marginLeft : number,
         marginTop : number,
         marginBottom : number,
-        width : string,
+        width : number | string,
         height : number,
         scale : number,
         fontSize: number,
@@ -38,7 +40,7 @@ export default class EntryBox extends Component {
         fontSize: 20,
         scale : 1,
         height : 65,
-        width : '70%',
+        width : 275,
         marginRight : 0,
         marginLeft : 0,
         marginTop : 12,
@@ -73,6 +75,9 @@ export default class EntryBox extends Component {
     }
 
     scale(prop){
+        if(typeof prop == "string" && prop.includes("%")){
+            return this.scalePercentage(prop, this.props.scale)
+        }
         return(prop*this.props.scale)
     }
 
@@ -155,7 +160,7 @@ export default class EntryBox extends Component {
 
         let marginTop = this.scale(isFieldActive ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop)
         return {
-            marginTop : this.props.multiline ? 3*marginTop : marginTop,
+            marginTop : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
             marginBottom : this.invScale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom),
             fontSize : this.scale(this.props.fontSize),
             marginHorizontal: this.scale(this.props.textMarginHorizontal),
@@ -179,7 +184,7 @@ export default class EntryBox extends Component {
             marginLeft : this.props.marginLeft,
             marginTop : this.props.marginTop,
             marginBottom : this.props.marginBottom,
-            width : this.scalePercentage(this.props.width,this.props.scale),
+            width : this.scale(this.props.width),
             height : this.scale(this.props.height),
             borderRadius : this.scale(this.props.borderRadius)
         }
