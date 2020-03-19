@@ -25,29 +25,28 @@ export default class NewAccountScreen extends AccountScreen {
     }
 
     fillBody() {
-        return (<LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
-                                start={[0, 1]} style={styles.linearGradient}>
-                <Text style={styles.title}>Thinktionary</Text>
-                <EntryBox
-                    attrName='username'
-                    title='Username'
-                    value={this.state.username}
-                    updateMasterState={this._updateMasterState}
-                />
-                <EntryBox
-                    attrName='password'
-                    title='Password'
-                    value={this.state.password}
-                    updateMasterState={this._updateMasterState}
-                />
-                <CustomButton
-                    text="Create Account"
-                    onPress={() => {
-                        new makeAccount(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
-                    }}
-                    width="55%"
-                />
-            </LinearGradient>
+        return (<View style = {styles.container}>
+                    <Text style={styles.title}>Thinktionary</Text>
+                    <EntryBox
+                        attrName='username'
+                        title='Username'
+                        value={this.state.username}
+                        updateMasterState={this._updateMasterState}
+                    />
+                    <EntryBox
+                        attrName='password'
+                        title='Password'
+                        value={this.state.password}
+                        updateMasterState={this._updateMasterState}
+                    />
+                    <CustomButton
+                        text="Create Account"
+                        onPress={() => {
+                            new makeAccount(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
+                        }}
+                        width="55%"
+                    />
+            </View>
         );
     }
 }

@@ -17,8 +17,7 @@ export default class Write extends Screen {
 
     fillBody() {
         return (
-                    <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
-                                    start={[0, 1]} style={styles.linearGradient}>
+            <View style = {styles.container}>
                         <View style = {newStyles.outerFrame}>
                             <View style = {newStyles.topFrame}>
                                 <EntryBox
@@ -66,7 +65,7 @@ export default class Write extends Screen {
 
                         </View>
 
-                    </LinearGradient>
+                </View>
             );
         }
 }

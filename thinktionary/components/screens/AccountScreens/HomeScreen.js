@@ -14,8 +14,7 @@ export default class HomeScreen extends AccountScreen{
 
     fillBody() {
             return (
-                <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[.9, 0]}
-                                start={[0, .9]} style={styles.linearGradient}>
+                <View style = {styles.container}>
                     <Text style={styles.title}>Thinktionary</Text>
                     <View style = {newStyles.buttonOuterLayout}
                         >
@@ -30,7 +29,7 @@ export default class HomeScreen extends AccountScreen{
                             width = "55%"
                         />
                     </View>
-                </LinearGradient>
+                </View>
             );
         }
 }

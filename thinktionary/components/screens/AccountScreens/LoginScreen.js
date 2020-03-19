@@ -2,7 +2,7 @@
 import { Text} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import EntryBox from "../../EntryBox";
 import CustomButton from "../../CustomButton";
 import Login from "../../../requestHandler/Requests/AccountRequests/Login"
@@ -17,28 +17,28 @@ export default class LoginScreen extends AccountScreen {
 
     fillBody() {
 
-        return (<LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
-                                start={[0, 1]} style={styles.linearGradient}>
-            <Text style={styles.title}>Thinktionary</Text>
-            <EntryBox
-                attrName='username'
-                title='Username'
-                value={this.state.username}
-                updateMasterState={this._updateMasterState}
-            />
-            <EntryBox
-                attrName='password'
-                title='Password'
-                value={this.state.password}
-                updateMasterState={this._updateMasterState}
-            />
-            <CustomButton
-                text="Login"
-                onPress={() => {
-                    new Login(this.state.username, this.state.password).fetchAndExecute(this._onLogin);
-                }}
-            />
-        </LinearGradient>)
+        return (
+            <View style = {styles.container}>
+                <Text style={styles.title}>Thinktionary</Text>
+                <EntryBox
+                    attrName='username'
+                    title='Username'
+                    value={this.state.username}
+                    updateMasterState={this._updateMasterState}
+                />
+                <EntryBox
+                    attrName='password'
+                    title='Password'
+                    value={this.state.password}
+                    updateMasterState={this._updateMasterState}
+                />
+                <CustomButton
+                    text="Login"
+                    onPress={() => {
+                        new Login(this.state.username, this.state.password).fetchAndExecute(this._onLogin);
+                    }}
+                />
+            </View>)
     }
 }
 
