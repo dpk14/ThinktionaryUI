@@ -40,15 +40,16 @@ export default class HomeScreen extends Component {
                             <Text style={styles.title}>Thinktionary</Text>
                             <View style = {styles.buttonOuterLayout}
                                 >
-                            <CustomButton
-                                text="Login"
-                                onPress={() => this.props.navigation.navigate(ScreenNames.LOGIN_SCREEN)}
-                            />
-                            <CustomButton
-                                text="Create Account"
-                                onPress={() => this.props.navigation.navigate(ScreenNames.NEW_ACCT_SCREEN)}
-                                width = "40%"
-                            />
+                                <CustomButton
+                                    text="Create Account"
+                                    onPress={() => this.props.navigation.navigate(ScreenNames.NEW_ACCT_SCREEN)}
+                                    width = "55%"
+                                />
+                                <CustomButton
+                                    text="Login"
+                                    onPress={() => this.props.navigation.navigate(ScreenNames.LOGIN_SCREEN)}
+                                    width = "55%"
+                                />
                             </View>
                         </LinearGradient>
                     </View>
@@ -83,7 +84,8 @@ const styles = StyleSheet.create({
         shadowOpacity: .5
     },
     buttonOuterLayout: {
-        
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 
 });

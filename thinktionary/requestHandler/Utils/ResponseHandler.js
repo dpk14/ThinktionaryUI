@@ -14,10 +14,18 @@ export default class responseHandler {
         return e.response.status == 403;
     }
 
-    static returnBlobToException(blob, callback){
+    static returnBlobToText(blob, callback){
         let reader = new FileReader();
         reader.onload = function() {
             callback(reader.result, true);
+        }
+        reader.readAsText(blob);
+    }
+
+    static returnBlobToJSON(blob, callback){
+        let reader = new FileReader();
+        reader.onload = function() {
+            callback(JSON.parse(reader.result), true);
         }
         reader.readAsText(blob);
     }

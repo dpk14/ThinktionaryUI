@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         padding: 10,
         height: 56,
-        width : '30%',
 
         backgroundColor: '#FFB03F',
         opacity : .95,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import makeAccount from "../../../requestHandler/Requests/AccountRequests/makeAccount";
+import makeAccount from "../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import {Field, FieldMap} from "../../structs/field";
 import AccountScreen from "./super/AccountScreen";
 

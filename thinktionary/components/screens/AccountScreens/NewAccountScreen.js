@@ -6,7 +6,7 @@ import {AppLoading} from 'expo';
 import EntryBox from "../../EntryBox";
 import CustomButton from "../../CustomButton";
 import Login from "../../../requestHandler/Requests/AccountRequests/Login"
-import makeAccount from "../../../requestHandler/Requests/AccountRequests/makeAccount";
+import makeAccount from "../../../requestHandler/Requests/AccountRequests/MakeAccount";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -73,6 +73,7 @@ export default class NewAccountScreen extends Component {
                                 onPress={() => {
                                     new makeAccount(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
                                 }}
+                                width = "55%"
                             />
                         </LinearGradient>
                     </View>

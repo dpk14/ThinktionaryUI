@@ -60,15 +60,20 @@ export default class Request{
         }
             return fetch(url, init)
                 .then(response => {
-                    ResponseHandler.checkStatusOk(response)
+                    return ResponseHandler.checkStatusOk(response)
                 })
-                .then(checkedResponse => {this.translateBody(checkedResponse, callBack)})
                 .catch(e => {
-                     if(ResponseHandler.isUserException(e)){
-                         this.translateException(e, callBack);
-                     }
-                     else throw e;
+                    if(ResponseHandler.isUserException(e)){
+                        this.translateException(e, callBack);
+                    }
+                    else throw e;
                 })
+                .then(checkedResponse => {
+                    this.translateBody(checkedResponse, callBack)
+                })
+                .catch(e => console.log(e));
+
+
         }
 
     fetchAndExecute(callBack){
@@ -76,15 +81,13 @@ export default class Request{
     }
 
     translateBody(response, callBack){
-        return response.blob().
+        response.blob().
         then(blob => {
-            console.log(blob.type())
-            return blob});
+            ResponseHandler.returnBlobToText(blob, callBack)
+        })
     }
 
     translateException(e, callBack){;
-        e.response.blob().
-        then(blob => {
-            ResponseHandler.returnBlobToException(blob, callBack)})
+        e.response.blob().then(response => callBack(response, false))
     }
 }

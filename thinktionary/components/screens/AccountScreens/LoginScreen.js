@@ -42,7 +42,7 @@ export default class LoginScreen extends Component {
             alert(response);
         }
         else{
-
+            console.log("ya");
         }
     }
 
