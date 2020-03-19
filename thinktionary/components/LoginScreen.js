@@ -5,7 +5,7 @@ import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 import EntryBox from "./EntryBox";
 import CustomButton from "./CustomButton";
-import {login} from "../requestHandler/main"
+import Login from "../requestHandler/Requests/AccountRequests/Login"
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -37,6 +37,15 @@ export default class LoginScreen extends Component {
         this.setState({ [attrName]: value });
     }
 
+    _onButtonClick = (response, exceptionThrown) =>{
+        if(exceptionThrown) {
+            alert(response);
+        }
+        else{
+
+        }
+    }
+
     render() {
         if (this.state.loading) return(<AppLoading/>);
         else {
@@ -61,7 +70,7 @@ export default class LoginScreen extends Component {
                             <CustomButton
                                 text="Login"
                                 onPress={() => {
-                                    alert(login(this.state.username, this.state.password))
+                                    new Login(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
                                 }}
                                 />
                         </LinearGradient>

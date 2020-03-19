@@ -7,6 +7,7 @@ import EntryBox from "./EntryBox";
 import CustomButton from "./CustomButton";
 import {login} from "../requestHandler/main"
 import AccountScreen from "./AccountScreen";
+import Login from "../requestHandler/Requests/AccountRequests/Login";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -48,7 +49,7 @@ export default class LoginScreenEfficient extends Component {
             return (
                 <AccountScreen>
                     fields = {fields}
-                    buttonFunc = {login(fields['username'].value, fields['password'].value,)}
+                    buttonRequest = {Login(fields['username'].value, fields['password'].value)}
                 </AccountScreen>
             );
         }

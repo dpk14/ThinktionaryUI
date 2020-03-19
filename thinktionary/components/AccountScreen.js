@@ -14,12 +14,14 @@ const instructions = Platform.select({
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
+
 export default class AccountScreen extends Component {
 
     static propTypes = {
         fields: object.isRequired,
-        buttonFunc : func.isRequired,
+        buttonRequest : func.isRequired,
         buttonName : string.isRequired,
+        callBack : func.isRequired,
     }
 
     constructor(props) {
@@ -72,7 +74,7 @@ export default class AccountScreen extends Component {
                             <CustomButton
                                 text={this.props.buttonName}
                                 onPress={() => {
-                                    alert(this.props.buttonFunc)
+                                    this.buttonRequest.execute(this.callBack)
                                 }}
                             />
                         </LinearGradient>

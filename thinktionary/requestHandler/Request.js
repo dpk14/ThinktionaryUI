@@ -1,7 +1,17 @@
 import XMLHttpRequest from "react-native";
+import ResponseHandler from "./Utils/ResponseHandler";
 const ABSTRACT_CLASS = "Cannot instantiate abstract class";
 const ABSTRACT_METHOD = "Cannot call abstract method";
 
+export const BASE_URL = 'https://thinktionary-backend.herokuapp.com'
+export const DELETE = "DELETE"
+export const GET = "GET"
+export const PUT = "PUT"
+export const POST = "POST"
+
+const TITLE = "myTitle"
+const TEXT = "myText"
+const CREATED = "myCreated"
 
 export default class Request{
 
@@ -38,7 +48,7 @@ export default class Request{
         else request.send()
     }
 
-    async request(url, type, json, hasReturn){
+    request(url, type, json, hasReturn, callBack){
         let init = { method: type};
         if (hasReturn) {
             init.headers = {
@@ -48,48 +58,36 @@ export default class Request{
         if(json != null) {
             init.body = JSON.stringify(json);
         }
-        var method = function() {
             return fetch(url, init)
-                .then(response => {this.checkStatus(response)})
-                .then(checkedResponse => {
-                    checkedResponse.json()
+                .then(response => {
+                    ResponseHandler.checkStatusOk(response)
                 })
-                .catch(e => throw e)
+                .then(checkedResponse => {this.translateBody(checkedResponse, callBack)})
+                .catch(e => {
+                     if(ResponseHandler.isUserException(e)){
+                         this.translateException(e, callBack);
+                     }
+                     else throw e;
+                })
         }
-        var ans = await method();
-        console.log(ans);
-        return ans;
+
+    fetchAndExecute(callBack){
+        var thee = this.request(this.url, this.type, this.json, this.hasReturn, callBack);
+        console.log(thee);
+        callBack(thee);
     }
 
-    checkStatus(response){
-        if (response.ok) {
-            return response;
-        } else {
-            let error = new Error(response.statusText);
-            error.status = response.status
-            error.response = response.json();
-            throw error;
-        }
-    };
-
-    execute(){
-        try {
-            let response = this.request(this.url, this.type, this.json, this.hasReturn);
-            return this.translate(response);
-        }
-        catch(error){
-            return this.translateError(error);
-        }
+    translateBody(response, callBack){
+        return response.blob().
+        then(blob => {
+            console.log(blob.type())
+            return blob});
     }
 
-    translate(response){
-        throw new Error(ABSTRACT_METHOD)
-    }
-
-    translateError(error){
-        if(error.status == 404){
-            throw error
-        }
-        return error.statusText
+    translateException(e, callBack){;
+        console.log(e.response);
+        e.response.blob().
+        then(blob => {
+            ResponseHandler.returnBlobToException(blob, callBack)})
     }
 }

@@ -1,7 +1,7 @@
 import XMLHttpRequest from "react-native"
 let JSONBuilder = require("./Utils/JSONBuilder")
 let testTools = require("./Utils/testTools")
-let BASE_URL = 'https://thinktionary-backend.herokuapp.com'
+const BASE_URL = 'https://thinktionary-backend.herokuapp.com'
 const DELETE = "DELETE"
 const GET = "GET"
 const PUT = "PUT"
@@ -45,10 +45,12 @@ function buildEntry(userID, title, text, topics, created=null) {
     request(url, POST, entry, true)
 }
 
+/*
 function buildEntry(userID, title, text, topics) {
     let entry = JSONBuilder.buildEntryWithCreated(title, text, topics)
     buildEntryHelper(userID, entry)
 }
+ */
 
 function modifyEntry(userID, entryID, title, text, topics, created) {
     let entry = {}
@@ -92,13 +94,85 @@ function getEntry(userId){
     return request(url, GET, null, true)
 }
 
-//helpers:
+function requestXML(url, type, json, hasReturn){
+    var request = new XMLHttpRequest()
+    // get a callback when the server responds
+    request.onreadystatechange = e => {
+        if (request.readyState !== 4) {
+            return 'could not connect';
+        }
 
-function buildEntryHelper(userID, entry) {
-    let url = BASE_URL+"/users/" + userID + "/entries"
-    request(url, POST, entry, true)
+        if (request.status === 200) {
+            return request;
+            console.log('success', request.responseText);
+        } else {
+            console.warn('error');
+        }
+    };
+    // open the request with the verb and the url
+    request.open(type, url)
+    if(hasReturn) request.setRequestHeader('Content-Type', 'application/json')
+    // send the request
+    if(json!=null) request.send(JSON.stringify(json))
+    else request.send()
 }
 
+async function request(url, type, json, hasReturn){
+    let init = { method: type};
+    if (hasReturn) {
+        init.headers = {
+            'Content-Type': 'application/json',
+        }
+    }
+    if(json != null) {
+        init.body = JSON.stringify(json);
+    }
+    var method = function() {
+        return fetch(url, init)
+            .then(response => {checkStatus(response)})
+            .then(checkedResponse => {
+                checkedResponse.json()
+            })
+            .catch(e => {throw e})
+    }
+    var ans = await method();
+    console.log(ans);
+    return ans;
+}
+function checkStatus(response){
+    if (response.ok) {
+        return response;
+    } else {
+        let error = new Error(response.statusText);
+        error.status = response.status
+        error.response = response.json();
+        throw error;
+    }
+};
+
+function execute(){
+    try {
+        let response = this.request(this.url, this.type, this.json, this.hasReturn);
+        return this.translate(response);
+    }
+    catch(error){
+        return this.translateError(error);
+    }
+}
+
+function translate(response){
+    return response
+}
+
+function translateError(error){
+    if(error.status == 404){
+        throw error
+    }
+    return error.statusText
+}
+
+
+//helpers:
 
 function run(){
     //makeAccount("dpk14", "1234")
