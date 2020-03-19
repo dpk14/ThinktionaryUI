@@ -6,9 +6,10 @@ import {AppLoading} from 'expo';
 import EntryBox from "../EntryBox";
 import CustomButton from "../CustomButton";
 import {login} from "../../requestHandler/main"
-import AccountScreen from "./AccountScreen";
+import AccountScreenCore from "./AccountScreenCore";
 import Login from "../../requestHandler/Requests/AccountRequests/Login";
 import {Field, FieldMap} from "../structs/field";
+import AccountScreen from "./AccountScreen";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -16,16 +17,23 @@ const instructions = Platform.select({
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
-export default class LoginScreenEfficient extends Component {
+export default class LoginScreenEfficient extends AccountScreen {
 
-    constructor(props) {
-        super(props);
+    constructor() {
 
-        this.state = {
-            loading : true,
-            fields : new FieldMap([new Field('username', 'Username', ''),
-                new Field('password', 'Password', '')])
-        };
+        let fieldsMap = new FieldMap([new Field('username', 'Username', ''),
+                new Field('password', 'Password', '')]);
+
+            super(fieldsMap,
+            'Login',
+            new Login(fieldsMap.getEntry('username').value, fieldsMap.getEntry('password').value)),
+            (response, exceptionThrown) => {
+                if (exceptionThrown) {
+                    alert(response);
+                } else {
+
+                }
+            }
     }
 
     _onButtonClick = (response, exceptionThrown) =>{
@@ -41,19 +49,9 @@ export default class LoginScreenEfficient extends Component {
         this.setState({fields : fields})
     }
 
-    async componentWillMount() {
-        await Font.loadAsync({
-            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
-        });
-        this.setState({loading : false})
-    }
-
     render() {
-        if (this.state.loading) return(<AppLoading/>);
-        else {
             return (
-                <AccountScreen
+                <AccountScreenCore
                     fields = {this.state.fields}
                     buttonName= 'Login'
                     buttonRequest = {new Login(this.state.fields.getEntry('username').value, this.state.fields.getEntry('password').value)}
@@ -62,5 +60,4 @@ export default class LoginScreenEfficient extends Component {
                 />
             );
         }
-    }
 };
