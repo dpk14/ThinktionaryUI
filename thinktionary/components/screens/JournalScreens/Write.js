@@ -6,6 +6,8 @@ import EntryBox from "../../EntryBox";
 import Screen, {styles} from "../Screen";
 import React from "react";
 import {HP_SIMPLIFIED_BOLD} from "../../../configStrings";
+import CustomButton from "../../CustomButton";
+import Login from "../../../requestHandler/Requests/AccountRequests/Login";
 
 export default class Write extends Screen {
 
@@ -17,20 +19,49 @@ export default class Write extends Screen {
         return (
                     <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                     start={[0, 1]} style={styles.linearGradient}>
-                        <View style = {newStyles.frame}>
-                            <EntryBox
-                                attrName='title'
-                                title='Title'
-                                value={this.state.title}
-                                updateMasterState={this._updateMasterState}
-                                scale = {0.7}
-                            />
-                            <EntryBox
-                                attrName='date'
-                                title='Date'
-                                value={this.state.date}
-                                updateMasterState={this._updateMasterState}
-                            />
+                        <View style = {newStyles.outerFrame}>
+                            <View style = {newStyles.topFrame}>
+                                <EntryBox
+                                    attrName='title'
+                                    title='Title'
+                                    value={this.state.title}
+                                    updateMasterState={this._updateMasterState}
+                                    scale = {0.8}
+                                    width={"60%"}
+                                />
+                                <EntryBox
+                                    attrName='date'
+                                    title='Date'
+                                    value={this.state.date}
+                                    updateMasterState={this._updateMasterState}
+                                    scale = {0.8}
+                                    width={"60%"}
+                                />
+                            </View>
+                            <View style = {newStyles.bottomFrame}>
+                                <EntryBox
+                                    attrName='topics'
+                                    title='Topics'
+                                    value={this.state.topics}
+                                    updateMasterState={this._updateMasterState}
+                                    scale = {.8}
+                                    width={"120%"}
+                                />
+                                <EntryBox
+                                    attrName='text'
+                                    title='Text'
+                                    value={this.state.text}
+                                    updateMasterState={this._updateMasterState}
+                                    scale = {.8}
+                                    width={"120%"}
+                                    height = {400}
+                                />
+                                <CustomButton
+                                    text="Save"
+                                    onPress={() => {}}
+                                />
+                            </View>
+
                         </View>
 
                     </LinearGradient>
@@ -39,13 +70,19 @@ export default class Write extends Screen {
 }
 
 export const newStyles = StyleSheet.create({
-    frame: {
+    topFrame: {
+        marginTop : 80,
         flex: 1,
-        margin : 80,
-
-        color : "#FFFFFF",
-        flexDirection: 'row',
         justifyContent: 'space-between',
+        flexDirection: 'row',
     },
+    bottomFrame:{
+        flex:1,
+        alignItems: 'center',
+    },
+    outerFrame:{
+        flex : 1,
+        marginHorizontal : 20
+    }
 
 });
