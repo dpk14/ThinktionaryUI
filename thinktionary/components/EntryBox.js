@@ -25,9 +25,17 @@ export default class EntryBox extends Component {
         marginBottom : number,
         width : string,
         height : number,
+        scale : number,
+        fontSize: number,
+        textMarginHorizontal : number,
+        borderRadius : number
     }
 
     static defaultProps = {
+        borderRadius: 20,
+        textMarginHorizontal : 25,
+        fontSize: 20,
+        scale : 1,
         height : 65,
         width : '70%',
         marginRight : 0,
@@ -60,6 +68,19 @@ export default class EntryBox extends Component {
             loading : true,
             isFieldActive: false,
         }
+    }
+
+    scaleProps(scale){
+        this.props.height= this.props.height*scale;
+        this.props.width=this.scalePercentage(this.props.width, scale)
+        this.props.titleActiveSize*=scale;
+        this.props.titleInActiveSize*=scale;
+        this.props.fontSize*=scale;
+    }
+
+    scalePercentage(percentage, scale){
+        let scaledInt = parseInt((this.props.width.substring(0, this.props.width.length-1)))*scale;
+        return (scaledInt > 100 ? 100 : scaledInt) + "%"
     }
 
     async componentWillMount() {
@@ -116,10 +137,11 @@ export default class EntryBox extends Component {
         return {
             top: this.position.interpolate({
                 inputRange: [0, 1],
-                outputRange: [20, 4],
+                outputRange: [20*this.props.scale, 4*this.props.scale],
             }),
-            fontSize: isFieldActive ? titleActiveSize : titleInActiveSize,
+            fontSize: isFieldActive ? titleActiveSize*this.props.scale : titleInActiveSize*this.props.scale,
             color: isFieldActive ? titleActiveColor : titleInactiveColor,
+            left: this.props.textMarginHorizontal*this.props.scale
         }
     }
 
@@ -130,12 +152,17 @@ export default class EntryBox extends Component {
         } = this.props;
 
         return {
-            marginTop : isFieldActive ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop,
-            marginBottom : isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom,
+            marginTop : isFieldActive ? textInputActiveMargins.marginTop*this.props.scale : textInputInactiveMargins.marginTop*this.props.scale,
+            marginBottom : isFieldActive ? textInputActiveMargins.marginBottom*this.props.scale : textInputInactiveMargins.marginBottom*this.props.scale,
+            fontSize : this.props.fontSize*this.props.scale,
+            marginHorizontal: this.props.textMarginHorizontal*this.props.scale,
+            borderRadius : this.props.borderRadius*this.props.scale,
+            height : this.props.height*this.props.scale
         }
     }
 
     _returnAnimatedContainerStyles = () => {
+        let scale = this.props.scale;
         return {
             opacity: this.position.interpolate({
                 inputRange: [0, 1],
@@ -149,8 +176,9 @@ export default class EntryBox extends Component {
             marginLeft : this.props.marginLeft,
             marginTop : this.props.marginTop,
             marginBottom : this.props.marginBottom,
-            width : this.props.width,
-            height : this.props.height,
+            width : this.scalePercentage(this.props.width,scale),
+            height : this.props.height*scale,
+            borderRadius : this.props.borderRadius*this.props.scale
         }
     }
 
@@ -189,21 +217,18 @@ const Styles = StyleSheet.create({
         shadowRadius: 20,
     },
     textInput: {
-        fontSize: 20,
         fontWeight: '400',
         fontFamily: HP_SIMPLIFIED,
         color: '#282828',
         width: '100%',
         height: 65,
         position: 'relative',
-        marginHorizontal: 25,
         borderRadius: 20,
         opacity: .9
     },
     titleStyles: {
         position: 'absolute',
         fontFamily: HP_SIMPLIFIED_BOLD,
-        left: 25,
         fontWeight: '300',
         lineHeight: 24,
     }
