@@ -82,9 +82,10 @@ export const newStyles = StyleSheet.create({
         marginTop : 1,
         justifyContent: 'center',
         alignItems: 'center',
+        position: 'relative'
     },
     outerFrame:{
-        flex : 1,
+        position:'relative',
         marginHorizontal : 15
     }
 

@@ -9,11 +9,11 @@ class customButton extends Component {
     static propTypes = {
         text: PropTypes.string.isRequired,
         onPress: PropTypes.func.isRequired,
-        width : PropTypes.string
+        width : PropTypes.number
     }
 
     static defaultProps = {
-        width : '30%',
+        width : 100,
     }
 
     constructor(props) {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
     buttonStyle: {
         marginTop: 20,
-        padding: 10,
+        padding: 12,
         height: 56,
 
         backgroundColor: '#FFB03F',

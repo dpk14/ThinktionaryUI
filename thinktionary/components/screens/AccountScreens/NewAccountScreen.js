@@ -44,7 +44,7 @@ export default class NewAccountScreen extends AccountScreen {
                         onPress={() => {
                             new makeAccount(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
                         }}
-                        width="55%"
+                        width={220}
                     />
             </View>
         );

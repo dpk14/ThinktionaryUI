@@ -21,12 +21,12 @@ export default class HomeScreen extends AccountScreen{
                         <CustomButton
                             text="Create Account"
                             onPress={() => this.props.navigation.navigate(ScreenNames.NEW_ACCT_SCREEN)}
-                            width = "55%"
+                            width = {220}
                         />
                         <CustomButton
                             text="Login"
                             onPress={() => this.props.navigation.navigate(ScreenNames.LOGIN_SCREEN)}
-                            width = "55%"
+                            width = {120}
                         />
                     </View>
                 </View>
