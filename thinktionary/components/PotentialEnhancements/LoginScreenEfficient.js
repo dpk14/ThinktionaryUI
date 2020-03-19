@@ -3,11 +3,12 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import EntryBox from "./EntryBox";
-import CustomButton from "./CustomButton";
-import {login} from "../requestHandler/main"
+import EntryBox from "../EntryBox";
+import CustomButton from "../CustomButton";
+import {login} from "../../requestHandler/main"
 import AccountScreen from "./AccountScreen";
-import Login from "../requestHandler/Requests/AccountRequests/Login";
+import Login from "../../requestHandler/Requests/AccountRequests/Login";
+import {Field, FieldMap} from "../structs/field";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -22,13 +23,31 @@ export default class LoginScreenEfficient extends Component {
 
         this.state = {
             loading : true,
+            fields : new FieldMap([new Field('username', 'Username', ''),
+                new Field('password', 'Password', '')])
         };
+    }
+
+    _onButtonClick = (response, exceptionThrown) =>{
+        if(exceptionThrown) {
+            alert(response);
+        }
+        else{
+
+        }
+    }
+
+    _updateMasterComponent = (attrName, value) => {
+        let newComp = this.props.fields
+        new
+
+            this.props.fields.getEntry(attrName).value = value;
     }
 
     async componentWillMount() {
         await Font.loadAsync({
-            'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
+            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
     }
@@ -36,21 +55,14 @@ export default class LoginScreenEfficient extends Component {
     render() {
         if (this.state.loading) return(<AppLoading/>);
         else {
-            const fields = {
-                'username': {
-                    title: "Username",
-                    value: '',
-                },
-                'password': {
-                    title: "Password",
-                    value: '',
-                }
-            }
             return (
-                <AccountScreen>
-                    fields = {fields}
-                    buttonRequest = {Login(fields['username'].value, fields['password'].value)}
-                </AccountScreen>
+                <AccountScreen
+                    fields = {this.state.fields}
+                    buttonName= 'Login'
+                    buttonRequest = {new Login(this.state.fields.getEntry('username').value, this.state.fields.getEntry('password').value)}
+                    updateMasterComponent = {this._updateMasterComponent}
+                    callBack={this._onButtonClick}
+                />
             );
         }
     }

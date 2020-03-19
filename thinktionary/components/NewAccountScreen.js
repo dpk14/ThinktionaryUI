@@ -45,7 +45,7 @@ export default class LoginScreen extends Component {
                     <View style={styles.container}>
                         <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                         start={[0, 1]} style={styles.linearGradient}>
-                            <Text style={styles.title}>Thinktionary</Text>
+                            <Text style={styles.title}>Create Account</Text>
                             <EntryBox
                                 attrName = 'username'
                                 title = 'Username'

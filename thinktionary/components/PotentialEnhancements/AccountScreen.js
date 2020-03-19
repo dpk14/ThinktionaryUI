@@ -3,9 +3,8 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import EntryBox from "./EntryBox";
-import CustomButton from "./CustomButton";
-import {login} from "../requestHandler/main"
+import EntryBox from "../EntryBox";
+import CustomButton from "../CustomButton";
 import {func, object, string} from "prop-types";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
@@ -14,12 +13,12 @@ const instructions = Platform.select({
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
-
 export default class AccountScreen extends Component {
 
     static propTypes = {
         fields: object.isRequired,
-        buttonRequest : func.isRequired,
+        buttonRequest : object.isRequired,
+        updateMasterComponent : func.isRequired,
         buttonName : string.isRequired,
         callBack : func.isRequired,
     }
@@ -35,33 +34,38 @@ export default class AccountScreen extends Component {
 
     async componentWillMount() {
         await Font.loadAsync({
-            'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
+            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
     }
 
     _updateMasterState = (attrName, value) => {
         this.setState({ [attrName]: value });
+        for(let [attrName, field] of this.props.fields.entries()){
+            this.props.updateMasterComponent(attrName, field.value);
+        }
     }
 
     render() {
         if (this.state.loading) return(<AppLoading/>);
         else {
-            let arr = [];
-            for(let attrName in this.props.fields){
-                let title = this.props[attrName].title;
-                let value = this.props[attrName].value;
-                const entry = <EntryBox
-                    attrName = {attrName}
-                    title = {title}
-                    value = {value}
-                    updateMasterState = {this._updateMasterState}
-                />;
-                arr.push(entry);
+            let arr = []
+            for(let [attrName, field] of this.props.fields.entries()){
+                console.log("attrName: " + attrName + "title : " + field.title);
+                arr.push({
+                    attrName : attrName,
+                    title : field.title,
+                    value : field.value,
+                })
             }
-            const Entries = arr.map((entry) =>
-                <li>{entry}</li>
+            const Entries = arr.map(field => (
+                <EntryBox
+                attrName = {field.attrName}
+                title = {field.title}
+                value = {field.value}
+                updateMasterState = {this._updateMasterState}
+            />)
             );
 
             return (
@@ -70,11 +74,11 @@ export default class AccountScreen extends Component {
                         <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                         start={[0, 1]} style={styles.linearGradient}>
                             <Text style={styles.title}>Thinktionary</Text>
-                            <Entries/>
+                            {Entries}
                             <CustomButton
                                 text={this.props.buttonName}
                                 onPress={() => {
-                                    this.buttonRequest.execute(this.callBack)
+                                    this.buttonRequest.fetchAndExecute(this.callBack)
                                 }}
                             />
                         </LinearGradient>

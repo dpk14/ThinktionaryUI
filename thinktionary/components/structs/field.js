@@ -2,19 +2,31 @@ import EntryBox from "../EntryBox";
 import React from "react";
 
 
-class Field {
+export class Field {
     constructor(attrName, title, value) {
-
-        for(let attrName in this.props.fields){
-            let title = this.props[attrName].title;
-            let value = this.props[attrName].value;
-            const entry = <EntryBox
-                attrName = {attrName}
-                title = {title}
-                value = {value}
-                updateMasterState = {this._updateMasterState}
-            />;
-            arr.push(entry);
+        this.attrName = attrName
+        this.title = title
+        this.value = value
         }
+}
+
+export class FieldMap {
+    constructor(fieldList) {
+        this.myMap = new Map();
+        fieldList.forEach(field => {
+            if(!(field instanceof Field)) {
+                throw Error("Arguments must all be of type 'Field'");
+            }
+            this.myMap.set(field.attrName, field);
+        })
     }
+
+    getEntry(attrName){
+        return this.myMap.get(attrName);
+    }
+
+    entries(){
+        return this.myMap.entries();
+    }
+
 }

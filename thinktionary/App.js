@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import LoginScreen from './components/LoginScreen'
-import LoginScreenEfficient from "./components/LoginScreenEfficient";
+import LoginScreenEfficient from "./components/PotentialEnhancements/LoginScreenEfficient";
 
 export default class App extends Component {
 
   render() {
     return (
-        <LoginScreen></LoginScreen>
+        <LoginScreenEfficient></LoginScreenEfficient>
     );
   }
 }
