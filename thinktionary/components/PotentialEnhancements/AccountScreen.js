@@ -6,6 +6,7 @@ import {AppLoading} from 'expo';
 import EntryBox from "../EntryBox";
 import CustomButton from "../CustomButton";
 import {func, object, string} from "prop-types";
+import {Field, FieldMap} from "../structs/field";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -41,10 +42,14 @@ export default class AccountScreen extends Component {
     }
 
     _updateMasterState = (attrName, value) => {
-        this.setState({ [attrName]: value });
-        for(let [attrName, field] of this.props.fields.entries()){
-            this.props.updateMasterComponent(attrName, field.value);
+        this.setState({ [attrName] : value });
+        let arr = [];
+        for (let [attrName, field] of this.props.fields.entries()){
+            arr.push(new Field(attrName, field.title, field.value))
         }
+        let fields = new FieldMap(arr);
+        fields.getEntry(attrName).value = value;
+        this.props.updateMasterComponent(fields);
     }
 
     render() {
@@ -52,7 +57,6 @@ export default class AccountScreen extends Component {
         else {
             let arr = []
             for(let [attrName, field] of this.props.fields.entries()){
-                console.log("attrName: " + attrName + "title : " + field.title);
                 arr.push({
                     attrName : attrName,
                     title : field.title,
@@ -78,7 +82,7 @@ export default class AccountScreen extends Component {
                             <CustomButton
                                 text={this.props.buttonName}
                                 onPress={() => {
-                                    this.buttonRequest.fetchAndExecute(this.callBack)
+                                    this.props.buttonRequest.fetchAndExecute(this.props.callBack)
                                 }}
                             />
                         </LinearGradient>

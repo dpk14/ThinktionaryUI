@@ -37,11 +37,8 @@ export default class LoginScreenEfficient extends Component {
         }
     }
 
-    _updateMasterComponent = (attrName, value) => {
-        let newComp = this.props.fields
-        new
-
-            this.props.fields.getEntry(attrName).value = value;
+    _updateMasterComponent = (fields) => {
+        this.setState({fields : fields})
     }
 
     async componentWillMount() {
@@ -66,31 +63,4 @@ export default class LoginScreenEfficient extends Component {
             );
         }
     }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    linearGradient :{
-        flex : 2,
-        height : "100%",
-        width : "100%",
-        alignItems : 'center'
-    },
-    title: {
-        fontSize: 60,
-        textAlign: 'center',
-        marginTop: 150,
-        marginVertical: 30,
-        color : '#FFFFFF',
-        fontFamily: HP_SIMPLIFIED_BOLD,
-        shadowOffset: { height: 4},
-        shadowRadius: 20,
-        shadowOpacity: .5
-    },
-
-});
+};

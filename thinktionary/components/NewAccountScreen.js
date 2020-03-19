@@ -5,7 +5,7 @@ import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 import EntryBox from "./EntryBox";
 import CustomButton from "./CustomButton";
-import {login} from "../requestHandler/main"
+import Login from "../requestHandler/Requests/AccountRequests/Login"
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 const instructions = Platform.select({
@@ -13,7 +13,7 @@ const instructions = Platform.select({
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
 });
 
-export default class LoginScreen extends Component {
+export default class NewAccountScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -37,6 +37,15 @@ export default class LoginScreen extends Component {
         this.setState({ [attrName]: value });
     }
 
+    _onButtonClick = (response, exceptionThrown) =>{
+        if(exceptionThrown) {
+            alert(response);
+        }
+        else{
+
+        }
+    }
+
     render() {
         if (this.state.loading) return(<AppLoading/>);
         else {
@@ -45,7 +54,7 @@ export default class LoginScreen extends Component {
                     <View style={styles.container}>
                         <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                         start={[0, 1]} style={styles.linearGradient}>
-                            <Text style={styles.title}>Create Account</Text>
+                            <Text style={styles.title}>Thinktionary</Text>
                             <EntryBox
                                 attrName = 'username'
                                 title = 'Username'
@@ -61,7 +70,7 @@ export default class LoginScreen extends Component {
                             <CustomButton
                                 text="Login"
                                 onPress={() => {
-                                    alert(login(this.state.username, this.state.password))
+                                    new Login(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
                                 }}
                             />
                         </LinearGradient>
