@@ -5,6 +5,7 @@ import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 import {ABSTRACT_CLASS, ABSTRACT_METHOD, HP_SIMPLIFIED_BOLD} from "../../../configStrings";
 import {Journal} from "../../structs/journal";
+import EntryBox from "../../EntryBox";
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
     android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
@@ -17,6 +18,8 @@ export default class Write extends Component {
 
         this.state = {
             loading : true,
+            title : 'untitled',
+            date : ''
         };
     }
 
@@ -48,9 +51,20 @@ export default class Write extends Component {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
                     <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                     start={[0, 1]} style={styles.linearGradient}>
-                        <View style = {styles.frame}>
-
-                        </View>
+                        <FlexBox style = {styles.frame}>
+                            <EntryBox
+                                attrName='title'
+                                title='Title'
+                                value={this.state.title}
+                                updateMasterState={this._updateMasterState}
+                            />
+                            <EntryBox
+                                attrName='date'
+                                title='Date'
+                                value={this.state.date}
+                                updateMasterState={this._updateMasterState}
+                            />
+                        </FlexBox>
                     </LinearGradient>
                 </TouchableWithoutFeedback>
             );
@@ -62,7 +76,9 @@ export const styles = StyleSheet.create({
     frame: {
         flex: 1,
         margin : "15%",
-        color : "#FFFFFF"
+        color : "#FFFFFF",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     container: {
         flex: 1,

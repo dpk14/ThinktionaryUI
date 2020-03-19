@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } from 'react-native';
+import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
@@ -42,7 +42,7 @@ export default class AccountScreen extends Component {
         if(exceptionThrown) {
             alert(response);
         }
-        else if(exceptionThrown!=undefined){
+        else{
             let journal = new Journal(response["myEntries"], response["myEntryMap"], response["myTopics"], response["myUserID"])
             console.log(journal.userID)
             this.props.navigation.navigate(ScreenNames.WRITE_SCREEN)
@@ -54,15 +54,24 @@ export default class AccountScreen extends Component {
         if (this.state.loading) return(<AppLoading/>);
         else {
             return (
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                    <ScrollView contentContainerStylei = {{flexGrow : 1}}>
+                        <TouchableWithoutFeedback style = {{flex : 1}}
+                                          onPress={Keyboard.dismiss} accessible={false}>
                             {Body}
-                </TouchableWithoutFeedback>
+                        </TouchableWithoutFeedback>
+                    </ScrollView>
             );
         }
     }
 }
 
 export const styles = StyleSheet.create({
+    scrollView : {
+        opacity : 1,
+        flex : 0,
+        height : "100%",
+        color : "#AAAAAA"
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -70,8 +79,6 @@ export const styles = StyleSheet.create({
     },
     linearGradient :{
         flex : 1,
-        height : "100%",
-        width : "100%",
         alignItems : 'center'
     },
     title: {
