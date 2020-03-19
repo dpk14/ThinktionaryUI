@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number } from 'prop-types';
-const HP_SIMPLIFIED = "hp-simplified";
-const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
+import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
 
 export default class EntryBox extends Component {
     static propTypes = {

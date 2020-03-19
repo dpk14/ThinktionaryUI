@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import {StyleSheet} from 'react-native';
 import LoginScreen from './components/screens/AccountScreens/LoginScreen'
 import NewAccountScreen from "./components/screens/AccountScreens/NewAccountScreen";
 import 'react-native-gesture-handler';

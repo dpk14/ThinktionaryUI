@@ -1,0 +1,75 @@
+import React, { Component } from 'react';
+import { Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView } from 'react-native';
+import * as Font from 'expo-font';
+import {AppLoading} from 'expo';
+import {ABSTRACT_CLASS, ABSTRACT_METHOD, HP_SIMPLIFIED_BOLD} from "../../configStrings";
+
+export default class Screen extends Component{
+
+        constructor(props) {
+            super(props);
+
+        this.state = {
+            loading : true,
+        };
+        if(this.constructor === Screen) {
+            throw new Error(ABSTRACT_CLASS)
+        }
+    }
+
+    fillBody(){
+        throw Error(ABSTRACT_METHOD);
+    }
+
+    async componentWillMount() {
+        await Font.loadAsync({
+            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
+        });
+        this.setState({loading : false})
+    }
+
+    _updateMasterState = (attrName, value) => {
+        this.setState({ [attrName]: value });
+    }
+
+    render() {
+        if (this.state.loading) return(<AppLoading/>);
+        else {
+            const Body = this.fillBody()
+            return (
+                <ScrollView contentContainerStyle = {{flexGrow : 1}}>
+                    <TouchableWithoutFeedback style = {{flex : 1}}
+                                              onPress={Keyboard.dismiss} accessible={false}>
+                        {Body}
+                    </TouchableWithoutFeedback>
+                </ScrollView>
+            );
+        }
+    }
+}
+
+export const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    linearGradient :{
+        flex : 1,
+        alignItems : 'center'
+    },
+    title: {
+        fontSize: 60,
+        textAlign: 'center',
+        marginTop: 150,
+        marginVertical: 30,
+        color : '#FFFFFF',
+        fontFamily: HP_SIMPLIFIED_BOLD,
+        shadowOffset: { height: 4},
+        shadowRadius: 20,
+        shadowOpacity: .5
+    },
+
+});
+

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
-const HP_SIMPLIFIED = 'hp-simplified';
-const HP_SIMPLIFIED_BOLD = 'hp-simplified-bold';
+import {HP_SIMPLIFIED_BOLD} from "../configStrings";
 
 class customButton extends Component {
 

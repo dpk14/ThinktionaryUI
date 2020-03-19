@@ -1,20 +1,14 @@
-import React, { Component } from 'react';
-import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } from 'react-native';
+
+import { Text} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import * as Font from 'expo-font';
-import {AppLoading} from 'expo';
+
+import {StyleSheet} from 'react-native';
 import EntryBox from "../../EntryBox";
 import CustomButton from "../../CustomButton";
 import Login from "../../../requestHandler/Requests/AccountRequests/Login"
-
-import AccountScreen, {styles} from "./AccountScreen";
-const HP_SIMPLIFIED = "hp-simplified";
-const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
-});
-
+import {styles} from "../Screen";
+import React from "react";
+import AccountScreen from "./AccountScreen"
 export default class LoginScreen extends AccountScreen {
 
     constructor(props) {
