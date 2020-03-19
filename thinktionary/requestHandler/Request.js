@@ -1,7 +1,8 @@
 import XMLHttpRequest from "react-native";
 import ResponseHandler from "./Utils/ResponseHandler";
-const ABSTRACT_CLASS = "Cannot instantiate abstract class";
-const ABSTRACT_METHOD = "Cannot call abstract method";
+import fetchError from "./ErrorHandling/FetchError";
+import {call} from "react-native-reanimated";
+import {ABSTRACT_CLASS} from "../configStrings";
 
 export const BASE_URL = 'https://thinktionary-backend.herokuapp.com'
 export const DELETE = "DELETE"
@@ -62,32 +63,30 @@ export default class Request{
                 .then(response => {
                     return ResponseHandler.checkStatusOk(response)
                 })
+                .then(checkedResponse => {
+                    this.translateBody(checkedResponse, callBack)
+                })
                 .catch(e => {
-                    if(ResponseHandler.isUserException(e)){
+                    console.log(e);
+                    if(e instanceof fetchError && ResponseHandler.isUserException(e)){
                         this.translateException(e, callBack);
                     }
                     else throw e;
                 })
-                .then(checkedResponse => {
-                    this.translateBody(checkedResponse, callBack)
-                })
-                .catch(e => console.log(e));
-
 
         }
 
     fetchAndExecute(callBack){
-        callBack(this.request(this.url, this.type, this.json, this.hasReturn, callBack));
+        this.request(this.url, this.type, this.json, this.hasReturn, callBack);
     }
 
     translateBody(response, callBack){
-        response.blob().
-        then(blob => {
-            ResponseHandler.returnBlobToText(blob, callBack)
-        })
+        response.json().then(json => callBack(json, false))
     }
 
-    translateException(e, callBack){;
-        e.response.blob().then(response => callBack(response, false))
+    translateException(e, callBack){
+        e.response.blob().then(blob => {
+            ResponseHandler.returnBlobToText(blob, callBack)
+        })
     }
 }

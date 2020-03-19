@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ScreenNames from "./navigation/ScreenNames";
 import HomeScreen from "./components/screens/AccountScreens/HomeScreen";
 import * as Font from "expo-font";
+import Write from "./components/screens/JournalScreens/Write";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 
@@ -55,7 +56,12 @@ export default class App extends Component {
             />
             <Stack.Screen
                 name={ScreenNames.NEW_ACCT_SCREEN}
-                component={NewAccountScreen}/>
+                component={NewAccountScreen}
+            />
+              <Stack.Screen
+                  name={ScreenNames.WRITE_SCREEN}
+                  component={Write}
+              />
           </Stack.Navigator>
         </NavigationContainer>
     );

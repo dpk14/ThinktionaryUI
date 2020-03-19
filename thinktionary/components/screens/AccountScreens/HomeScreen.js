@@ -65,6 +65,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
+        height : "100%",
+        width : "100%",
     },
     linearGradient :{
         flex : 2,
