@@ -55,6 +55,8 @@ export default class Write extends Screen {
                                     scale = {.8}
                                     width={"120%"}
                                     height = {400}
+                                    multiline = {true}
+
                                 />
                                 <CustomButton
                                     text="Save"
@@ -78,6 +80,8 @@ export const newStyles = StyleSheet.create({
     },
     bottomFrame:{
         flex:1,
+        marginTop : 1,
+        justifyContent: 'center',
         alignItems: 'center',
     },
     outerFrame:{

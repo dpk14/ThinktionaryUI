@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
-import { string, func, object, number } from 'prop-types';
+import { string, func, object, number, bool } from 'prop-types';
 import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
 
 export default class EntryBox extends Component {
@@ -28,7 +28,8 @@ export default class EntryBox extends Component {
         scale : number,
         fontSize: number,
         textMarginHorizontal : number,
-        borderRadius : number
+        borderRadius : number,
+        multiline : bool,
     }
 
     static defaultProps = {
@@ -57,6 +58,7 @@ export default class EntryBox extends Component {
         },
         textInputStyles : {},
         otherTextInputAttributes: {},
+        multiline : false,
     }
 
     constructor(props) {
@@ -72,6 +74,10 @@ export default class EntryBox extends Component {
 
     scale(prop){
         return(prop*this.props.scale)
+    }
+
+    invScale(prop){
+        return(prop*(1/this.props.scale))
     }
 
     scalePercentage(percentage, scale){
@@ -137,7 +143,7 @@ export default class EntryBox extends Component {
             }),
             fontSize: this.scale(isFieldActive ? titleActiveSize : titleInActiveSize),
             color: isFieldActive ? titleActiveColor : titleInactiveColor,
-            left: this.scale(this.props.textMarginHorizontal)
+            marginHorizontal: this.scale(this.props.textMarginHorizontal)
         }
     }
 
@@ -147,13 +153,15 @@ export default class EntryBox extends Component {
             textInputActiveMargins, textInputInactiveMargins,
         } = this.props;
 
+        let marginTop = this.scale(isFieldActive ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop)
         return {
-            marginTop : this.scale(isFieldActive ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop),
-            marginBottom : this.scale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom),
+            marginTop : this.props.multiline ? 3*marginTop : marginTop,
+            marginBottom : this.invScale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom),
             fontSize : this.scale(this.props.fontSize),
             marginHorizontal: this.scale(this.props.textMarginHorizontal),
+            paddingRight : this.scale(this.props.textMarginHorizontal)*1.5,
             borderRadius : this.scale(this.props.borderRadius),
-            height : this.scale(this.props.height)
+            height : this.scale(this.props.height),
         }
     }
 
@@ -187,6 +195,7 @@ export default class EntryBox extends Component {
                         {this.props.title}
                     </Animated.Text>
                     <TextInput
+                        multiline = {this.props.multiline}
                         value={this.props.value}
                         style={[Styles.textInput, this._returnAnimatedInputStyles()]}
                         underlineColorAndroid='transparent'
