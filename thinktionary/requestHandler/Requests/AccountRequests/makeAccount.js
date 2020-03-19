@@ -2,8 +2,11 @@ import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
 
 export default class makeAccount extends Request{
     constructor(user, pwd) {
-        console.log(user);
-        let url = BASE_URL + "/users/?user=" + "&pwd=" + pwd
+        let url = BASE_URL + "/users/?user=" + user + "&pwd=" + pwd
         super(url, PUT, null, false)
+    }
+
+    buildUrl(fields){
+        return BASE_URL + "/users/?user=" + user(fields.username) + "&pwd=" + pwd
     }
 }

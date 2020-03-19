@@ -7,6 +7,16 @@ const HP_SIMPLIFIED_BOLD = 'hp-simplified-bold';
 
 class customButton extends Component {
 
+    static propTypes = {
+        text: PropTypes.string.isRequired,
+        onPress: PropTypes.func.isRequired,
+        width : PropTypes.string
+    }
+
+    static defaultProps = {
+        width : '30%',
+    }
+
     constructor(props) {
         super(props);
         this.state = {loading : true};
@@ -25,7 +35,7 @@ class customButton extends Component {
         else {
             const {text, onPress} = this.props;
             return (
-                <TouchableOpacity style={styles.buttonStyle}
+                <TouchableOpacity style={[styles.buttonStyle, {width: this.props.width}]}
                                   onPress={() => onPress()}
                 >
                     <Text style={styles.textStyle}>{text}</Text>
@@ -34,11 +44,6 @@ class customButton extends Component {
         }
     }
 }
-
-customButton.propTypes = {
-    text: PropTypes.string.isRequired,
-    onPress: PropTypes.func.isRequired
-};
 
 const styles = StyleSheet.create({
     textStyle: {
@@ -54,6 +59,7 @@ const styles = StyleSheet.create({
         padding: 10,
         height: 56,
         width : '30%',
+
         backgroundColor: '#FFB03F',
         opacity : .95,
         borderRadius: 20,

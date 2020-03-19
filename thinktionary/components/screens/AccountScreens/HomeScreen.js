@@ -3,48 +3,31 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import EntryBox from "../EntryBox";
-import CustomButton from "../CustomButton";
-import Login from "../../requestHandler/Requests/AccountRequests/Login"
+import CustomButton from "../../CustomButton";
+import ScreenNames from "../../../navigation/ScreenNames"
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
-});
 
-export default class LoginScreenDeprecated extends Component {
+export default class HomeScreen extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             loading : true,
-            username: '',
-            password: ''
         };
+
     }
 
     async componentWillMount() {
         await Font.loadAsync({
-            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
+            'hp-simplified-bold': require('../../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../../../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
     }
 
-    _updateMasterState = (attrName, value) => {
-        this.setState({ [attrName]: value });
-    }
-
-    _onButtonClick = (response, exceptionThrown) =>{
-        if(exceptionThrown) {
-            alert(response);
-        }
-        else{
-
-        }
-    }
+    _Account
 
     render() {
         if (this.state.loading) return(<AppLoading/>);
@@ -55,24 +38,18 @@ export default class LoginScreenDeprecated extends Component {
                         <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                         start={[0, 1]} style={styles.linearGradient}>
                             <Text style={styles.title}>Thinktionary</Text>
-                             <EntryBox
-                                attrName = 'username'
-                                title = 'Username'
-                                value = {this.state.username}
-                                updateMasterState = {this._updateMasterState}
-                            />
-                            <EntryBox
-                                attrName = 'password'
-                                title = 'Password'
-                                value = {this.state.password}
-                                updateMasterState = {this._updateMasterState}
-                            />
+                            <View style = {styles.buttonOuterLayout}
+                                >
                             <CustomButton
                                 text="Login"
-                                onPress={() => {
-                                    new Login(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
-                                }}
-                                />
+                                onPress={() => this.props.navigation.navigate(ScreenNames.LOGIN_SCREEN)}
+                            />
+                            <CustomButton
+                                text="Create Account"
+                                onPress={() => this.props.navigation.navigate(ScreenNames.NEW_ACCT_SCREEN)}
+                                width = "40%"
+                            />
+                            </View>
                         </LinearGradient>
                     </View>
                 </TouchableWithoutFeedback>
@@ -105,5 +82,8 @@ const styles = StyleSheet.create({
         shadowRadius: 20,
         shadowOpacity: .5
     },
+    buttonOuterLayout: {
+        
+    }
 
 });
