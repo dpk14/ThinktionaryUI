@@ -3,7 +3,9 @@ import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
 import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
-import EntryBox from "./EntryBox";
+import EntryBox, {Styles} from "./EntryBox";
+import CustomButton from "./CustomButton";
+import {TOPIC_HEIGHT, TOPIC_WIDTH} from "./strings";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class TopicCreator extends EntryBox {
@@ -12,44 +14,53 @@ export default class TopicCreator extends EntryBox {
         if(props.onSubmitEditing!=undefined) throw Error("Cannot define custom onSubmit for TopicCreator")
         super(props);
         this.state.onSubmitEditing = this._onSubmitEditing
+        this.state.topics = new Set()
     }
 
-
-    createTopicBoxes(){
-            let arr = []
-            for(let [attrName, field] of this.props.fields.entries()){
-            arr.push({
-                         attrName : attrName,
-                         title : field.title,
-                         value : field.value,
-                     })
-        }
-        const Topics = arr.map(field => (
-            <EntryBox
-                attrName = {field.attrName}
-                title = {field.title}
-                value = {field.value}
-                updateMasterState = {this._updateMasterState}
+    renderTopicBoxes(){
+        const TopicBoxes = this.state.topics.forEach(topic => (
+            <CustomButton
+                title = {topic}
             />));
-        return Topics
+        return TopicBoxes
     }
 
-    _onSubmitEditing(){
-        this.props.
+    _onSubmitEditing() {
+        const {topics, value} = this.state
+        let oldLength = topics.length
+        this.state.topics.add(value)
+        if (oldLength != topics.length) {
+
+        }
+        this.setState({value: ''})
+        this.state.textLeftOffset+=TOPIC_WIDTH
     }
 
-
+    render() {
+        const StyledTextInput = this.renderTextInput()
+        const TopicBoxes = this.renderTopicBoxes()
+        if (!this.loading) {
+            return (
+                <Animated.View style={[Styles.container, addStyles.container, this._returnAnimatedContainerStyles()]}>
+                    <Animated.Text
+                        style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
+                    >
+                        {this.props.title}
+                    </Animated.Text>
+                    {TopicBoxes}
+                    {StyledTextInput}
+                </Animated.View>
+            )
+        }
+        else return null;
+    }
 
 }
 
-
-const Styles = StyleSheet.create({
+const addStyles = StyleSheet.create({
     container: {
-        borderRadius: 20,
-        position: 'relative',
-        backgroundColor : "white",
-        shadowOffset: { height: 4},
-        shadowRadius: 20,
+        flex : 1,
+        flexDirection : 'row',
     },
     textInput: {
         fontWeight: '400',

@@ -72,6 +72,7 @@ export default class EntryBox extends Component {
             loading : true,
             isFieldActive: false,
         }
+        this.state.textLeftOffset = 0;
     }
 
     scale(prop){
@@ -186,7 +187,7 @@ export default class EntryBox extends Component {
                 outputRange: [0, .2]}
             ),
             marginRight : this.props.marginRight,
-            marginLeft : this.props.marginLeft,
+            marginLeft : this.props.marginLeft + this.state.textLeftOffset,
             marginVertical : this.props.marginVertical,
             width : this.scale(this.props.width),
             height : this.scale(this.props.height),
@@ -227,7 +228,7 @@ export default class EntryBox extends Component {
     }
 }
 
-const Styles = StyleSheet.create({
+export const Styles = StyleSheet.create({
     container: {
         borderRadius: 20,
         position: 'relative',

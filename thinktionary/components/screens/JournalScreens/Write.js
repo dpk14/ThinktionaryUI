@@ -8,7 +8,7 @@ import React from "react";
 import {HP_SIMPLIFIED_BOLD} from "../../../configStrings";
 import CustomButton from "../../CustomButton";
 import Login from "../../../requestHandler/Requests/AccountRequests/Login";
-import {TOPIC_HEIGHT} from "./strings";
+import {TOPIC_HEIGHT} from "../../strings";
 
 export default class Write extends Screen {
 
