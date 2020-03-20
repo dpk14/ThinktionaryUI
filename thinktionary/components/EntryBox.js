@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
+import {ABSTRACT_METHOD, HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
+import {AbstractMethodError} from "./errors/AbstractError";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
@@ -27,9 +28,11 @@ export default class EntryBox extends Component {
         height : number,
         scale : number,
         fontSize: number,
-        textMarginHorizontal : number,
+        textMarginLeft : number,
+        textMarginRight : number,
         borderRadius : number,
         multiline : bool,
+        onSubmitEditing : func,
     }
 
     static defaultProps = {
@@ -58,6 +61,7 @@ export default class EntryBox extends Component {
         textInputStyles : {},
         otherTextInputAttributes: {},
         multiline : false,
+        onSubmitEditing : ()=> {return null}
     }
 
     constructor(props) {
@@ -93,6 +97,22 @@ export default class EntryBox extends Component {
             'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
+    }
+
+    _onSubmitEditing = () => {
+        throw new AbstractMethodError()
+    }
+
+    checkForBuiltInOnSubmit(){
+        try{
+            return this._onSubmitEditing
+        }
+        catch(e){
+            if(e instanceof AbstractMethodError) {
+                return this.props.onSubmitEditing
+            }
+            else throw e
+        }
     }
 
     _handleFocus = () => {
@@ -145,7 +165,8 @@ export default class EntryBox extends Component {
             }),
             fontSize: this.scale(isFieldActive ? titleActiveSize : titleInActiveSize),
             color: isFieldActive ? titleActiveColor : titleInactiveColor,
-            marginHorizontal: this.scale(this.props.textMarginHorizontal)
+            marginLeft: this.scale(this.props.textMarginLeft),
+            marginRight: this.scale(this.props.textMarginRight),
         }
     }
 
@@ -186,7 +207,23 @@ export default class EntryBox extends Component {
         }
     }
 
+    renderTextInput(){
+        return(<TextInput
+            multiline = {this.props.multiline}
+            value={this.props.value}
+            style={[Styles.textInput, this._returnAnimatedInputStyles()]}
+            underlineColorAndroid='transparent'
+            onFocus={this._handleFocus}
+            onBlur={this._handleBlur}
+            onChangeText={this._onChangeText}
+            keyboardType={this.props.keyboardType}
+            {...this.props.otherTextInputProps}
+            onSubmitEditing = {this.checkForBuiltInOnSubmit()}
+        />)
+    }
+
     render() {
+        const StyledTextInput = this.renderTextInput()
         if (!this.loading) {
             return (
                 <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles()]}>
@@ -195,17 +232,7 @@ export default class EntryBox extends Component {
                     >
                         {this.props.title}
                     </Animated.Text>
-                    <TextInput
-                        multiline = {this.props.multiline}
-                        value={this.props.value}
-                        style={[Styles.textInput, this._returnAnimatedInputStyles()]}
-                        underlineColorAndroid='transparent'
-                        onFocus={this._handleFocus}
-                        onBlur={this._handleBlur}
-                        onChangeText={this._onChangeText}
-                        keyboardType={this.props.keyboardType}
-                        {...this.props.otherTextInputProps}
-                    />
+                    <StyledTextInput/>
                 </Animated.View>
             )
         }
