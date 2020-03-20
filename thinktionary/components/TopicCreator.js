@@ -14,8 +14,28 @@ export default class TopicCreator extends EntryBox {
         this.state.onSubmitEditing = this._onSubmitEditing
     }
 
-    _onSubmitEditing(){
 
+    createTopicBoxes(){
+            let arr = []
+            for(let [attrName, field] of this.props.fields.entries()){
+            arr.push({
+                         attrName : attrName,
+                         title : field.title,
+                         value : field.value,
+                     })
+        }
+        const Topics = arr.map(field => (
+            <EntryBox
+                attrName = {field.attrName}
+                title = {field.title}
+                value = {field.value}
+                updateMasterState = {this._updateMasterState}
+            />));
+        return Topics
+    }
+
+    _onSubmitEditing(){
+        this.props.
     }
 
 

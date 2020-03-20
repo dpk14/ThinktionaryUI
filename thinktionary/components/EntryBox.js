@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import {ABSTRACT_METHOD, HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
-import {AbstractMethodError} from "./errors/AbstractError";
+import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
@@ -100,19 +99,7 @@ export default class EntryBox extends Component {
     }
 
     _onSubmitEditing = () => {
-        throw new AbstractMethodError()
-    }
-
-    checkForBuiltInOnSubmit(){
-        try{
-            return this._onSubmitEditing
-        }
-        catch(e){
-            if(e instanceof AbstractMethodError) {
-                return this.props.onSubmitEditing
-            }
-            else throw e
-        }
+        throw Error("Not implemented!")
     }
 
     _handleFocus = () => {
@@ -208,7 +195,7 @@ export default class EntryBox extends Component {
     }
 
     renderTextInput(){
-        return(<TextInput
+        return (<TextInput
             multiline = {this.props.multiline}
             value={this.props.value}
             style={[Styles.textInput, this._returnAnimatedInputStyles()]}
@@ -218,7 +205,7 @@ export default class EntryBox extends Component {
             onChangeText={this._onChangeText}
             keyboardType={this.props.keyboardType}
             {...this.props.otherTextInputProps}
-            onSubmitEditing = {this.checkForBuiltInOnSubmit()}
+            onSubmitEditing = {this.state.onSubmitEditing == undefined ? this.props.onSubmitEditing : this.state.onSubmitEditing}
         />)
     }
 
@@ -232,7 +219,7 @@ export default class EntryBox extends Component {
                     >
                         {this.props.title}
                     </Animated.Text>
-                    <StyledTextInput/>
+                    {StyledTextInput}
                 </Animated.View>
             )
         }
