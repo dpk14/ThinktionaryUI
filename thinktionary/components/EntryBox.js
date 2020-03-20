@@ -5,7 +5,6 @@ import { string, func, object, number, bool } from 'prop-types';
 import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
-
 export default class EntryBox extends Component {
     static propTypes = {
         attrName: string.isRequired,
@@ -23,8 +22,7 @@ export default class EntryBox extends Component {
         otherTextInputProps: object,
         marginRight : number,
         marginLeft : number,
-        marginTop : number,
-        marginBottom : number,
+        marginVertical : number,
         width : number | string,
         height : number,
         scale : number,
@@ -43,8 +41,7 @@ export default class EntryBox extends Component {
         width : 275,
         marginRight : 0,
         marginLeft : 0,
-        marginTop : 12,
-        marginBottom : 12,
+        marginVertical : 6,
         keyboardType: 'default',
         titleActiveSize: 13,
         titleInActiveSize: 15,
@@ -182,8 +179,7 @@ export default class EntryBox extends Component {
             ),
             marginRight : this.props.marginRight,
             marginLeft : this.props.marginLeft,
-            marginTop : this.props.marginTop,
-            marginBottom : this.props.marginBottom,
+            marginVertical : this.props.marginVertical,
             width : this.scale(this.props.width),
             height : this.scale(this.props.height),
             borderRadius : this.scale(this.props.borderRadius)

@@ -25,12 +25,14 @@ export default class LoginScreen extends AccountScreen {
                     title='Username'
                     value={this.state.username}
                     updateMasterState={this._updateMasterState}
+                    marginVertical={12}
                 />
                 <EntryBox
                     attrName='password'
                     title='Password'
                     value={this.state.password}
                     updateMasterState={this._updateMasterState}
+                    marginVertical={12}
                 />
                 <CustomButton
                     text="Login"
