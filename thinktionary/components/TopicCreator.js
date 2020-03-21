@@ -11,7 +11,7 @@ const MULTILINE_TOPMARGIN_ADJUSTER = 4
 export default class TopicCreator extends EntryBox {
 
     constructor(props) {
-        if(props.onSubmitEditing!=undefined) throw Error("Cannot define custom onSubmit for TopicCreator")
+        if(props.onSubmitEditing!=TopicCreator.defaultProps.onSubmitEditing) throw Error("Cannot define custom onSubmit for TopicCreator")
         super(props);
         this.state.onSubmitEditing = this._onSubmitEditing
         this.state.topics = new Set()

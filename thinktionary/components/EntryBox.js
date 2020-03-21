@@ -100,10 +100,6 @@ export default class EntryBox extends Component {
         this.setState({loading : false})
     }
 
-    _onSubmitEditing = () => {
-        throw Error("Not implemented!")
-    }
-
     _handleFocus = () => {
         if (!this.state.isFieldActive) {
             this.setState({ isFieldActive: true });
