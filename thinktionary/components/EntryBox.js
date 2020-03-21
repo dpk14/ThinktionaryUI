@@ -228,7 +228,6 @@ export default class EntryBox extends Component {
 export const Styles = StyleSheet.create({
     container: {
         borderRadius: 20,
-        position: 'relative',
         backgroundColor : "white",
         shadowOffset: { height: 4},
         shadowRadius: 20,
