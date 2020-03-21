@@ -167,7 +167,6 @@ export default class EntryBox extends Component {
     }
 
     _returnAnimatedContainerStyles = () => {
-        const {scale} = this.props
         return {
             opacity: this.position.interpolate({
                 inputRange: [0, 1],
@@ -177,12 +176,18 @@ export default class EntryBox extends Component {
                 inputRange: [0, 1],
                 outputRange: [0, .2]}
             ),
-            marginRight : this.props.marginRight,
-            marginLeft : this.props.marginLeft,
-            marginVertical : this.props.marginVertical,
-            width : _scale(this.props.width, scale),
-            height : _scale(this.props.height, scale),
-            borderRadius : _scale(this.props.borderRadius, scale)
+        }
+    }
+
+    _returnBaseContainerStyles = () => {
+        const {scale} = this.props
+        return {
+            marginRight: this.props.marginRight,
+            marginLeft: this.props.marginLeft,
+            marginVertical: this.props.marginVertical,
+            width: _scale(this.props.width, scale),
+            height: _scale(this.props.height, scale),
+            borderRadius: _scale(this.props.borderRadius, scale)
         }
     }
 
@@ -206,7 +211,7 @@ export default class EntryBox extends Component {
         const StyledTextInput = this.renderTextInput()
         if (!this.loading) {
             return (
-                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles()]}>
+                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles()]}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >

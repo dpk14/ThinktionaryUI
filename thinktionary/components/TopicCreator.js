@@ -53,16 +53,18 @@ export default class TopicCreator extends EntryBox {
         const TopicBoxes = this.renderTopicBoxes()
         if (!this.loading) {
             return (
-                <Animated.ScrollView contentContainerStyle = {{flexGrow : 1}}
-                                     style={[Styles.container, addStyles.container, this._returnAnimatedContainerStyles()]}>
+                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles()]}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >
                         {this.props.title}
                     </Animated.Text>
+                    <Animated.ScrollView contentContainerStyle = {{flexGrow : 1}}
+                                         style = {[addStyles.scrollView, this._returnBaseContainerStyles()]}>
                     {TopicBoxes}
                     {StyledTextInput}
-                </Animated.ScrollView>
+                    </Animated.ScrollView>
+                </Animated.View>
             )
         }
         else return null;
@@ -71,9 +73,12 @@ export default class TopicCreator extends EntryBox {
 }
 
 const addStyles = StyleSheet.create({
-    container: {
-        flexGrow : 1,
+    scrollView: {
+        flex : 1,
         flexDirection : 'row',
+        borderRadius: 20,
+        shadowOffset: { height: 4},
+        shadowRadius: 20,
     },
     textInput: {
         fontWeight: '400',

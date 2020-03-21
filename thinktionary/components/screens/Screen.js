@@ -40,7 +40,8 @@ export default class Screen extends Component{
         else {
             const Body = this.fillBody()
             return (
-                <KeyboardAvoidingView style={{flex : 1}} behavior="padding" enabled>
+                <KeyboardAvoidingView
+                                      style={{flex : 1}} behavior="padding" enabled>
                 <ScrollView
                     contentContainerStyle = {{flexGrow : 1}}>
                     <TouchableWithoutFeedback style = {{flex : 1}}
@@ -73,8 +74,8 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 60,
         textAlign: 'center',
+        marginTop: 150,
         marginVertical: 30,
-        marginTop: 200,
         color : '#FFFFFF',
         fontFamily: HP_SIMPLIFIED_BOLD,
         shadowOffset: { height: 4},
