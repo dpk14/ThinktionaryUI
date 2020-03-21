@@ -24,7 +24,6 @@ export default class AccountScreen extends Screen {
         }
         else{
             let journal = new Journal(response["myEntries"], response["myEntryMap"], response["myTopics"], response["myUserID"])
-            console.log(journal.userID)
             this.props.navigation.navigate(ScreenNames.WRITE_SCREEN)
         }
     }

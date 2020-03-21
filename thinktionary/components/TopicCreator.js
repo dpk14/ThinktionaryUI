@@ -13,27 +13,26 @@ export default class TopicCreator extends EntryBox {
     constructor(props) {
         if(props.onSubmitEditing!=TopicCreator.defaultProps.onSubmitEditing) throw Error("Cannot define custom onSubmit for TopicCreator")
         super(props);
-        this.state.onSubmitEditing = this._onSubmitEditing
         this.state.topics = new Set()
+        this.state.onSubmitEditing = this._onSubmitEditing
     }
 
     renderTopicBoxes(){
         const TopicBoxes = this.state.topics.forEach(topic => (
             <CustomButton
-                title = {topic}
+                text = {topic}
             />));
         return TopicBoxes
     }
 
-    _onSubmitEditing() {
+    _onSubmitEditing = () => {
         const {topics, value} = this.state
         let oldLength = topics.length
         this.state.topics.add(value)
         if (oldLength != topics.length) {
-
+            this.state.textLeftOffset+=TOPIC_WIDTH
         }
         this.setState({value: ''})
-        this.state.textLeftOffset+=TOPIC_WIDTH
     }
 
     render() {

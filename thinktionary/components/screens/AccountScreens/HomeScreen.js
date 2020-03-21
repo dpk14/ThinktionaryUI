@@ -34,7 +34,6 @@ export default class HomeScreen extends AccountScreen{
         }
 }
 
-
 const newStyles = StyleSheet.create({
     buttonOuterLayout: {
         justifyContent: 'center',

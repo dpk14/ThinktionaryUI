@@ -15,6 +15,9 @@ export default class Write extends Screen {
 
     constructor(props) {
         super(props);
+        this.state.title = ''
+        this.state.date = ''
+        this.state.topics = ''
     }
 
     fillBody() {
