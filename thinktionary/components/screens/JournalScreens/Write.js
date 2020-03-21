@@ -9,6 +9,7 @@ import {HP_SIMPLIFIED_BOLD} from "../../../configStrings";
 import CustomButton from "../../CustomButton";
 import Login from "../../../requestHandler/Requests/AccountRequests/Login";
 import {TOPIC_HEIGHT} from "../../strings";
+import TopicCreator from "../../TopicCreator";
 
 export default class Write extends Screen {
 
@@ -48,9 +49,8 @@ export default class Write extends Screen {
                                     width={450}
                                     height = {400}
                                     multiline = {true}
-
                                 />
-                                <EntryBox
+                                <TopicCreator
                                     attrName='topics'
                                     title='Topics'
                                     value={this.state.topics}

@@ -36,7 +36,8 @@ export default class EntryBox extends Component {
 
     static defaultProps = {
         borderRadius: 20,
-        textMarginHorizontal : 21,
+        textMarginLeft : 21,
+        textMarginRight : 21,
         fontSize: 20,
         scale : 1,
         height : 65,
@@ -169,8 +170,9 @@ export default class EntryBox extends Component {
             marginTop : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
             marginBottom : this.invScale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom),
             fontSize : this.scale(this.props.fontSize),
-            marginHorizontal: this.scale(this.props.textMarginHorizontal),
-            paddingRight : this.scale(this.props.textMarginHorizontal)*1.5,
+            marginLeft: this.scale(this.props.textMarginLeft) + this.state.textLeftOffset,
+            marginRight : this.scale(this.props.textMarginRight),
+            paddingRight : this.scale(this.props.textMarginRight)*1.5,
             borderRadius : this.scale(this.props.borderRadius),
             height : this.scale(this.props.height),
         }
@@ -187,7 +189,7 @@ export default class EntryBox extends Component {
                 outputRange: [0, .2]}
             ),
             marginRight : this.props.marginRight,
-            marginLeft : this.props.marginLeft + this.state.textLeftOffset,
+            marginLeft : this.props.marginLeft,
             marginVertical : this.props.marginVertical,
             width : this.scale(this.props.width),
             height : this.scale(this.props.height),
