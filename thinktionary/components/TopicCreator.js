@@ -6,7 +6,6 @@ import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
 import EntryBox, {Styles} from "./EntryBox";
 import CustomButton from "./CustomButton";
 import {TOPIC_HEIGHT, TOPIC_WIDTH} from "./strings";
-import {add} from "react-native-reanimated";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class TopicCreator extends EntryBox {
@@ -33,25 +32,24 @@ export default class TopicCreator extends EntryBox {
     }
 
     _onSubmitEditing = () => {
-        const { attrName, updateMasterState, value } = this.props;
+        const { attrName, updateMasterState, value, textMarginLeft} = this.props;
         const {topics} = this.state
         let oldLength = topics.length
         topics.add(value)
-        updateMasterState(attrName, '');
+        console.log(this.state.textLeftOffset)
         if (oldLength != topics.length) {
-            this.setState({textLeftOffset : state.textLeftOffset+=TOPIC_WIDTH,
+            this.setState({textLeftOffset : this.state.textLeftOffset,
                                 topics : topics})
         }
+        updateMasterState(attrName, '');
     }
 
     _onKeyPress = ({nativeEvent}) => {
         const { topics } = this.state;
         console.log(nativeEvent.key === 'Backspace')
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size>0) {
-            console.log("BACK")
             topics.delete(Array.from(topics).pop())
             this.setState({
-                    textLeftOffset: this.state.textLeftOffset -= TOPIC_WIDTH,
                     topics: topics
                 }
             )
@@ -61,7 +59,9 @@ export default class TopicCreator extends EntryBox {
     }
 
     render() {
-        const StyledTextInput = this.renderTextInput()
+        const StyledTextInput = this.renderTextInput({
+          marginLeft: this.state.topics.size > 0 ? 10 : this.props.textMarginLeft,
+        })
         const TopicBoxes = this.renderTopicBoxes()
         if (!this.loading) {
             return (
@@ -77,6 +77,12 @@ export default class TopicCreator extends EntryBox {
             )
         }
         else return null;
+    }
+
+    _returnAdditionalStyles() {
+        return {
+
+        }
     }
 
 }

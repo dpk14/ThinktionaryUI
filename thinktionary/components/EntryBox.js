@@ -158,7 +158,7 @@ export default class EntryBox extends Component {
             marginTop : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
             marginBottom : invScale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom, scale),
             fontSize : _scale(this.props.fontSize, scale),
-            marginLeft: _scale(this.props.textMarginLeft, scale) + this.state.textLeftOffset,
+            marginLeft: _scale(this.props.textMarginLeft, scale),
             marginRight : _scale(this.props.textMarginRight, scale),
             paddingRight : _scale(this.props.textMarginRight, scale)*1.5,
             borderRadius : _scale(this.props.borderRadius, scale),
@@ -191,11 +191,12 @@ export default class EntryBox extends Component {
         }
     }
 
-    renderTextInput(){
+    renderTextInput(additionalStyles={}){
+        console.log(additionalStyles)
         return (<TextInput
             multiline = {this.props.multiline}
             value={this.props.value}
-            style={[Styles.textInput, this._returnAnimatedInputStyles()]}
+            style={[Styles.textInput, this._returnAnimatedInputStyles(), additionalStyles]}
             underlineColorAndroid='transparent'
             onFocus={this._handleFocus}
             onBlur={this._handleBlur}
