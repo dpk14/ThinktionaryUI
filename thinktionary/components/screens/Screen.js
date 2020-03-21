@@ -3,6 +3,7 @@ import { Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvo
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 import {ABSTRACT_CLASS, ABSTRACT_METHOD, HP_SIMPLIFIED_BOLD} from "../../configStrings";
+
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default class Screen extends Component{
@@ -32,7 +33,6 @@ export default class Screen extends Component{
 
     _updateMasterState = (attrName, value) => {
         this.setState({ [attrName]: value });
-            console.log(this.state[attrName])
     }
 
     render() {
@@ -73,8 +73,8 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: 60,
         textAlign: 'center',
-        marginTop: 150,
         marginVertical: 30,
+        marginTop: 200,
         color : '#FFFFFF',
         fontFamily: HP_SIMPLIFIED_BOLD,
         shadowOffset: { height: 4},

@@ -28,3 +28,6 @@ export default class AccountScreen extends Screen {
         }
     }
 }
+
+export const accountScreenStyles = StyleSheet.create({
+    container: {}});

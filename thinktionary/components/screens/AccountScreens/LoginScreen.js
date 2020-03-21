@@ -8,7 +8,7 @@ import CustomButton from "../../CustomButton";
 import Login from "../../../requestHandler/Requests/AccountRequests/Login"
 import {styles} from "../Screen";
 import React from "react";
-import AccountScreen from "./AccountScreen"
+import AccountScreen, {accountScreenStyles} from "./AccountScreen"
 export default class LoginScreen extends AccountScreen {
 
     constructor(props) {
@@ -18,7 +18,7 @@ export default class LoginScreen extends AccountScreen {
     fillBody() {
 
         return (
-            <View style = {styles.container}>
+            <View style = {[styles.container, accountScreenStyles.container]}>
                 <Text style={styles.title}>Thinktionary</Text>
                 <EntryBox
                     attrName='username'

@@ -8,7 +8,7 @@ import CustomButton from "../../CustomButton";
 import Login from "../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import {styles} from "../Screen";
-import AccountScreen from "./AccountScreen";
+import AccountScreen, {accountScreenStyles} from "./AccountScreen";
 
 export default class NewAccountScreen extends AccountScreen {
 
@@ -25,7 +25,7 @@ export default class NewAccountScreen extends AccountScreen {
     }
 
     fillBody() {
-        return (<View style = {styles.container}>
+        return (<View style = {[styles.container, accountScreenStyles.container]}>
                     <Text style={styles.title}>Thinktionary</Text>
                     <EntryBox
                         attrName='username'
