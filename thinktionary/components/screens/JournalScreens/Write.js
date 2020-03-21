@@ -73,6 +73,7 @@ export default class Write extends Screen {
                                 />
                                 <CustomButton
                                     text="Save"
+                                    scale = {.8}
                                     onPress={() => {}}
                                 />
                             </View>

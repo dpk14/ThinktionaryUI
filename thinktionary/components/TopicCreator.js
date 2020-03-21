@@ -18,21 +18,27 @@ export default class TopicCreator extends EntryBox {
     }
 
     renderTopicBoxes(){
-        const TopicBoxes = this.state.topics.forEach(topic => (
+        const TopicBoxes = []
+        this.state.topics.forEach(topic => TopicBoxes.push(
             <CustomButton
                 text = {topic}
+                onPress={()=>{}}
             />));
         return TopicBoxes
     }
 
     _onSubmitEditing = () => {
-        const {topics, value} = this.state
+        const { attrName, updateMasterState, value } = this.props;
+        const {topics} = this.state
+        console.log(value);
         let oldLength = topics.length
         this.state.topics.add(value)
         if (oldLength != topics.length) {
-            this.state.textLeftOffset+=TOPIC_WIDTH
+            this.setState({textLeftOffset : state.textLeftOffset+=TOPIC_WIDTH})
         }
         this.setState({value: ''})
+
+        updateMasterState(attrName, value);
     }
 
     render() {

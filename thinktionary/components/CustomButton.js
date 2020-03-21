@@ -8,12 +8,14 @@ class customButton extends Component {
 
     static propTypes = {
         text: PropTypes.string.isRequired,
-        onPress: PropTypes.func,
-        width : PropTypes.number
+        onPress: PropTypes.func.isRequired,
+        width : PropTypes.number,
+        scale : PropTypes.number
     }
 
     static defaultProps = {
         width : 100,
+        scale : 1
     }
 
     constructor(props) {
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontFamily: HP_SIMPLIFIED_BOLD,
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     },
 
     buttonStyle: {

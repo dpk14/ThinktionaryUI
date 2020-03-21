@@ -3,6 +3,7 @@ import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
 import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
+import {_scale, invScale, scale} from "./utils/scaling";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
@@ -76,22 +77,6 @@ export default class EntryBox extends Component {
         this.state.textLeftOffset = 0;
     }
 
-    scale(prop){
-        if(typeof prop == "string" && prop.includes("%")){
-            return this.scalePercentage(prop, this.props.scale)
-        }
-        return(prop*this.props.scale)
-    }
-
-    invScale(prop){
-        return(prop*(1/this.props.scale))
-    }
-
-    scalePercentage(percentage, scale){
-        let scaledInt = parseInt((this.props.width.substring(0, this.props.width.length-1)))*scale;
-        return (scaledInt > 100 ? 100 : scaledInt) + "%"
-    }
-
     async componentWillMount() {
         await Font.loadAsync({
             'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
@@ -140,41 +125,42 @@ export default class EntryBox extends Component {
     _returnAnimatedTitleStyles = () => {
         const { isFieldActive } = this.state;
         const {
-            titleActiveColor, titleInactiveColor, titleActiveSize, titleInActiveSize
+            titleActiveColor, titleInactiveColor, titleActiveSize, titleInActiveSize, scale
         } = this.props;
 
         return {
             top: this.position.interpolate({
                 inputRange: [0, 1],
-                outputRange: [this.scale(20), this.scale(4)],
+                outputRange: [_scale(20, scale), _scale(4, scale)],
             }),
-            fontSize: this.scale(isFieldActive ? titleActiveSize : titleInActiveSize),
+            fontSize: _scale(isFieldActive ? titleActiveSize : titleInActiveSize, scale),
             color: isFieldActive ? titleActiveColor : titleInactiveColor,
-            marginLeft: this.scale(this.props.textMarginLeft),
-            marginRight: this.scale(this.props.textMarginRight),
+            marginLeft: _scale(this.props.textMarginLeft, scale),
+            marginRight: _scale(this.props.textMarginRight, scale),
         }
     }
 
     _returnAnimatedInputStyles = () => {
         const { isFieldActive } = this.state;
         const {
-            textInputActiveMargins, textInputInactiveMargins,
+            textInputActiveMargins, textInputInactiveMargins, scale
         } = this.props;
 
-        let marginTop = this.scale(isFieldActive ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop)
+        let marginTop = _scale(isFieldActive ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop, scale)
         return {
             marginTop : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
-            marginBottom : this.invScale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom),
-            fontSize : this.scale(this.props.fontSize),
-            marginLeft: this.scale(this.props.textMarginLeft) + this.state.textLeftOffset,
-            marginRight : this.scale(this.props.textMarginRight),
-            paddingRight : this.scale(this.props.textMarginRight)*1.5,
-            borderRadius : this.scale(this.props.borderRadius),
-            height : this.scale(this.props.height),
+            marginBottom : invScale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom, scale),
+            fontSize : _scale(this.props.fontSize, scale),
+            marginLeft: _scale(this.props.textMarginLeft, scale) + this.state.textLeftOffset,
+            marginRight : _scale(this.props.textMarginRight, scale),
+            paddingRight : _scale(this.props.textMarginRight, scale)*1.5,
+            borderRadius : _scale(this.props.borderRadius, scale),
+            height : _scale(this.props.height, scale),
         }
     }
 
     _returnAnimatedContainerStyles = () => {
+        const {scale} = this.props
         return {
             opacity: this.position.interpolate({
                 inputRange: [0, 1],
@@ -187,9 +173,9 @@ export default class EntryBox extends Component {
             marginRight : this.props.marginRight,
             marginLeft : this.props.marginLeft,
             marginVertical : this.props.marginVertical,
-            width : this.scale(this.props.width),
-            height : this.scale(this.props.height),
-            borderRadius : this.scale(this.props.borderRadius)
+            width : _scale(this.props.width, scale),
+            height : _scale(this.props.height, scale),
+            borderRadius : _scale(this.props.borderRadius, scale)
         }
     }
 
