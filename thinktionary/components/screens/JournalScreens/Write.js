@@ -13,6 +13,8 @@ import TopicCreator from "../../TopicCreator";
 
 export default class Write extends Screen {
 
+
+
     constructor(props) {
         super(props);
         this.state.title = ''

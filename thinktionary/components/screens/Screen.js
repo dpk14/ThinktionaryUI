@@ -32,6 +32,7 @@ export default class Screen extends Component{
 
     _updateMasterState = (attrName, value) => {
         this.setState({ [attrName]: value });
+            console.log(this.state[attrName])
     }
 
     render() {

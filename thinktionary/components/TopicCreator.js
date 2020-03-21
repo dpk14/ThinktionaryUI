@@ -10,11 +10,15 @@ const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class TopicCreator extends EntryBox {
 
+    static defaultProps = {...EntryBox.defaultProps,
+                        ...{
+                            multiline : true
+                        }
+                        };
+
     constructor(props) {
-        if(props.onSubmitEditing!=TopicCreator.defaultProps.onSubmitEditing) throw Error("Cannot define custom onSubmit for TopicCreator")
         super(props);
         this.state.topics = new Set()
-        this.state.onSubmitEditing = this._onSubmitEditing
     }
 
     renderTopicBoxes(){
@@ -30,15 +34,18 @@ export default class TopicCreator extends EntryBox {
     _onSubmitEditing = () => {
         const { attrName, updateMasterState, value } = this.props;
         const {topics} = this.state
-        console.log(value);
         let oldLength = topics.length
         this.state.topics.add(value)
+        updateMasterState(attrName, '');
         if (oldLength != topics.length) {
             this.setState({textLeftOffset : state.textLeftOffset+=TOPIC_WIDTH})
         }
-        this.setState({value: ''})
+    }
 
-        updateMasterState(attrName, value);
+    _onKeyPress = (event) => {
+        //if (event.key === 'Backspace' && this.props.value == '')
+        //const { attrName, updateMasterState } = this.props;
+        //updateMasterState(attrName, updatedValue);
     }
 
     render() {

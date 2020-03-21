@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
-import {_scale, invScale, scale} from "./utils/scaling";
+import {ABSTRACT_METHOD, HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
+import {_scale, invScale} from "./utils/scaling";
+import {AbstractClassError, AbstractMethodError} from "./errors/AbstractError";
+import {Override} from "./utils/defaultHandling";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
@@ -33,6 +35,7 @@ export default class EntryBox extends Component {
         borderRadius : number,
         multiline : bool,
         onSubmitEditing : func,
+        onKeyPress : func,
     }
 
     static defaultProps = {
@@ -62,7 +65,8 @@ export default class EntryBox extends Component {
         textInputStyles : {},
         otherTextInputAttributes: {},
         multiline : false,
-        onSubmitEditing : ()=> {return null}
+        onSubmitEditing : ()=> {},
+        onKeyPress : ()=>{}
     }
 
     constructor(props) {
@@ -121,6 +125,9 @@ export default class EntryBox extends Component {
         const { attrName, updateMasterState } = this.props;
         updateMasterState(attrName, updatedValue);
     }
+
+    _onKeyPress = ABSTRACT_METHOD
+    _onSubmitEditing = ABSTRACT_METHOD
 
     _returnAnimatedTitleStyles = () => {
         const { isFieldActive } = this.state;
@@ -190,7 +197,8 @@ export default class EntryBox extends Component {
             onChangeText={this._onChangeText}
             keyboardType={this.props.keyboardType}
             {...this.props.otherTextInputProps}
-            onSubmitEditing = {this.state.onSubmitEditing == undefined ? this.props.onSubmitEditing : this.state.onSubmitEditing}
+            onKeyPress = {Override(this.props,'onKeyPress', this._onKeyPress) }
+            onSubmitEditing = {Override(this.props,'onSubmitEditing', this._onSubmitEditing) }
         />)
     }
 
