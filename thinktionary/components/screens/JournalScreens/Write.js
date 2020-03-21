@@ -20,6 +20,7 @@ export default class Write extends Screen {
         this.state.title = ''
         this.state.date = ''
         this.state.topics = ''
+        this.state.topicBank = ''
     }
 
     fillBody() {
@@ -65,9 +66,9 @@ export default class Write extends Screen {
                                     width={450}
                                 />
                                 <EntryBox
-                                    attrName='topics'
+                                    attrName='topicBank'
                                     title='Topic Bank'
-                                    value={this.state.topics}
+                                    value={this.state.topicBank}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.8}
                                     width={450}
