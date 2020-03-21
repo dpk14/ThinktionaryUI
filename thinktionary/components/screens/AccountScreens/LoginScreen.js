@@ -15,7 +15,7 @@ export default class LoginScreen extends AccountScreen {
         super(props);
     }
 
-    fillBody() {
+    render() {
 
         return (
             <View style = {[styles.container, accountScreenStyles.container]}>

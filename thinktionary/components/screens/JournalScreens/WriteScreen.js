@@ -11,7 +11,7 @@ import Login from "../../../requestHandler/Requests/AccountRequests/Login";
 import {TOPIC_HEIGHT} from "../../strings";
 import TopicCreator from "../../TopicCreator";
 
-export default class Write extends Screen {
+export default class WriteScreen extends Screen {
 
 
 
@@ -23,7 +23,7 @@ export default class Write extends Screen {
         this.state.topicBank = ''
     }
 
-    fillBody() {
+    render() {
         return (
             <View style = {styles.container}>
                         <View style = {newStyles.outerFrame}>

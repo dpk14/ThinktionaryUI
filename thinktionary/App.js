@@ -9,14 +9,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ScreenNames from "./navigation/ScreenNames";
 import HomeScreen from "./components/screens/AccountScreens/HomeScreen";
 import * as Font from "expo-font";
-import Write from "./components/screens/JournalScreens/Write";
+import WriteScreen from "./components/screens/JournalScreens/WriteScreen";
+import StyledScreen from "./components/screens/StyledScreen";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 
 //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
 
 export default class App extends Component {
-
 
     async componentWillMount() {
         await Font.loadAsync({
@@ -26,9 +26,16 @@ export default class App extends Component {
         this.setState({loading : false})
     }
 
+    style(Screen) {
+        return <StyledScreen Screen={Screen}></StyledScreen>
+    }
 
-    render() {
-      let Stack = createStackNavigator()
+    render(){
+        let Stack = createStackNavigator()
+        const Login = this.style(<LoginScreen/>)
+        const Home = this.style(<HomeScreen/>)
+        const Write = this.style(<WriteScreen/>)
+        const NewAccount = this.style(<NewAccountScreen/>)
 
     return (
         <NavigationContainer>
@@ -49,16 +56,16 @@ export default class App extends Component {
               >
             <Stack.Screen
                 name={ScreenNames.HOME_SCREEN}
-                component={HomeScreen}
+                component={Home}
                 options={{headerShown : false}}
             />
             <Stack.Screen
                 name={ScreenNames.LOGIN_SCREEN}
-                component={LoginScreen}
+                component={Login}
             />
             <Stack.Screen
                 name={ScreenNames.NEW_ACCT_SCREEN}
-                component={NewAccountScreen}
+                component={NewAccount}
             />
               <Stack.Screen
                   name={ScreenNames.WRITE_SCREEN}

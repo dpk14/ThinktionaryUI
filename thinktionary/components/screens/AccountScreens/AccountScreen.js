@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import {StyleSheet} from 'react-native';
 import Screen from "../Screen"
-import {ABSTRACT_CLASS, ABSTRACT_METHOD, HP_SIMPLIFIED_BOLD} from "../../../configStrings";
 import {Journal} from "../../structs/journal";
 import ScreenNames from "../../../navigation/ScreenNames";
+import {ABSTRACT_CLASS} from "../../utils/abstraction";
 
 export default class AccountScreen extends Screen {
 
@@ -14,7 +14,7 @@ export default class AccountScreen extends Screen {
         this.state.username = ''
         this.state.password = ''
          if(this.constructor === AccountScreen) {
-            throw new Error(ABSTRACT_CLASS)
+            ABSTRACT_CLASS()
         }
     }
 

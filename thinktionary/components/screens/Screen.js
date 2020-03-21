@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoidingView} from 'react-native';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import {ABSTRACT_CLASS, ABSTRACT_METHOD, HP_SIMPLIFIED_BOLD} from "../../configStrings";
 
 import { LinearGradient } from 'expo-linear-gradient';
+import {ABSTRACT_CLASS, ABSTRACT_METHOD} from "../utils/abstraction";
+import {HP_SIMPLIFIED_BOLD} from "../../configStrings";
 
 export default class Screen extends Component{
 
@@ -15,12 +16,8 @@ export default class Screen extends Component{
             loading : true,
         };
         if(this.constructor === Screen) {
-            throw new Error(ABSTRACT_CLASS)
+            ABSTRACT_CLASS()
         }
-    }
-
-    fillBody(){
-        throw Error(ABSTRACT_METHOD);
     }
 
     async componentWillMount() {
@@ -36,25 +33,7 @@ export default class Screen extends Component{
     }
 
     render() {
-        if (this.state.loading) return(<AppLoading/>);
-        else {
-            const Body = this.fillBody()
-            return (
-                <KeyboardAvoidingView
-                                      style={{flex : 1}} behavior="padding" enabled>
-                <ScrollView
-                    contentContainerStyle = {{flexGrow : 1}}>
-                    <TouchableWithoutFeedback style = {{flex : 1}}
-                                              onPress={Keyboard.dismiss} accessible={false}>
-                        <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
-                                        start={[0, 1]} style={styles.linearGradient}>
-                        {Body}
-                        </LinearGradient>
-                    </TouchableWithoutFeedback>
-                </ScrollView>
-                </KeyboardAvoidingView>
-            );
-        }
+        return ABSTRACT_METHOD()
     }
 }
 

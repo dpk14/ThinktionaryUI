@@ -12,7 +12,7 @@ export default class HomeScreen extends AccountScreen{
         super(props);
     }
 
-    fillBody() {
+    render() {
             return (
                 <View style = {[styles.container, accountScreenStyles.container]}>
                     <Text style={styles.title}>Thinktionary</Text>

@@ -24,7 +24,7 @@ export default class NewAccountScreen extends AccountScreen {
         }
     }
 
-    fillBody() {
+    render() {
         return (<View style = {[styles.container, accountScreenStyles.container]}>
                     <Text style={styles.title}>Thinktionary</Text>
                     <EntryBox

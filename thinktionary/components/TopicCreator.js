@@ -79,12 +79,6 @@ export default class TopicCreator extends EntryBox {
         else return null;
     }
 
-    _returnAdditionalStyles() {
-        return {
-
-        }
-    }
-
 }
 
 const addStyles = StyleSheet.create({
