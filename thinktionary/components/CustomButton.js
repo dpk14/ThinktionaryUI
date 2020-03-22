@@ -44,6 +44,13 @@ class customButton extends Component {
         this.setState({loading: false})
     }
 
+    customContainerStyles() {
+        return {
+            alignItems: this.props.alignItems,
+            height : _scale(customButton.defaultScalableStyles.height, this.props.scale)
+        }
+    }
+
     scaleToText(){
         let ret = {}
         let defStyle = customButton.defaultScalableStyles
@@ -85,11 +92,6 @@ class customButton extends Component {
         }
     }
 
-    customContainerStyles() {
-        return {
-            alignItems: this.props.alignItems,
-        }
-    }
 }
 
 const styles = StyleSheet.create({

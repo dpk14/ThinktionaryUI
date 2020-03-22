@@ -39,6 +39,7 @@ export default class HomeScreen extends Screen{
 
 const newStyles = StyleSheet.create({
     buttonOuterLayout: {
+        flex : 1,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom : 500

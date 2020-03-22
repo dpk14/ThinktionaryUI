@@ -33,6 +33,10 @@ export default class TopicCreator extends EntryBox {
                 alignItems="flex-start"
                 onPress={()=>{}}
             />));
+        TopicBoxes.push(this.renderTextInput({
+            marginLeft: this.state.topics.size > 0 ? 10 : this.props.textMarginLeft,
+            flex: 1,
+        }))
         return TopicBoxes
     }
 
@@ -42,11 +46,12 @@ export default class TopicCreator extends EntryBox {
         let oldLength = topics.length
         topics.add(value)
         if (oldLength != topics.length) {
-            this.setState({textLeftOffset : this.state.textLeftOffset,
+            this.setState({textLeftOffset : this.state.textLeftOffset + TOPIC_WIDTH,
                                 topics : topics,
             })
         }
         updateMasterState(attrName, '');
+        if(this.state.topics.size>0) updateMasterState('active', true);
     }
 
     //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.
@@ -66,13 +71,16 @@ export default class TopicCreator extends EntryBox {
     }
 
     render() {
+        /*
         const StyledTextInput = this.renderTextInput({
           marginLeft: this.state.topics.size > 0 ? 10 : this.props.textMarginLeft,
+            flex: 1,
         })
+        */
         const TopicBoxes = this.renderTopicBoxes()
         if (!this.loading) {
             return (
-                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles()]}>
+                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles()]}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >
@@ -80,9 +88,8 @@ export default class TopicCreator extends EntryBox {
                     </Animated.Text>
                     <Animated.ScrollView
                                         contentContainerStyle = {{flexGrow : 1}}
-                                         style={addStyles.scrollView}>
+                                         style={[addStyles.scrollView]}>
                     {TopicBoxes}
-                    {StyledTextInput}
                     </Animated.ScrollView>
                 </Animated.View>
             )
@@ -95,7 +102,7 @@ export default class TopicCreator extends EntryBox {
 const addStyles = StyleSheet.create({
     scrollView: {
         flex : 1,
-        //flexDirection : 'row',
+        flexDirection : 'row',
         borderRadius: 20,
         shadowOffset: { height: 4},
         shadowRadius: 20,

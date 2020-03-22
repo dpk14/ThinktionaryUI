@@ -181,13 +181,18 @@ export default class EntryBox extends Component {
 
     _returnBaseContainerStyles = () => {
         const {scale} = this.props
+            return {
+            width: _scale(this.props.width, scale),
+            height: _scale(this.props.height, scale),
+            borderRadius: _scale(this.props.borderRadius, scale)
+        }
+    }
+
+    _returnContainerMarginStyles = () => {
         return {
             marginRight: this.props.marginRight,
             marginLeft: this.props.marginLeft,
             marginVertical: this.props.marginVertical,
-            width: _scale(this.props.width, scale),
-            height: _scale(this.props.height, scale),
-            borderRadius: _scale(this.props.borderRadius, scale)
         }
     }
 
@@ -213,7 +218,7 @@ export default class EntryBox extends Component {
         const StyledTextInput = this.renderTextInput()
         if (!this.loading) {
             return (
-                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles()]}>
+                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles()]}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >
