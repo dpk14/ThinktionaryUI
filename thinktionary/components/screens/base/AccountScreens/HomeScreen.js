@@ -4,10 +4,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import CustomButton from "../../../CustomButton";
 import ScreenNames from "../../../../navigation/ScreenNames"
 import {styles} from "../Screen";
-import AccountScreen, {accountScreenStyles} from "./AccountScreen";
+import Screen from "../Screen"
 import StyledBase from "../StyledBase";
 
-export default class HomeScreen extends AccountScreen{
+export default class HomeScreen extends Screen{
 
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ export default class HomeScreen extends AccountScreen{
     renderScreen() {
             return (
                 <StyledBase>
-                    <View style = {[styles.container, accountScreenStyles.container]}>
+                    <View style = {[styles.container]}>
                         <Text style={styles.title}>Thinktionary</Text>
                         <View style = {newStyles.buttonOuterLayout}
                             >

@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": null,
-  "packagerPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 21584,
   "expoServerNgrokUrl": "https://aq-zps.anonymous.thinktionary.exp.direct",
   "packagerNgrokUrl": "https://packager.aq-zps.anonymous.thinktionary.exp.direct",
-  "ngrokPid": 33268
+  "ngrokPid": 25876
 }

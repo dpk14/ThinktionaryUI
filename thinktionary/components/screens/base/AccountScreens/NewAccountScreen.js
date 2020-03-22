@@ -7,11 +7,11 @@ import EntryBox from "../../../EntryBox";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
-import {styles} from "../Screen";
-import AccountScreen, {accountScreenStyles} from "./AccountScreen";
+import Screen, {styles} from "../Screen";
 import StyledBase from "../StyledBase";
+import {_onLogin} from "./utils/callBacks";
 
-export default class NewAccountScreen extends AccountScreen {
+export default class NewAccountScreen extends Screen {
 
     constructor(props) {
         super(props);
@@ -21,14 +21,14 @@ export default class NewAccountScreen extends AccountScreen {
         if (exceptionThrown) {
             alert(response);
         } else {
-            new Login(this.state.username, this.state.password).fetchAndExecute(this._onLogin)
+            new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation))
         }
     }
 
     render() {
         return (
             <StyledBase>
-            <View style = {[styles.container, accountScreenStyles.container]}>
+            <View style = {[styles.container]}>
                     <Text style={styles.title}>Thinktionary</Text>
                     <EntryBox
                         attrName='username'

@@ -8,9 +8,10 @@ import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import {styles} from "../Screen";
 import React from "react";
-import AccountScreen, {accountScreenStyles} from "./AccountScreen"
 import StyledBase from "../StyledBase";
-export default class LoginScreen extends AccountScreen {
+import Screen from "../Screen"
+import {_onLogin} from "./utils/callBacks";
+export default class LoginScreen extends Screen {
 
     constructor(props) {
         super(props);
@@ -41,7 +42,7 @@ export default class LoginScreen extends AccountScreen {
                     <CustomButton
                         text="Login"
                         onPress={() => {
-                            new Login(this.state.username, this.state.password).fetchAndExecute(this._onLogin);
+                            new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation));
                         }}
                     />
             </View>
