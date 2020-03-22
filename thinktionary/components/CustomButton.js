@@ -32,6 +32,7 @@ class customButton extends Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props.text)
         this.state = {loading: true,
             textWidth : 0};
     }
@@ -51,26 +52,14 @@ class customButton extends Component {
 
      */
 
-    scaleToText = () => {
+    scaleToText(){
         let ret = {}
         let defStyle = customButton.defaultScalableStyles
         for (const prop in defStyle) {
             ret[prop] = _scale(defStyle[prop], this.props.scale)
         }
-        ret.width = this.state.textWidth + 2*ret.padding
+        if(this.props.width == customButton.defaultProps) ret.width = this.props.width
         return ret
-    }
-
-    async componentDidMount(){
-        const {text} = this.props.text
-        const fontSpecs: TSFontSpecs = this.getFontSpecs()
-        const size = await rnTextSize.measure({
-            text,             // text to measure, can include symbols
-            ...fontSpecs,     // RN font specification
-        })
-        this.setState({
-            width: size.width
-        })
     }
 
     getFontSpecs(){
@@ -87,7 +76,7 @@ class customButton extends Component {
             const {text, onPress} = this.props;
                 return (
                 <TouchableOpacity
-                    style={[styles.buttonStyle, {width: this.props.width, overflow: "visible"}, this.scaleToText()]}
+                    style={[styles.buttonStyle, this.scaleToText()]}
                     onPress={() => onPress()}
                 >
                     <Text
@@ -100,17 +89,13 @@ class customButton extends Component {
         }
     }
 }
-/*
-<TextAutoSizer text = {text}
-               style = {styles.textStyle}
-/>
-*/
 
 const styles = StyleSheet.create({
     textStyle: {
         color: 'white',
         textAlign: 'center',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        flex : 1
     },
 
     buttonStyle: {
