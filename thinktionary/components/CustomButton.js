@@ -3,40 +3,80 @@ import PropTypes from 'prop-types';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
+import {_scale} from "./utils/scaling";
 
 class customButton extends Component {
 
     static propTypes = {
         text: PropTypes.string.isRequired,
         onPress: PropTypes.func.isRequired,
-        width : PropTypes.number,
-        scale : PropTypes.number
+        width: PropTypes.number,
+        fontSize: PropTypes.number,
+        scale: PropTypes.number
     }
 
     static defaultProps = {
-        width : 120,
-        scale : 1
+        fontSize : 25,
+        width: 120,
+        scale: 1
+    }
+
+    static defaultScalableStyles = {
+        marginTop: 20,
+        padding: 12,
+        height: 56,
+        borderRadius: 20,
+        shadowRadius: 15,
     }
 
     constructor(props) {
         super(props);
-        this.state = {loading : true};
+        this.state = {loading: true};
     }
 
     async componentWillMount() {
         await FontUtils.loadFonts()
-        this.setState({loading : false})
+        this.setState({loading: false})
+    }
+
+    onLayout = (e) => {
+        this.setState({
+            textWidth: e.nativeEvent.layout.width,
+        })
+    }
+
+    customizeText = () => {
+        const {fontSize, scale} = this.props
+        return {
+            fontSize : _scale(fontSize, scale)
+        }
+    }
+
+    scaleToText = () => {
+        let ret = {}
+        let defStyle = customButton.defaultScalableStyles
+        for (const prop in defStyle) {
+            ret[prop] = _scale(defStyle[prop], this.props.scale)
+        }
+        ret.width = this.state.textWidth + 2*ret.padding
+        return ret
     }
 
     render() {
         if (this.loading) return null;
         else {
+
             const {text, onPress} = this.props;
+            const TextComp = (<Text style={[styles.textStyle, this.customizeText()]}
+                                onLayout={this.onLayout()}>
+                            {text}
+                        </Text>)
             return (
-                <TouchableOpacity style={[styles.buttonStyle, {width: this.props.width}]}
-                                  onPress={() => onPress()}
+                <TouchableOpacity
+                    style={[styles.buttonStyle, this.scaleToText(), {width: this.props.width}]}
+                    onPress={() => onPress()}
                 >
-                    <Text style={styles.textStyle}>{text}</Text>
+                    {TextComp}
                 </TouchableOpacity>
             );
         }
@@ -45,7 +85,6 @@ class customButton extends Component {
 
 const styles = StyleSheet.create({
     textStyle: {
-        fontSize: 25,
         color: 'white',
         textAlign: 'center',
         fontFamily: HP_SIMPLIFIED_BOLD,
@@ -53,13 +92,8 @@ const styles = StyleSheet.create({
     },
 
     buttonStyle: {
-        marginTop: 20,
-        padding: 12,
-        height: 56,
         backgroundColor: '#FFB03F',
         opacity : .95,
-        borderRadius: 20,
-        shadowOffset: { height: 4},
         shadowRadius: 15,
     }
 });

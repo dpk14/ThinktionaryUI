@@ -36,9 +36,12 @@ export default class EntryBox extends Component {
         multiline : bool,
         onSubmitEditing : func,
         onKeyPress : func,
+        blurOnSubmit : bool,
+        returnKeyType : string
     }
 
     static defaultProps = {
+        returnKeyType : 'next',
         borderRadius: 20,
         textMarginLeft : 21,
         textMarginRight : 21,
@@ -66,7 +69,8 @@ export default class EntryBox extends Component {
         otherTextInputAttributes: {},
         multiline : false,
         onSubmitEditing : ()=> {},
-        onKeyPress : ()=>{}
+        onKeyPress : ()=>{},
+        blurOnSubmit : false
     }
 
     constructor(props) {
@@ -192,6 +196,8 @@ export default class EntryBox extends Component {
         console.log(additionalStyles)
         return (<TextInput
             multiline = {this.props.multiline}
+            returnKeyType = {this.props.returnKeyType}
+            blurOnSubmit = {this.props.blurOnSubmit}
             value={this.props.value}
             style={[Styles.textInput, this._returnAnimatedInputStyles(), additionalStyles]}
             underlineColorAndroid='transparent'

@@ -13,7 +13,8 @@ export default class TopicCreator extends EntryBox {
 
     static defaultProps = {...EntryBox.defaultProps,
                         ...{
-                            multiline : true
+                            multiline : true,
+                            blurOnSubmit : false,
                         }
                         };
 
@@ -37,7 +38,6 @@ export default class TopicCreator extends EntryBox {
         const {topics} = this.state
         let oldLength = topics.length
         topics.add(value)
-        console.log(this.state.textLeftOffset)
         if (oldLength != topics.length) {
             this.setState({textLeftOffset : this.state.textLeftOffset,
                                 topics : topics,
@@ -45,6 +45,9 @@ export default class TopicCreator extends EntryBox {
         }
         updateMasterState(attrName, '');
     }
+
+    //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.
+    //if text length exceeds that of textbox, move to next line. "lines" can just be stacks of views.
 
     _onKeyPress = ({nativeEvent}) => {
         const { topics } = this.state;
