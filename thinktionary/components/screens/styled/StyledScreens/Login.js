@@ -11,6 +11,6 @@ export default class Login extends StyledScreen {
     }
 
     renderScreen() {
-        return this.style(<LoginScreen/>)
+        return <LoginScreen navigation={this.props.navigation}/>
     }
 }

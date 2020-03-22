@@ -11,6 +11,6 @@ export default class Write extends StyledScreen {
     }
 
     renderScreen() {
-        return this.style(<WriteScreen/>)
+        return <WriteScreen navigation={this.props.navigation}/>
     }
 }

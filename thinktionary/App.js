@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 
 import {StyleSheet} from 'react-native';
-import LoginScreen from './components/screens/AccountScreens/LoginScreen'
-import NewAccountScreen from "./components/screens/AccountScreens/NewAccountScreen";
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import ScreenNames from "./navigation/ScreenNames";
-import HomeScreen from "./components/screens/AccountScreens/HomeScreen";
 import * as Font from "expo-font";
-import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
-import StyledScreen from "./components/screens/styled/StyledScreen";
 import Home from "./components/screens/styled/StyledScreens/Home";
 import Login from "./components/screens/styled/StyledScreens/Login";
 import NewAccount from "./components/screens/styled/StyledScreens/MakeAccount";

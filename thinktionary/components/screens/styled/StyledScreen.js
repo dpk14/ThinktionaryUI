@@ -11,14 +11,22 @@ export default class StyledScreen extends Component{
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            loading : true,
+        };
+    }
+
+    async componentWillMount() {
+        await Font.loadAsync({
+            'hp-simplified-bold': require('../../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../../../assets/fonts/hp-simplified.ttf'),
+        });
+        this.setState({loading : false})
     }
 
     renderScreen(){
-        return ABSTRACT_METHOD()
-    }
-
-    style(Screen) {
-        return <StyledScreen Screen={Screen}></StyledScreen>
+        return ABSTRACT_METHOD("renderScreen")
     }
 
     render() {

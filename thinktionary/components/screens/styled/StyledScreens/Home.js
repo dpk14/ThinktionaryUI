@@ -10,7 +10,7 @@ export default class Home extends StyledScreen {
     }
 
     renderScreen() {
-        return this.style(<HomeScreen/>)
+        return <HomeScreen navigation={this.props.navigation}/>
     }
 }
 

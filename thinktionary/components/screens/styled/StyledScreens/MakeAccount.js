@@ -11,6 +11,6 @@ export default class NewAccount extends StyledScreen {
     }
 
     renderScreen() {
-        return this.style(<NewAccountScreen/>)
+        return <NewAccountScreen navigation={this.props.navigation}/>
     }
 }
