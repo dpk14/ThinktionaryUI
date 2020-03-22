@@ -6,13 +6,14 @@ import EntryBox, {Styles} from "./EntryBox";
 import CustomButton from "./CustomButton";
 import {TOPIC_HEIGHT, TOPIC_WIDTH} from "./strings";
 import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
+import {Keyboard} from "react-native-web";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class TopicCreator extends EntryBox {
 
     static defaultProps = {...EntryBox.defaultProps,
                         ...{
-                            multiline : false
+                            multiline : true
                         }
                         };
 
@@ -39,7 +40,8 @@ export default class TopicCreator extends EntryBox {
         console.log(this.state.textLeftOffset)
         if (oldLength != topics.length) {
             this.setState({textLeftOffset : this.state.textLeftOffset,
-                                topics : topics})
+                                topics : topics,
+            })
         }
         updateMasterState(attrName, '');
     }
@@ -65,14 +67,18 @@ export default class TopicCreator extends EntryBox {
         const TopicBoxes = this.renderTopicBoxes()
         if (!this.loading) {
             return (
-                <Animated.View style={[Styles.container, addStyles.scrollView, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles()]}>
+                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles()]}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >
                         {this.props.title}
                     </Animated.Text>
+                    <Animated.ScrollView
+                                        contentContainerStyle = {{flexGrow : 1}}
+                                         style={addStyles.scrollView}>
                     {TopicBoxes}
                     {StyledTextInput}
+                    </Animated.ScrollView>
                 </Animated.View>
             )
         }
@@ -84,7 +90,7 @@ export default class TopicCreator extends EntryBox {
 const addStyles = StyleSheet.create({
     scrollView: {
         flex : 1,
-        flexDirection : 'row',
+        //flexDirection : 'row',
         borderRadius: 20,
         shadowOffset: { height: 4},
         shadowRadius: 20,
