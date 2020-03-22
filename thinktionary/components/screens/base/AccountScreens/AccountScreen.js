@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import {StyleSheet} from 'react-native';
 import Screen from "../Screen"
-import {Journal} from "../../structs/journal";
-import ScreenNames from "../../../navigation/ScreenNames";
-import {ABSTRACT_CLASS} from "../../utils/abstraction";
+import {Journal} from "../../../structs/journal";
+import ScreenNames from "../../../../navigation/ScreenNames";
+import {ABSTRACT_CLASS} from "../../../utils/abstraction";
 
 export default class AccountScreen extends Screen {
 
