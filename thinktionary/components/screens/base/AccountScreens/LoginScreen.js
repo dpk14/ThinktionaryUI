@@ -3,9 +3,9 @@ import { Text} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import {StyleSheet, View} from 'react-native';
-import EntryBox from "../../EntryBox";
-import CustomButton from "../../CustomButton";
-import Login from "../../../requestHandler/Requests/AccountRequests/Login"
+import EntryBox from "../../../EntryBox";
+import CustomButton from "../../../CustomButton";
+import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import {styles} from "../Screen";
 import React from "react";
 import AccountScreen, {accountScreenStyles} from "./AccountScreen"
@@ -15,11 +15,14 @@ export default class LoginScreen extends AccountScreen {
         super(props);
     }
 
-    render() {
+    markUp(){
+        return <LoginScreen/>
+    }
 
+    render() {
         return (
-            <View style = {[styles.container, accountScreenStyles.container]}>
-                <Text style={styles.title}>Thinktionary</Text>
+            <View style = {[styles.container]}>
+                <Text style={[styles.title]}>Thinktionary</Text>
                 <EntryBox
                     attrName='username'
                     title='Username'

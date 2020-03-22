@@ -14,7 +14,7 @@ class customButton extends Component {
     }
 
     static defaultProps = {
-        width : 100,
+        width : 200,
         scale : 1
     }
 

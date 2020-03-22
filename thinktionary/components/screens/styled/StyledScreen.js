@@ -6,6 +6,8 @@ import {ABSTRACT_CLASS, HP_SIMPLIFIED_BOLD} from "../../../configStrings";
 
 import { LinearGradient } from 'expo-linear-gradient';
 import {ABSTRACT_METHOD} from "../../utils/abstraction";
+import LoginScreen from "../base/AccountScreens/LoginScreen";
+import Wrapper from "../../utils/Wrapper";
 
 export default class StyledScreen extends Component{
 
@@ -17,16 +19,8 @@ export default class StyledScreen extends Component{
         };
     }
 
-    async componentWillMount() {
-        await Font.loadAsync({
-            'hp-simplified-bold': require('../../../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../../../assets/fonts/hp-simplified.ttf'),
-        });
-        this.setState({loading : false})
-    }
-
-    renderScreen(){
-        return ABSTRACT_METHOD("renderScreen")
+    markUp(){
+        return ABSTRACT_METHOD("markUp")
     }
 
     render() {
@@ -40,7 +34,7 @@ export default class StyledScreen extends Component{
                                                   onPress={Keyboard.dismiss} accessible={false}>
                             <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                             start={[0, 1]} style={styles.linearGradient}>
-                                {Screen}
+                                <Wrapper component={this.markUp()}/>
                             </LinearGradient>
                         </TouchableWithoutFeedback>
                     </ScrollView>

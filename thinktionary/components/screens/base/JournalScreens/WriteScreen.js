@@ -13,8 +13,6 @@ import TopicCreator from "../../../TopicCreator";
 
 export default class WriteScreen extends Screen {
 
-
-
     constructor(props) {
         super(props);
         this.state.title = ''
@@ -23,7 +21,7 @@ export default class WriteScreen extends Screen {
         this.state.topicBank = ''
     }
 
-    render() {
+    renderScreen() {
         return (
             <View style = {styles.container}>
                         <View style = {newStyles.outerFrame}>
@@ -80,9 +78,7 @@ export default class WriteScreen extends Screen {
                                     onPress={() => {}}
                                 />
                             </View>
-
                         </View>
-
                 </View>
             );
         }

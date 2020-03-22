@@ -3,10 +3,10 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import EntryBox from "../../EntryBox";
-import CustomButton from "../../CustomButton";
-import Login from "../../../requestHandler/Requests/AccountRequests/Login"
-import makeAccount from "../../../requestHandler/Requests/AccountRequests/MakeAccount";
+import EntryBox from "../../../EntryBox";
+import CustomButton from "../../../CustomButton";
+import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
+import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import {styles} from "../Screen";
 import AccountScreen, {accountScreenStyles} from "./AccountScreen";
 
@@ -22,6 +22,10 @@ export default class NewAccountScreen extends AccountScreen {
         } else {
             new Login(this.state.username, this.state.password).fetchAndExecute(this._onLogin)
         }
+    }
+
+    markUp(){
+        return <NewAccountScreen/>
     }
 
     render() {

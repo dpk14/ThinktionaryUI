@@ -12,6 +12,10 @@ export default class HomeScreen extends AccountScreen{
         super(props);
     }
 
+    markUp(){
+        return <HomeScreen/>
+    }
+
     render() {
             return (
                 <View style = {[styles.container, accountScreenStyles.container]}>

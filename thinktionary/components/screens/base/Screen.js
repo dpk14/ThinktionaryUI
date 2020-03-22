@@ -33,6 +33,13 @@ export default class Screen extends Component{
     }
 
     render() {
+            if(this.state.loading){
+                return null
+            }
+            else return this.renderScreen()
+        }
+
+    renderScreen() {
         return ABSTRACT_METHOD()
     }
 }
@@ -40,7 +47,7 @@ export default class Screen extends Component{
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginVertical : 200,
+        marginTop : 200,
         alignItems : 'center',
     },
     linearGradient :{
