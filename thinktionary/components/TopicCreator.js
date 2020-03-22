@@ -13,8 +13,9 @@ export default class TopicCreator extends EntryBox {
 
     static defaultProps = {...EntryBox.defaultProps,
                         ...{
-                            multiline : true,
+                            multiline : false,
                             blurOnSubmit : false,
+                            topicScale : 1
                         }
                         };
 
@@ -28,6 +29,7 @@ export default class TopicCreator extends EntryBox {
         this.state.topics.forEach(topic => TopicBoxes.push(
             <CustomButton
                 text = {topic}
+                scale = {this.props.topicScale}
                 onPress={()=>{}}
             />));
         return TopicBoxes

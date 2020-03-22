@@ -26,6 +26,7 @@
     "react-native-text-size": "^4.0.0-rc.1",
     "react-native-unimodules": "0.7.0",
     "react-native-web": "^0.11.7",
+    "react-navigation": "^4.3.2",
     "styled-components": "^5.0.1",
     "styled-react-native": "^1.0.1",
     "xmlhttprequest": "^1.8.0"

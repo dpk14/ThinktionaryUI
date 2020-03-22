@@ -41,7 +41,6 @@ export default class EntryBox extends Component {
     }
 
     static defaultProps = {
-        returnKeyType : 'next',
         borderRadius: 20,
         textMarginLeft : 21,
         textMarginRight : 21,
@@ -70,7 +69,7 @@ export default class EntryBox extends Component {
         multiline : false,
         onSubmitEditing : ()=> {},
         onKeyPress : ()=>{},
-        blurOnSubmit : false
+        blurOnSubmit : true
     }
 
     constructor(props) {

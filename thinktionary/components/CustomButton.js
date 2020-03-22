@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
 import {_scale} from "./utils/scaling";
@@ -31,7 +31,8 @@ class customButton extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {loading: true};
+        this.state = {loading: true,
+            textWidth : 0};
     }
 
     async componentWillMount() {
@@ -40,6 +41,7 @@ class customButton extends Component {
     }
 
     onLayout = (e) => {
+        console.log(e.nativeEvent.layout.width)
         this.setState({
             textWidth: e.nativeEvent.layout.width,
         })
@@ -67,13 +69,16 @@ class customButton extends Component {
         else {
 
             const {text, onPress} = this.props;
-            const TextComp = (<Text style={[styles.textStyle, this.customizeText()]}
-                                onLayout={this.onLayout()}>
-                            {text}
-                        </Text>)
-            return (
+            const TextComp = (<View onLayout={this.onLayout}>
+                                <Text
+                                style={[styles.textStyle, this.customizeText(), {width:'100%'}]}
+                                >
+                                    {text}
+                                </Text>
+                            </View>)
+                return (
                 <TouchableOpacity
-                    style={[styles.buttonStyle, this.scaleToText(), {width: this.props.width}]}
+                    style={[styles.buttonStyle, {width: this.props.width}, this.scaleToText()]}
                     onPress={() => onPress()}
                 >
                     {TextComp}
