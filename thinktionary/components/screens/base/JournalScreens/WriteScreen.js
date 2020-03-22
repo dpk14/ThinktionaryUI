@@ -5,11 +5,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import EntryBox from "../../../EntryBox";
 import Screen, {styles} from "../Screen";
 import React from "react";
-import {HP_SIMPLIFIED_BOLD} from "../../../../configStrings";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {TOPIC_HEIGHT} from "../../../strings";
 import TopicCreator from "../../../TopicCreator";
+import StyledBase from "../StyledBase";
 
 export default class WriteScreen extends Screen {
 
@@ -23,6 +23,7 @@ export default class WriteScreen extends Screen {
 
     renderScreen() {
         return (
+            <StyledBase>
             <View style = {styles.container}>
                         <View style = {newStyles.outerFrame}>
                             <View style = {newStyles.topFrame}>
@@ -80,6 +81,7 @@ export default class WriteScreen extends Screen {
                             </View>
                         </View>
                 </View>
+            </StyledBase>
             );
         }
 }

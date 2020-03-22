@@ -13,8 +13,10 @@ import NewAccount from "./components/screens/styled/StyledScreens/MakeAccount";
 import Write from "./components/screens/styled/StyledScreens/Write";
 import Wrapper from "./components/utils/Wrapper";
 import HomeScreen from "./components/screens/base/AccountScreens/HomeScreen";
-const HP_SIMPLIFIED = "hp-simplified";
-const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
+import LoginScreen from "./components/screens/base/AccountScreens/LoginScreen";
+import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccountScreen";
+import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
+import {HP_SIMPLIFIED_BOLD} from "./components/utils/FontUtils";
 
 //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
 
@@ -50,20 +52,20 @@ export default class App extends Component {
               >
             <Stack.Screen
                 name={ScreenNames.HOME_SCREEN}
-                component={<Wrapper {HomeScreen}></Wrapper>}
+                component={HomeScreen}
                 options={{headerShown : false}}
             />
             <Stack.Screen
                 name={ScreenNames.LOGIN_SCREEN}
-                component={Login}
+                component={LoginScreen}
             />
             <Stack.Screen
                 name={ScreenNames.NEW_ACCT_SCREEN}
-                component={NewAccount}
+                component={NewAccountScreen}
             />
               <Stack.Screen
                   name={ScreenNames.WRITE_SCREEN}
-                  component={Write}
+                  component={WriteScreen}
               />
           </Stack.Navigator>
         </NavigationContainer>

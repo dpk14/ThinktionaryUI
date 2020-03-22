@@ -9,6 +9,7 @@ import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import {styles} from "../Screen";
 import AccountScreen, {accountScreenStyles} from "./AccountScreen";
+import StyledBase from "../StyledBase";
 
 export default class NewAccountScreen extends AccountScreen {
 
@@ -24,12 +25,10 @@ export default class NewAccountScreen extends AccountScreen {
         }
     }
 
-    markUp(){
-        return <NewAccountScreen/>
-    }
-
     render() {
-        return (<View style = {[styles.container, accountScreenStyles.container]}>
+        return (
+            <StyledBase>
+            <View style = {[styles.container, accountScreenStyles.container]}>
                     <Text style={styles.title}>Thinktionary</Text>
                     <EntryBox
                         attrName='username'
@@ -53,6 +52,7 @@ export default class NewAccountScreen extends AccountScreen {
                         width={220}
                     />
             </View>
+            </StyledBase>
         );
     }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import * as Font from 'expo-font';
-import {HP_SIMPLIFIED_BOLD} from "../configStrings";
+import FontUtils, {HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
 
 class customButton extends Component {
 
@@ -24,10 +24,7 @@ class customButton extends Component {
     }
 
     async componentWillMount() {
-        await Font.loadAsync({
-            'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
-        });
+        await FontUtils.loadFonts()
         this.setState({loading : false})
     }
 

@@ -9,41 +9,44 @@ import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import {styles} from "../Screen";
 import React from "react";
 import AccountScreen, {accountScreenStyles} from "./AccountScreen"
+import StyledBase from "../StyledBase";
 export default class LoginScreen extends AccountScreen {
 
     constructor(props) {
         super(props);
+        this.state = {
+            loading : true
+        }
     }
 
-    markUp(){
-        return <LoginScreen/>
-    }
-
-    render() {
+    renderScreen() {
         return (
-            <View style = {[styles.container]}>
-                <Text style={[styles.title]}>Thinktionary</Text>
-                <EntryBox
-                    attrName='username'
-                    title='Username'
-                    value={this.state.username}
-                    updateMasterState={this._updateMasterState}
-                    marginVertical={12}
-                />
-                <EntryBox
-                    attrName='password'
-                    title='Password'
-                    value={this.state.password}
-                    updateMasterState={this._updateMasterState}
-                    marginVertical={12}
-                />
-                <CustomButton
-                    text="Login"
-                    onPress={() => {
-                        new Login(this.state.username, this.state.password).fetchAndExecute(this._onLogin);
-                    }}
-                />
-            </View>)
+            <StyledBase>
+                <View style = {[styles.container]}>
+                    <Text style={[styles.title]}>Thinktionary</Text>
+                    <EntryBox
+                        attrName='username'
+                        title='Username'
+                        value={this.state.username}
+                        updateMasterState={this._updateMasterState}
+                        marginVertical={12}
+                    />
+                    <EntryBox
+                        attrName='password'
+                        title='Password'
+                        value={this.state.password}
+                        updateMasterState={this._updateMasterState}
+                        marginVertical={12}
+                    />
+                    <CustomButton
+                        text="Login"
+                        onPress={() => {
+                            new Login(this.state.username, this.state.password).fetchAndExecute(this._onLogin);
+                        }}
+                    />
+            </View>
+                </StyledBase>)
+
     }
 }
 

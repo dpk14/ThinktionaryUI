@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import {ABSTRACT_METHOD, HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
 import {_scale, invScale} from "./utils/scaling";
 import {AbstractClassError, AbstractMethodError} from "./errors/AbstractError";
 import {Override} from "./utils/defaultHandling";

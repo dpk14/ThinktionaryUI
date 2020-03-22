@@ -1,8 +1,7 @@
 import XMLHttpRequest from "react-native";
 import ResponseHandler from "./Utils/ResponseHandler";
 import fetchError from "./ErrorHandling/FetchError";
-import {call} from "react-native-reanimated";
-import {ABSTRACT_CLASS} from "../configStrings";
+import {ABSTRACT_CLASS} from "../components/utils/abstraction";
 
 export const BASE_URL = 'https://thinktionary-backend.herokuapp.com'
 export const DELETE = "DELETE"
@@ -22,7 +21,7 @@ export default class Request{
         this.json = json
         this.hasReturn = hasReturn
         if(this.constructor === Request) {
-            throw new Error(ABSTRACT_CLASS)
+            ABSTRACT_CLASS()
         }
     }
 

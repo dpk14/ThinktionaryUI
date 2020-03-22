@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../configStrings";
 import EntryBox, {Styles} from "./EntryBox";
 import CustomButton from "./CustomButton";
 import {TOPIC_HEIGHT, TOPIC_WIDTH} from "./strings";
