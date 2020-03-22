@@ -6,10 +6,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import ScreenNames from "./navigation/ScreenNames";
 import * as Font from "expo-font";
-import Home from "./components/screens/styled/StyledScreens/Home";
+//import Home from "./components/screens/styled/StyledScreens/Home";
 import Login from "./components/screens/styled/StyledScreens/Login";
 import NewAccount from "./components/screens/styled/StyledScreens/MakeAccount";
+
 import Write from "./components/screens/styled/StyledScreens/Write";
+import Wrapper from "./components/utils/Wrapper";
+import HomeScreen from "./components/screens/base/AccountScreens/HomeScreen";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 
@@ -47,7 +50,7 @@ export default class App extends Component {
               >
             <Stack.Screen
                 name={ScreenNames.HOME_SCREEN}
-                component={Home}
+                component={<Wrapper {HomeScreen}></Wrapper>}
                 options={{headerShown : false}}
             />
             <Stack.Screen
