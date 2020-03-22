@@ -16,17 +16,14 @@ import HomeScreen from "./components/screens/base/AccountScreens/HomeScreen";
 import LoginScreen from "./components/screens/base/AccountScreens/LoginScreen";
 import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccountScreen";
 import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
-import {HP_SIMPLIFIED_BOLD} from "./components/utils/FontUtils";
+import FontUtils, {HP_SIMPLIFIED_BOLD} from "./components/utils/FontUtils";
 
 //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
 
 export default class App extends Component {
 
     async componentWillMount() {
-        await Font.loadAsync({
-            'hp-simplified-bold': require('./assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('./assets/fonts/hp-simplified.ttf'),
-        });
+        await FontUtils.loadFonts()
         this.setState({loading : false})
     }
 

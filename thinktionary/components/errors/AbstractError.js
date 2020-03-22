@@ -7,6 +7,6 @@ export class AbstractMethodError extends Error{
 
 export class AbstractClassError extends Error{
     constructor(message="") {
-        super(ABSTRACT_CLASS + " " + message);
+        super("Cannot instantiate abstract class: " + message);
     }
 }

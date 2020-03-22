@@ -3,8 +3,9 @@ import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
 import {_scale, invScale} from "./utils/scaling";
-import {AbstractClassError, AbstractMethodError} from "./errors/AbstractError";
 import {Override} from "./utils/defaultHandling";
+import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
+import {ABSTRACT_METHOD} from "./utils/abstraction";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
@@ -81,10 +82,7 @@ export default class EntryBox extends Component {
     }
 
     async componentWillMount() {
-        await Font.loadAsync({
-            'hp-simplified-bold': require('../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../assets/fonts/hp-simplified.ttf'),
-        });
+        await FontUtils.loadFonts();
         this.setState({loading : false})
     }
 

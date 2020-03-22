@@ -4,7 +4,6 @@ import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 
 import { LinearGradient } from 'expo-linear-gradient';
-import {ABSTRACT_METHOD} from "../../utils/abstraction";
 import LoginScreen from "./AccountScreens/LoginScreen";
 import Wrapper from "../../utils/Wrapper";
 

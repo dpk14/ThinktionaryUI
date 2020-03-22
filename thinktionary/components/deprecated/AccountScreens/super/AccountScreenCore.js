@@ -7,8 +7,7 @@ import EntryBox from "../../../EntryBox";
 import CustomButton from "../../../CustomButton";
 import {func, object, string} from "prop-types";
 import {Field, FieldMap} from "../../../structs/field";
-const HP_SIMPLIFIED = "hp-simplified";
-const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
+import FontUtils, {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 
 export default class AccountScreenCore extends Component {
 
@@ -31,10 +30,7 @@ export default class AccountScreenCore extends Component {
     }
 
     async componentWillMount() {
-        await Font.loadAsync({
-            'hp-simplified-bold': require('../../../../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../../../../assets/fonts/hp-simplified.ttf'),
-        });
+        await FontUtils.loadFonts()
         this.setState({loading : false})
     }
 

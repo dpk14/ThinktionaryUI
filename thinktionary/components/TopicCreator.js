@@ -5,6 +5,7 @@ import { string, func, object, number, bool } from 'prop-types';
 import EntryBox, {Styles} from "./EntryBox";
 import CustomButton from "./CustomButton";
 import {TOPIC_HEIGHT, TOPIC_WIDTH} from "./strings";
+import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class TopicCreator extends EntryBox {

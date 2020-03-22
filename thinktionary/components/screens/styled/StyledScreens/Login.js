@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {ABSTRACT_METHOD} from "../../../utils/abstraction";
 import StyledScreen from "../../base/StyledBase";
 import HomeScreen from "../../base/AccountScreens/HomeScreen";
 import LoginScreen from "../../../deprecated/AccountScreens/LoginScreen";
