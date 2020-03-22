@@ -4,6 +4,7 @@ import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
 import {_scale} from "./utils/scaling";
+import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
 
 class customButton extends Component {
 
@@ -40,6 +41,7 @@ class customButton extends Component {
         this.setState({loading: false})
     }
 
+    /*
     onLayout = (e) => {
         console.log(e.nativeEvent.layout.width)
         this.setState({
@@ -47,12 +49,7 @@ class customButton extends Component {
         })
     }
 
-    customizeText = () => {
-        const {fontSize, scale} = this.props
-        return {
-            fontSize : _scale(fontSize, scale)
-        }
-    }
+     */
 
     scaleToText = () => {
         let ret = {}
@@ -64,35 +61,55 @@ class customButton extends Component {
         return ret
     }
 
+    async componentDidMount(){
+        const {text} = this.props.text
+        const fontSpecs: TSFontSpecs = this.getFontSpecs()
+        const size = await rnTextSize.measure({
+            text,             // text to measure, can include symbols
+            ...fontSpecs,     // RN font specification
+        })
+        this.setState({
+            width: size.width
+        })
+    }
+
+    getFontSpecs(){
+        const {scale, fontSize} = this.props
+        return {
+            fontFamily : HP_SIMPLIFIED_BOLD,
+            fontSize : _scale(fontSize, scale)
+        }
+    }
+
     render() {
         if (this.loading) return null;
         else {
-
             const {text, onPress} = this.props;
-            const TextComp = (<View onLayout={this.onLayout}>
-                                <Text
-                                style={[styles.textStyle, this.customizeText(), {width:'100%'}]}
-                                >
-                                    {text}
-                                </Text>
-                            </View>)
                 return (
                 <TouchableOpacity
-                    style={[styles.buttonStyle, {width: this.props.width}, this.scaleToText()]}
+                    style={[styles.buttonStyle, {width: this.props.width, overflow: "visible"}, this.scaleToText()]}
                     onPress={() => onPress()}
                 >
-                    {TextComp}
+                    <Text
+                        style={[styles.textStyle, this.getFontSpecs()]}
+                    >
+                        {text}
+                    </Text>
                 </TouchableOpacity>
             );
         }
     }
 }
+/*
+<TextAutoSizer text = {text}
+               style = {styles.textStyle}
+/>
+*/
 
 const styles = StyleSheet.create({
     textStyle: {
         color: 'white',
         textAlign: 'center',
-        fontFamily: HP_SIMPLIFIED_BOLD,
         fontWeight: 'bold'
     },
 

@@ -53,7 +53,6 @@ export default class TopicCreator extends EntryBox {
 
     _onKeyPress = ({nativeEvent}) => {
         const { topics } = this.state;
-        console.log(nativeEvent.key === 'Backspace')
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size>0) {
             topics.delete(Array.from(topics).pop())
             this.setState({

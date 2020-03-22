@@ -192,7 +192,6 @@ export default class EntryBox extends Component {
     }
 
     renderTextInput(additionalStyles={}){
-        console.log(additionalStyles)
         return (<TextInput
             multiline = {this.props.multiline}
             returnKeyType = {this.props.returnKeyType}
@@ -207,7 +206,7 @@ export default class EntryBox extends Component {
             {...this.props.otherTextInputProps}
             onKeyPress = {Override(this.props,'onKeyPress', this._onKeyPress) }
             onSubmitEditing = {Override(this.props,'onSubmitEditing', this._onSubmitEditing) }
-        />)
+            />)
     }
 
     render() {
