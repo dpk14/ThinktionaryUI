@@ -2,14 +2,14 @@
 import { StyleSheet, Text, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import EntryBox from "../../EntryBox";
+import EntryBox from "../../../EntryBox";
 import Screen, {styles} from "../Screen";
 import React from "react";
-import {HP_SIMPLIFIED_BOLD} from "../../../configStrings";
-import CustomButton from "../../CustomButton";
-import Login from "../../../requestHandler/Requests/AccountRequests/Login";
-import {TOPIC_HEIGHT} from "../../strings";
-import TopicCreator from "../../TopicCreator";
+import {HP_SIMPLIFIED_BOLD} from "../../../../configStrings";
+import CustomButton from "../../../CustomButton";
+import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
+import {TOPIC_HEIGHT} from "../../../strings";
+import TopicCreator from "../../../TopicCreator";
 
 export default class WriteScreen extends Screen {
 

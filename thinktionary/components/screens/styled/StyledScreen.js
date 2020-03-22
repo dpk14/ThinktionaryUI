@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoidingView} from 'react-native';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import {ABSTRACT_CLASS, ABSTRACT_METHOD, HP_SIMPLIFIED_BOLD} from "../../configStrings";
+import {ABSTRACT_CLASS, HP_SIMPLIFIED_BOLD} from "../../../configStrings";
 
 import { LinearGradient } from 'expo-linear-gradient';
+import {ABSTRACT_METHOD} from "../../utils/abstraction";
 
 export default class StyledScreen extends Component{
 
@@ -12,8 +13,16 @@ export default class StyledScreen extends Component{
         super(props);
     }
 
+    renderScreen(){
+        return ABSTRACT_METHOD()
+    }
+
+    style(Screen) {
+        return <StyledScreen Screen={Screen}></StyledScreen>
+    }
+
     render() {
-            const {Screen} = this.props
+            const Screen = this.renderScreen()
             return (
                 <KeyboardAvoidingView
                     style={{flex : 1}} behavior="padding" enabled>

@@ -4,8 +4,8 @@ import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 
 import { LinearGradient } from 'expo-linear-gradient';
-import {ABSTRACT_CLASS, ABSTRACT_METHOD} from "../utils/abstraction";
-import {HP_SIMPLIFIED_BOLD} from "../../configStrings";
+import {ABSTRACT_CLASS, ABSTRACT_METHOD} from "../../utils/abstraction";
+import {HP_SIMPLIFIED_BOLD} from "../../../configStrings";
 
 export default class Screen extends Component{
 
@@ -22,8 +22,8 @@ export default class Screen extends Component{
 
     async componentWillMount() {
         await Font.loadAsync({
-            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
-            'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
+            'hp-simplified-bold': require('../../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified': require('../../../assets/fonts/hp-simplified.ttf'),
         });
         this.setState({loading : false})
     }

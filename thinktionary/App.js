@@ -9,8 +9,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ScreenNames from "./navigation/ScreenNames";
 import HomeScreen from "./components/screens/AccountScreens/HomeScreen";
 import * as Font from "expo-font";
-import WriteScreen from "./components/screens/JournalScreens/WriteScreen";
-import StyledScreen from "./components/screens/StyledScreen";
+import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
+import StyledScreen from "./components/screens/styled/StyledScreen";
+import Home from "./components/screens/styled/StyledScreens/Home";
+import Login from "./components/screens/styled/StyledScreens/Login";
+import NewAccount from "./components/screens/styled/StyledScreens/MakeAccount";
+import Write from "./components/screens/styled/StyledScreens/Write";
 const HP_SIMPLIFIED = "hp-simplified";
 const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 
@@ -26,16 +30,8 @@ export default class App extends Component {
         this.setState({loading : false})
     }
 
-    style(Screen) {
-        return <StyledScreen Screen={Screen}></StyledScreen>
-    }
-
     render(){
         let Stack = createStackNavigator()
-        const Login = this.style(<LoginScreen/>)
-        const Home = this.style(<HomeScreen/>)
-        const Write = this.style(<WriteScreen/>)
-        const NewAccount = this.style(<NewAccountScreen/>)
 
     return (
         <NavigationContainer>
