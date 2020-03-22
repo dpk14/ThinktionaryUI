@@ -30,6 +30,7 @@ export default class TopicCreator extends EntryBox {
             <CustomButton
                 text = {topic}
                 scale = {this.props.topicScale}
+                alignItems="flex-start"
                 onPress={()=>{}}
             />));
         return TopicBoxes

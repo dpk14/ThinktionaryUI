@@ -13,13 +13,15 @@ class customButton extends Component {
         onPress: PropTypes.func.isRequired,
         width: PropTypes.number,
         fontSize: PropTypes.number,
-        scale: PropTypes.number
+        scale: PropTypes.number,
+        alignItems : PropTypes.string,
     }
 
     static defaultProps = {
         fontSize : 25,
         width: 120,
-        scale: 1
+        scale: 1,
+        alignItems : 'center'
     }
 
     static defaultScalableStyles = {
@@ -42,23 +44,15 @@ class customButton extends Component {
         this.setState({loading: false})
     }
 
-    /*
-    onLayout = (e) => {
-        console.log(e.nativeEvent.layout.width)
-        this.setState({
-            textWidth: e.nativeEvent.layout.width,
-        })
-    }
-
-     */
-
     scaleToText(){
         let ret = {}
         let defStyle = customButton.defaultScalableStyles
         for (const prop in defStyle) {
             ret[prop] = _scale(defStyle[prop], this.props.scale)
         }
-        if(this.props.width == customButton.defaultProps) ret.width = this.props.width
+        if(this.props.width != customButton.defaultProps.width) {
+            ret.width = this.props.width
+        }
         return ret
     }
 
@@ -75,29 +69,40 @@ class customButton extends Component {
         else {
             const {text, onPress} = this.props;
                 return (
-                <TouchableOpacity
-                    style={[styles.buttonStyle, this.scaleToText()]}
-                    onPress={() => onPress()}
-                >
-                    <Text
-                        style={[styles.textStyle, this.getFontSpecs()]}
-                    >
-                        {text}
-                    </Text>
-                </TouchableOpacity>
+                    <View style = {[styles.container, this.customContainerStyles()]}>
+                        <TouchableOpacity
+                            style={[styles.buttonStyle, this.scaleToText()]}
+                            onPress={() => onPress()}
+                        >
+                            <Text
+                                style={[styles.textStyle, this.getFontSpecs()]}
+                            >
+                                {text}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
             );
+        }
+    }
+
+    customContainerStyles() {
+        return {
+            alignItems: this.props.alignItems,
         }
     }
 }
 
 const styles = StyleSheet.create({
+    container : {
+        flex: 1,
+        alignItems : 'center',
+    },
     textStyle: {
         color: 'white',
         textAlign: 'center',
         fontWeight: 'bold',
         flex : 1
     },
-
     buttonStyle: {
         backgroundColor: '#FFB03F',
         opacity : .95,

@@ -28,7 +28,7 @@ export default class HomeScreen extends Screen{
                             <CustomButton
                                 text="Login"
                                 onPress={() => this.props.navigation.navigate(ScreenNames.LOGIN_SCREEN)}
-                                width = {120}
+                                width = {150}
                             />
                         </View>
                     </View>
@@ -41,6 +41,7 @@ const newStyles = StyleSheet.create({
     buttonOuterLayout: {
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom : 500
     }
 
 });

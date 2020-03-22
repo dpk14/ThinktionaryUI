@@ -76,6 +76,7 @@ export default class WriteScreen extends Screen {
                                 />
                                 <CustomButton
                                     text="Save"
+                                    width = "100%"
                                     scale = {.8}
                                     onPress={() => {}}
                                 />
@@ -97,7 +98,7 @@ export const newStyles = StyleSheet.create({
     },
     bottomFrame:{
         flex: 1,
-        position: 'relative'
+        position: 'relative',
     },
     outerFrame:{
         flex: 1,
