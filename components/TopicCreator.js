@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as Font from 'expo-font';
-import { View, Animated, StyleSheet, TextInput } from 'react-native';
+import { View, Animated, StyleSheet, TextInput, ScrollView } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
 import EntryBox, {Styles} from "./EntryBox";
 import CustomButton from "./CustomButton";
@@ -73,11 +73,11 @@ export default class TopicCreator extends EntryBox {
             flex: 1,
         })
         return(
-        <View style={[Styles.container, addStyles.practiceView]}>
+            <View style={[Styles.container, addStyles.practiceView]}>
             <TopicBoxes>
             </TopicBoxes>
             <TxtInput/>
-        </View>
+            </View>
         )
     }
 
