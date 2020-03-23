@@ -109,7 +109,8 @@ export default class TopicCreator extends EntryBox {
                         {this.props.title}
                     </Animated.Text>
                     <Animated.View
-                                         style={[addStyles.scrollView]}>
+                                         style={[addStyles.scrollView, {marginHorizontal : 10,
+                                             marginVertical : 10}]}>
                     {TopicBoxes}
                         {StyledTextInput}
                     </Animated.View>
