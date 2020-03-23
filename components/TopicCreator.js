@@ -38,6 +38,13 @@ export default class TopicCreator extends EntryBox {
         return TopicBoxes
     }
 
+    _handleBlur = () => {
+        if (this.state.isFieldActive && !this.props.value && this.state.topics.size == 0) {
+            this.setState({ isFieldActive: false });
+            this._animateBlur()
+        }
+    }
+
     _onSubmitEditing = () => {
         const { attrName, updateMasterState, value, textMarginLeft} = this.props;
         const {topics} = this.state
@@ -49,7 +56,6 @@ export default class TopicCreator extends EntryBox {
             })
         }
         updateMasterState(attrName, '');
-        if(this.state.topics.size>0) updateMasterState('active', true);
     }
 
     //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.
@@ -110,7 +116,7 @@ export default class TopicCreator extends EntryBox {
                     </Animated.Text>
                     <Animated.View
                                          style={[addStyles.scrollView, {marginHorizontal : 10,
-                                             marginVertical : 10}]}>
+                                             marginVertical : 20}]}>
                     {TopicBoxes}
                         {StyledTextInput}
                     </Animated.View>

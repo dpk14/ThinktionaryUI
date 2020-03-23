@@ -108,17 +108,21 @@ export default class EntryBox extends Component {
     _handleBlur = () => {
         if (this.state.isFieldActive && !this.props.value) {
             this.setState({ isFieldActive: false });
-            Animated.parallel([
-                Animated.timing(this.position, {
-                    toValue: 0,
-                    duration: 200,
-                }),
-                Animated.timing(this.shadow, {
-                    toValue: 0,
-                    duration: 300,
-                })
-            ]).start()
+            this._animateBlur()
         }
+    }
+
+    _animateBlur(){
+        Animated.parallel([
+            Animated.timing(this.position, {
+                toValue: 0,
+                duration: 200,
+            }),
+            Animated.timing(this.shadow, {
+                toValue: 0,
+                duration: 300,
+            })
+        ]).start()
     }
 
     _onChangeText = (updatedValue) => {
