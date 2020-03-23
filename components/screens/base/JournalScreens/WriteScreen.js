@@ -54,6 +54,7 @@ export default class WriteScreen extends Screen {
                                     width={450}
                                     height = {400}
                                     multiline = {true}
+                                    blurOnSubmit={false}
                                 />
                                 <TopicCreator
                                     attrName='topics'

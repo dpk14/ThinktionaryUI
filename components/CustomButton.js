@@ -28,7 +28,8 @@ class customButton extends Component {
         alignItems : 'center',
         marginTop: 20,
         padding: 12,
-        height: 56
+        height: 56,
+        marginLeft : 0,
     }
 
     static defaultScalableStyles = {
@@ -63,8 +64,8 @@ class customButton extends Component {
                 height : _scale(height, scale),
                 marginTop : _scale(marginTop, scale),
                 padding : _scale(padding, scale),
-                borderRadius : customButton.defaultScalableStyles.borderRadius,
-                shadowRadius : customButton.defaultScalableStyles.shadowRadius
+                borderRadius : _scale(customButton.defaultScalableStyles.borderRadius, scale),
+                shadowRadius : _scale(customButton.defaultScalableStyles.shadowRadius, scale)
             }
         if(width != customButton.defaultProps.width) {
             ret.width = width

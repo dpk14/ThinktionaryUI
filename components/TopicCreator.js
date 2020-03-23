@@ -31,6 +31,8 @@ export default class TopicCreator extends EntryBox {
                 text = {topic}
                 scale = {this.props.topicScale}
                 alignItems="flex-start"
+                padding = {0}
+                marginTop = {0}
                 onPress={()=>{}}
             />));
         return TopicBoxes
@@ -47,7 +49,7 @@ export default class TopicCreator extends EntryBox {
             })
         }
         updateMasterState(attrName, '');
-        //if(this.state.topics.size>0) updateMasterState('active', true);
+        if(this.state.topics.size>0) updateMasterState('active', true);
     }
 
     //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.
