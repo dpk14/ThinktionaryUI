@@ -211,6 +211,7 @@ export default class EntryBox extends Component {
             {...this.props.otherTextInputProps}
             onKeyPress = {Override(this.props,'onKeyPress', this._onKeyPress) }
             onSubmitEditing = {Override(this.props,'onSubmitEditing', this._onSubmitEditing) }
+            autoCompletType = {false}
             />)
     }
 

@@ -33,10 +33,6 @@ export default class TopicCreator extends EntryBox {
                 alignItems="flex-start"
                 onPress={()=>{}}
             />));
-        TopicBoxes.push(this.renderTextInput({
-            marginLeft: this.state.topics.size > 0 ? 10 : this.props.textMarginLeft,
-            flex: 1,
-        }))
         return TopicBoxes
     }
 
@@ -51,7 +47,7 @@ export default class TopicCreator extends EntryBox {
             })
         }
         updateMasterState(attrName, '');
-        if(this.state.topics.size>0) updateMasterState('active', true);
+        //if(this.state.topics.size>0) updateMasterState('active', true);
     }
 
     //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.
@@ -72,11 +68,15 @@ export default class TopicCreator extends EntryBox {
 
     render(){
         const TopicBoxes = () => this.renderTopicBoxes()
+        const TxtInput = () => this.renderTextInput({
+            marginLeft: this.state.topics.size > 0 ? 10 : this.props.textMarginLeft,
+            flex: 1,
+        })
         return(
         <View style={[Styles.container, addStyles.practiceView]}>
             <TopicBoxes>
-
             </TopicBoxes>
+            <TxtInput/>
         </View>
         )
     }
@@ -117,7 +117,9 @@ const addStyles = StyleSheet.create({
         borderRadius: 20,
         shadowOffset: { height: 4},
         shadowRadius: 20,
-        color : 'white'
+        width : 360,
+        color : 'white',
+        flexWrap : "wrap"
     },
 
     scrollView: {
