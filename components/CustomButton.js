@@ -18,16 +18,17 @@ class customButton extends Component {
         alignItems : PropTypes.string,
         marginTop: PropTypes.number,
         padding : PropTypes.number,
-        height: 56,
+        height: PropTypes.number,
     }
 
     static defaultProps = {
         fontSize : 25,
         width: 120,
         scale: 1,
-        alignItems : 'center'
+        alignItems : 'center',
         marginTop: 20,
         padding: 12,
+        height: 56
     }
 
     static defaultScalableStyles = {
@@ -48,32 +49,28 @@ class customButton extends Component {
     }
 
     customContainerStyles() {
-        const {width, scale, alignItems, height, marginTop, padding} = this.props
-        const ret = {
+        const {scale, alignItems, height} = this.props
+        return {
             alignItems: alignItems,
-            height : _scale(height, scale)
-            marginTop : _scale(marginTop, scale)
-            padding : _scale(padding, scale)
+            height: _scale(height, scale),
         }
-        if(this.props.width != customButton.defaultProps.width) {
+    }
+
+    getButtonStyles(){
+        const {width, scale, alignItems, height, marginTop, padding} = this.props
+            let ret = {
+                alignItems: alignItems,
+                height : _scale(height, scale),
+                marginTop : _scale(marginTop, scale),
+                padding : _scale(padding, scale),
+                borderRadius : customButton.defaultScalableStyles.borderRadius,
+                shadowRadius : customButton.defaultScalableStyles.shadowRadius
+            }
+        if(width != customButton.defaultProps.width) {
             ret.width = width
         }
         return ret
     }
-
-    /*
-    scaleToText(){
-        let ret = {}
-        let defStyle = customButton.defaultScalableStyles
-        for (const prop in defStyle) {
-            ret[prop] = _scale(defStyle[prop], this.props.scale)
-        }
-        if(this.props.width != customButton.defaultProps.width) {
-            ret.width = this.props.width
-        }
-        return ret
-    }
-    */
 
     getFontSpecs(){
         const {scale, fontSize} = this.props
@@ -82,17 +79,6 @@ class customButton extends Component {
             fontSize : _scale(fontSize, scale)
         }
     }
-
-    /*
-    componentDidMount() {
-        if(!this.state.autoScaled){
-            this.setState({
-                autoScaled : true,
-                viewWidth : this.props.view
-            })
-        }
-    }
-     */
 
     //TODO: get views to LOCK in a width = to the width of the children
     render() {
@@ -103,7 +89,7 @@ class customButton extends Component {
                     <ScalingView
                         style = {[styles.container, this.customContainerStyles()]}>
                         <TouchableOpacity
-                            style={[styles.buttonStyle, this.scaleToText()]}
+                            style={[styles.buttonStyle, this.getButtonStyles()]}
                             onPress={() => onPress()}
                         >
                             <Text
