@@ -22,11 +22,17 @@ export class ScalingView extends Component{
 
     constructor(props) {
         super(props);
+        this.state = {
+            height : 0,
+            width : 0,
+        }
     }
 
     onLayout = (e) => {
         const {setWidth, setHeight} = this.props
         const toChange = {}
+        console.log(e.nativeEvent.layout.width)
+        console.log(e.nativeEvent.layout.height)
         if(setWidth) toChange.width = e.nativeEvent.layout.width
         if(setHeight) toChange.width = e.nativeEvent.layout.height
         this.setState({toChange})
@@ -39,7 +45,7 @@ export class ScalingView extends Component{
             });
         });
 
-        return (<View style = {[this.props.styles, this.autoScale()]}>
+        return (<View style = {[this.props.styles]}>
             {childrenWithLayout}
         </View>)
     }

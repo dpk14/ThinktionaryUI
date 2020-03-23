@@ -5,6 +5,7 @@ import * as Font from 'expo-font';
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
 import {_scale} from "./utils/scaling";
 import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
+import {ScalingView} from "./ScalingView";
 
 class customButton extends Component {
 
@@ -71,24 +72,37 @@ class customButton extends Component {
         }
     }
 
+    /*
+    componentDidMount() {
+        if(!this.state.autoScaled){
+            this.setState({
+                autoScaled : true,
+                viewWidth : this.props.view
+            })
+        }
+    }
+     */
+
     //TODO: get views to LOCK in a witdh = to the width of the children
     render() {
         if (this.loading) return null;
         else {
             const {text, onPress} = this.props;
                 return (
-                    <View style = {[styles.container, this.customContainerStyles()]}>
+                    <ScalingView
+                        style = {[styles.container, this.customContainerStyles()]}>
                         <TouchableOpacity
                             style={[styles.buttonStyle, this.scaleToText()]}
                             onPress={() => onPress()}
                         >
                             <Text
-                                style={[styles.textStyle, this.getFontSpecs()]}
+                                onLayout = {this.props.onLayout}
+                                    style={[styles.textStyle, this.getFontSpecs()]}
                             >
                                 {text}
                             </Text>
                         </TouchableOpacity>
-                    </View>
+                    </ScalingView>
             );
         }
     }
