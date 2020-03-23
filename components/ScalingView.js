@@ -31,8 +31,6 @@ export class ScalingView extends Component{
     onLayout = (e) => {
         const {setWidth, setHeight} = this.props
         const toChange = {}
-        console.log(e.nativeEvent.layout.width)
-        console.log(e.nativeEvent.layout.height)
         if(setWidth) toChange.width = e.nativeEvent.layout.width
         if(setHeight) toChange.width = e.nativeEvent.layout.height
         this.setState({toChange})

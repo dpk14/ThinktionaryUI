@@ -1,4 +1,4 @@
-import EntryBox from "../EntryBox";
+import StyledInput from "../StyledInput";
 import React from "react";
 
 

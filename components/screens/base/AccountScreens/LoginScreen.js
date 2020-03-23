@@ -3,7 +3,7 @@ import { Text} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import {StyleSheet, View} from 'react-native';
-import EntryBox from "../../../EntryBox";
+import StyledInput from "../../../StyledInput";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import {styles} from "../Screen";
@@ -16,7 +16,9 @@ export default class LoginScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-            loading : true
+            loading : true,
+            username : '',
+            password : ''
         }
     }
 
@@ -25,14 +27,14 @@ export default class LoginScreen extends Screen {
             <StyledBase>
                 <View style = {[styles.container]}>
                     <Text style={[styles.title]}>Thinktionary</Text>
-                    <EntryBox
+                    <StyledInput
                         attrName='username'
                         title='Username'
                         value={this.state.username}
                         updateMasterState={this._updateMasterState}
                         marginVertical={12}
                     />
-                    <EntryBox
+                    <StyledInput
                         attrName='password'
                         title='Password'
                         value={this.state.password}

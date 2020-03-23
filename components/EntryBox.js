@@ -10,19 +10,11 @@ const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
     static propTypes = {
-        attrName: string.isRequired,
         title: string.isRequired,
-        value: string.isRequired,
-        updateMasterState: func.isRequired,
-        keyboardType: string,
         titleActiveSize: number, // to control size of title when field is active
         titleInActiveSize: number, // to control size of title when field is inactive
         titleActiveColor: string, // to control color of title when field is active
         titleInactiveColor: string, // to control color of title when field is active
-        textInputInactiveMargins : object,
-        textInputActiveMargins : object,
-        textInputStyles: object,
-        otherTextInputProps: object,
         marginRight : number,
         marginLeft : number,
         marginVertical : number,
@@ -89,50 +81,6 @@ export default class EntryBox extends Component {
         this.setState({loading : false})
     }
 
-    _handleFocus = () => {
-        if (!this.state.isFieldActive) {
-            this.setState({ isFieldActive: true });
-            Animated.parallel([
-                Animated.timing(this.position, {
-                    toValue: 1,
-                    duration: 200,
-                }),
-                Animated.timing(this.shadow, {
-                    toValue: 1,
-                    duration: 300,
-                })
-            ]).start()
-        }
-    }
-
-    _handleBlur = () => {
-        if (this.state.isFieldActive && !this.props.value) {
-            this.setState({ isFieldActive: false });
-            this._animateBlur()
-        }
-    }
-
-    _animateBlur(){
-        Animated.parallel([
-            Animated.timing(this.position, {
-                toValue: 0,
-                duration: 200,
-            }),
-            Animated.timing(this.shadow, {
-                toValue: 0,
-                duration: 300,
-            })
-        ]).start()
-    }
-
-    _onChangeText = (updatedValue) => {
-        const { attrName, updateMasterState } = this.props;
-        updateMasterState(attrName, updatedValue);
-    }
-
-    _onKeyPress = ABSTRACT_METHOD
-    _onSubmitEditing = ABSTRACT_METHOD
-
     _returnAnimatedTitleStyles = () => {
         const { isFieldActive } = this.state;
         const {
@@ -151,26 +99,6 @@ export default class EntryBox extends Component {
         }
     }
 
-    _returnAnimatedInputStyles = () => {
-        const { isFieldActive } = this.state;
-        const {
-            textInputActiveMargins, textInputInactiveMargins, scale
-        } = this.props;
-
-        let marginTop = _scale(isFieldActive ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop, scale)
-
-        return {
-            marginTop : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
-            marginBottom : invScale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom, scale),
-            fontSize : _scale(this.props.fontSize, scale),
-            marginLeft: _scale(this.props.textMarginLeft, scale),
-            marginRight : _scale(this.props.textMarginRight, scale),
-            paddingRight : _scale(this.props.textMarginRight, scale)*1.5,
-            borderRadius : _scale(this.props.borderRadius, scale),
-            height : _scale(this.props.height, scale),
-        }
-    }
-
     _returnAnimatedContainerStyles = () => {
         return {
             opacity: this.position.interpolate({
@@ -186,7 +114,7 @@ export default class EntryBox extends Component {
 
     _returnBaseContainerStyles = () => {
         const {scale} = this.props
-            return {
+        return {
             width: _scale(this.props.width, scale),
             height: _scale(this.props.height, scale),
             borderRadius: _scale(this.props.borderRadius, scale)
@@ -201,40 +129,31 @@ export default class EntryBox extends Component {
         }
     }
 
-    renderTextInput(additionalStyles={}){
-        return (<TextInput
-            multiline = {this.props.multiline}
-            returnKeyType = {this.props.returnKeyType}
-            blurOnSubmit = {this.props.blurOnSubmit}
-            value={this.props.value}
-            style={[Styles.textInput, this._returnAnimatedInputStyles(), additionalStyles]}
-            underlineColorAndroid='transparent'
-            onFocus={this._handleFocus}
-            onBlur={this._handleBlur}
-            onChangeText={this._onChangeText}
-            keyboardType={this.props.keyboardType}
-            {...this.props.otherTextInputProps}
-            onKeyPress = {Override(this.props,'onKeyPress', this._onKeyPress) }
-            onSubmitEditing = {Override(this.props,'onSubmitEditing', this._onSubmitEditing) }
-            autoCompletType = {false}
-            />)
-    }
-
-    returnAllContainterStyles(additionalStyle={}){
+    returnAllContainerStyles(additionalStyle={}){
         return [Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles(), additionalStyle]
     }
 
+    updateContainerState = (isActive) => {
+        this.setState({isActive : isActive})
+    }
+
     render() {
-        const StyledTextInput = this.renderTextInput()
+        const childrenWithLayout = React.Children.map(this.props.children, child => {
+            return React.cloneElement(child, {
+                updateContainerState: this.updateContainerState
+            });
+        });
         if (!this.loading) {
             return (
-                <Animated.View style={this.returnAllContainterStyles()}>
+                <Animated.View style={this.returnAllContainerStyles()}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >
                         {this.props.title}
                     </Animated.Text>
-                    {StyledTextInput}
+                    <View>
+                    {childrenWithLayout}
+                    </View>
                 </Animated.View>
             )
         }

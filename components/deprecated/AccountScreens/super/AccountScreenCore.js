@@ -3,7 +3,7 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import EntryBox from "../../../EntryBox";
+import StyledInput from "../../../StyledInput";
 import CustomButton from "../../../CustomButton";
 import {func, object, string} from "prop-types";
 import {Field, FieldMap} from "../../../structs/field";
@@ -57,7 +57,7 @@ export default class AccountScreenCore extends Component {
                 })
             }
             const Entries = arr.map(field => (
-                <EntryBox
+                <StyledInput
                 attrName = {field.attrName}
                 title = {field.title}
                 value = {field.value}

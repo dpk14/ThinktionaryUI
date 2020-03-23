@@ -3,7 +3,7 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import EntryBox from "../../../EntryBox";
+import StyledInput from "../../../StyledInput";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
@@ -15,6 +15,10 @@ export default class NewAccountScreen extends Screen {
 
     constructor(props) {
         super(props);
+        this.state = {
+            username : '',
+            password : ''
+        }
     }
 
     _onButtonClick = (response, exceptionThrown) => {
@@ -30,14 +34,14 @@ export default class NewAccountScreen extends Screen {
             <StyledBase>
             <View style = {[styles.container]}>
                     <Text style={styles.title}>Thinktionary</Text>
-                    <EntryBox
+                    <StyledInput
                         attrName='username'
                         title='Username'
                         value={this.state.username}
                         updateMasterState={this._updateMasterState}
                         marginVertical={12}
                     />
-                    <EntryBox
+                    <StyledInput
                         attrName='password'
                         title='Password'
                         value={this.state.password}

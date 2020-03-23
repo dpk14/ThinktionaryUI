@@ -85,6 +85,8 @@ class customButton extends Component {
     render() {
         if (this.loading) return null;
         else {
+
+            console.log("onLayout " + this.props.onLayout)
             const {text, onPress} = this.props;
                 return (
                     <ScalingView

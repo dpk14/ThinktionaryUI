@@ -2,7 +2,7 @@
 import { StyleSheet, Text, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import EntryBox from "../../../EntryBox";
+import StyledInput from "../../../StyledInput";
 import Screen, {styles} from "../Screen";
 import React from "react";
 import CustomButton from "../../../CustomButton";
@@ -27,7 +27,7 @@ export default class WriteScreen extends Screen {
             <View style = {styles.container}>
                         <View style = {newStyles.outerFrame}>
                             <View style = {newStyles.topFrame}>
-                                <EntryBox
+                                <StyledInput
                                     attrName='title'
                                     title='Title'
                                     value={this.state.title}
@@ -35,7 +35,7 @@ export default class WriteScreen extends Screen {
                                     scale = {0.8}
                                     width={218}
                                 />
-                                <EntryBox
+                                <StyledInput
                                     attrName='date'
                                     title='Date'
                                     value={this.state.date}
@@ -45,7 +45,7 @@ export default class WriteScreen extends Screen {
                                 />
                             </View>
                             <View style = {newStyles.bottomFrame}>
-                                <EntryBox
+                                <StyledInput
                                     attrName='text'
                                     title='Text'
                                     value={this.state.text}
@@ -66,7 +66,7 @@ export default class WriteScreen extends Screen {
                                     height= {TOPIC_HEIGHT}
                                     width={450}
                                 />
-                                <EntryBox
+                                <StyledInput
                                     attrName='topicBank'
                                     title='Topic Bank'
                                     value={this.state.topicBank}

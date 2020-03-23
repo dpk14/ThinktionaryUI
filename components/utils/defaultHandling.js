@@ -5,5 +5,5 @@ export function Override(props, propName, defaultFunc){
 }
 
 export function setOrDefault(props, attrName, defaultFunc){
-    return props[attrName] == EntryBox.defaultProps[attrName] ? defaultFunc : props[attrName]
+    return props[attrName] == StyledInput.defaultProps[attrName] ? defaultFunc : props[attrName]
 }
