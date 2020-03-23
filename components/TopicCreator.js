@@ -66,6 +66,7 @@ export default class TopicCreator extends EntryBox {
         //updateMasterState(attrName, updatedValue);
     }
 
+    /*
     render(){
         const TopicBoxes = () => this.renderTopicBoxes()
         const TxtInput = () => this.renderTextInput({
@@ -73,15 +74,24 @@ export default class TopicCreator extends EntryBox {
             flex: 1,
         })
         return(
-            <View style={[Styles.container, addStyles.practiceView]}>
-            <TopicBoxes>
-            </TopicBoxes>
-            <TxtInput/>
-            </View>
+            <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles()]}>
+                <Animated.Text
+                    style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
+                >
+                    {this.props.title}
+                </Animated.Text>
+
+                <Animated.View style={[Styles.container, addStyles.practiceView]}>
+                <TopicBoxes>
+                </TopicBoxes>
+                <TxtInput/>
+                </Animated.View>
+            </Animated.View>
         )
     }
+    */
 
-    /*
+
     render() {
         const StyledTextInput = this.renderTextInput({
           marginLeft: this.state.topics.size > 0 ? 10 : this.props.textMarginLeft,
@@ -90,23 +100,23 @@ export default class TopicCreator extends EntryBox {
         const TopicBoxes = this.renderTopicBoxes()
         if (!this.loading) {
             return (
-                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles()]}>
+                <Animated.View style={this.returnAllContainterStyles()}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >
                         {this.props.title}
                     </Animated.Text>
-                    <Animated.ScrollView
-                                        contentContainerStyle = {{flexGrow : 1}}
+                    <Animated.View
                                          style={[addStyles.scrollView]}>
                     {TopicBoxes}
-                    </Animated.ScrollView>
+                        {StyledTextInput}
+                    </Animated.View>
                 </Animated.View>
             )
         }
         else return null;
     }
-    */
+
 
 }
 
@@ -128,6 +138,8 @@ const addStyles = StyleSheet.create({
         borderRadius: 20,
         shadowOffset: { height: 4},
         shadowRadius: 20,
+        width : 360,
+        flexWrap : "wrap"
     },
     textInput: {
         fontWeight: '400',

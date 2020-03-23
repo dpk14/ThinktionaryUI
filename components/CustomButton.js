@@ -16,6 +16,9 @@ class customButton extends Component {
         fontSize: PropTypes.number,
         scale: PropTypes.number,
         alignItems : PropTypes.string,
+        marginTop: PropTypes.number,
+        padding : PropTypes.number,
+        height: 56,
     }
 
     static defaultProps = {
@@ -23,12 +26,11 @@ class customButton extends Component {
         width: 120,
         scale: 1,
         alignItems : 'center'
+        marginTop: 20,
+        padding: 12,
     }
 
     static defaultScalableStyles = {
-        marginTop: 20,
-        padding: 12,
-        height: 56,
         borderRadius: 20,
         shadowRadius: 15,
     }
@@ -46,12 +48,20 @@ class customButton extends Component {
     }
 
     customContainerStyles() {
-        return {
-            alignItems: this.props.alignItems,
-            height : _scale(customButton.defaultScalableStyles.height, this.props.scale)
+        const {width, scale, alignItems, height, marginTop, padding} = this.props
+        const ret = {
+            alignItems: alignItems,
+            height : _scale(height, scale)
+            marginTop : _scale(marginTop, scale)
+            padding : _scale(padding, scale)
         }
+        if(this.props.width != customButton.defaultProps.width) {
+            ret.width = width
+        }
+        return ret
     }
 
+    /*
     scaleToText(){
         let ret = {}
         let defStyle = customButton.defaultScalableStyles
@@ -63,6 +73,7 @@ class customButton extends Component {
         }
         return ret
     }
+    */
 
     getFontSpecs(){
         const {scale, fontSize} = this.props

@@ -215,11 +215,15 @@ export default class EntryBox extends Component {
             />)
     }
 
+    returnAllContainterStyles(additionalStyle={}){
+        return [Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles(), additionalStyle]
+    }
+
     render() {
         const StyledTextInput = this.renderTextInput()
         if (!this.loading) {
             return (
-                <Animated.View style={[Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles()]}>
+                <Animated.View style={this.returnAllContainterStyles()}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >

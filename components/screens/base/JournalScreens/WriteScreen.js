@@ -61,7 +61,7 @@ export default class WriteScreen extends Screen {
                                     value={this.state.topics}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.8}
-                                    topicScale = {.8}
+                                    topicScale = {.7}
                                     height= {TOPIC_HEIGHT}
                                     width={450}
                                 />
