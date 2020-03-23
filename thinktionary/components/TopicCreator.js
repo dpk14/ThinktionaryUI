@@ -70,13 +70,23 @@ export default class TopicCreator extends EntryBox {
         //updateMasterState(attrName, updatedValue);
     }
 
+    render(){
+        const TopicBoxes = () => this.renderTopicBoxes()
+        return(
+        <View style={[Styles.container, addStyles.practiceView]}>
+            <TopicBoxes>
+
+            </TopicBoxes>
+        </View>
+        )
+    }
+
+    /*
     render() {
-        /*
         const StyledTextInput = this.renderTextInput({
           marginLeft: this.state.topics.size > 0 ? 10 : this.props.textMarginLeft,
             flex: 1,
         })
-        */
         const TopicBoxes = this.renderTopicBoxes()
         if (!this.loading) {
             return (
@@ -96,10 +106,20 @@ export default class TopicCreator extends EntryBox {
         }
         else return null;
     }
+    */
 
 }
 
 const addStyles = StyleSheet.create({
+    practiceView: {
+        flex : 1,
+        flexDirection : 'row',
+        borderRadius: 20,
+        shadowOffset: { height: 4},
+        shadowRadius: 20,
+        color : 'white'
+    },
+
     scrollView: {
         flex : 1,
         flexDirection : 'row',

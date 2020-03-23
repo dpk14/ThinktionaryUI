@@ -71,6 +71,7 @@ class customButton extends Component {
         }
     }
 
+    //TODO: get views to LOCK in a witdh = to the width of the children
     render() {
         if (this.loading) return null;
         else {
