@@ -7,52 +7,56 @@ import CustomButton from "./CustomButton";
 import {TOPIC_HEIGHT, TOPIC_WIDTH} from "./strings";
 import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
 import {Keyboard} from "react-native-web";
+import EntryBox from "./EntryBox";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
-export default class TopicCreator extends StyledInput {
+export default class TopicCreator extends EntryBox {
 
-    static defaultProps = {...StyledInput.defaultProps,
-                        ...{
-                            multiline : false,
-                            blurOnSubmit : false,
-                            topicScale : 1
-                        }
-                        };
+    static defaultProps = {
+        ...StyledInput.defaultProps,
+        ...{
+            multiline: false,
+            blurOnSubmit: false,
+            topicScale: 1
+        }
+    };
 
     constructor(props) {
         super(props);
         this.state.topics = new Set()
     }
 
-    renderTopicBoxes(){
+    renderTopicBoxes() {
         const TopicBoxes = []
         this.state.topics.forEach(topic => TopicBoxes.push(
             <CustomButton
-                text = {topic}
-                scale = {this.props.topicScale}
+                text={topic}
+                scale={this.props.topicScale}
                 alignItems="flex-start"
-                padding = {0}
-                marginTop = {0}
-                onPress={()=>{}}
+                padding={0}
+                marginTop={0}
+                onPress={() => {
+                }}
             />));
         return TopicBoxes
     }
 
     _handleBlur = () => {
         if (this.state.isFieldActive && !this.props.value && this.state.topics.size == 0) {
-            this.setState({ isFieldActive: false });
+            this.setState({isFieldActive: false});
             this._animateBlur()
         }
     }
 
     _onSubmitEditing = () => {
-        const { attrName, updateMasterState, value, textMarginLeft} = this.props;
+        const {attrName, updateMasterState, value, textMarginLeft} = this.props;
         const {topics} = this.state
         let oldLength = topics.length
         topics.add(value)
         if (oldLength != topics.length) {
-            this.setState({textLeftOffset : this.state.textLeftOffset + TOPIC_WIDTH,
-                                topics : topics,
+            this.setState({
+                textLeftOffset: this.state.textLeftOffset + TOPIC_WIDTH,
+                topics: topics,
             })
         }
         updateMasterState(attrName, '');
@@ -62,8 +66,8 @@ export default class TopicCreator extends StyledInput {
     //if text length exceeds that of textbox, move to next line. "lines" can just be stacks of views.
 
     _onKeyPress = ({nativeEvent}) => {
-        const { topics } = this.state;
-        if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size>0) {
+        const {topics} = this.state;
+        if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size > 0) {
             topics.delete(Array.from(topics).pop())
             this.setState({
                     topics: topics
@@ -99,8 +103,26 @@ export default class TopicCreator extends StyledInput {
     }
     */
 
+    renderBody() {
+        const StyledTextInput = this.renderTextInput()
+        const TopicBoxes = this.renderTopicBoxes()
+        return (
+            <Animated.ScrollView>
+                <Animated.View style={[addStyles.scrollView, {
+                    marginHorizontal: 10,
+                    marginVertical: 20
+                }]}>
+                    {TopicBoxes}
+                    {StyledTextInput}
+                </Animated.View>
+            </Animated.ScrollView>
+        )
+    }
+}
+
+    /*
     render() {
-        const StyledTextInput = this.renderTextInput({
+         const StyledTextInput = this.renderTextInput({
           marginLeft: this.state.topics.size > 0 ? 10 : this.props.textMarginLeft,
             flex: 1,
         })
@@ -127,8 +149,8 @@ export default class TopicCreator extends StyledInput {
         else return null;
     }
 
-
 }
+*/
 
 const addStyles = StyleSheet.create({
     practiceView: {

@@ -135,10 +135,19 @@ export default class EntryBox extends Component {
         return [Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles(), additionalStyle]
     }
 
-    renderBody() {return ABSTRACT_METHOD()}
+    updateContainerState = (isActive) => {
+        if(!this.props.alwaysActive) {
+            this.setState({isActive : isActive})
+        }
+    }
 
     render() {
-        const Body = this.renderBody()
+        const childrenWithLayout = this.props.alwaysActive ? this.props.children :
+            React.Children.map(this.props.children, child => {
+            return React.cloneElement(child, {
+                updateContainerState: this.updateContainerState
+            });
+        });
         if (!this.loading) {
             return (
                 <Animated.View style={this.returnAllContainerStyles()}>
@@ -147,7 +156,9 @@ export default class EntryBox extends Component {
                     >
                         {this.props.title}
                     </Animated.Text>
-                    <Body></Body>
+                    <View>
+                    {childrenWithLayout}
+                    </View>
                 </Animated.View>
             )
         }
