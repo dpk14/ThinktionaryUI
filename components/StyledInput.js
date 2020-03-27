@@ -9,80 +9,10 @@ import {ABSTRACT_METHOD} from "./utils/abstraction";
 import EntryBox from "./EntryBox";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
-export default class StyledInput extends Component {
-    static propTypes = {
-        attrName: string.isRequired,
-        title: string.isRequired,
-        value: string.isRequired,
-        updateMasterState: func.isRequired,
-        keyboardType: string,
-        titleActiveSize: number, // to control size of title when field is active
-        titleInActiveSize: number, // to control size of title when field is inactive
-        titleActiveColor: string, // to control color of title when field is active
-        titleInactiveColor: string, // to control color of title when field is active
-        textInputInactiveMargins : object,
-        textInputActiveMargins : object,
-        textInputStyles: object,
-        otherTextInputProps: object,
-        marginRight : number,
-        marginLeft : number,
-        marginVertical : number,
-        width : number | string,
-        height : number,
-        scale : number,
-        fontSize: number,
-        textMarginLeft : number,
-        textMarginRight : number,
-        borderRadius : number,
-        multiline : bool,
-        onSubmitEditing : func,
-        onKeyPress : func,
-        blurOnSubmit : bool,
-        returnKeyType : string,
-        updateContainerState : func,
-    }
-
-    static defaultProps = {
-        borderRadius: 20,
-        textMarginLeft : 21,
-        textMarginRight : 21,
-        fontSize: 20,
-        scale : 1,
-        height : 65,
-        width : 275,
-        marginRight : 0,
-        marginLeft : 0,
-        marginVertical : 6,
-        keyboardType: 'default',
-        titleActiveSize: 13,
-        titleInActiveSize: 15,
-        titleActiveColor: '#512da8',
-        titleInactiveColor: 'black',
-        textInputInactiveMargins: {
-            marginTop : 0,
-            marginBottom : 0,
-        },
-        textInputActiveMargins: {
-            marginTop : 6,
-            marginBottom : 8,
-        },
-        textInputStyles : {},
-        otherTextInputAttributes: {},
-        multiline : false,
-        onSubmitEditing : ()=> {},
-        onKeyPress : ()=>{},
-        blurOnSubmit : true,
-    }
+export default class StyledInput extends EntryBox {
 
     constructor(props) {
         super(props);
-        this.state = {
-            loading : true,
-            isFieldActive: false,
-        }
-        this.position = new Animated.Value(this.state.isFieldActive? 1 : 0);
-        this.shadow = new Animated.Value(this.state.isFieldActive ? 1 : 0);
-        this.state.textLeftOffset = 0;
     }
 
     async componentWillMount() {
@@ -93,7 +23,6 @@ export default class StyledInput extends Component {
     _handleFocus = () => {
         if (!this.state.isFieldActive) {
             this.setState({ isFieldActive: true });
-            this.props.updateContainerState(true)
             Animated.parallel([
                 Animated.timing(this.position, {
                     toValue: 1,
@@ -110,7 +39,6 @@ export default class StyledInput extends Component {
     _handleBlur = () => {
         if (this.state.isFieldActive && !this.props.value) {
             this.setState({ isFieldActive: false });
-            this.props.updateContainerState(false)
             this._animateBlur()
         }
     }
@@ -156,14 +84,13 @@ export default class StyledInput extends Component {
         }
     }
 
-    render() {
-        const StyledTextInput = (additionalStyles={}) => {
-            return (<TextInput
+    renderBody() {
+            return () => (<TextInput
                 multiline = {this.props.multiline}
                 returnKeyType = {this.props.returnKeyType}
                 blurOnSubmit = {this.props.blurOnSubmit}
                 value={this.props.value}
-                style={[Styles.textInput, this._returnAnimatedInputStyles(), additionalStyles]}
+                style={[Styles.textInput, this._returnAnimatedInputStyles()]}
                 underlineColorAndroid='transparent'
                 onFocus={this._handleFocus}
                 onBlur={this._handleBlur}
@@ -175,12 +102,7 @@ export default class StyledInput extends Component {
                 autoCompletType = {false}
             />)
         }
-        return (<EntryBox title={this.props.title}
-                   scale = {this.props.scale}>
-                    <StyledTextInput/>
-                </EntryBox>
-            )
-        }
+
 }
 
 export const Styles = StyleSheet.create({

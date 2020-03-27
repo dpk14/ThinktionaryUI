@@ -29,7 +29,8 @@ export default class EntryBox extends Component {
         onSubmitEditing : func,
         onKeyPress : func,
         blurOnSubmit : bool,
-        returnKeyType : string
+        returnKeyType : string,
+        alwaysActive : bool
     }
 
     static defaultProps = {
@@ -61,7 +62,8 @@ export default class EntryBox extends Component {
         multiline : false,
         onSubmitEditing : ()=> {},
         onKeyPress : ()=>{},
-        blurOnSubmit : true
+        blurOnSubmit : true,
+        alwaysActive : false,
     }
 
     constructor(props) {
@@ -71,7 +73,7 @@ export default class EntryBox extends Component {
         this.shadow = new Animated.Value(value ? 1 : 0);
         this.state = {
             loading : true,
-            isFieldActive: false,
+            isFieldActive: this.props.alwaysActive ? true : false,
         }
         this.state.textLeftOffset = 0;
     }
@@ -133,16 +135,10 @@ export default class EntryBox extends Component {
         return [Styles.container, this._returnAnimatedContainerStyles(), this._returnBaseContainerStyles(), this._returnContainerMarginStyles(), additionalStyle]
     }
 
-    updateContainerState = (isActive) => {
-        this.setState({isActive : isActive})
-    }
+    renderBody() {return ABSTRACT_METHOD()}
 
     render() {
-        const childrenWithLayout = React.Children.map(this.props.children, child => {
-            return React.cloneElement(child, {
-                updateContainerState: this.updateContainerState
-            });
-        });
+        const Body = this.renderBody()
         if (!this.loading) {
             return (
                 <Animated.View style={this.returnAllContainerStyles()}>
@@ -151,9 +147,7 @@ export default class EntryBox extends Component {
                     >
                         {this.props.title}
                     </Animated.Text>
-                    <View>
-                    {childrenWithLayout}
-                    </View>
+                    <Body></Body>
                 </Animated.View>
             )
         }
