@@ -56,7 +56,7 @@ export default class WriteScreen extends Screen {
                                     multiline = {true}
                                     blurOnSubmit={false}
                                 />
-                                <TopicCreator
+                                <StyledInputBox
                                     attrName='topics'
                                     title='Topics'
                                     value={this.state.topics}

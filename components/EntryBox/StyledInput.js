@@ -167,12 +167,6 @@ export class StyledInputBox extends Component{
 
 
 export const Styles = StyleSheet.create({
-    container: {
-        borderRadius: 20,
-        backgroundColor : "white",
-        shadowOffset: { height: 4},
-        shadowRadius: 20,
-    },
     textInput: {
         fontWeight: '400',
         fontFamily: HP_SIMPLIFIED,
@@ -183,11 +177,5 @@ export const Styles = StyleSheet.create({
         borderRadius: 20,
         opacity: .9
     },
-    titleStyles: {
-        position: 'absolute',
-        fontFamily: HP_SIMPLIFIED_BOLD,
-        fontWeight: '300',
-        lineHeight: 24,
-    }
 
 })
