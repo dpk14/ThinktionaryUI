@@ -101,6 +101,32 @@ export default class EntryBox extends Component {
         }
     }
 
+    _animateFocus(){
+        Animated.parallel([
+            Animated.timing(this.position, {
+                toValue: 1,
+                duration: 200,
+            }),
+            Animated.timing(this.shadow, {
+                toValue: 1,
+                duration: 300,
+            })
+        ]).start()
+    }
+
+    _animateBlur(){
+        Animated.parallel([
+            Animated.timing(this.position, {
+                toValue: 0,
+                duration: 200,
+            }),
+            Animated.timing(this.shadow, {
+                toValue: 0,
+                duration: 300,
+            })
+        ]).start()
+    }
+
     _returnAnimatedContainerStyles = () => {
         return {
             opacity: this.position.interpolate({
@@ -137,7 +163,8 @@ export default class EntryBox extends Component {
 
     updateContainerState = (isActive) => {
         if(!this.props.alwaysActive) {
-            this.setState({isActive : isActive})
+            this.setState({isFieldActive : isActive})
+            isActive ? this._animateFocus() : this._animateBlur()
         }
     }
 

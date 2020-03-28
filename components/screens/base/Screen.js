@@ -27,6 +27,7 @@ export default class Screen extends Component{
     }
 
     render() {
+        console.log(this.state.username)
             if(this.state.loading){
                 return null
             }

@@ -94,16 +94,7 @@ export default class StyledTextInput extends Component {
         if (!this.state.isFieldActive) {
             this.setState({ isFieldActive: true });
             this.props.updateContainerState(true)
-            Animated.parallel([
-                Animated.timing(this.position, {
-                    toValue: 1,
-                    duration: 200,
-                }),
-                Animated.timing(this.shadow, {
-                    toValue: 1,
-                    duration: 300,
-                })
-            ]).start()
+            //this._animateFocus()
         }
     }
 
@@ -111,21 +102,8 @@ export default class StyledTextInput extends Component {
         if (this.state.isFieldActive && !this.props.value) {
             this.setState({ isFieldActive: false });
             this.props.updateContainerState(false)
-            this._animateBlur()
+            //this._animateBlur()
         }
-    }
-
-    _animateBlur(){
-        Animated.parallel([
-            Animated.timing(this.position, {
-                toValue: 0,
-                duration: 200,
-            }),
-            Animated.timing(this.shadow, {
-                toValue: 0,
-                duration: 300,
-            })
-        ]).start()
     }
 
     _onChangeText = (updatedValue) => {
@@ -245,9 +223,11 @@ export class StyledInputBox extends Component{
         super(props);
     }
     render() {
+        console.log(this.props.value)
         return (<EntryBox title={this.props.title}
                           scale={this.props.scale}>
                 <StyledTextInput                 multiline = {this.props.multiline}
+                                                 attrName={this.props.attrName}
                                                  returnKeyType = {this.props.returnKeyType}
                                                  blurOnSubmit = {this.props.blurOnSubmit}
                                                  value={this.props.value}
