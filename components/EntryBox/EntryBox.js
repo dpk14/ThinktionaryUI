@@ -20,6 +20,8 @@ export default class EntryBox extends Component {
         marginLeft : number,
         marginVertical : number,
         alwaysActive : bool,
+            titleActivePos : number,
+            titleInactivePos : number,
 
             width : number | string,
             height : number,
@@ -40,6 +42,9 @@ export default class EntryBox extends Component {
             titleActiveColor: '#512da8',
             titleInactiveColor: 'black',
             alwaysActive: false,
+            titleActivePos : 4,
+            titleInactivePos : 20,
+
             borderRadius: 20,
             textMarginLeft : 21,
             textMarginRight : 21,
@@ -69,18 +74,20 @@ export default class EntryBox extends Component {
     _returnAnimatedTitleStyles = () => {
         const { isFieldActive } = this.state;
         const {
-            titleActiveColor, titleInactiveColor, titleActiveSize, titleInActiveSize, scale
+            titleActiveColor, titleInactiveColor, titleActiveSize, titleInActiveSize, scale,
+            titleActivePos, titleInactivePos, textMarginLeft, textMarginRight,
         } = this.props;
 
         return {
             top: this.position.interpolate({
                 inputRange: [0, 1],
-                outputRange: [_scale(20, scale), _scale(4, scale)],
+                outputRange: [_scale(titleInactivePos, scale),
+                             _scale(titleActivePos, scale)],
             }),
             fontSize: _scale(isFieldActive ? titleActiveSize : titleInActiveSize, scale),
             color: isFieldActive ? titleActiveColor : titleInactiveColor,
-            marginLeft: _scale(this.props.textMarginLeft, scale),
-            marginRight: _scale(this.props.textMarginRight, scale),
+            marginLeft: _scale(textMarginLeft, scale),
+            marginRight: _scale(textMarginRight, scale),
         }
     }
 
@@ -132,6 +139,15 @@ export default class EntryBox extends Component {
         }
     }
 
+    _returnInnerViewStyles = () => {
+        const {scale} = this.props
+        return {
+            width: _scale(this.props.width, scale),
+            height: _scale(this.props.height, scale),
+            borderRadius: _scale(this.props.borderRadius, scale)
+        }
+    }
+
     _returnContainerMarginStyles = () => {
         return {
             marginRight: this.props.marginRight,
@@ -166,7 +182,7 @@ export default class EntryBox extends Component {
                     >
                         {this.props.title}
                     </Animated.Text>
-                    <View>
+                    <View style = {this._returnInnerViewStyles}>
                     {childrenWithLayout}
                     </View>
                 </Animated.View>
