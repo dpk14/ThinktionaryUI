@@ -10,7 +10,7 @@ import {basePropDefaults, basePropTypes} from "./baseProps";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
-    static propTypes = {basePropTypes, ...{
+    static propTypes = {...basePropTypes, ...{
         title: string.isRequired,
         titleActiveSize: number, // to control size of title when field is active
         titleInActiveSize: number, // to control size of title when field is inactive
@@ -19,12 +19,19 @@ export default class EntryBox extends Component {
         marginRight : number,
         marginLeft : number,
         marginVertical : number,
-        alwaysActive : bool
+        alwaysActive : bool,
+
+            width : number | string,
+            height : number,
+            scale : number,
+            textMarginLeft : number,
+            textMarginRight : number,
+            borderRadius : number,
         }
     }
 
     static defaultProps = {
-        basePropDefaults, ...{
+        ...basePropDefaults, ...{
             marginRight: 0,
             marginLeft: 0,
             marginVertical: 6,
@@ -33,6 +40,12 @@ export default class EntryBox extends Component {
             titleActiveColor: '#512da8',
             titleInactiveColor: 'black',
             alwaysActive: false,
+            borderRadius: 20,
+            textMarginLeft : 21,
+            textMarginRight : 21,
+            scale : 1,
+            height : 65,
+            width : 275,
         }
     }
 

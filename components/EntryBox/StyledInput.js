@@ -67,8 +67,6 @@ export default class StyledTextInput extends Component {
             loading : true,
             isFieldActive: false,
         }
-        this.position = new Animated.Value(this.state.isFieldActive? 1 : 0);
-        this.shadow = new Animated.Value(this.state.isFieldActive ? 1 : 0);
         this.state.textLeftOffset = 0;
     }
 
@@ -143,7 +141,7 @@ export default class StyledTextInput extends Component {
 
 export class StyledInputBox extends Component{
     static propTypes = StyledTextInput.propTypes
-    static defaultProps = StyledTextInput.propTypes
+    static defaultProps = StyledTextInput.defaultProps
 
     constructor(props) {
         super(props);
@@ -158,7 +156,8 @@ export class StyledInputBox extends Component{
                                                  value={this.props.value}
                                                  keyboardType={this.props.keyboardType}
                                                  autoCompletType = {false}
-                                                 updateMasterState={this.props.updateMasterState}/>
+                                                 updateMasterState={this.props.updateMasterState}
+                                                    scale = {this.props.scale}/>
             </EntryBox>
         )
     }
