@@ -22,13 +22,6 @@ export default class EntryBox extends Component {
         alwaysActive : bool,
             titleActivePos : number,
             titleInactivePos : number,
-
-            width : number | string,
-            height : number,
-            scale : number,
-            textMarginLeft : number,
-            textMarginRight : number,
-            borderRadius : number,
         }
     }
 
@@ -44,13 +37,6 @@ export default class EntryBox extends Component {
             alwaysActive: false,
             titleActivePos : 4,
             titleInactivePos : 20,
-
-            borderRadius: 20,
-            textMarginLeft : 21,
-            textMarginRight : 21,
-            scale : 1,
-            height : 65,
-            width : 275,
         }
     }
 
