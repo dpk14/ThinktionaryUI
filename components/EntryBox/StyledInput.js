@@ -148,7 +148,10 @@ export class StyledInputBox extends Component{
     }
     render() {
         return (<EntryBox title={this.props.title}
-                          scale={this.props.scale}>
+                          scale={this.props.scale}
+                          width = {this.props.width}
+                          height = {this.props.height}
+                        >
                 <StyledTextInput                 multiline = {this.props.multiline}
                                                  attrName={this.props.attrName}
                                                  returnKeyType = {this.props.returnKeyType}
@@ -157,7 +160,9 @@ export class StyledInputBox extends Component{
                                                  keyboardType={this.props.keyboardType}
                                                  autoCompletType = {false}
                                                  updateMasterState={this.props.updateMasterState}
-                                                    scale = {this.props.scale}/>
+                                                 width = {this.props.width}
+                                                 height = {this.props.height}
+                                                 scale = {this.props.scale}/>
             </EntryBox>
         )
     }
