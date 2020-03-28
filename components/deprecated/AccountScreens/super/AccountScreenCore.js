@@ -3,7 +3,7 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import StyledInput from "../../../StyledInput";
+import StyledInput from "../../../EntryBox/StyledInput";
 import CustomButton from "../../../CustomButton";
 import {func, object, string} from "prop-types";
 import {Field, FieldMap} from "../../../structs/field";

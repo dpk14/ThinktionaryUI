@@ -1,4 +1,4 @@
-import StyledInput from "../StyledInput";
+import StyledInput from "../EntryBox/StyledInput";
 import React from "react";
 
 

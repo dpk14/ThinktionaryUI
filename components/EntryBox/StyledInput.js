@@ -2,31 +2,23 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import {_scale, invScale} from "./utils/scaling";
-import {Override} from "./utils/defaultHandling";
-import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
-import {ABSTRACT_METHOD} from "./utils/abstraction";
+import {_scale, invScale} from "../utils/scaling";
+import {Override} from "../utils/defaultHandling";
+import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
+import {ABSTRACT_METHOD} from "../utils/abstraction";
 import EntryBox from "./EntryBox";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class StyledTextInput extends Component {
     static propTypes = {
         attrName: string.isRequired,
-        title: string.isRequired,
         value: string.isRequired,
         updateMasterState: func.isRequired,
         keyboardType: string,
-        titleActiveSize: number, // to control size of title when field is active
-        titleInActiveSize: number, // to control size of title when field is inactive
-        titleActiveColor: string, // to control color of title when field is active
-        titleInactiveColor: string, // to control color of title when field is active
         textInputInactiveMargins : object,
         textInputActiveMargins : object,
         textInputStyles: object,
         otherTextInputProps: object,
-        marginRight : number,
-        marginLeft : number,
-        marginVertical : number,
         width : number | string,
         height : number,
         scale : number,
@@ -52,12 +44,7 @@ export default class StyledTextInput extends Component {
         width : 275,
         marginRight : 0,
         marginLeft : 0,
-        marginVertical : 6,
         keyboardType: 'default',
-        titleActiveSize: 13,
-        titleInActiveSize: 15,
-        titleActiveColor: '#512da8',
-        titleInactiveColor: 'black',
         textInputInactiveMargins: {
             marginTop : 0,
             marginBottom : 0,
@@ -155,75 +142,13 @@ export default class StyledTextInput extends Component {
 }
 
 export class StyledInputBox extends Component{
-    static propTypes = {
-        attrName: string.isRequired,
-        title: string.isRequired,
-        value: string.isRequired,
-        updateMasterState: func.isRequired,
-        keyboardType: string,
-        titleActiveSize: number, // to control size of title when field is active
-        titleInActiveSize: number, // to control size of title when field is inactive
-        titleActiveColor: string, // to control color of title when field is active
-        titleInactiveColor: string, // to control color of title when field is active
-        textInputInactiveMargins : object,
-        textInputActiveMargins : object,
-        textInputStyles: object,
-        otherTextInputProps: object,
-        marginRight : number,
-        marginLeft : number,
-        marginVertical : number,
-        width : number | string,
-        height : number,
-        scale : number,
-        fontSize: number,
-        textMarginLeft : number,
-        textMarginRight : number,
-        borderRadius : number,
-        multiline : bool,
-        onSubmitEditing : func,
-        onKeyPress : func,
-        blurOnSubmit : bool,
-        returnKeyType : string,
-        updateContainerState : func,
-    }
-
-    static defaultProps = {
-        borderRadius: 20,
-        textMarginLeft : 21,
-        textMarginRight : 21,
-        fontSize: 20,
-        scale : 1,
-        height : 65,
-        width : 275,
-        marginRight : 0,
-        marginLeft : 0,
-        marginVertical : 6,
-        keyboardType: 'default',
-        titleActiveSize: 13,
-        titleInActiveSize: 15,
-        titleActiveColor: '#512da8',
-        titleInactiveColor: 'black',
-        textInputInactiveMargins: {
-            marginTop : 0,
-            marginBottom : 0,
-        },
-        textInputActiveMargins: {
-            marginTop : 6,
-            marginBottom : 8,
-        },
-        textInputStyles : {},
-        otherTextInputAttributes: {},
-        multiline : false,
-        onSubmitEditing : ()=> {},
-        onKeyPress : ()=>{},
-        blurOnSubmit : true,
-    }
+    static propTypes = StyledTextInput.propTypes
+    static defaultProps = StyledTextInput.propTypes
 
     constructor(props) {
         super(props);
     }
     render() {
-        console.log(this.props.value)
         return (<EntryBox title={this.props.title}
                           scale={this.props.scale}>
                 <StyledTextInput                 multiline = {this.props.multiline}
@@ -233,7 +158,7 @@ export class StyledInputBox extends Component{
                                                  value={this.props.value}
                                                  keyboardType={this.props.keyboardType}
                                                  autoCompletType = {false}
-                                                    updateMasterState={this.props.updateMasterState}/>
+                                                 updateMasterState={this.props.updateMasterState}/>
             </EntryBox>
         )
     }

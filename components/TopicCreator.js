@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput, ScrollView } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import StyledInput, {Styles} from "./StyledInput";
+import StyledInput, {Styles} from "./EntryBox/StyledInput";
 import CustomButton from "./CustomButton";
 import {TOPIC_HEIGHT, TOPIC_WIDTH} from "./strings";
 import {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
 import {Keyboard} from "react-native-web";
-import EntryBox from "./EntryBox";
+import EntryBox from "./EntryBox/EntryBox";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class TopicCreator extends EntryBox {

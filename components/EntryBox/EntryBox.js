@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import {_scale, invScale} from "./utils/scaling";
-import {Override} from "./utils/defaultHandling";
-import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
-import {ABSTRACT_METHOD} from "./utils/abstraction";
+import {_scale, invScale} from "../utils/scaling";
+import {Override} from "../utils/defaultHandling";
+import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
+import {ABSTRACT_METHOD} from "../utils/abstraction";
+import {basePropDefaults, basePropTypes} from "./baseProps";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
-    static propTypes = {
+    static propTypes = {basePropTypes, ...{
         title: string.isRequired,
         titleActiveSize: number, // to control size of title when field is active
         titleInActiveSize: number, // to control size of title when field is inactive
@@ -18,52 +19,21 @@ export default class EntryBox extends Component {
         marginRight : number,
         marginLeft : number,
         marginVertical : number,
-        width : number | string,
-        height : number,
-        scale : number,
-        fontSize: number,
-        textMarginLeft : number,
-        textMarginRight : number,
-        borderRadius : number,
-        multiline : bool,
-        onSubmitEditing : func,
-        onKeyPress : func,
-        blurOnSubmit : bool,
-        returnKeyType : string,
         alwaysActive : bool
+        }
     }
 
     static defaultProps = {
-        borderRadius: 20,
-        textMarginLeft : 21,
-        textMarginRight : 21,
-        fontSize: 20,
-        scale : 1,
-        height : 65,
-        width : 275,
-        marginRight : 0,
-        marginLeft : 0,
-        marginVertical : 6,
-        keyboardType: 'default',
-        titleActiveSize: 13,
-        titleInActiveSize: 15,
-        titleActiveColor: '#512da8',
-        titleInactiveColor: 'black',
-        textInputInactiveMargins: {
-            marginTop : 0,
-            marginBottom : 0,
-        },
-        textInputActiveMargins: {
-            marginTop : 6,
-            marginBottom : 8,
-        },
-        textInputStyles : {},
-        otherTextInputAttributes: {},
-        multiline : false,
-        onSubmitEditing : ()=> {},
-        onKeyPress : ()=>{},
-        blurOnSubmit : true,
-        alwaysActive : false,
+        basePropDefaults, ...{
+            marginRight: 0,
+            marginLeft: 0,
+            marginVertical: 6,
+            titleActiveSize: 13,
+            titleInActiveSize: 15,
+            titleActiveColor: '#512da8',
+            titleInactiveColor: 'black',
+            alwaysActive: false,
+        }
     }
 
     constructor(props) {
@@ -199,16 +169,6 @@ export const Styles = StyleSheet.create({
         backgroundColor : "white",
         shadowOffset: { height: 4},
         shadowRadius: 20,
-    },
-    textInput: {
-        fontWeight: '400',
-        fontFamily: HP_SIMPLIFIED,
-        color: '#282828',
-        width: '100%',
-        height: 65,
-        position: 'relative',
-        borderRadius: 20,
-        opacity: .9
     },
     titleStyles: {
         position: 'absolute',
