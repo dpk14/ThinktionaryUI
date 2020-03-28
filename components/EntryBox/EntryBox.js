@@ -63,7 +63,6 @@ export default class EntryBox extends Component {
             titleActiveColor, titleInactiveColor, titleActiveSize, titleInActiveSize, scale,
             titleActivePos, titleInactivePos, textMarginLeft, textMarginRight,
         } = this.props;
-
         return {
             top: this.position.interpolate({
                 inputRange: [0, 1],
@@ -126,11 +125,16 @@ export default class EntryBox extends Component {
     }
 
     _returnInnerViewStyles = () => {
-        const {scale} = this.props
+        const {scale, width, height, borderRadius, titleActivePos, titleActiveSize} = this.props
+        const {isFieldActive} = this.state
+        const innerViewOffset = isFieldActive ? _scale(titleActivePos + titleActiveSize, scale) : 0
+        console.log(innerViewOffset)
         return {
-            width: _scale(this.props.width, scale),
-            height: _scale(this.props.height, scale),
-            borderRadius: _scale(this.props.borderRadius, scale)
+            width: _scale(width, scale),
+            height: _scale(height - innerViewOffset, scale),
+            borderRadius: _scale(borderRadius, scale),
+            marginTop : innerViewOffset,
+            alignItems : 'flex-start'
         }
     }
 
@@ -168,7 +172,7 @@ export default class EntryBox extends Component {
                     >
                         {this.props.title}
                     </Animated.Text>
-                    <View style = {this._returnInnerViewStyles}>
+                    <View style = {this._returnInnerViewStyles()}>
                     {childrenWithLayout}
                     </View>
                 </Animated.View>

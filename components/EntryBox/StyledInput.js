@@ -7,7 +7,7 @@ import {Override} from "../utils/defaultHandling";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
 import {ABSTRACT_METHOD} from "../utils/abstraction";
 import EntryBox from "./EntryBox";
-const MULTILINE_TOPMARGIN_ADJUSTER = 4
+const MULTILINE_TOPMARGIN_ADJUSTER = -1
 
 export default class StyledTextInput extends Component {
     static propTypes = {
@@ -50,8 +50,8 @@ export default class StyledTextInput extends Component {
             marginBottom : 0,
         },
         textInputActiveMargins: {
-            marginTop : 6,
-            marginBottom : 8,
+            marginTop : 0,
+            marginBottom : 0,
         },
         textInputStyles : {},
         otherTextInputAttributes: {},
@@ -109,7 +109,6 @@ export default class StyledTextInput extends Component {
 
         return {
             marginTop : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
-            marginBottom : invScale(isFieldActive ? textInputActiveMargins.marginBottom : textInputInactiveMargins.marginBottom, scale),
             fontSize : _scale(this.props.fontSize, scale),
             marginLeft: _scale(this.props.textMarginLeft, scale),
             marginRight : _scale(this.props.textMarginRight, scale),
@@ -147,22 +146,24 @@ export class StyledInputBox extends Component{
         super(props);
     }
     render() {
-        return (<EntryBox title={this.props.title}
-                          scale={this.props.scale}
-                          width = {this.props.width}
-                          height = {this.props.height}
+        const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
+                value, keyboardType, updateMasterState}  = this.props
+        return (<EntryBox title={title}
+                          scale={scale}
+                          width = {width}
+                          height = {height}
                         >
-                <StyledTextInput                 multiline = {this.props.multiline}
-                                                 attrName={this.props.attrName}
-                                                 returnKeyType = {this.props.returnKeyType}
-                                                 blurOnSubmit = {this.props.blurOnSubmit}
-                                                 value={this.props.value}
-                                                 keyboardType={this.props.keyboardType}
+                <StyledTextInput                 multiline = {multiline}
+                                                 attrName={attrName}
+                                                 returnKeyType = {returnKeyType}
+                                                 blurOnSubmit = {blurOnSubmit}
+                                                 value={value}
+                                                 keyboardType={keyboardType}
                                                  autoCompletType = {false}
-                                                 updateMasterState={this.props.updateMasterState}
-                                                 width = {this.props.width}
-                                                 height = {this.props.height}
-                                                 scale = {this.props.scale}/>
+                                                 updateMasterState={updateMasterState}
+                                                 width = {width}
+                                                 height = "100%"
+                                                 scale = {scale}/>
             </EntryBox>
         )
     }

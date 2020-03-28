@@ -14,6 +14,9 @@ export function invScale(prop, scale){
 }
 
 export function scalePercentage(percentage, scale){
+    return percentage
+    /*
     let scaledInt = parseInt((percentage.substring(0, percentage.length-1)))*scale;
     return (scaledInt > 100 ? 100 : scaledInt) + "%"
+    */
 }
