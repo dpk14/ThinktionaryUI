@@ -34,7 +34,8 @@ export default class StyledTextInput extends Component {
         updateContainerState : func,
         onBlur : func,
         onFocus : func,
-        secureTextEntry : bool
+        secureTextEntry : bool,
+        editable : bool
     }
 
     static defaultProps = {
@@ -67,7 +68,8 @@ export default class StyledTextInput extends Component {
         blurOnSubmit: true,
         updateContainerState: () => {},
         onFocus: () => {},
-        onBlur: () => {}
+        onBlur: () => {},
+        editable : true,
     }
 
 
@@ -127,25 +129,31 @@ export default class StyledTextInput extends Component {
         }
     }
 
-    render() {return (<TextInput
-                secureTextEntry = {this.props.secureTextEntry}
-                multiline = {this.props.multiline}
-                returnKeyType = {this.props.returnKeyType}
-                blurOnSubmit = {this.props.blurOnSubmit}
-                value={this.props.value}
-                style={[TextInputStyles.baseStyles, this._returnAnimatedInputStyles(), this.props.style]}
-                underlineColorAndroid='transparent'
-                onFocus={setOrDefault(this.props.onFocus, StyledTextInput.defaultProps.onFocus, this._handleFocus)}
-                onBlur={setOrDefault(this.props.onBlur, StyledTextInput.defaultProps.onBlur, this._handleBlur)}
-                onChangeText={this._onChangeText}
-                keyboardType={this.props.keyboardType}
-                {...this.props.otherTextInputProps}
-                onKeyPress = {setOrDefault(this.props.onKeyPress, StyledTextInput.defaultProps.onKeyPress, this._onKeyPress)}
-                onSubmitEditing = {setOrDefault(this.props.onSubmitEditing, StyledTextInput.defaultProps.onSubmitEditing, this._onSubmitEditing) }
-                autoCompletType = {false}
-            />)
+    render() {
 
-}
+            const{secureTextEntry, multiline, returnKeyType, blurOnSubmit, value, style,
+                 onFocus, onBlur, keyboardType, onKeyPress, onSubmitEditing, editable} = this.props
+                return (<TextInput
+                editable = {editable}
+                secureTextEntry = {secureTextEntry}
+                multiline = {multiline}
+                returnKeyType = {returnKeyType}
+                blurOnSubmit = {blurOnSubmit}
+                value={value}
+                style={[TextInputStyles.baseStyles, this._returnAnimatedInputStyles(), style]}
+                underlineColorAndroid='transparent'
+                onFocus={setOrDefault(onFocus, StyledTextInput.defaultProps.onFocus, this._handleFocus)}
+                onBlur={setOrDefault(onBlur, StyledTextInput.defaultProps.onBlur, this._handleBlur)}
+                onChangeText={this._onChangeText}
+                keyboardType={keyboardType}
+            {...this.props.otherTextInputProps}
+                onKeyPress = {setOrDefault(onKeyPress, StyledTextInput.defaultProps.onKeyPress, this._onKeyPress)}
+                onSubmitEditing = {setOrDefault(onSubmitEditing, StyledTextInput.defaultProps.onSubmitEditing, this._onSubmitEditing) }
+                autoCompletType = {false}
+                />)
+
+            }
+
 }
 
 export class StyledInputBox extends Component{

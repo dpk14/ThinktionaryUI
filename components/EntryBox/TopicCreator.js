@@ -104,7 +104,7 @@ export default class TopicCreator extends Component {
 
     render() {
         const {scale, width, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState}  = this.props
+            value, keyboardType, updateMasterState, editable}  = this.props
         console.log(this.state.topics.size)
         const TopicBoxes = this.renderTopicBoxes()
         return (
@@ -132,7 +132,8 @@ export default class TopicCreator extends Component {
                                          onBlur = {this._handleBlur}
                                          onSubmitEditing={this._onSubmitEditing}
                                          onKeyPress={this._onKeyPress}
-                                         style = {{position : 'absolute', top : 0}}
+                                         editable = {editable}
+                                         style = {{position : 'absolute', top : 0, left : -10}}
 
                     />
                         </View>
