@@ -17,8 +17,8 @@ export default class StyledBase extends Component{
             return (
                 <KeyboardAvoidingView
                     style={{flex : 1}} behavior="padding" enabled>
-                    <ScrollView
-                        contentContainerStyle = {{flexGrow : 1}}>
+                    <ScrollView contentContainerStyle = {{flexGrow : 1}}
+                        >
                         <TouchableWithoutFeedback style = {{flex : 1}}
                                                   onPress={Keyboard.dismiss} accessible={false}>
                             <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}

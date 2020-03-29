@@ -130,7 +130,7 @@ export default class StyledTextInput extends Component {
                 returnKeyType = {this.props.returnKeyType}
                 blurOnSubmit = {this.props.blurOnSubmit}
                 value={this.props.value}
-                style={[Styles.textInput, this._returnAnimatedInputStyles()]}
+                style={[TextInputStyles.baseStyles, this._returnAnimatedInputStyles(), this.props.style]}
                 underlineColorAndroid='transparent'
                 onFocus={setOrDefault(this.props.onFocus, StyledTextInput.defaultProps.onFocus, this._handleFocus)}
                 onBlur={setOrDefault(this.props.onBlur, StyledTextInput.defaultProps.onBlur, this._handleBlur)}
@@ -179,8 +179,8 @@ export class StyledInputBox extends Component{
 
 
 
-export const Styles = StyleSheet.create({
-    textInput: {
+export const TextInputStyles = StyleSheet.create({
+    baseStyles: {
         fontWeight: '400',
         fontFamily: HP_SIMPLIFIED,
         color: '#282828',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as Font from 'expo-font';
-import { View, Animated, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { View, Animated, StyleSheet, TextInput, ScrollView, Text } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
 import StyledTextInput, {Styles} from "./StyledTextInput";
 import CustomButton from "../CustomButton";
@@ -107,14 +107,18 @@ export default class TopicCreator extends Component {
     render() {
         const {scale, width, multiline, attrName, returnKeyType, blurOnSubmit,
             value, keyboardType, updateMasterState}  = this.props
+        console.log(this.state.topics.size)
         const TopicBoxes = this.renderTopicBoxes()
         return (
-                <Animated.ScrollView contentContainerStyle = {{flexGrow : 1}}
-                                     style={[addStyles.scrollView, {
-                    marginHorizontal: 10,
-                    marginVertical: 10
-                }]}>
-                    {TopicBoxes}
+                <ScrollView
+                    contentContainerStyle = {{flexGrow : 1}}
+                    style = {{height : '100%', width : '100%',
+                        marginHorizontal: 10,
+                        marginVertical: 10,
+                        borderRadius : 10}}
+                >
+                    <View style={[addStyles.scrollView]}>
+                        {TopicBoxes}
                     <StyledTextInput                 multiline = {multiline}
                                                      attrName={attrName}
                                                      returnKeyType = {returnKeyType}
@@ -123,7 +127,31 @@ export default class TopicCreator extends Component {
                                                      keyboardType={keyboardType}
                                                      autoCompletType = {false}
                                                      updateMasterState={updateMasterState}
-                                                     width = {width}
+                                                     width = "100%"
+                                                     height = "100%"
+                                                     scale = {scale}
+                                                    onFocus = {this._handleFocus}
+                                                     onBlur = {this._handleBlur}
+                                                     onSubmitEditing={this._onSubmitEditing}
+                                                     onKeyPress={this._onKeyPress}
+                                                     style = {{position : 'absolute', top : 0}}
+
+                    />
+                    </View>
+                </ScrollView>
+        )
+    }
+}
+
+/*<StyledTextInput                 multiline = {multiline}
+                                                     attrName={attrName}
+                                                     returnKeyType = {returnKeyType}
+                                                     blurOnSubmit = {blurOnSubmit}
+                                                     value={value}
+                                                     keyboardType={keyboardType}
+                                                     autoCompletType = {false}
+                                                     updateMasterState={updateMasterState}
+                                                     width = "100%"
                                                      height = "100%"
                                                      scale = {scale}
                                                     onFocus = {this._handleFocus}
@@ -131,11 +159,7 @@ export default class TopicCreator extends Component {
                                                      onSubmitEditing={this._onSubmitEditing}
                                                      onKeyPress={this._onKeyPress}
                                                     >
-                    </StyledTextInput>
-                </Animated.ScrollView>
-        )
-    }
-}
+*/
 
 export class TopicCreatorBox extends Component{
     static propTypes = {...TopicCreator.propTypes}
@@ -188,8 +212,9 @@ const addStyles = StyleSheet.create({
         flexDirection : 'row',
         shadowOffset: { height: 4},
         shadowRadius: 20,
-        width : 360,
-        flexWrap : "wrap"
+        width : '100%',
+        flexWrap : "wrap",
+        borderRadius : 10
     },
     textInput: {
         fontWeight: '400',
