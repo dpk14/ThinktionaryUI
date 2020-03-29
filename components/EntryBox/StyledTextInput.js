@@ -3,7 +3,7 @@ import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
 import {_scale, invScale} from "../utils/scaling";
-import {Override} from "../utils/defaultHandling";
+import {Override, setOrDefault} from "../utils/defaultHandling";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
 import {ABSTRACT_METHOD} from "../utils/abstraction";
 import EntryBox from "./EntryBox";
@@ -32,34 +32,42 @@ export default class StyledTextInput extends Component {
         blurOnSubmit : bool,
         returnKeyType : string,
         updateContainerState : func,
+        onBlur : func,
+        onFocus : func,
     }
 
     static defaultProps = {
         borderRadius: 20,
-        textMarginLeft : 21,
-        textMarginRight : 21,
+        textMarginLeft: 21,
+        textMarginRight: 21,
         fontSize: 20,
-        scale : 1,
-        height : 65,
-        width : 275,
-        marginRight : 0,
-        marginLeft : 0,
+        scale: 1,
+        height: 65,
+        width: 275,
+        marginRight: 0,
+        marginLeft: 0,
         keyboardType: 'default',
         textInputInactiveMargins: {
-            marginTop : 0,
-            marginBottom : 0,
+            marginTop: 0,
+            marginBottom: 0,
         },
         textInputActiveMargins: {
-            marginTop : 0,
-            marginBottom : 0,
+            marginTop: 0,
+            marginBottom: 0,
         },
-        textInputStyles : {},
+        textInputStyles: {},
         otherTextInputAttributes: {},
-        multiline : false,
-        onSubmitEditing : ()=> {},
-        onKeyPress : ()=>{},
-        blurOnSubmit : true,
+        multiline: false,
+        onSubmitEditing: () => {
+        },
+        onKeyPress: () => {
+        },
+        blurOnSubmit: true,
+        updateContainerState: () => {},
+        onFocus: () => {},
+        onBlur: () => {}
     }
+
 
     constructor(props) {
         super(props);
@@ -67,7 +75,6 @@ export default class StyledTextInput extends Component {
             loading : true,
             isFieldActive: false,
         }
-        this.state.textLeftOffset = 0;
     }
 
     async componentWillMount() {
@@ -96,8 +103,8 @@ export default class StyledTextInput extends Component {
         updateMasterState(attrName, updatedValue);
     }
 
-    _onKeyPress = ABSTRACT_METHOD
-    _onSubmitEditing = ABSTRACT_METHOD
+    _onKeyPress = () => {}
+    _onSubmitEditing = () => {}
 
     _returnAnimatedInputStyles = () => {
         const { isFieldActive } = this.state;
@@ -125,13 +132,13 @@ export default class StyledTextInput extends Component {
                 value={this.props.value}
                 style={[Styles.textInput, this._returnAnimatedInputStyles()]}
                 underlineColorAndroid='transparent'
-                onFocus={this._handleFocus}
-                onBlur={this._handleBlur}
+                onFocus={setOrDefault(this.props.onFocus, StyledTextInput.defaultProps.onFocus, this._handleFocus)}
+                onBlur={setOrDefault(this.props.onBlur, StyledTextInput.defaultProps.onBlur, this._handleBlur)}
                 onChangeText={this._onChangeText}
                 keyboardType={this.props.keyboardType}
                 {...this.props.otherTextInputProps}
-                onKeyPress = {Override(this.props,'onKeyPress', this._onKeyPress) }
-                onSubmitEditing = {Override(this.props,'onSubmitEditing', this._onSubmitEditing) }
+                onKeyPress = {setOrDefault(this.props.onKeyPress, StyledTextInput.defaultProps.onKeyPress, this._onKeyPress)}
+                onSubmitEditing = {setOrDefault(this.props.onSubmitEditing, StyledTextInput.defaultProps.onSubmitEditing, this._onSubmitEditing) }
                 autoCompletType = {false}
             />)
 

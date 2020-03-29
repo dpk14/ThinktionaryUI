@@ -4,6 +4,6 @@ export function Override(props, propName, defaultFunc){
     return defaultFunc == ABSTRACT_METHOD ? props[propName] : defaultFunc
 }
 
-export function setOrDefault(props, attrName, defaultFunc){
-    return props[attrName] == StyledInput.defaultProps[attrName] ? defaultFunc : props[attrName]
+export function setOrDefault(current, _default, builtIn){
+    return current == _default ? builtIn : current
 }

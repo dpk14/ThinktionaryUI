@@ -2,13 +2,13 @@
 import { StyleSheet, Text, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import StyledInput, {StyledInputBox} from "../../../EntryBox/StyledInput";
+import StyledInput, {StyledInputBox} from "../../../EntryBox/StyledTextInput";
 import Screen, {styles} from "../Screen";
 import React from "react";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {TOPIC_HEIGHT} from "../../../strings";
-import TopicCreator from "../../../TopicCreator";
+import TopicCreator, {TopicCreatorBox} from "../../../EntryBox/TopicCreator";
 import StyledBase from "../StyledBase";
 
 export default class WriteScreen extends Screen {
@@ -56,7 +56,7 @@ export default class WriteScreen extends Screen {
                                     multiline = {true}
                                     blurOnSubmit={false}
                                 />
-                                <StyledInputBox
+                                <TopicCreatorBox
                                     attrName='topics'
                                     title='Topics'
                                     value={this.state.topics}
