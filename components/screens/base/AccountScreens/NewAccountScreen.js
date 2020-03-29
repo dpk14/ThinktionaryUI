@@ -47,6 +47,7 @@ export default class NewAccountScreen extends Screen {
                         value={this.state.password}
                         updateMasterState={this._updateMasterState}
                         marginVertical={12}
+                        secureTextEntry={true}
                     />
                     <CustomButton
                         text="Create Account"

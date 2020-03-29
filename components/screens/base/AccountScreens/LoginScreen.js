@@ -40,6 +40,7 @@ export default class LoginScreen extends Screen {
                         value={this.state.password}
                         updateMasterState={this._updateMasterState}
                         marginVertical={12}
+                        secureTextEntry={true}
                     />
                     <CustomButton
                         text="Login"
