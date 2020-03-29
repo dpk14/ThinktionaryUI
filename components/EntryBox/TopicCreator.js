@@ -109,10 +109,12 @@ export default class TopicCreator extends Component {
             value, keyboardType, updateMasterState}  = this.props
         const TopicBoxes = this.renderTopicBoxes()
         return (
-                <Animated.ScrollView style={[addStyles.scrollView, {
+                <Animated.ScrollView contentContainerStyle = {{flexGrow : 1}}
+                                     style={[addStyles.scrollView, {
                     marginHorizontal: 10,
-                    marginVertical: 20
+                    marginVertical: 10
                 }]}>
+                    {TopicBoxes}
                     <StyledTextInput                 multiline = {multiline}
                                                      attrName={attrName}
                                                      returnKeyType = {returnKeyType}
@@ -129,7 +131,6 @@ export default class TopicCreator extends Component {
                                                      onSubmitEditing={this._onSubmitEditing}
                                                      onKeyPress={this._onKeyPress}
                                                     >
-                        {TopicBoxes}
                     </StyledTextInput>
                 </Animated.ScrollView>
         )
@@ -185,7 +186,6 @@ const addStyles = StyleSheet.create({
         flex : 1,
         height : '100%',
         flexDirection : 'row',
-        borderRadius: 20,
         shadowOffset: { height: 4},
         shadowRadius: 20,
         width : 360,
