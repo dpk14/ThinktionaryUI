@@ -118,21 +118,21 @@ export default class TopicCreator extends Component {
                     <View style={[addStyles.scrollView]}>
                         {TopicBoxes}
                         <View style = {{ flex : 1 }} >
-                    <StyledTextInput                 multiline = {multiline}
-                                                     attrName={attrName}
-                                                     returnKeyType = {returnKeyType}
-                                                     blurOnSubmit = {blurOnSubmit}
-                                                     value={value}
-                                                     keyboardType={keyboardType}
-                                                     autoCompletType = {false}
-                                                     updateMasterState={updateMasterState}
-                                                     height = "100%"
-                                                     scale = {scale}
-                                                    onFocus = {this._handleFocus}
-                                                     onBlur = {this._handleBlur}
-                                                     onSubmitEditing={this._onSubmitEditing}
-                                                     onKeyPress={this._onKeyPress}
-                                                     style = {{position : 'absolute', top : 0}}
+                    <StyledTextInput     multiline = {multiline}
+                                         attrName={attrName}
+                                         returnKeyType = {returnKeyType}
+                                         blurOnSubmit = {blurOnSubmit}
+                                         value={value}
+                                         keyboardType={keyboardType}
+                                         autoCompletType = {false}
+                                         updateMasterState={updateMasterState}
+                                         height = "100%"
+                                         scale = {scale}
+                                         onFocus = {this._handleFocus}
+                                         onBlur = {this._handleBlur}
+                                         onSubmitEditing={this._onSubmitEditing}
+                                         onKeyPress={this._onKeyPress}
+                                         style = {{position : 'absolute', top : 0}}
 
                     />
                         </View>
@@ -141,24 +141,6 @@ export default class TopicCreator extends Component {
         )
     }
 }
-
-/*<StyledTextInput                 multiline = {multiline}
-                                                     attrName={attrName}
-                                                     returnKeyType = {returnKeyType}
-                                                     blurOnSubmit = {blurOnSubmit}
-                                                     value={value}
-                                                     keyboardType={keyboardType}
-                                                     autoCompletType = {false}
-                                                     updateMasterState={updateMasterState}
-                                                     width = "100%"
-                                                     height = "100%"
-                                                     scale = {scale}
-                                                    onFocus = {this._handleFocus}
-                                                     onBlur = {this._handleBlur}
-                                                     onSubmitEditing={this._onSubmitEditing}
-                                                     onKeyPress={this._onKeyPress}
-                                                    >
-*/
 
 export class TopicCreatorBox extends Component{
     static propTypes = {...TopicCreator.propTypes}

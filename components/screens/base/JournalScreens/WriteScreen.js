@@ -32,16 +32,16 @@ export default class WriteScreen extends Screen {
                                     title='Title'
                                     value={this.state.title}
                                     updateMasterState={this._updateMasterState}
-                                    scale = {0.8}
-                                    width={218}
+                                    scale = {0.75}
+                                    width= '48.5%'
                                 />
                                 <StyledInputBox
                                     attrName='date'
                                     title='Date'
                                     value={this.state.date}
                                     updateMasterState={this._updateMasterState}
-                                    scale = {0.8}
-                                    width={218}
+                                    scale = {0.75}
+                                    width='48.5%'
                                 />
                             </View>
                             <View style = {newStyles.bottomFrame}>
@@ -50,8 +50,8 @@ export default class WriteScreen extends Screen {
                                     title='Text'
                                     value={this.state.text}
                                     updateMasterState={this._updateMasterState}
-                                    scale = {.8}
-                                    width={450}
+                                    scale = {.75}
+                                    width='100%'
                                     height = {400}
                                     multiline = {true}
                                     blurOnSubmit={false}
@@ -61,18 +61,20 @@ export default class WriteScreen extends Screen {
                                     title='Topics'
                                     value={this.state.topics}
                                     updateMasterState={this._updateMasterState}
-                                    scale = {.8}
-                                    topicScale = {.7}
+                                    scale = {.75}
+                                    topicScale = {.65}
                                     height= {1.5*TOPIC_HEIGHT}
-                                    width={450}
+                                    width='100%'
                                 />
-                                <StyledInputBox
+                                <TopicCreatorBox
                                     attrName='topicBank'
                                     title='Topic Bank'
+                                    alwaysActive = {true}
                                     value={this.state.topicBank}
                                     updateMasterState={this._updateMasterState}
-                                    scale = {.8}
-                                    width={450}
+                                    scale = {.75}
+                                    topicScale = {.65}
+                                    width= '100%'
                                     height={1.5*TOPIC_HEIGHT}
                                 />
                                 <CustomButton
@@ -99,6 +101,7 @@ export const newStyles = StyleSheet.create({
         position: 'relative'
     },
     bottomFrame:{
+        marginTop: -16,
         flex: 1,
         position: 'relative',
     },
