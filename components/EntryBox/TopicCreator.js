@@ -16,6 +16,7 @@ export default class TopicCreator extends Component {
     static defaultProps  = {
         ...StyledTextInput.propTypes,
         ...{
+            topics : object,
             topicScale : number,
             blurOnSubmit : bool,
         }
@@ -24,6 +25,7 @@ export default class TopicCreator extends Component {
     static defaultProps = {
         ...StyledTextInput.defaultProps,
         ...{
+            topics : new Set(),
             multiline: false,
             blurOnSubmit: false,
             topicScale: 1
@@ -34,7 +36,7 @@ export default class TopicCreator extends Component {
         super(props);
         this.state = {
             loading : true,
-            topics : new Set(),
+            topics : new Set(this.props.topics),
             textLeftOffset : 0
         }
         //console.log(this.props.updateContainerState)
@@ -133,6 +135,7 @@ export default class TopicCreator extends Component {
                                          onSubmitEditing={this._onSubmitEditing}
                                          onKeyPress={this._onKeyPress}
                                          editable = {editable}
+                                         active = {this.state.topics.size > 0}
                                          style = {{position : 'absolute', top : 0, left : -10}}
 
                     />
@@ -144,19 +147,21 @@ export default class TopicCreator extends Component {
 }
 
 export class TopicCreatorBox extends Component{
-    static propTypes = {...TopicCreator.propTypes}
-    static defaultProps = {...TopicCreator.defaultProps}
+    static propTypes = {...TopicCreator.propTypes, ...{alwaysActive : bool}}
+    static defaultProps = {...TopicCreator.defaultProps, ...{alwaysActive : false}}
 
     constructor(props) {
         super(props);
     }
     render() {
         const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, topicScale}  = this.props
+            value, keyboardType, updateMasterState, topicScale, editable, alwaysActive, topics}
+            = this.props
         return (<EntryBox title={title}
                           scale={scale}
                           width = {width}
                           height = {height}
+                          alwaysActive={alwaysActive}
             >
                 <TopicCreator multiline = {multiline}
                               attrName={attrName}
@@ -169,7 +174,10 @@ export class TopicCreatorBox extends Component{
                               width = {width}
                               height = "100%"
                               scale = {scale}
-                              topicScale = {topicScale}/>
+                              editable = {editable}
+                              topicScale = {topicScale}
+                              topics = {topics}
+                />
             </EntryBox>
         )
     }

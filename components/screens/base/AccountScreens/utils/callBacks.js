@@ -8,7 +8,7 @@ export function _onLogin(navigation){
         }
         else{
             let journal = new Journal(response["myEntries"], response["myEntryMap"], response["myTopics"], response["myUserID"])
-            navigation.navigate(ScreenNames.WRITE_SCREEN)
+            navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
         }
     }
 }

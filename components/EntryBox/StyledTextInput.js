@@ -35,7 +35,8 @@ export default class StyledTextInput extends Component {
         onBlur : func,
         onFocus : func,
         secureTextEntry : bool,
-        editable : bool
+        editable : bool,
+        active : bool,
     }
 
     static defaultProps = {
@@ -70,14 +71,14 @@ export default class StyledTextInput extends Component {
         onFocus: () => {},
         onBlur: () => {},
         editable : true,
+        active : false,
     }
-
 
     constructor(props) {
         super(props);
         this.state = {
             loading : true,
-            isFieldActive: false,
+            isFieldActive: this.props.active ? true : false,
         }
     }
 
@@ -165,7 +166,7 @@ export class StyledInputBox extends Component{
     }
     render() {
         const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-                value, keyboardType, updateMasterState, secureTextEntry}  = this.props
+                value, keyboardType, updateMasterState, secureTextEntry, editable}  = this.props
         return (<EntryBox title={title}
                           scale={scale}
                           width = {width}
@@ -182,7 +183,8 @@ export class StyledInputBox extends Component{
                                                  width = {width}
                                                  height = "100%"
                                                  scale = {scale}
-                                                secureTextEntry={secureTextEntry}/>
+                                                secureTextEntry={secureTextEntry}
+                                                editable={editable}/>
             </EntryBox>
         )
     }

@@ -15,6 +15,7 @@ export default class WriteScreen extends Screen {
 
     constructor(props) {
         super(props);
+        this.state.journal = props.route.params.journal
         this.state.title = ''
         this.state.date = ''
         this.state.topics = ''
@@ -70,6 +71,7 @@ export default class WriteScreen extends Screen {
                                     attrName='topicBank'
                                     title='Topic Bank'
                                     alwaysActive = {true}
+                                    editable = {false}
                                     value={this.state.topicBank}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.75}
