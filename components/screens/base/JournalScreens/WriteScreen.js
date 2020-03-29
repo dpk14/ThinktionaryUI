@@ -45,7 +45,7 @@ export default class WriteScreen extends Screen {
                                     width='48.5%'
                                 />
                             </View>
-                            <View style = {newStyles.bottomFrame}>
+                            <View style = {newStyles.middleFrame}>
                                 <StyledInputBox
                                     attrName='text'
                                     title='Text'
@@ -76,6 +76,7 @@ export default class WriteScreen extends Screen {
                                     updateMasterState={this._updateMasterState}
                                     scale = {.75}
                                     topicScale = {.65}
+                                    topics = {this.state.journal.topics}
                                     width= '100%'
                                     height={1.5*TOPIC_HEIGHT}
                                 />
@@ -102,8 +103,13 @@ export const newStyles = StyleSheet.create({
         flexDirection: 'row',
         position: 'relative'
     },
-    bottomFrame:{
-        marginTop: -16,
+    bottomFrame: {
+        flex: 1,
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        position: 'relative'
+    },
+    middleFrame:{
         flex: 1,
         position: 'relative',
     },

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput, ScrollView, Text } from 'react-native';
-import { string, func, object, number, bool } from 'prop-types';
+import { string, func, object, number, bool, PropTypes } from 'prop-types';
 import StyledTextInput, {Styles} from "./StyledTextInput";
 import CustomButton from "../CustomButton";
 import {TOPIC_HEIGHT, TOPIC_WIDTH} from "../strings";
@@ -10,6 +10,7 @@ import {Keyboard} from "react-native-web";
 import EntryBox from "./EntryBox";
 import {basePropTypes} from "./baseProps";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
+import setType from 'es6-set-proptypes';
 
 export default class TopicCreator extends Component {
 
@@ -25,7 +26,7 @@ export default class TopicCreator extends Component {
     static defaultProps = {
         ...StyledTextInput.defaultProps,
         ...{
-            topics : new Set(),
+            topics : {},
             multiline: false,
             blurOnSubmit: false,
             topicScale: 1
@@ -34,9 +35,12 @@ export default class TopicCreator extends Component {
 
     constructor(props) {
         super(props);
+        console.log("SIYHYHE " + this.props.topics)
+        const topics = new Set()
+        Object.keys(this.props.topics).forEach((topic) => topics.add(topic))
         this.state = {
             loading : true,
-            topics : new Set(this.props.topics),
+            topics :topics,
             textLeftOffset : 0
         }
         //console.log(this.props.updateContainerState)
