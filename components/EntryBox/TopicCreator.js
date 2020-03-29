@@ -52,8 +52,6 @@ export default class TopicCreator extends Component {
                 text={topic}
                 scale={this.props.topicScale}
                 alignItems="flex-start"
-                padding={0}
-                marginTop={0}
                 onPress={() => {
                 }}
             />));
@@ -119,6 +117,7 @@ export default class TopicCreator extends Component {
                 >
                     <View style={[addStyles.scrollView]}>
                         {TopicBoxes}
+                        <View style = {{ flex : 1 }} >
                     <StyledTextInput                 multiline = {multiline}
                                                      attrName={attrName}
                                                      returnKeyType = {returnKeyType}
@@ -127,7 +126,6 @@ export default class TopicCreator extends Component {
                                                      keyboardType={keyboardType}
                                                      autoCompletType = {false}
                                                      updateMasterState={updateMasterState}
-                                                     width = "100%"
                                                      height = "100%"
                                                      scale = {scale}
                                                     onFocus = {this._handleFocus}
@@ -137,6 +135,7 @@ export default class TopicCreator extends Component {
                                                      style = {{position : 'absolute', top : 0}}
 
                     />
+                        </View>
                     </View>
                 </ScrollView>
         )

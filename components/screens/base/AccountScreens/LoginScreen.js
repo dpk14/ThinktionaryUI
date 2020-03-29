@@ -32,19 +32,20 @@ export default class LoginScreen extends Screen {
                         title='Username'
                         value={this.state.username}
                         updateMasterState={this._updateMasterState}
-                        marginVertical={12}
+                        marginVertical={15}
                     />
                     <StyledInputBox
                         attrName='password'
                         title='Password'
                         value={this.state.password}
                         updateMasterState={this._updateMasterState}
-                        marginVertical={12}
+                        marginVertical={15}
                         secureTextEntry={true}
                     />
                     <CustomButton
                         text="Login"
                         width={150}
+                        marginTop={8}
                         onPress={() => {
                             new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation));
                         }}

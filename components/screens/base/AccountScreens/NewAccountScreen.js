@@ -39,18 +39,19 @@ export default class NewAccountScreen extends Screen {
                         title='Username'
                         value={this.state.username}
                         updateMasterState={this._updateMasterState}
-                        marginVertical={12}
+                        marginVertical={15}
                     />
                     <StyledInputBox
                         attrName='password'
                         title='Password'
                         value={this.state.password}
                         updateMasterState={this._updateMasterState}
-                        marginVertical={12}
+                        marginVertical={15}
                         secureTextEntry={true}
                     />
                     <CustomButton
                         text="Create Account"
+                        marginTop={8}
                         onPress={() => {
                             new makeAccount(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
                         }}

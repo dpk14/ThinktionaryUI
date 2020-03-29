@@ -6,6 +6,7 @@ import FontUtils, {HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
 import {_scale} from "./utils/scaling";
 import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
 import {ScalingView} from "./ScalingView";
+import {invScale} from "../ThinktionaryUI/thinktionary/components/utils/scaling";
 
 class customButton extends Component {
 
@@ -26,7 +27,7 @@ class customButton extends Component {
         width: 120,
         scale: 1,
         alignItems : 'center',
-        marginTop: 20,
+        marginTop: 0,
         padding: 12,
         height: 56,
         marginLeft : 0,
@@ -60,7 +61,6 @@ class customButton extends Component {
     getButtonStyles(){
         const {width, scale, alignItems, height, marginTop, padding} = this.props
             let ret = {
-                alignItems: alignItems,
                 height : _scale(height, scale),
                 marginTop : _scale(marginTop, scale),
                 padding : _scale(padding, scale),
@@ -122,6 +122,8 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         backgroundColor: '#FFB03F',
+        alignItems : 'center',
+        justifyContent : 'center',
         opacity : .95,
         shadowRadius: 15,
     }

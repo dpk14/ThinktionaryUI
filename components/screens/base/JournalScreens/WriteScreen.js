@@ -63,7 +63,7 @@ export default class WriteScreen extends Screen {
                                     updateMasterState={this._updateMasterState}
                                     scale = {.8}
                                     topicScale = {.7}
-                                    height= {TOPIC_HEIGHT}
+                                    height= {1.5*TOPIC_HEIGHT}
                                     width={450}
                                 />
                                 <StyledInputBox
@@ -79,6 +79,7 @@ export default class WriteScreen extends Screen {
                                     text="Save"
                                     width = "100%"
                                     scale = {.8}
+                                    marginTop={8}
                                     onPress={() => {}}
                                 />
                             </View>

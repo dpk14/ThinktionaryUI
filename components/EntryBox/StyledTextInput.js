@@ -181,8 +181,6 @@ export class StyledInputBox extends Component{
 
 }
 
-
-
 export const TextInputStyles = StyleSheet.create({
     baseStyles: {
         fontWeight: '400',
