@@ -19,7 +19,7 @@ export default class WriteScreen extends Screen {
 
     constructor(props) {
         super(props);
-        this.state.journal = props.route.params.journal
+        this.state.entryID = props.route.params.entry.entryID
         this.state.title = ''
         this.state.text = ''
         this.state.date = ''
@@ -28,20 +28,24 @@ export default class WriteScreen extends Screen {
     }
 
     createOrSave = () => {
-        const {journal, title, text, date, topics} = this.state
+        const {title, text, date, topics} = this.state
         this.props.route.params.entry == undefined ?
-            new BuildEntry(journal.userID, title, text, topics, date == '' ? null : date).fetchAndExecute(parseOrAlert()) :
+            new BuildEntry(this.props.route.params.journal.userID, title, text, topics, date == '' ? null : date).fetchAndExecute(parseOrAlert(_onCreate, {callBack : this.setEntryID})) :
             this.save()
     }
 
+    setEntryID = (entryID) =>{
+        this.setState({entryID : entryID})
+    }
+
     save = () => {
-        const {journal, title, text, date, topics} = this.state
-        new ModifyEntry(journal.userID, this.props.route.params.entry.entryID, title, text, topics, date == '' ? null : date).
+        const {title, text, date, topics} = this.state
+        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics, date == '' ? null : date).
         fetchAndExecute(parseOrAlert())
     }
 
     submit = () => {
-        this.props.navigation.navigate(ScreenNames.READ_SCREEN, {journal : this.state.journal})
+        this.props.navigation.navigate(ScreenNames.READ_SCREEN, {journal : this.props.route.params.journal})
     }
 
     renderScreen() {
@@ -108,14 +112,14 @@ export default class WriteScreen extends Screen {
                                     scale = {.8}
                                     marginTop={8}
                                     width = {180}
-                                    onPress={this.createOrSave()}
+                                    onPress={() => this.createOrSave()}
                                 />
                                     <CustomButton
                                         text="Submit"
                                         scale = {.8}
                                         marginTop={8}
                                         width = {180}
-                                        onPress={() => {this.save();
+                                        onPress={() => {this.createOrSave();
                                                         this.submit();
                                         }}
                                     />
@@ -130,7 +134,6 @@ export default class WriteScreen extends Screen {
 
 export const newStyles = StyleSheet.create({
     topFrame: {
-        marginTop : 60,
         flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
@@ -147,6 +150,7 @@ export const newStyles = StyleSheet.create({
         position: 'relative',
     },
     outerFrame:{
+        marginTop : 60,
         flex: 1,
         marginHorizontal : 15
     }
