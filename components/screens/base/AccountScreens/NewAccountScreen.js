@@ -9,7 +9,7 @@ import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import Screen, {styles} from "../Screen";
 import StyledBase from "../StyledBase";
-import {_onLogin} from "./utils/callBacks";
+import {_onLogin} from "../functions/callBacks";
 
 export default class NewAccountScreen extends Screen {
 

@@ -10,7 +10,7 @@ import {styles} from "../Screen";
 import React from "react";
 import StyledBase from "../StyledBase";
 import Screen from "../Screen"
-import {_onLogin} from "./utils/callBacks";
+import {_onLogin} from "../functions/callBacks";
 export default class LoginScreen extends Screen {
 
     constructor(props) {

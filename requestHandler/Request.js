@@ -75,7 +75,7 @@ export default class Request{
 
         }
 
-    fetchAndExecute(callBack){
+    fetchAndExecute(callBack=(json, errorFound)=>{}){
         this.request(this.url, this.type, this.json, this.hasReturn, callBack);
     }
 

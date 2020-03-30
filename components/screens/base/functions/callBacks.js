@@ -1,5 +1,5 @@
-import {Journal} from "../../../../structs/journal";
-import ScreenNames from "../../../../../navigation/ScreenNames";
+import {Journal} from "../../../structs/journal";
+import ScreenNames from "../../../../navigation/ScreenNames";
 
 export function _onLogin(navigation){
     return (response, exceptionThrown) =>{

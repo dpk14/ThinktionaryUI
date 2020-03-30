@@ -10,6 +10,8 @@ import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {TOPIC_HEIGHT} from "../../../strings";
 import TopicCreator, {TopicCreatorBox} from "../../../EntryBox/TopicCreator";
 import StyledBase from "../StyledBase";
+import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
+import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
 
 export default class WriteScreen extends Screen {
 
@@ -17,9 +19,17 @@ export default class WriteScreen extends Screen {
         super(props);
         this.state.journal = props.route.params.journal
         this.state.title = ''
+        this.state.text = ''
         this.state.date = ''
         this.state.topics = ''
         this.state.topicBank = ''
+    }
+
+    createOrSave = () => {
+        const {journal, title, text, date, topics} = this.state
+        this.props.route.params.entry == undefined ?
+            new BuildEntry(journal.userID, title, text, topics, date == '' ? null : date).fetchAndExecute() :
+            ModifyEntry(journal.userID, this.props.route.params.entry.entryID, title, text, topics, date == '' ? null : date)
     }
 
     renderScreen() {
@@ -80,13 +90,22 @@ export default class WriteScreen extends Screen {
                                     width= '100%'
                                     height={1.5*TOPIC_HEIGHT}
                                 />
+                                <View style = {newStyles.bottomFrame}>
                                 <CustomButton
                                     text="Save"
-                                    width = "100%"
                                     scale = {.8}
                                     marginTop={8}
-                                    onPress={() => {}}
+                                    width = {180}
+                                    onPress={this.createOrSave()}
                                 />
+                                    <CustomButton
+                                        text="Submit"
+                                        scale = {.8}
+                                        marginTop={8}
+                                        width = {180}
+                                        onPress={() => {}}
+                                    />
+                                </View>
                             </View>
                         </View>
                 </View>
