@@ -9,7 +9,7 @@ import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import Screen, {styles} from "../Screen";
 import StyledBase from "../StyledBase";
-import {_onLogin} from "../functions/callBacks";
+import {_onLogin, parseOrAlert} from "../functions/callBacks";
 
 export default class NewAccountScreen extends Screen {
 
@@ -25,7 +25,7 @@ export default class NewAccountScreen extends Screen {
         if (exceptionThrown) {
             alert(response);
         } else {
-            new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation))
+            new Login(this.state.username, this.state.password).fetchAndExecute(parseOrAlert(_onLogin, this.props.navigation))
         }
     }
 

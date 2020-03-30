@@ -10,7 +10,7 @@ import {styles} from "../Screen";
 import React from "react";
 import StyledBase from "../StyledBase";
 import Screen from "../Screen"
-import {_onLogin} from "../functions/callBacks";
+import {_onLogin, parseOrAlert} from "../functions/callBacks";
 export default class LoginScreen extends Screen {
 
     constructor(props) {
@@ -47,7 +47,7 @@ export default class LoginScreen extends Screen {
                         width={150}
                         marginTop={8}
                         onPress={() => {
-                            new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation));
+                            new Login(this.state.username, this.state.password).fetchAndExecute(parseOrAlert(_onLogin, this.props.navigation));
                         }}
                     />
             </View>
