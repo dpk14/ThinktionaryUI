@@ -1,18 +1,23 @@
 import {Journal} from "../../../structs/journal";
 import ScreenNames from "../../../../navigation/ScreenNames";
 
-export function parseOrAlert(parser, navigation) {
+export function parseOrAlert(parser=undefined, params) {
     return (response, exceptionThrown) =>{
         if(exceptionThrown) {
             alert(response);
         }
-        else{
-                parser(navigation, response)
+        else if(parser!=undefined){
+                parser(response, args)
             }
     }
 }
 
-export function _onLogin(navigation, response){
-            let journal = new Journal(response["myEntries"], response["myEntryMap"], response["myTopics"], response["myUserID"])
-            navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
+export function _onLogin(response, params){
+    let journal = new Journal(response["myEntries"], response["myEntryMap"], response["myTopics"], response["myUserID"])
+    params.navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
 }
+
+export function _onSubmit(response, params){
+    params.navigation.navigate(ScreenNames.READ_SCREEN, {journal : params.journal})
+}
+

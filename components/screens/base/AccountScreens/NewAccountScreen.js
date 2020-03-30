@@ -25,7 +25,7 @@ export default class NewAccountScreen extends Screen {
         if (exceptionThrown) {
             alert(response);
         } else {
-            new Login(this.state.username, this.state.password).fetchAndExecute(parseOrAlert(_onLogin, this.props.navigation))
+            new Login(this.state.username, this.state.password).fetchAndExecute(parseOrAlert(_onLogin, {navigation: this.props.navigation}))
         }
     }
 
