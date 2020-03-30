@@ -6,7 +6,7 @@ import {StyleSheet, View} from 'react-native';
 import StyledInput, {StyledInputBox} from "../../../EntryBox/StyledTextInput";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
-import {styles} from "../Screen";
+import {baseStyles, styles} from "../Screen";
 import React from "react";
 import StyledBase from "../StyledBase";
 import Screen from "../Screen"
@@ -25,8 +25,8 @@ export default class LoginScreen extends Screen {
     renderScreen() {
         return (
             <StyledBase>
-                <View style = {[styles.container]}>
-                    <Text style={[styles.title]}>Thinktionary</Text>
+                <View style = {[baseStyles.container]}>
+                    <Text style={[baseStyles.title]}>Thinktionary</Text>
                     <StyledInputBox
                         attrName='username'
                         title='Username'

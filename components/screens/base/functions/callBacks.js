@@ -18,6 +18,7 @@ export function _onLogin(response, params){
 }
 
 export function _onCreate(response, params){
+    console.log(params.callBack)
     params.callBack(response);
 }
 

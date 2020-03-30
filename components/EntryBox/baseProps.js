@@ -3,7 +3,7 @@
 import { string, func, object, number, bool } from 'prop-types';
 export const basePropTypes = {
     width : number | string,
-    height : number,
+    height : number | string,
     scale : number,
     textMarginLeft : number,
     textMarginRight : number,

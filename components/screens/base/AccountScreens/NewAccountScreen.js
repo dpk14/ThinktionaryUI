@@ -7,7 +7,7 @@ import StyledInput, {StyledInputBox} from "../../../EntryBox/StyledTextInput";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
-import Screen, {styles} from "../Screen";
+import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";
 import {_onLogin, parseOrAlert} from "../functions/callBacks";
 
@@ -32,8 +32,8 @@ export default class NewAccountScreen extends Screen {
     render() {
         return (
             <StyledBase>
-            <View style = {[styles.container]}>
-                    <Text style={styles.title}>Thinktionary</Text>
+            <View style = {[baseStyles.container]}>
+                    <Text style={baseStyles.title}>Thinktionary</Text>
                     <StyledInputBox
                         attrName='username'
                         title='Username'

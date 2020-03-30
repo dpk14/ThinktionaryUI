@@ -3,7 +3,7 @@ import { StyleSheet, Text, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import StyledInput, {StyledInputBox} from "../../../EntryBox/StyledTextInput";
-import Screen, {styles} from "../Screen";
+import Screen, {baseStyles, styles} from "../Screen";
 import React from "react";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
@@ -12,14 +12,14 @@ import TopicCreator, {TopicCreatorBox} from "../../../EntryBox/TopicCreator";
 import StyledBase from "../StyledBase";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
 import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
-import {_onLogin, _onSubmit, parseOrAlert} from "../functions/callBacks";
+import {_onCreate, _onLogin, _onSubmit, parseOrAlert} from "../functions/callBacks";
 import ScreenNames from "../../../../navigation/ScreenNames";
 
 export default class WriteScreen extends Screen {
 
     constructor(props) {
         super(props);
-        this.state.entryID = props.route.params.entry.entryID
+        this.state.entryID = props.route.params.entry == undefined ? undefined : props.route.params.entry.entryID
         this.state.title = ''
         this.state.text = ''
         this.state.date = ''
@@ -30,7 +30,8 @@ export default class WriteScreen extends Screen {
     createOrSave = () => {
         const {title, text, date, topics} = this.state
         this.props.route.params.entry == undefined ?
-            new BuildEntry(this.props.route.params.journal.userID, title, text, topics, date == '' ? null : date).fetchAndExecute(parseOrAlert(_onCreate, {callBack : this.setEntryID})) :
+            new BuildEntry(this.props.route.params.journal.userID, title, text, topics, date == '' ? null : date).
+            fetchAndExecute(parseOrAlert(_onCreate, {callBack : this.setEntryID})) :
             this.save()
     }
 
@@ -51,7 +52,7 @@ export default class WriteScreen extends Screen {
     renderScreen() {
         return (
             <StyledBase>
-            <View style = {styles.container}>
+            <View style = {baseStyles.container}>
                         <View style = {newStyles.outerFrame}>
                             <View style = {newStyles.topFrame}>
                                 <StyledInputBox
@@ -102,7 +103,7 @@ export default class WriteScreen extends Screen {
                                     updateMasterState={this._updateMasterState}
                                     scale = {.75}
                                     topicScale = {.65}
-                                    topics = {this.state.journal.topics}
+                                    topics = { this.props.route.params.journal.topics}
                                     width= '100%'
                                     height={1.5*TOPIC_HEIGHT}
                                 />

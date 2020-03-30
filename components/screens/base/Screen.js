@@ -39,7 +39,7 @@ export default class Screen extends Component{
     }
 }
 
-export const styles = StyleSheet.create({
+export const baseStyles = StyleSheet.create({
     container: {
         flex: 1,
         marginVertical : 200,

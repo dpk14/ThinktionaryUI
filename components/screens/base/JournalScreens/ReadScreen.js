@@ -1,10 +1,11 @@
-import Screen from "../Screen";
+import Screen, {baseStyles} from "../Screen";
 import {StyleSheet} from "react-native";
-import {View} from "react-native-web";
+import {View} from "react-native";
 import {TopicCreatorBox} from "../../../EntryBox/TopicCreator";
 import {TOPIC_HEIGHT} from "../../../strings";
 import React from "react";
 import {StyledInputBox} from "../../../EntryBox/StyledTextInput";
+import StyledBase from "../StyledBase";
 
 export default class ReadScreen extends Screen {
 
@@ -20,6 +21,8 @@ export default class ReadScreen extends Screen {
 
     render() {
         return(
+            <StyledBase>
+                <View style = {baseStyles.container}>
             <View style={readStyles.outerFrame}>
                 <View style={readStyles.leftFrame}>
                     <StyledInputBox
@@ -29,7 +32,7 @@ export default class ReadScreen extends Screen {
                         updateMasterState={this._updateMasterState}
                         scale = {.75}
                         width='100%'
-                        height = '100%'
+                        height = {600}
                         multiline = {true}
                         blurOnSubmit={false}
                         alwaysActive = {true}
@@ -40,19 +43,18 @@ export default class ReadScreen extends Screen {
                     <StyledInputBox
                         attrName='journal'
                         title='Journal'
-                        alwaysActive = {true}
-                        editable = {false}
                         value={''}
                         updateMasterState={this._updateMasterState}
                         scale = {.75}
                         width='100%'
-                        height = '100%'
+                        height = {600}
                         multiline = {true}
                         blurOnSubmit={false}
                         alwaysActive = {true}
                         editable = {false}
                     />
                 </View>
+            </View>
                 <TopicCreatorBox
                     attrName='topicBank'
                     title='Topic Bank'
@@ -66,7 +68,8 @@ export default class ReadScreen extends Screen {
                     width= '100%'
                     height={1.5*TOPIC_HEIGHT}
                 />
-            </View>
+                </View>
+            </StyledBase>
         )
     }
 }
