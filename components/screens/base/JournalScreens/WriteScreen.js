@@ -13,6 +13,7 @@ import StyledBase from "../StyledBase";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
 import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
 import {_onLogin, _onSubmit, parseOrAlert} from "../functions/callBacks";
+import ScreenNames from "../../../../navigation/ScreenNames";
 
 export default class WriteScreen extends Screen {
 
@@ -30,8 +31,17 @@ export default class WriteScreen extends Screen {
         const {journal, title, text, date, topics} = this.state
         this.props.route.params.entry == undefined ?
             new BuildEntry(journal.userID, title, text, topics, date == '' ? null : date).fetchAndExecute(parseOrAlert()) :
-            new ModifyEntry(journal.userID, this.props.route.params.entry.entryID, title, text, topics, date == '' ? null : date).
-            fetchAndExecute(_onSubmit, {navigation : this.props.navigation, journal : this.state.journal})
+            this.save()
+    }
+
+    save = () => {
+        const {journal, title, text, date, topics} = this.state
+        new ModifyEntry(journal.userID, this.props.route.params.entry.entryID, title, text, topics, date == '' ? null : date).
+        fetchAndExecute(parseOrAlert())
+    }
+
+    submit = () => {
+        this.props.navigation.navigate(ScreenNames.READ_SCREEN, {journal : this.state.journal})
     }
 
     renderScreen() {
@@ -105,7 +115,9 @@ export default class WriteScreen extends Screen {
                                         scale = {.8}
                                         marginTop={8}
                                         width = {180}
-                                        onPress={() => {}}
+                                        onPress={() => {this.save();
+                                                        this.submit();
+                                        }}
                                     />
                                 </View>
                             </View>

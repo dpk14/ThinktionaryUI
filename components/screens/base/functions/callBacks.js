@@ -17,7 +17,3 @@ export function _onLogin(response, params){
     params.navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
 }
 
-export function _onSubmit(response, params){
-    params.navigation.navigate(ScreenNames.READ_SCREEN, {journal : params.journal})
-}
-
