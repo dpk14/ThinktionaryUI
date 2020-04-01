@@ -2,9 +2,9 @@ import JSONBuilder from "../../Utils/JSONBuilder"
 import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
 
 export default class buildEntry extends Request{
-    constructor(userID, title, text, topics, created=null) {
+    constructor(userID, title, text, topics, created=undefined) {
         let entry = {}
-        if(created == null){
+        if(created == undefined){
             entry = JSONBuilder.buildEntryWithCreated(title, text, topics)
         }
         else{

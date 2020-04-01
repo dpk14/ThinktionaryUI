@@ -85,11 +85,11 @@ export default class TopicCreator extends Component {
         topics.add(value)
         if (oldLength != topics.length) {
             this.setState({
-                textLeftOffset: this.state.textLeftOffset + TOPIC_WIDTH,
+                //textLeftOffset: this.state.textLeftOffset + TOPIC_WIDTH,
                 topics: topics,
             })
         }
-        updateMasterState(attrName, '');
+        updateMasterState(attrName, {value : '', set : topics});
     }
 
     //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.

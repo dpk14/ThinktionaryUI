@@ -23,13 +23,16 @@ export default class WriteScreen extends Screen {
         this.state.title = ''
         this.state.text = ''
         this.state.date = ''
-        this.state.topics = ''
+        this.state.topics = {
+            value : '',
+            set : new Set()
+        }
         this.state.topicBank = ''
     }
 
     createOrSave = () => {
         const {title, text, date, topics} = this.state
-        this.props.route.params.entry == undefined ?
+        this.state.entryID == undefined ?
             new BuildEntry(this.props.route.params.journal.userID, title, text, topics, date == '' ? null : date).
             fetchAndExecute(parseOrAlert(_onCreate, {callBack : this.setEntryID})) :
             this.save()

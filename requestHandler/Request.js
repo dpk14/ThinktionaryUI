@@ -49,6 +49,9 @@ export default class Request{
     }
 
     request(url, type, json, hasReturn, callBack){
+        console.log(url)
+        console.log("json :")
+        console.log(json)
         let init = { method: type};
         if (hasReturn) {
             init.headers = {
