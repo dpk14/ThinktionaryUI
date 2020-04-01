@@ -33,7 +33,7 @@ export default class WriteScreen extends Screen {
     createOrSave = () => {
         const {title, text, date, topics} = this.state
         this.state.entryID == undefined ?
-            new BuildEntry(this.props.route.params.journal.userID, title, text, topics, date == '' ? null : date).
+            new BuildEntry(this.props.route.params.journal.userID, title, text, topics.set, date == '' ? undefined : date).
             fetchAndExecute(parseOrAlert(_onCreate, {callBack : this.setEntryID})) :
             this.save()
     }
@@ -44,7 +44,7 @@ export default class WriteScreen extends Screen {
 
     save = () => {
         const {title, text, date, topics} = this.state
-        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics, date == '' ? null : date).
+        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics.set, date == '' ? undefined : date).
         fetchAndExecute(parseOrAlert())
     }
 
