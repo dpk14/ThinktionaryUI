@@ -17,11 +17,11 @@ function buildDate(year, month, day, hour="00", minute="00", second="00.000") {
     return date
 }
 
-function buildEntryWithCreated(title, text, topics, created){
+function buildEntryWithCreated(title, text, topics, created=undefined){
     let entry = {}
     entry[TITLE] = title
     entry[TEXT] = text
-    entry[CREATED] = created
+    if(created != undefined) entry[CREATED] = created
     entry[TOPICS] = topics
     return entry
 }

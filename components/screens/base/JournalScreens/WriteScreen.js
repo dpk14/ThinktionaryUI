@@ -44,7 +44,7 @@ export default class WriteScreen extends Screen {
 
     save = () => {
         const {title, text, date, topics} = this.state
-        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics.set, date == '' ? undefined : date).
+        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics.set, undefined).
         fetchAndExecute(parseOrAlert())
     }
 
