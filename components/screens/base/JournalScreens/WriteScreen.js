@@ -23,17 +23,15 @@ export default class WriteScreen extends Screen {
         this.state.title = ''
         this.state.text = ''
         this.state.date = ''
-        this.state.topics = {
-            value : '',
-            set : new Set()
-        }
-        this.state.topicBank = ''
+        this.state.currTopic = ''
+        this.state.topics = new Set()
+        this.state.topicBank = new Set()
     }
 
     createOrSave = () => {
         const {title, text, date, topics} = this.state
         this.state.entryID == undefined ?
-            new BuildEntry(this.props.route.params.journal.userID, title, text, topics.set, date == '' ? undefined : date).
+            new BuildEntry(this.props.route.params.journal.userID, title, text, topics, undefined).
             fetchAndExecute(parseOrAlert(_onCreate, {callBack : this.setEntryID})) :
             this.save()
     }
@@ -44,7 +42,7 @@ export default class WriteScreen extends Screen {
 
     save = () => {
         const {title, text, date, topics} = this.state
-        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics.set, undefined).
+        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics, undefined).
         fetchAndExecute(parseOrAlert())
     }
 
@@ -88,25 +86,29 @@ export default class WriteScreen extends Screen {
                                     blurOnSubmit={false}
                                 />
                                 <TopicCreatorBox
-                                    attrName='topics'
+                                    attrName='currTopic'
+                                    setName='topics'
                                     title='Topics'
-                                    value={this.state.topics}
+                                    value={this.state.currTopic}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.75}
                                     topicScale = {.65}
                                     height= {1.5*TOPIC_HEIGHT}
                                     width='100%'
+                                    topics={this.state.topics}
                                 />
                                 <TopicCreatorBox
                                     attrName='topicBank'
+                                    setName='topicBankCurr'
                                     title='Topic Bank'
                                     alwaysActive = {true}
                                     editable = {false}
-                                    value={this.state.topicBank}
+                                    value={''}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.75}
                                     topicScale = {.65}
-                                    topics = { this.props.route.params.journal.topics}
+                                    //topics = { this.props.route.params.journal.topics}
+                                    topics = { new Set()}
                                     width= '100%'
                                     height={1.5*TOPIC_HEIGHT}
                                 />

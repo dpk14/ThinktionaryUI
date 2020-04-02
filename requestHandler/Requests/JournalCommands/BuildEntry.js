@@ -3,6 +3,9 @@ import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
 
 export default class buildEntry extends Request{
     constructor(userID, title, text, topics, created=undefined) {
+        if(topics == undefined){
+            throw Error("topics are undefined in buildEntry")
+        }
         let entry = {}
         if(created == undefined){
             entry = JSONBuilder.buildEntryWithCreated(title, text, topics)

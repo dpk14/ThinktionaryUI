@@ -17,9 +17,10 @@ export default class TopicCreator extends Component {
     static defaultProps  = {
         ...StyledTextInput.propTypes,
         ...{
-            topics : object,
+            topics : object.isRequired,
             topicScale : number,
             blurOnSubmit : bool,
+            setName : string.isRequired,
         }
     }
 
@@ -35,12 +36,12 @@ export default class TopicCreator extends Component {
 
     constructor(props) {
         super(props);
-        console.log("SIYHYHE " + this.props.topics)
+        /*
         const topics = new Set()
         Object.keys(this.props.topics).forEach((topic) => topics.add(topic))
+        */
         this.state = {
             loading : true,
-            topics :topics,
             textLeftOffset : 0
         }
         //console.log(this.props.updateContainerState)
@@ -53,7 +54,8 @@ export default class TopicCreator extends Component {
 
     renderTopicBoxes() {
         const TopicBoxes = []
-        this.state.topics.forEach(topic => TopicBoxes.push(
+        console.log("topics: " + this.props.topics)
+        this.props.topics.forEach(topic => TopicBoxes.push(
             <CustomButton
                 text={topic}
                 scale={this.props.topicScale}
@@ -72,24 +74,28 @@ export default class TopicCreator extends Component {
     }
 
     _handleBlur = () => {
-        if (this.state.isFieldActive && !this.props.value && this.state.topics.size == 0) {
+        if (this.state.isFieldActive && !this.props.value && this.props.topics.size == 0) {
             this.setState({ isFieldActive: false });
             this.props.updateContainerState(false)
         }
     }
 
     _onSubmitEditing = () => {
-        const {attrName, updateMasterState, value} = this.props;
-        const {topics} = this.state
-        let oldLength = topics.length
-        topics.add(value)
-        if (oldLength != topics.length) {
-            this.setState({
-                //textLeftOffset: this.state.textLeftOffset + TOPIC_WIDTH,
-                topics: topics,
-            })
+        const {attrName, setName, updateMasterState, value, topics} = this.props;
+        /*
+        if(value == ''){
+            Keyboard.dismiss()
+            return
         }
-        updateMasterState(attrName, {value : '', set : topics});
+         */
+        let oldLength = topics.size
+        const topicsNew = new Set()
+        topics.forEach((topic) => topicsNew.add(topic))
+        topicsNew.add(value)
+        if (oldLength != topicsNew.size) {
+            updateMasterState(setName, topicsNew)
+        }
+        updateMasterState(attrName, '');
     }
 
     //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.
@@ -111,7 +117,7 @@ export default class TopicCreator extends Component {
     render() {
         const {scale, width, multiline, attrName, returnKeyType, blurOnSubmit,
             value, keyboardType, updateMasterState, editable}  = this.props
-        console.log(this.state.topics.size)
+        console.log(this.props.topics.size)
         const TopicBoxes = this.renderTopicBoxes()
         return (
                 <ScrollView
@@ -139,7 +145,7 @@ export default class TopicCreator extends Component {
                                          onSubmitEditing={this._onSubmitEditing}
                                          onKeyPress={this._onKeyPress}
                                          editable = {editable}
-                                         active = {this.state.topics.size > 0}
+                                         active = {this.props.topics.size > 0}
                                          style = {{position : 'absolute', top : 0, left : -10}}
 
                     />
@@ -159,7 +165,7 @@ export class TopicCreatorBox extends Component{
     }
     render() {
         const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, topicScale, editable, alwaysActive, topics}
+            value, keyboardType, updateMasterState, topicScale, editable, alwaysActive, topics, setName}
             = this.props
         return (<EntryBox title={title}
                           scale={scale}
@@ -169,6 +175,7 @@ export class TopicCreatorBox extends Component{
             >
                 <TopicCreator multiline = {multiline}
                               attrName={attrName}
+                              setName = {setName}
                               returnKeyType = {returnKeyType}
                               blurOnSubmit = {blurOnSubmit}
                               value={value}
