@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import * as Font from 'expo-font';
-import { View, Animated, StyleSheet, TextInput, ScrollView, Text } from 'react-native';
+import { View, Animated, StyleSheet, TextInput, ScrollView, Text, Keyboard } from 'react-native';
 import { string, func, object, number, bool, PropTypes } from 'prop-types';
 import StyledTextInput, {Styles} from "./StyledTextInput";
 import CustomButton from "../CustomButton";
 import {TOPIC_HEIGHT, TOPIC_WIDTH} from "../strings";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
-import {Keyboard} from "react-native-web";
 import EntryBox from "./EntryBox";
 import {basePropTypes} from "./baseProps";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
@@ -82,12 +81,10 @@ export default class TopicCreator extends Component {
 
     _onSubmitEditing = () => {
         const {attrName, setName, updateMasterState, value, topics} = this.props;
-        /*
         if(value == ''){
             Keyboard.dismiss()
             return
         }
-         */
         let oldLength = topics.size
         const topicsNew = new Set()
         topics.forEach((topic) => topicsNew.add(topic))
@@ -102,7 +99,7 @@ export default class TopicCreator extends Component {
     //if text length exceeds that of textbox, move to next line. "lines" can just be stacks of views.
 
     _onKeyPress = ({nativeEvent}) => {
-        const {topics} = this.state;
+        const {topics} = this.props;
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size > 0) {
             topics.delete(Array.from(topics).pop())
             this.setState({
