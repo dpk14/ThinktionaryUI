@@ -53,7 +53,6 @@ export default class TopicCreator extends Component {
 
     renderTopicBoxes() {
         const TopicBoxes = []
-        console.log("topics: " + this.props.topics)
         this.props.topics.forEach(topic => TopicBoxes.push(
             <CustomButton
                 text={topic}

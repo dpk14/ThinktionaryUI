@@ -58,7 +58,8 @@ export default class Request{
                 'Content-Type': 'application/json',
             }
         }
-        if(json != null) {
+        if(json != undefined) {
+            init.headers['Accepts'] = 'application/json'
             init.body = JSON.stringify(json);
         }
             return fetch(url, init)

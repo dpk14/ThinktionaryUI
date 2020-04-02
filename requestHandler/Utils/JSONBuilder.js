@@ -22,8 +22,14 @@ function buildEntryWithCreated(title, text, topics, created=undefined){
     entry[TITLE] = title
     entry[TEXT] = text
     if(created != undefined) entry[CREATED] = created
-    entry[TOPICS] = topics
+    entry[TOPICS] = setToArray(topics)
     return entry
+}
+
+function setToArray(set){
+    let arr = []
+    set.forEach((entry) => arr.push({myColor : '#FFFFFF', myTopic: entry}))
+    return arr
 }
 
 function buildEntry(title, text, topics){

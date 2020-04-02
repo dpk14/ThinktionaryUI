@@ -128,7 +128,6 @@ export default class EntryBox extends Component {
         const {scale, width, height, borderRadius, titleActivePos, titleActiveSize} = this.props
         const {isFieldActive} = this.state
         const innerViewOffset = isFieldActive ? _scale(titleActivePos + titleActiveSize, scale) : 0
-        console.log(innerViewOffset)
         return {
             width: _scale(width, scale),
             height: _scale(height - innerViewOffset, scale),
