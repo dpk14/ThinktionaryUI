@@ -32,7 +32,7 @@ export default class WriteScreen extends Screen {
         const {title, text, date, topics} = this.state
         this.state.entryID == undefined ?
             new BuildEntry(this.props.route.params.journal.userID, title, text, topics, undefined).
-            fetchAndExecute(parseOrAlert(_onCreate, {callBack : this.setEntryID})) :
+            fetchAndExecute(_onCreate(this.setEntryID)) :
             this.save()
     }
 
@@ -44,7 +44,7 @@ export default class WriteScreen extends Screen {
         const {title, text, date, topics} = this.state
         console.log("BLLLLLLARGH : " + this.state.entryID)
         new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics, undefined).
-        fetchAndExecute(parseOrAlert())
+        fetchAndExecute()
     }
 
     submit = () => {

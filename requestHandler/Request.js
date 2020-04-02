@@ -15,11 +15,13 @@ const CREATED = "myCreated"
 
 export default class Request{
 
-    constructor(url, type, json, hasReturn) {
+    constructor(url, type, json, hasReturn, parser=()=>{}) {
         this.url = url
         this.type = type
         this.json = json
         this.hasReturn = hasReturn
+        this.parser = parser
+        this.errorHandler = errorHandler
         if(this.constructor === Request) {
             ABSTRACT_CLASS()
         }
@@ -48,7 +50,7 @@ export default class Request{
         else request.send()
     }
 
-    request(url, type, json, hasReturn, callBack){
+    request(url, type, json, hasReturn, callBack, errorHandler=(message)=>{alert(message)}){
         console.log(url)
         console.log("json :")
         console.log(json)
@@ -72,24 +74,25 @@ export default class Request{
                 .catch(e => {
                     console.log(e);
                     if(e instanceof fetchError && ResponseHandler.isUserException(e)){
-                        this.translateException(e, callBack);
+                        this.translateException(e, errorHandler);
                     }
                     else throw e;
                 })
 
         }
 
-    fetchAndExecute(callBack=(json, errorFound)=>{}){
+    fetchAndExecute(callBack=(parsedResponse)=>{}, params={}){
         this.request(this.url, this.type, this.json, this.hasReturn, callBack);
     }
 
     translateBody(response, callBack){
-        response.json().then(json => callBack(json, false))
+        response.json().then(json => this.parser(json)).then(parsedResponse => callBack(parsedResponse))
     }
 
-    translateException(e, callBack){
+    translateException(e, errorHandler){
         e.response.blob().then(blob => {
-            ResponseHandler.returnBlobToText(blob, callBack)
+            let response = ResponseHandler.returnBlobToText(blob, callBack)
+            errorHandler(response)
         })
     }
 }

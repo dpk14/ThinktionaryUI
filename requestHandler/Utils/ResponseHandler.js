@@ -30,4 +30,17 @@ export default class responseHandler {
         reader.readAsText(blob);
     }
 
+    /*
+
+    static parseOrAlert = (response, exceptionThrown, callBack, parser) =>{
+        if(exceptionThrown) {
+            alert(response);
+        }
+        else{
+            let parsedResponse = parser(response)
+            callBack(parsedResponse)
+        }
+    }
+    */
+
 }

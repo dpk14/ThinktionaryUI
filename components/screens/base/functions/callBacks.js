@@ -1,4 +1,4 @@
-import {Journal} from "../../../structs/journal";
+import {Journal} from "../../../structs/Journal";
 import ScreenNames from "../../../../navigation/ScreenNames";
 
 export function parseOrAlert(parser=undefined, params) {
@@ -12,13 +12,15 @@ export function parseOrAlert(parser=undefined, params) {
     }
 }
 
-export function _onLogin(response, params){
-    let journal = new Journal(response["myEntries"], response["myEntryMap"], response["myTopics"], response["myUserID"])
-    params.navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
+export function _onLogin(navigation) {
+    return (journal) =>{
+        navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
+    }
 }
 
-export function _onCreate(response, params){
-    console.log(response)
-    params.callBack(response['myID']);
+export function _onCreate(setEntryID){
+    return (entry) =>{
+        setEntryID(entry.id)
+    }
 }
 
