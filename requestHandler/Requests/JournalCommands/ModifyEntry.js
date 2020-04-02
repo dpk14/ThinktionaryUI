@@ -11,6 +11,6 @@ export default class modifyEntry extends Request{
             entry = JSONBuilder.buildEntryWithCreated(title, text, topics, created)
         }
         let url = BASE_URL + "/users/" + userID + "/entries/" + entryID
-        super(url, PUT, entry, true, JSONParser.parserEntry)
+        super(url, PUT, entry, true, JSONParser.parseEntry)
     }
 }

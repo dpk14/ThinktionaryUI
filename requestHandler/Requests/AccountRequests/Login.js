@@ -1,4 +1,5 @@
 import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
+import JSONParser from "../../Utils/JSONParser";
 import {Journal} from "../../../components/structs/Journal";
 
 export default class Login extends Request{

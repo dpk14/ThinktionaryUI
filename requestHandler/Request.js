@@ -21,7 +21,6 @@ export default class Request{
         this.json = json
         this.hasReturn = hasReturn
         this.parser = parser
-        this.errorHandler = errorHandler
         if(this.constructor === Request) {
             ABSTRACT_CLASS()
         }
@@ -91,8 +90,7 @@ export default class Request{
 
     translateException(e, errorHandler){
         e.response.blob().then(blob => {
-            let response = ResponseHandler.returnBlobToText(blob, callBack)
-            errorHandler(response)
+            ResponseHandler.returnBlobToText(blob, errorHandler)
         })
     }
 }

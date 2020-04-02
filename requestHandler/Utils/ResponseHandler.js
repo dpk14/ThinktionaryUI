@@ -17,7 +17,7 @@ export default class responseHandler {
     static returnBlobToText(blob, callback){
         let reader = new FileReader();
         reader.onload = function() {
-            callback(reader.result, true);
+            callback(reader.result);
         }
         reader.readAsText(blob);
     }
