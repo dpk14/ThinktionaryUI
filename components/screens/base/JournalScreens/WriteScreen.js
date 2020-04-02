@@ -42,6 +42,7 @@ export default class WriteScreen extends Screen {
 
     save = () => {
         const {title, text, date, topics} = this.state
+        console.log("BLLLLLLARGH : " + this.state.entryID)
         new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics, undefined).
         fetchAndExecute(parseOrAlert())
     }

@@ -12,5 +12,4 @@ export default class modifyEntry extends Request{
         let url = BASE_URL + "/users/" + userID + "/entries/" + entryID
         super(url, PUT, entry, true)
     }
-
 }
