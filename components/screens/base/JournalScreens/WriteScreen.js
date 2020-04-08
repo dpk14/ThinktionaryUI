@@ -25,7 +25,7 @@ export default class WriteScreen extends Screen {
         this.state.date = ''
         this.state.currTopic = ''
         this.state.topics = new Set()
-        this.state.topicBank = new Set()
+        this.state.topicBank = this.props.route.params.journal.topicBank
     }
 
     createOrSave = () => {
@@ -42,7 +42,7 @@ export default class WriteScreen extends Screen {
 
     save = () => {
         const {title, text, date, topics} = this.state
-        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics, undefined).
+        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics).
         fetchAndExecute()
     }
 

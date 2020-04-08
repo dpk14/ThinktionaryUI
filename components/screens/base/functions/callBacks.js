@@ -20,6 +20,7 @@ export function _onLogin(navigation) {
 
 export function _onCreate(setEntryID){
     return (entry) =>{
+        console.log("_onCreate setEntryID: ")
         console.log(entry)
         setEntryID(entry.entryID)
     }
