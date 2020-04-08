@@ -20,7 +20,7 @@ export default class StyledTextInput extends Component {
         textInputStyles: object,
         otherTextInputProps: object,
         width : number | string,
-        height : number,
+        height : number | string,
         scale : number,
         fontSize: number,
         textMarginLeft : number,

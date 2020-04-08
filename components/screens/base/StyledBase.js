@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoidingView} from 'react-native';
+import {Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoidingView, View} from 'react-native';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import LoginScreen from "./AccountScreens/LoginScreen";
 import Wrapper from "../../utils/Wrapper";
+import {baseStyles} from "./Screen";
 
 export default class StyledBase extends Component{
 
@@ -23,7 +24,10 @@ export default class StyledBase extends Component{
                                                   onPress={Keyboard.dismiss} accessible={false}>
                             <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
                                             start={[0, 1]} style={styles.linearGradient}>
+
+                                <View style = {styles.container}>
                                 {this.props.children}
+                                </View>
                             </LinearGradient>
                         </TouchableWithoutFeedback>
                     </ScrollView>
@@ -38,6 +42,11 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         marginTop : -200,
         marginBottom : -200,
+        alignItems : 'center',
+    },
+    container: {
+        flex: 1,
+        marginVertical : 200,
         alignItems : 'center',
     },
 });

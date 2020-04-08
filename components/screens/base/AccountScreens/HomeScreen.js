@@ -3,7 +3,7 @@ import {StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CustomButton from "../../../CustomButton";
 import ScreenNames from "../../../../navigation/ScreenNames"
-import {baseStyles, styles} from "../Screen";
+import {baseStyles} from "../Screen";
 import Screen from "../Screen"
 import StyledBase from "../StyledBase";
 
@@ -16,7 +16,6 @@ export default class HomeScreen extends Screen{
     renderScreen() {
             return (
                 <StyledBase>
-                    <View style = {[baseStyles.container]}>
                         <Text style={baseStyles.title}>Thinktionary</Text>
                         <View style = {newStyles.buttonOuterLayout}
                             >
@@ -33,7 +32,6 @@ export default class HomeScreen extends Screen{
                                 marginTop={20}
                             />
                         </View>
-                    </View>
                 </StyledBase>
             );
         }

@@ -18,10 +18,14 @@ export function _onLogin(navigation) {
     }
 }
 
+export function _onSubmit(navigation) {
+    return (journal) =>{
+        navigation.navigate(ScreenNames.READ_SCREEN, {journal : journal})
+    }
+}
+
 export function _onCreate(setEntryID){
     return (entry) =>{
-        console.log("_onCreate setEntryID: ")
-        console.log(entry)
         setEntryID(entry.entryID)
     }
 }

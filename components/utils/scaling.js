@@ -20,3 +20,5 @@ export function scalePercentage(percentage, scale){
     return (scaledInt > 100 ? 100 : scaledInt) + "%"
     */
 }
+
+

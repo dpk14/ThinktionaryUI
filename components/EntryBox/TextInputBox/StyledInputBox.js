@@ -25,8 +25,8 @@ export class StyledInputBox extends Component{
                                                  keyboardType={keyboardType}
                                                  autoCompletType = {false}
                                                  updateMasterState={updateMasterState}
-                                                 width = {width}
-                                                 height = "100%"
+                                                 width = {'100%'}
+                                                 height = {'100%'}
                                                  scale = {scale}
                                                  secureTextEntry={secureTextEntry}
                                                  editable={editable}/>

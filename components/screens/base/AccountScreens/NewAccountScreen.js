@@ -33,7 +33,6 @@ export default class NewAccountScreen extends Screen {
     render() {
         return (
             <StyledBase>
-            <View style = {[baseStyles.container]}>
                     <Text style={baseStyles.title}>Thinktionary</Text>
                     <StyledInputBox
                         attrName='username'
@@ -58,7 +57,6 @@ export default class NewAccountScreen extends Screen {
                         }}
                         width={220}
                     />
-            </View>
             </StyledBase>
         );
     }

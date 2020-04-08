@@ -40,11 +40,6 @@ export default class Screen extends Component{
 }
 
 export const baseStyles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginVertical : 200,
-        alignItems : 'center',
-    },
     linearGradient :{
         flex : 1,
         flexDirection: 'column',

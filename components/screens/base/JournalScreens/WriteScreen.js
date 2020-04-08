@@ -48,88 +48,77 @@ export default class WriteScreen extends Screen {
     }
 
     submit = () => {
-        this.props.navigation.navigate(ScreenNames.READ_SCREEN, {journal : this.props.route.params.journal})
+        new Login(this.state.username, this.state.password).fetchAndExecute(_onSubmit(this.props.navigation))
     }
 
     renderScreen() {
         return (
             <StyledBase>
-            <View style = {baseStyles.container}>
-                        <View style = {newStyles.outerFrame}>
-                            <View style = {newStyles.topFrame}>
-                                <StyledInputBox
-                                    attrName='title'
-                                    title='Title'
-                                    value={this.state.title}
-                                    updateMasterState={this._updateMasterState}
-                                    scale = {0.75}
-                                    width= '48.5%'
-                                />
-                                <StyledInputBox
-                                    attrName='date'
-                                    title='Date'
-                                    value={this.state.date}
-                                    updateMasterState={this._updateMasterState}
-                                    scale = {0.75}
-                                    width='48.5%'
-                                />
-                            </View>
-                            <View style = {newStyles.middleFrame}>
-                                <StyledInputBox
-                                    attrName='text'
-                                    title='Text'
-                                    value={this.state.text}
-                                    updateMasterState={this._updateMasterState}
-                                    scale = {.75}
-                                    width='100%'
-                                    height = {400}
-                                    multiline = {true}
-                                    blurOnSubmit={false}
-                                />
-                                <TopicCreatorBox
-                                    attrName='currTopic'
-                                    setName='topics'
-                                    title='Topics'
-                                    value={this.state.currTopic}
-                                    updateMasterState={this._updateMasterState}
-                                    scale = {.75}
-                                    topicScale = {.62}
-                                    height= {1.5*TOPIC_HEIGHT}
-                                    width='100%'
-                                    topics={this.state.topics}
-                                />
-                                <TopicBank
-                                    attrName='topicBank'
-                                    setName='topicBankCurr'
-                                    title='Topic Bank'
-                                    active = {this.state.topicBank.size > 0}
-                                    updateMasterState={this._updateMasterState}
-                                    scale = {.75}
-                                    topicScale = {.62}
-                                    topics = { this.state.topicBank}
-                                    width= '100%'
-                                    height={1.5*TOPIC_HEIGHT}
-                                />
-                                <View style = {newStyles.bottomFrame}>
-                                <CustomButton
-                                    text="Save"
-                                    scale = {.8}
-                                    marginTop={8}
-                                    width = {180}
-                                    onPress={() => this.createOrSave()}
-                                />
-                                    <CustomButton
-                                        text="Submit"
-                                        scale = {.8}
-                                        marginTop={8}
-                                        width = {180}
-                                        onPress={() => {this.createOrSave();
-                                                        this.submit();
-                                        }}
-                                    />
-                                </View>
-                            </View>
-                        </View>
+                <View style = {newStyles.outerFrame}>
+                    <View style = {newStyles.topFrame}>
+                        <StyledInputBox
+                            attrName='title'
+                            title='Title'
+                            value={this.state.title}
+                            updateMasterState={this._updateMasterState}
+                            scale = {0.75}
+                            width = '100%'
+                            //width= '48.5%'
+                            />
+                        <StyledInputBox
+                            attrName='text'
+                            title='Text'
+                            value={this.state.text}
+                            updateMasterState={this._updateMasterState}
+                            scale = {.75}
+                            width='100%'
+                            height = {400}
+                            multiline = {true}
+                            blurOnSubmit={false}
+                        />
+                        <TopicCreatorBox
+                            attrName='currTopic'
+                            setName='topics'
+                            title='Topics'
+                            value={this.state.currTopic}
+                            updateMasterState={this._updateMasterState}
+                            scale = {.75}
+                            topicScale = {.62}
+                            height= {1.5*TOPIC_HEIGHT}
+                            width='100%'
+                            topics={this.state.topics}
+                        />
+                        <TopicBank
+                            attrName='topicBank'
+                            setName='topicBankCurr'
+                            title='Topic Bank'
+                            active = {this.state.topicBank.size > 0}
+                            updateMasterState={this._updateMasterState}
+                            scale = {.75}
+                            topicScale = {.62}
+                            topics = { this.state.topicBank}
+                            width= '100%'
+                            height={1.5*TOPIC_HEIGHT}
+                        />
+                    </View>
+                    <View style = {newStyles.bottomFrame}>
+                        <CustomButton
+                            text="Save"
+                            scale = {.8}
+                            marginTop={8}
+                            width = {180}
+                            onPress={() => this.createOrSave()}
+                        />
+                        <CustomButton
+                            text="Submit"
+                            scale = {.8}
+                            marginTop={8}
+                            width = {180}
+                            onPress={() => {this.createOrSave();
+                                            this.submit();
+                            }}
+                        />
+                    </View>
                 </View>
             </StyledBase>
             );
@@ -137,25 +126,27 @@ export default class WriteScreen extends Screen {
 }
 
 export const newStyles = StyleSheet.create({
+    /*
     topFrame: {
         flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
         position: 'relative'
     },
+    */
     bottomFrame: {
         flex: 1,
         justifyContent: 'space-between',
         flexDirection: 'row',
         position: 'relative'
     },
-    middleFrame:{
+    topFrame:{
         flex: 1,
         position: 'relative',
     },
     outerFrame:{
         marginTop : 60,
-        flex: 1,
+        flex : 1,
         marginHorizontal : 15
     }
 

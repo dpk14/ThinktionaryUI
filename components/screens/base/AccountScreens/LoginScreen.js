@@ -25,7 +25,6 @@ export default class LoginScreen extends Screen {
     renderScreen() {
         return (
             <StyledBase>
-                <View style = {[baseStyles.container]}>
                     <Text style={[baseStyles.title]}>Thinktionary</Text>
                     <StyledInputBox
                         attrName='username'
@@ -50,7 +49,6 @@ export default class LoginScreen extends Screen {
                             new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation));
                         }}
                     />
-            </View>
                 </StyledBase>)
 
     }
