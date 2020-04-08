@@ -14,6 +14,7 @@ import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/Buil
 import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
 import {_onCreate, _onLogin, _onSubmit, parseOrAlert} from "../functions/callBacks";
 import ScreenNames from "../../../../navigation/ScreenNames";
+import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 
 export default class WriteScreen extends Screen {
 
@@ -92,21 +93,19 @@ export default class WriteScreen extends Screen {
                                     value={this.state.currTopic}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.75}
-                                    topicScale = {.65}
+                                    topicScale = {.62}
                                     height= {1.5*TOPIC_HEIGHT}
                                     width='100%'
                                     topics={this.state.topics}
                                 />
-                                <TopicCreatorBox
+                                <TopicBank
                                     attrName='topicBank'
                                     setName='topicBankCurr'
                                     title='Topic Bank'
-                                    alwaysActive = {true}
-                                    editable = {false}
-                                    value={''}
+                                    active = {this.state.topicBank.size > 0}
                                     updateMasterState={this._updateMasterState}
                                     scale = {.75}
-                                    topicScale = {.65}
+                                    topicScale = {.62}
                                     topics = { this.state.topicBank}
                                     width= '100%'
                                     height={1.5*TOPIC_HEIGHT}

@@ -20,7 +20,7 @@ export default class EntryBox extends Component {
         marginRight : number,
         marginLeft : number,
         marginVertical : number,
-        alwaysActive : bool,
+        active : bool,
             titleActivePos : number,
             titleInactivePos : number,
         }
@@ -35,7 +35,7 @@ export default class EntryBox extends Component {
             titleInActiveSize: 15,
             titleActiveColor: '#512da8',
             titleInactiveColor: 'black',
-            alwaysActive: false,
+            active: false,
             titleActivePos : 4,
             titleInactivePos : 20,
         }
@@ -44,7 +44,7 @@ export default class EntryBox extends Component {
     constructor(props) {
         super(props);
         const { value } = this.props;
-        let isFieldActive = this.props.alwaysActive ? true : false
+        let isFieldActive = this.props.active ? true : false
         this.state = {
             loading : true,
             isFieldActive: isFieldActive
@@ -152,12 +152,10 @@ export default class EntryBox extends Component {
     }
 
     updateContainerState = (isActive) => {
-        if(!this.props.alwaysActive) {
-            console.log("BLARGH")
-            console.log(isActive)
+        //if(!this.props.alwaysActive) {
             this.setState({isFieldActive : isActive})
             isActive ? this._animateFocus() : this._animateBlur()
-        }
+        //}
     }
 
     render() {

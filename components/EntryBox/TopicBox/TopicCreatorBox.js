@@ -24,19 +24,13 @@ export class TopicCreatorBox extends Component {
                           height={height}
                           alwaysActive={alwaysActive}
             >
-                <TopicContainer multiline={multiline}
+                <TopicContainer
                                 attrName={attrName}
                                 setName={setName}
-                                returnKeyType={returnKeyType}
-                                blurOnSubmit={blurOnSubmit}
                                 value={value}
-                                keyboardType={keyboardType}
-                                autoCompletType={false}
                                 updateMasterState={updateMasterState}
                                 width={width}
                                 height="100%"
-                                scale={scale}
-                                editable={editable}
                                 topicScale={topicScale}
                                 topics={topics}
                 >
