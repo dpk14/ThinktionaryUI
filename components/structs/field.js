@@ -1,4 +1,4 @@
-import StyledInput from "../EntryBox/StyledTextInput";
+import StyledInput from "../EntryBox/TextInputBox/StyledTextInput";
 import React from "react";
 
 

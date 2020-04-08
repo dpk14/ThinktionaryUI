@@ -11,7 +11,6 @@ export default class JSONParser{
     }
 
     static parseEntry = (response)  => {
-        console.log(response)
         let topics = new Set()
         response["myTopics"].forEach((topic) => topics.add(topic["myTopic"]))
         return new Entry(response["myTitle"], response["myText"], topics, response["myID"], response["myCreated"], response["myModfied"])

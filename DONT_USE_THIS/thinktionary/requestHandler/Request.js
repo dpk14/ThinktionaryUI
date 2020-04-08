@@ -35,7 +35,6 @@ export default class Request{
 
             if (request.status === 200) {
                 return request;
-                console.log('success', request.responseText);
             } else {
                 console.warn('error');
             }

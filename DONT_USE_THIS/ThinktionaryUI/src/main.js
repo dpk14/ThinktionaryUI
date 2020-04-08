@@ -9,7 +9,6 @@ function read(id) {
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
         // update the state of the component with the result here
-        console.log(xhr.responseText)
     })
     // open the request with the verb and the url
     xhr.open('GET', BASE_URL_STUDENTS + '/' + id)
@@ -21,11 +20,9 @@ function create(id) {
     // create a new XMLHttpRequest
     var xhr = new XMLHttpRequest()
     const json = { "id": id}
-    console.log(id)
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
         // update the state of the component with the result here
-        console.log(xhr.responseText)
     })
     // open the request with the verb and the url
     xhr.open('POST', BASE_URL_STUDENTS + "/")
@@ -42,7 +39,6 @@ function update(pastId, newId) {
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
         // update the state of the component with the result here
-        console.log(xhr.responseText)
     })
     // open the request with the verb and the url
     xhr.open('PUT', BASE_URL_STUDENTS + '/' + pastId)
@@ -58,7 +54,6 @@ function remove(id) {
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
         // update the state of the component with the result here
-        console.log(xhr.responseText)
     })
     // open the request with the verb and the url
     xhr.open('DELETE', BASE_URL_STUDENTS + '/' + id)
@@ -73,7 +68,6 @@ function greet(user) {
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
         // update the state of the component with the result here
-        console.log(xhr.responseText)
     })
     // open the request with the verb and the url
     let url = BASE_URL_GREETINGS + '?name=' + user
@@ -90,10 +84,8 @@ function greet2(user) {
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
         // update the state of the component with the result here
-        console.log(xhr.responseText)
     })
     // open the request with the verb and the url
-    console.log(BASE_URL_STUDENTS + '?name=' + user)
     xhr.open('GET', BASE_URL_STUDENTS + '?name=' + user)
     // send the request
     xhr.send()

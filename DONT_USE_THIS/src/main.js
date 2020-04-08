@@ -9,7 +9,6 @@ function read(id) {
     // get a callback when the server responds
     xhr.addEventListener('load', () => {
         // update the state of the component with the result here
-        console.log(xhr.responseText)
     })
     // open the request with the verb and the url
     xhr.open('GET', BASE_URL_STUDENTS + '/' + id)

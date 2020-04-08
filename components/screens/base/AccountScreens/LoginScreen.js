@@ -3,7 +3,7 @@ import { Text} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import {StyleSheet, View} from 'react-native';
-import StyledInput, {StyledInputBox} from "../../../EntryBox/StyledTextInput";
+import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import {baseStyles, styles} from "../Screen";

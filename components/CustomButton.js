@@ -40,7 +40,6 @@ class customButton extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.text)
         this.state = {loading: true,
             textWidth : 0};
     }
@@ -86,7 +85,6 @@ class customButton extends Component {
         if (this.loading) return null;
         else {
 
-            console.log("onLayout " + this.props.onLayout)
             const {text, onPress} = this.props;
                 return (
                     <ScalingView

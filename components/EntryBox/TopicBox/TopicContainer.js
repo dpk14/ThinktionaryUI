@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput, ScrollView, Text, Keyboard } from 'react-native';
 import { string, func, object, number, bool, PropTypes } from 'prop-types';
-import StyledTextInput, {Styles} from "./StyledTextInput";
-import CustomButton from "../CustomButton";
-import {TOPIC_HEIGHT, TOPIC_WIDTH} from "../strings";
-import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
-import EntryBox from "./EntryBox";
-import {basePropTypes} from "./baseProps";
+import StyledTextInput, {Styles} from "../TextInputBox/StyledTextInput";
+import CustomButton from "../../CustomButton";
+import {TOPIC_HEIGHT, TOPIC_WIDTH} from "../../strings";
+import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
+import EntryBox from "../EntryBox";
+import {basePropTypes} from "../baseProps";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 import setType from 'es6-set-proptypes';
+import {childrenWithProps} from "../../utils/general";
 
-export default class TopicCreator extends Component {
+export default class TopicContainer extends Component {
 
     static defaultProps  = {
         ...StyledTextInput.propTypes,
@@ -35,8 +36,6 @@ export default class TopicCreator extends Component {
 
     constructor(props) {
         super(props);
-        console.log("TopicCreator topics : ")
-        console.log(this.props.topics)
         this.state = {
             loading : true,
             textLeftOffset : 0
@@ -62,16 +61,8 @@ export default class TopicCreator extends Component {
         return TopicBoxes
     }
 
-    _handleFocus = () => {
-        if (!this.state.isFieldActive) {
-            this.setState({ isFieldActive: true });
-            this.props.updateContainerState(true)
-        }
-    }
-
     _handleBlur = () => {
-        if (this.state.isFieldActive && !this.props.value && this.props.topics.size == 0) {
-            this.setState({ isFieldActive: false });
+        if (this.props.active && !this.props.value && this.props.topics.size == 0) {
             this.props.updateContainerState(false)
         }
     }
@@ -109,8 +100,14 @@ export default class TopicCreator extends Component {
     }
 
     render() {
-        const {scale, width, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, editable}  = this.props
+        const children = //this.props.alwaysActive ? this.props.children :
+            childrenWithProps(this.props.children, {
+                onBlur : this._handleBlur,
+                onSubmitEditing : this._onSubmitEditing,
+                onKeyPress : this._onKeyPress,
+                active : this.props.active,
+                updateContainerState : this.props.updateContainerState
+            })
         const TopicBoxes = this.renderTopicBoxes()
         return (
                 <ScrollView
@@ -122,69 +119,13 @@ export default class TopicCreator extends Component {
                 >
                     <View style={[addStyles.scrollView]}>
                         {TopicBoxes}
-                        <View style = {{ flex : 1 }} >
-                    <StyledTextInput     multiline = {multiline}
-                                         attrName={attrName}
-                                         returnKeyType = {returnKeyType}
-                                         blurOnSubmit = {blurOnSubmit}
-                                         value={value}
-                                         keyboardType={keyboardType}
-                                         autoCompletType = {false}
-                                         updateMasterState={updateMasterState}
-                                         height = "100%"
-                                         scale = {scale}
-                                         onFocus = {this._handleFocus}
-                                         onBlur = {this._handleBlur}
-                                         onSubmitEditing={this._onSubmitEditing}
-                                         onKeyPress={this._onKeyPress}
-                                         editable = {editable}
-                                         active = {this.props.topics.size > 0}
-                                         style = {{position : 'absolute', top : 0, left : -10}}
-                    />
+ <View style = {{ flex : 1 }} >
+                            {children}
                         </View>
                     </View>
                 </ScrollView>
         )
     }
-}
-
-export class TopicCreatorBox extends Component{
-    static propTypes = {...TopicCreator.propTypes, ...{alwaysActive : bool}}
-    static defaultProps = {...TopicCreator.defaultProps, ...{alwaysActive : false}}
-
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, topicScale, editable, alwaysActive, topics, setName}
-            = this.props
-        return (<EntryBox title={title}
-                          scale={scale}
-                          width = {width}
-                          height = {height}
-                          alwaysActive={alwaysActive}
-            >
-                <TopicCreator multiline = {multiline}
-                              attrName={attrName}
-                              setName = {setName}
-                              returnKeyType = {returnKeyType}
-                              blurOnSubmit = {blurOnSubmit}
-                              value={value}
-                              keyboardType={keyboardType}
-                              autoCompletType = {false}
-                              updateMasterState={updateMasterState}
-                              width = {width}
-                              height = "100%"
-                              scale = {scale}
-                              editable = {editable}
-                              topicScale = {topicScale}
-                              topics = {topics}
-                />
-            </EntryBox>
-        )
-    }
-
 }
 
 const addStyles = StyleSheet.create({
@@ -198,7 +139,6 @@ const addStyles = StyleSheet.create({
         color : 'white',
         flexWrap : "wrap"
     },
-
     scrollView: {
         flex : 1,
         height : '100%',

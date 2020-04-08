@@ -3,7 +3,8 @@ import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } 
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
-import StyledInput, {StyledInputBox} from "../../../EntryBox/StyledTextInput";
+
+import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";

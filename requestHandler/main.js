@@ -16,7 +16,6 @@ const CREATED = "myCreated"
 function makeAccount(user, pwd){
     let url = BASE_URL+"/users/?user=" + user + "&pwd=" + pwd
     let response = request(url, PUT, null, false)
-    console.log(response);
     return response;
 }
 
@@ -104,7 +103,6 @@ function requestXML(url, type, json, hasReturn){
 
         if (request.status === 200) {
             return request;
-            console.log('success', request.responseText);
         } else {
             console.warn('error');
         }
@@ -136,7 +134,6 @@ async function request(url, type, json, hasReturn){
             .catch(e => {throw e})
     }
     var ans = await method();
-    console.log(ans);
     return ans;
 }
 function checkStatus(response){

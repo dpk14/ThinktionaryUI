@@ -7,6 +7,7 @@ import {Override} from "../utils/defaultHandling";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
 import {ABSTRACT_METHOD} from "../utils/abstraction";
 import {basePropDefaults, basePropTypes} from "./baseProps";
+import {childrenWithProps} from "../utils/general";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
@@ -64,8 +65,6 @@ export default class EntryBox extends Component {
             titleActiveColor, titleInactiveColor, titleActiveSize, titleInActiveSize, scale,
             titleActivePos, titleInactivePos, textMarginLeft, textMarginRight,
         } = this.props;
-        console.log(this.props.title)
-        console.log(isFieldActive)
         return {
             top: this.position.interpolate({
                 inputRange: [0, 1],
@@ -154,18 +153,19 @@ export default class EntryBox extends Component {
 
     updateContainerState = (isActive) => {
         if(!this.props.alwaysActive) {
+            console.log("BLARGH")
+            console.log(isActive)
             this.setState({isFieldActive : isActive})
             isActive ? this._animateFocus() : this._animateBlur()
         }
     }
 
     render() {
-        const childrenWithLayout = this.props.alwaysActive ? this.props.children :
-            React.Children.map(this.props.children, child => {
-            return React.cloneElement(child, {
-                updateContainerState: this.updateContainerState
+        const childrenWithLayout = //this.props.alwaysActive ? this.props.children :
+            childrenWithProps(this.props.children, {
+                updateContainerState: this.updateContainerState,
+                active : this.state.isFieldActive
             });
-        });
         if (!this.loading) {
             return (
                 <Animated.View style={this.returnAllContainerStyles()}>

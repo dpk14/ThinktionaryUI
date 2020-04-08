@@ -1,10 +1,10 @@
 import Screen, {baseStyles} from "../Screen";
 import {StyleSheet} from "react-native";
 import {View} from "react-native";
-import {TopicCreatorBox} from "../../../EntryBox/TopicCreator";
+import {TopicCreatorBox} from "../../../EntryBox/TopicBox/TopicContainer";
 import {TOPIC_HEIGHT} from "../../../strings";
 import React from "react";
-import {StyledInputBox} from "../../../EntryBox/StyledTextInput";
+import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledTextInput";
 import StyledBase from "../StyledBase";
 
 export default class ReadScreen extends Screen {

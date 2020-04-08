@@ -2,13 +2,13 @@
 import { StyleSheet, Text, View} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import StyledInput, {StyledInputBox} from "../../../EntryBox/StyledTextInput";
+import  {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import Screen, {baseStyles, styles} from "../Screen";
 import React from "react";
 import CustomButton from "../../../CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {TOPIC_HEIGHT} from "../../../strings";
-import TopicCreator, {TopicCreatorBox} from "../../../EntryBox/TopicCreator";
+import {TopicCreatorBox} from "../../../EntryBox/TopicBox/TopicCreatorBox";
 import StyledBase from "../StyledBase";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
 import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
@@ -26,8 +26,6 @@ export default class WriteScreen extends Screen {
         this.state.currTopic = ''
         this.state.topics = new Set()
         this.state.topicBank = this.props.route.params.journal.topics
-        console.log("existing topics")
-        console.log(this.state.topicBank)
     }
 
     createOrSave = () => {
