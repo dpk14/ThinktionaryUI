@@ -111,7 +111,6 @@ export default class TopicCreator extends Component {
     render() {
         const {scale, width, multiline, attrName, returnKeyType, blurOnSubmit,
             value, keyboardType, updateMasterState, editable}  = this.props
-        console.log(this.props.topics.size)
         const TopicBoxes = this.renderTopicBoxes()
         return (
                 <ScrollView
@@ -141,7 +140,6 @@ export default class TopicCreator extends Component {
                                          editable = {editable}
                                          active = {this.props.topics.size > 0}
                                          style = {{position : 'absolute', top : 0, left : -10}}
-
                     />
                         </View>
                     </View>
