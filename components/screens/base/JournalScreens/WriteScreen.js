@@ -25,7 +25,9 @@ export default class WriteScreen extends Screen {
         this.state.date = ''
         this.state.currTopic = ''
         this.state.topics = new Set()
-        this.state.topicBank = this.props.route.params.journal.topicBank
+        this.state.topicBank = this.props.route.params.journal.topics
+        console.log("existing topics")
+        console.log(this.state.topicBank)
     }
 
     createOrSave = () => {
@@ -107,7 +109,7 @@ export default class WriteScreen extends Screen {
                                     updateMasterState={this._updateMasterState}
                                     scale = {.75}
                                     topicScale = {.65}
-                                    //topics = { this.props.route.params.journal.topics}
+                                    topics = { this.state.topicBank}
                                     topics = { new Set()}
                                     width= '100%'
                                     height={1.5*TOPIC_HEIGHT}

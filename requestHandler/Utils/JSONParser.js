@@ -3,7 +3,11 @@ import {Entry} from "../../components/structs/Entry";
 
 export default class JSONParser{
     static parseJournal = (response) => {
-        return new Journal(response["myEntries"], response["myEntryMap"], response["myTopics"], response["myUserID"])
+        let topics = new Set()
+        for(let key in response["myTopics"]) {
+            topics.add(key)
+        }
+        return new Journal(response["myEntries"], response["myEntryMap"], topics, response["myUserID"])
     }
 
     static parseEntry = (response)  => {
