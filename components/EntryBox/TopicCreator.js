@@ -35,10 +35,8 @@ export default class TopicCreator extends Component {
 
     constructor(props) {
         super(props);
-        /*
-        const topics = new Set()
-        Object.keys(this.props.topics).forEach((topic) => topics.add(topic))
-        */
+        console.log("TopicCreator topics : ")
+        console.log(this.props.topics)
         this.state = {
             loading : true,
             textLeftOffset : 0

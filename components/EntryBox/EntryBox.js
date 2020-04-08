@@ -47,7 +47,7 @@ export default class EntryBox extends Component {
         this.shadow = new Animated.Value(value ? 1 : 0);
         this.state = {
             loading : true,
-            isFieldActive: this.props.alwaysActive ? true : false,
+            isFieldActive: this.props.alwaysActive ? true : false
         }
         this.state.textLeftOffset = 0;
     }
@@ -63,6 +63,9 @@ export default class EntryBox extends Component {
             titleActiveColor, titleInactiveColor, titleActiveSize, titleInActiveSize, scale,
             titleActivePos, titleInactivePos, textMarginLeft, textMarginRight,
         } = this.props;
+        console.log(this.props.title)
+        console.log(isFieldActive)
+        console.log(isFieldActive ? titleActiveColor : titleInactiveColor)
         return {
             top: this.position.interpolate({
                 inputRange: [0, 1],

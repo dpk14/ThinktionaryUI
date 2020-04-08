@@ -110,7 +110,6 @@ export default class WriteScreen extends Screen {
                                     scale = {.75}
                                     topicScale = {.65}
                                     topics = { this.state.topicBank}
-                                    topics = { new Set()}
                                     width= '100%'
                                     height={1.5*TOPIC_HEIGHT}
                                 />
