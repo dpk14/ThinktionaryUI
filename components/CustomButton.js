@@ -20,6 +20,7 @@ class customButton extends Component {
         marginTop: PropTypes.number,
         padding : PropTypes.number,
         height: PropTypes.number,
+        style : PropTypes.object,
     }
 
     static defaultProps = {
@@ -31,6 +32,7 @@ class customButton extends Component {
         padding: 12,
         height: 56,
         marginLeft : 0,
+        style : {}
     }
 
     static defaultScalableStyles = {
@@ -90,7 +92,7 @@ class customButton extends Component {
                     <ScalingView
                         style = {[styles.container, this.customContainerStyles()]}>
                         <TouchableOpacity
-                            style={[styles.buttonStyle, this.getButtonStyles()]}
+                            style={[styles.buttonStyle, this.getButtonStyles(), this.props.style]}
                             onPress={() => onPress()}
                         >
                             <Text

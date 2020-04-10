@@ -61,7 +61,7 @@ export class TopicBank extends Component {
                     topics={topics}
                     onTopicPress={this._onTopicPress}
                     activeSet={this.state.activeTopics}
-                    activeStyle = {{}}
+                    activeTopicStyle = {{backgroundColor : '#ae43ec'}}
                 />
             </EntryBox>
         )
