@@ -35,7 +35,7 @@ export default class TopicContainer extends Component {
             multiline: false,
             blurOnSubmit: false,
             topicScale: 1,
-            onTopicPress: ()=>{},
+            onTopicPress: ()=>()=>{},
             activeSet : new Set(),
             activeTopicStyle : {},
             activeSetName : 'activeTopics'
