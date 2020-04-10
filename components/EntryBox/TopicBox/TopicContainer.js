@@ -100,8 +100,8 @@ export default class TopicContainer extends Component {
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size > 0) {
             let endTopic = Array.from(topics).pop()
             topics.delete(endTopic)
-            let newActiveSet = new Set(topics)
-            newActiveSet.remove(endTopic)
+            let newActiveSet = new Set(activeSet)
+            newActiveSet.delete(endTopic)
             newActiveSet.size != activeSet.size ? updateMasterState(activeSetName, activeSet) :
                 this.setState({
                     topics: topics

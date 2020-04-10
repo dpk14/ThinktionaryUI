@@ -16,15 +16,23 @@ export class TopicBank extends Component {
         }
     }
 
-    _onTopicPress = (topic) => {
-        return () => {
+    _onTopicPress = (topic) =>
+    {return () => {
             let {activeTopics} = this.state;
             let {topics, attrName, updateMasterState} = this.props;
             let newActiveTopics = new Set(activeTopics)
-            let newTopics = new Set(topics)
-            newActiveTopics.has(topic) ? newTopics.remove(topic).then(newActiveTopics.remove(topic)) :
-                newTopics.add(topic).then(newActiveTopics.add(topic))
-            this.setState({activeTopics : newActiveTopics})
+            let newTopics = new Set(topics);
+            if (newActiveTopics.has(topic))
+            {
+                newTopics.delete(topic);
+                newActiveTopics.delete(topic)
+            }
+            else
+            {
+                newTopics.add(topic);
+                newActiveTopics.add(topic);
+            }
+            this.setState({activeTopics: newActiveTopics});
             updateMasterState(attrName, newTopics)
         }
     }
@@ -52,7 +60,7 @@ export class TopicBank extends Component {
                     topics={topics}
                     onTopicPress={this._onTopicPress}
                     activeSet={this.state.activeTopics}
-                    activeStyle = {{borderColor : 'purple'}}
+                    activeStyle = {{}}
                 />
             </EntryBox>
         )
