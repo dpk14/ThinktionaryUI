@@ -34,7 +34,7 @@ export class TopicBank extends Component {
             newActiveTopics.add(topic);
             onTopicActivityChange(topic, true)
         }
-        this.setState({activeTopics: activeTopics})
+        this.setState({activeTopics: newActiveTopics})
     }
     }
 
