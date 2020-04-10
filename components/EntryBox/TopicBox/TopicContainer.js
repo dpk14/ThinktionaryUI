@@ -21,6 +21,10 @@ export default class TopicContainer extends Component {
             topicScale : number,
             blurOnSubmit : bool,
             setName : string.isRequired,
+            onTopicPress : func,
+            activeSet : object,
+            activeTopicStyle : object,
+            activeSetName : string,
         }
     }
 
@@ -30,7 +34,11 @@ export default class TopicContainer extends Component {
             topics : {},
             multiline: false,
             blurOnSubmit: false,
-            topicScale: 1
+            topicScale: 1,
+            onTopicPress: ()=>{},
+            activeSet : new Set(),
+            activeTopicStyle : {},
+            activeSetName : 'activeTopics'
         }
     };
 
@@ -48,6 +56,23 @@ export default class TopicContainer extends Component {
         this.setState({loading : false})
     }
 
+
+    _onSubmitEditing = () => {
+        const {attrName, setName, updateMasterState, value, topics} = this.props;
+        if (value == '') {
+            Keyboard.dismiss()
+            return
+        }
+        let oldLength = topics.size
+        const topicsNew = new Set()
+        topics.forEach((topic) => topicsNew.add(topic))
+        topicsNew.add(value)
+        if (oldLength != topicsNew.size) {
+            updateMasterState(this.props.activeSetName, topicsNew)
+        }
+        updateMasterState(attrName, '');
+    }
+
     renderTopicBoxes() {
         const TopicBoxes = []
         this.props.topics.forEach(topic => TopicBoxes.push(
@@ -55,8 +80,8 @@ export default class TopicContainer extends Component {
                 text={topic}
                 scale={this.props.topicScale}
                 alignItems="flex-start"
-                onPress={() => {
-                }}
+                onPress={this.props.onTopicPress(topic)}
+                style ={this.props.activeSet.has(topic) ? this.props.activeTopicStyle : {}}
             />));
         return TopicBoxes
     }
@@ -67,30 +92,18 @@ export default class TopicContainer extends Component {
         }
     }
 
-    _onSubmitEditing = () => {
-        const {attrName, setName, updateMasterState, value, topics} = this.props;
-        if(value == ''){
-            Keyboard.dismiss()
-            return
-        }
-        let oldLength = topics.size
-        const topicsNew = new Set()
-        topics.forEach((topic) => topicsNew.add(topic))
-        topicsNew.add(value)
-        if (oldLength != topicsNew.size) {
-            updateMasterState(setName, topicsNew)
-        }
-        updateMasterState(attrName, '');
-    }
-
     //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.
     //if text length exceeds that of textbox, move to next line. "lines" can just be stacks of views.
 
     _onKeyPress = ({nativeEvent}) => {
-        const {topics} = this.props;
+        const {topics, activeSet, activeSetName, updateMasterState} = this.props;
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size > 0) {
-            topics.delete(Array.from(topics).pop())
-            this.setState({
+            let endTopic = Array.from(topics).pop()
+            topics.delete(endTopic)
+            let newActiveSet = new Set(topics)
+            newActiveSet.remove(endTopic)
+            newActiveSet.size != activeSet.size ? updateMasterState(activeSetName, activeSet) :
+                this.setState({
                     topics: topics
                 }
             )

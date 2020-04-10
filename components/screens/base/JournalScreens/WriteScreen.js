@@ -48,7 +48,8 @@ export default class WriteScreen extends Screen {
     }
 
     submit = () => {
-        new Login(this.state.username, this.state.password).fetchAndExecute(_onSubmit(this.props.navigation))
+        let {username, password} = this.props.route.params.journal
+        new Login(username, password).fetchAndExecute(_onSubmit(this.props.navigation))
     }
 
     renderScreen() {
