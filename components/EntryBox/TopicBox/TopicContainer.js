@@ -68,7 +68,7 @@ export default class TopicContainer extends Component {
         topics.forEach((topic) => topicsNew.add(topic))
         topicsNew.add(value)
         if (oldLength != topicsNew.size) {
-            updateMasterState(this.props.activeSetName, topicsNew)
+            updateMasterState(setName, topicsNew)
         }
         updateMasterState(attrName, '');
     }
