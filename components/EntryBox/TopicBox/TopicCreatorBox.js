@@ -23,6 +23,7 @@ export class TopicCreatorBox extends Component {
                           width={width}
                           height={height}
                           alwaysActive={alwaysActive}
+                          active={topics.size > 0}
             >
                 <TopicContainer
                                 attrName={attrName}
@@ -45,7 +46,6 @@ export class TopicCreatorBox extends Component {
                                      height="100%"
                                      scale={scale}
                                      editable={editable}
-                                     //active={this.props.topics.size > 0}
                                      style={{position: 'absolute', top: 0, left: -10}}
                     />
                 </TopicContainer>

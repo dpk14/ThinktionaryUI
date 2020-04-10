@@ -1,4 +1,4 @@
-import {bool} from "prop-types";
+import {bool, object, func} from "prop-types";
 import EntryBox from "../EntryBox";
 import StyledTextInput from "../TextInputBox/StyledTextInput";
 import TopicContainer from "./TopicContainer";
@@ -6,8 +6,13 @@ import React, { Component } from 'react';
 import {Keyboard} from "react-native";
 
 export class TopicBank extends Component {
-    static propTypes = {...TopicContainer.propTypes, ...{alwaysActive: bool}}
-    static defaultProps = {...TopicContainer.defaultProps, ...{alwaysActive: false}}
+    static propTypes = {...TopicContainer.propTypes,
+        ...{alwaysActive: bool,
+            onTopicActivityChange : func}
+    }
+    static defaultProps = {...TopicContainer.defaultProps,
+        ...{alwaysActive: false,
+            onTopicActivityChange : ()=>{}}}
 
     constructor(props) {
         super(props);
@@ -18,23 +23,19 @@ export class TopicBank extends Component {
 
     _onTopicPress = (topic) =>
     {return () => {
-            let {activeTopics} = this.state;
-            let {topics, attrName, updateMasterState} = this.props;
-            let newActiveTopics = new Set(activeTopics)
-            let newTopics = new Set(topics);
-            if (newActiveTopics.has(topic))
-            {
-                newTopics.delete(topic);
-                newActiveTopics.delete(topic)
-            }
-            else
-            {
-                newTopics.add(topic);
-                newActiveTopics.add(topic);
-            }
-            this.setState({activeTopics: newActiveTopics});
-            updateMasterState(attrName, newTopics)
+        let {onTopicActivityChange} = this.props;
+        let {activeTopics} = this.state;
+        let newActiveTopics = new Set(activeTopics)
+        if (newActiveTopics.has(topic)){
+            newActiveTopics.delete(topic)
+            onTopicActivityChange(topic, false)
         }
+        else{
+            newActiveTopics.add(topic);
+            onTopicActivityChange(topic, true)
+        }
+        this.setState({activeTopics: activeTopics})
+    }
     }
 
     render() {

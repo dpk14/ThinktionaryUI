@@ -27,6 +27,7 @@ export default class WriteScreen extends Screen {
         this.state.currTopic = ''
         this.state.topics = new Set()
         this.state.topicBank = this.props.route.params.journal.topics
+        this.state.topicsActive = false
     }
 
     createOrSave = () => {
@@ -50,6 +51,20 @@ export default class WriteScreen extends Screen {
     submit = () => {
         let {username, password} = this.props.route.params.journal
         new Login(username, password).fetchAndExecute(_onSubmit(this.props.navigation))
+    }
+
+    _onTopicActivityChange = (topic, isActive) => {
+        let {topics, topicsActive} = this.state
+        let newTopics = new Set(topics)
+        if(isActive){
+            //if(topics.size > 0) topicsActive = true
+            newTopics.add(topic)
+        }
+        else{
+            //if(topics.size == 0) topicsActive = false
+            newTopics.delete(topic)
+        }
+        this.setState({topicsActive : topicsActive, topics : newTopics})
     }
 
     renderScreen() {
@@ -81,6 +96,7 @@ export default class WriteScreen extends Screen {
                             attrName='currTopic'
                             setName='topics'
                             title='Topics'
+                            //active = {this.state.topicsActive}
                             value={this.state.currTopic}
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
@@ -97,9 +113,10 @@ export default class WriteScreen extends Screen {
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
                             topicScale = {.62}
-                            topics = { this.state.topicBank}
+                            topics = {this.state.topicBank}
                             width= '100%'
                             height={1.5*TOPIC_HEIGHT}
+                            onTopicActivityChange={this._onTopicActivityChange}
                         />
                     </View>
                     <View style = {newStyles.bottomFrame}>
