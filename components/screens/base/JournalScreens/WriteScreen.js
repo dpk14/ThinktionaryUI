@@ -27,7 +27,6 @@ export default class WriteScreen extends Screen {
         this.state.currTopic = ''
         this.state.topics = new Set()
         this.state.topicBank = this.props.route.params.journal.topics
-        this.state.topicsActive = false
     }
 
     createOrSave = () => {
@@ -54,17 +53,10 @@ export default class WriteScreen extends Screen {
     }
 
     _onTopicActivityChange = (topic, isActive) => {
-        let {topics, topicsActive} = this.state
+        let {topics} = this.state
         let newTopics = new Set(topics)
-        if(isActive){
-            //if(topics.size > 0) topicsActive = true
-            newTopics.add(topic)
-        }
-        else{
-            //if(topics.size == 0) topicsActive = false
-            newTopics.delete(topic)
-        }
-        this.setState({topicsActive : topicsActive, topics : newTopics})
+        isActive ? newTopics.add(topic) : newTopics.delete(topic)
+        this.setState({topics : newTopics})
     }
 
     renderScreen() {
@@ -96,7 +88,7 @@ export default class WriteScreen extends Screen {
                             attrName='currTopic'
                             setName='topics'
                             title='Topics'
-                            //active = {this.state.topicsActive}
+                            active = {this.state.topics.size > 0}
                             value={this.state.currTopic}
                             updateMasterState={this._updateMasterState}
                             scale = {.75}

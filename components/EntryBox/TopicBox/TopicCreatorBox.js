@@ -5,8 +5,8 @@ import TopicContainer from "./TopicContainer";
 import React, { Component } from 'react';
 
 export class TopicCreatorBox extends Component {
-    static propTypes = {...TopicContainer.propTypes, ...{alwaysActive: bool}}
-    static defaultProps = {...TopicContainer.defaultProps, ...{alwaysActive: false}}
+    static propTypes = {...TopicContainer.propTypes, ...{active: bool}}
+    static defaultProps = {...TopicContainer.defaultProps, ...{active: false}}
 
     constructor(props) {
         super(props);
@@ -15,15 +15,14 @@ export class TopicCreatorBox extends Component {
     render() {
         const {
             title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, topicScale, editable, alwaysActive, topics, setName
+            value, keyboardType, updateMasterState, topicScale, editable, topics, setName, active
         }
             = this.props
         return (<EntryBox title={title}
                           scale={scale}
                           width={width}
                           height={height}
-                          alwaysActive={alwaysActive}
-                          active={topics.size > 0}
+                          active={active}
             >
                 <TopicContainer
                                 attrName={attrName}

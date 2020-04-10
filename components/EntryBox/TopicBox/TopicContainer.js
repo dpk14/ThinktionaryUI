@@ -48,7 +48,6 @@ export default class TopicContainer extends Component {
             loading : true,
             textLeftOffset : 0
         }
-        //console.log(this.props.updateContainerState)
     }
 
     async componentWillMount() {
