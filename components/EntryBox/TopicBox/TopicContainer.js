@@ -21,10 +21,8 @@ export default class TopicContainer extends Component {
             topicScale : number,
             blurOnSubmit : bool,
             setName : string.isRequired,
-            onTopicPress : func,
-            activeSet : object,
             activeTopicStyle : object,
-            activeSetName : string,
+            onTopicActivityChange : func,
         }
     }
 
@@ -35,18 +33,17 @@ export default class TopicContainer extends Component {
             multiline: false,
             blurOnSubmit: false,
             topicScale: 1,
-            onTopicPress: ()=>()=>{},
-            activeSet : new Set(),
             activeTopicStyle : {},
-            activeSetName : 'activeTopics'
+            onTopicActivityChange : ()=>{}
         }
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            loading : true,
-            textLeftOffset : 0
+            loading: true,
+            textLeftOffset: 0,
+            activeSet : new Set(),
         }
     }
 
@@ -55,6 +52,25 @@ export default class TopicContainer extends Component {
         this.setState({loading : false})
     }
 
+    _onTopicPress = (topic) =>
+    {return () => {
+        console.log(this.props.update)
+        this.props.updateContainerState(true)
+        let {onTopicActivityChange} = this.props;
+        let {activeTopics} = this.state;
+        let newActiveTopics = new Set(activeTopics)
+        if (newActiveTopics.has(topic)){
+            newActiveTopics.delete(topic)
+            onTopicActivityChange(topic, false)
+        }
+        else{
+            newActiveTopics.add(topic);
+            onTopicActivityChange(topic, true)
+        }
+        //if(this.props.topics.size == 0) this.props.updateContainerState(!this.props.active)
+        //this.setState({activeSet: newActiveTopics})
+    }
+    }
 
     _onSubmitEditing = () => {
         const {attrName, setName, updateMasterState, value, topics} = this.props;
@@ -79,8 +95,8 @@ export default class TopicContainer extends Component {
                 text={topic}
                 scale={this.props.topicScale}
                 alignItems="flex-start"
-                onPress={this.props.onTopicPress(topic)}
-                style ={this.props.activeSet.has(topic) ? this.props.activeTopicStyle : {}}
+                onPress={this._onTopicPress(topic)}
+                style ={this.state.activeSet.has(topic) ? this.props.activeTopicStyle : {}}
             />));
         return TopicBoxes
     }
@@ -101,7 +117,7 @@ export default class TopicContainer extends Component {
             topics.delete(endTopic)
             let newActiveSet = new Set(activeSet)
             newActiveSet.delete(endTopic)
-            newActiveSet.size != activeSet.size ? updateMasterState(activeSetName, activeSet) :
+            newActiveSet.size != activeSet.size ? this.setState({activeSet: newActiveSet}) :
                 this.setState({
                     topics: topics
                 }

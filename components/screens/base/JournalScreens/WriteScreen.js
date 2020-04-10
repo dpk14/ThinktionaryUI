@@ -66,7 +66,7 @@ export default class WriteScreen extends Screen {
                     <View style = {newStyles.topFrame}>
                         <StyledInputBox
                             attrName='title'
-                            title='Title'
+                            title="Title your thoughts!"
                             value={this.state.title}
                             updateMasterState={this._updateMasterState}
                             scale = {0.75}
@@ -75,7 +75,7 @@ export default class WriteScreen extends Screen {
                             />
                         <StyledInputBox
                             attrName='text'
-                            title='Text'
+                            title='What are you thinking about?'
                             value={this.state.text}
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
@@ -87,7 +87,7 @@ export default class WriteScreen extends Screen {
                         <TopicCreatorBox
                             attrName='currTopic'
                             setName='topics'
-                            title='Topics'
+                            title='What tags do you want to use?'
                             active = {this.state.topics.size > 0}
                             value={this.state.currTopic}
                             updateMasterState={this._updateMasterState}
@@ -100,7 +100,7 @@ export default class WriteScreen extends Screen {
                         <TopicBank
                             attrName='topicBank'
                             setName='topicBankCurr'
-                            title='Topic Bank'
+                            title="Select from tags you've used before:"
                             active = {this.state.topicBank.size > 0}
                             updateMasterState={this._updateMasterState}
                             scale = {.75}

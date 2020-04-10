@@ -16,26 +16,6 @@ export class TopicBank extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            activeTopics : new Set()
-        }
-    }
-
-    _onTopicPress = (topic) =>
-    {return () => {
-        let {onTopicActivityChange} = this.props;
-        let {activeTopics} = this.state;
-        let newActiveTopics = new Set(activeTopics)
-        if (newActiveTopics.has(topic)){
-            newActiveTopics.delete(topic)
-            onTopicActivityChange(topic, false)
-        }
-        else{
-            newActiveTopics.add(topic);
-            onTopicActivityChange(topic, true)
-        }
-        this.setState({activeTopics: newActiveTopics})
-    }
     }
 
     render() {
@@ -59,9 +39,8 @@ export class TopicBank extends Component {
                     height="100%"
                     topicScale={topicScale}
                     topics={topics}
-                    onTopicPress={this._onTopicPress}
-                    activeSet={this.state.activeTopics}
                     activeTopicStyle = {{backgroundColor : '#ae43ec'}}
+                    onTopicActivityChange = {this.props.onTopicActivityChange}
                 />
             </EntryBox>
         )
