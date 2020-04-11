@@ -56,17 +56,17 @@ export default class JournalContainer extends Component {
         let currentEntry = this.entries[entryIndex]
         return (
             <View style={[journalContainerStyles.outerFrame, this._outerDimensions()]}>
-                <EntryHeader>
-                    title = {currentEntry.title},
-                    created = {currentEntry.created},
+                <EntryHeader
+                    title = {currentEntry.title}
+                    created = {currentEntry.created}
                     modified = {currentEntry.modified}
                     navigation = {navigation}
                     entry = {currentEntry}
                     journal = {journal}
-                    width = {'100%'},
-                    height = {'15%'},
-                    scale = {_scale(.8, scale)},
-                </EntryHeader>
+                    width = {'100%'}
+                    height = {'15%'}
+                    scale = {_scale(.8, scale)}
+                />
                 <StyledTextInput
                      multiline = {true}
                      attrName = {''}

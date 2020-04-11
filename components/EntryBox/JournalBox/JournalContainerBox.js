@@ -17,8 +17,6 @@ export class JournalContainerBox extends Component {
             title, scale, width, height, active, journal, navigation,
         }
             = this.props
-        console.log("yeet")
-        console.log(navigation)
         return (<EntryBox title={title}
                           scale={scale}
                           width={width}
