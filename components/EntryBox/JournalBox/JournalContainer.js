@@ -7,15 +7,24 @@ import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtil
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 import {childrenWithProps} from "../../utils/general";
 import EntryHeader from "./EntryHeader";
+import EntryBox from "../EntryBox";
+import {_scale} from "../../../DONT_USE_THIS/thinktionary/components/utils/scaling";
 
 export default class JournalContainer extends Component {
 
     static defaultProps  = {
         journal : object.isRequired,
         entries : object.isRequired,
+        navigation : object.isRequired,
+        width : number,
+        height : number,
+        scale : number,
     }
 
     static defaultProps = {
+        scale : 1,
+        width : 360,
+        height : 600,
     };
 
     constructor(props) {
@@ -33,38 +42,42 @@ export default class JournalContainer extends Component {
         this.setState({loading : false})
     }
 
+    _outerDimensions = () => {
+        let {width, height, scale} = this.props
+        return {
+            width : _scale(width, scale),
+            height : _scale(height, scale)
+        }
+    }
+
     render() {
         let {entryIndex, entries} = this.state
-        let {navigation, journal, entry} = this.props
+        let {navigation, journal, scale} = this.props
         let currentEntry = entries(entryIndex)
         return (
-            <View style={journalContainerStyles.outerFrame}>
+            <View style={[journalContainerStyles.outerFrame, _outerDimensions()]}>
                 <EntryHeader>
                     title = {currentEntry.title},
                     created = {currentEntry.created},
                     modified = {currentEntry.created}
                     navigation : {navigation}
-                    entry : {entry}
+                    entry : {currentEntry}
                     journal : {journal}
                     width : {'100%'},
                     height : {'15%'},
-                    scale : {.8},
+                    scale : {_scale(.8, scale)},
                 </EntryHeader>
-                <View style={journalContainerStyles.middleFrame}>
-                    <ScrollView
-                        contentContainerStyle = {{flexGrow : 1}}
-                        style = {{height : '100%', width : '100%',
-                            marginHorizontal: 10,
-                            marginVertical: 10,
-                            borderRadius : 10}}
-                    >
-                        <View style={[addStyles.scrollView]}>
-                            {TopicBoxes}
-                            <View style = {{ flex : 1 }} >
-                                {children}
-                            </View>
-                        </View>
-                    </ScrollView>
+                <StyledTextInput
+                     multiline = {true}
+                     attrName={''}
+                     value={currentEntry.text}
+                     updateMasterState={()=>{}}
+                     width = {'100%'}
+                     height = {'75%'}
+                     scale = {_scale(.8, scale)}
+                     editable={false}
+                />
+                <View style={journalContainerStyles.bottomFrame}>
                 </View>
             </View>
         )
@@ -78,6 +91,10 @@ const journalContainerStyles = StyleSheet.create({
     middleFrame:{
         height : '70%',
         width : '100%'
+    },
+    bottomFrame:{
+        width : '15%',
+        justifyContent : 'center',
     }
 
 })

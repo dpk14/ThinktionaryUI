@@ -14,8 +14,7 @@ export class JournalContainerBox extends Component {
 
     render() {
         const {
-            title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, topicScale, editable, topics, setName, active, onTopicDelete,
+            title, scale, width, height, active, journal, navigation,
         }
             = this.props
         return (<EntryBox title={title}
@@ -25,17 +24,13 @@ export class JournalContainerBox extends Component {
                           active={active}
             >
                 <JournalContainer
-                    attrName={attrName}
-                    setName={setName}
-                    value={value}
-                    updateMasterState={updateMasterState}
-                    width={width}
+                    width="100%"
                     height="100%"
-                    topicScale={topicScale}
-                    topics={topics}
-                    onTopicDelete={onTopicDelete}
-                >
-                </JournalContainer>
+                    scale = {1}
+                    journal = {journal}
+                    entries = {journal.entries}
+                    navigation = {navigation}
+                />
             </EntryBox>
         )
     }

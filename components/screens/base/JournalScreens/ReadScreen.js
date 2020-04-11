@@ -6,6 +6,7 @@ import React from "react";
 import StyledBase from "../StyledBase";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
+import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
 
 export default class ReadScreen extends Screen {
 
@@ -38,22 +39,23 @@ export default class ReadScreen extends Screen {
 
     render() {
         let journalTitle = this._getJournalTitle()
+        let {navigation} = this.props
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
                     <View style = {readStyles.topFrame}>
-                            <StyledInputBox
-                                attrName='journal'
-                                title={journalTitle}
-                                value={''}
-                                updateMasterState={this._updateMasterState}
-                                scale = {.75}
-                                width='100%'
-                                height = '90%'
-                                multiline = {true}
-                                blurOnSubmit={false}
-                                active = {true}
-                                editable = {false}
+                        <JournalContainerBox
+                            attrName=''
+                            title={journalTitle}
+                            value=''
+                            updateMasterState={this._updateMasterState}
+                            scale = {.75}
+                            width = '100%'
+                            height = '90%'
+                            blurOnSubmit = {false}
+                            active = {true}
+                            journal = {this.journal}
+                            navigation = {navigation}
                             />
                     </View>
                     <View style={readStyles.bottomFrame}>
