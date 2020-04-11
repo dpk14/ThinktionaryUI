@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput, ScrollView, Text, Keyboard } from 'react-native';
 import { string, func, object, number, bool, PropTypes } from 'prop-types';
 import StyledTextInput, {Styles} from "../TextInputBox/StyledTextInput";
 import CustomButton from "../../CustomButton";
-import {TOPIC_HEIGHT, TOPIC_WIDTH} from "../../strings";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
-import EntryBox from "../EntryBox";
-import {basePropTypes} from "../baseProps";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
-import setType from 'es6-set-proptypes';
 import {childrenWithProps} from "../../utils/general";
 
 export default class TopicContainer extends Component {
@@ -22,7 +17,10 @@ export default class TopicContainer extends Component {
             blurOnSubmit : bool,
             setName : string.isRequired,
             activeTopicStyle : object,
+            activeTopics : object,
             onTopicActivityChange : func,
+            onTopicDelete : func,
+            onTopicPress : func,
         }
     }
 
@@ -34,7 +32,10 @@ export default class TopicContainer extends Component {
             blurOnSubmit: false,
             topicScale: 1,
             activeTopicStyle : {},
-            onTopicActivityChange : ()=>{}
+            activeTopics : new Set(),
+            onTopicActivityChange : ()=>{},
+            onTopicDelete : ()=>{},
+            onTopicPress : ()=>{},
         }
     };
 
@@ -43,32 +44,12 @@ export default class TopicContainer extends Component {
         this.state = {
             loading: true,
             textLeftOffset: 0,
-            activeTopics : new Set(),
         }
     }
 
     async componentWillMount() {
         await FontUtils.loadFonts();
         this.setState({loading : false})
-    }
-
-    _onTopicPress = (topic) =>
-    {return () => {
-        //this.props.updateContainerState(true)
-        let {onTopicActivityChange} = this.props;
-        let {activeTopics} = this.state;
-        let newActiveTopics = new Set(activeTopics)
-        this.props.updateContainerState(true)
-        if (newActiveTopics.has(topic)){
-            newActiveTopics.delete(topic)
-            onTopicActivityChange(topic, false)
-        }
-        else{
-            newActiveTopics.add(topic);
-            onTopicActivityChange(topic, true)
-        }
-        this.setState({activeTopics: newActiveTopics})
-    }
     }
 
     _onSubmitEditing = () => {
@@ -94,8 +75,8 @@ export default class TopicContainer extends Component {
                 text={topic}
                 scale={this.props.topicScale}
                 alignItems="flex-start"
-                onPress={this._onTopicPress(topic)}
-                style ={this.state.activeTopics.has(topic) ? this.props.activeTopicStyle : {}}
+                onPress={this.props.onTopicPress(topic)}
+                style ={this.props.activeTopics.has(topic) ? this.props.activeTopicStyle : {}}
             />));
         return TopicBoxes
     }
@@ -106,24 +87,14 @@ export default class TopicContainer extends Component {
         }
     }
 
-    //a bunch of buttons in rows and columns with a text inpit on end. textbox is stretched til end of contaner.
-    //if text length exceeds that of textbox, move to next line. "lines" can just be stacks of views.
-
     _onKeyPress = ({nativeEvent}) => {
-        const {topics, activeTopics, activeTopicsName, updateMasterState} = this.props;
+        const {topics, setName} = this.props;
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size > 0) {
             let endTopic = Array.from(topics).pop()
             topics.delete(endTopic)
-            let newactiveTopics = new Set(activeTopics)
-            newactiveTopics.delete(endTopic)
-            newactiveTopics.size != activeTopics.size ? this.setState({activeTopics: newactiveTopics}) :
-                this.setState({
-                    topics: topics
-                }
-            )
+            this.props.updateMasterState(setName, topics)
+            this.props.onTopicDelete(endTopic);
         }
-        //const { attrName, updateMasterState } = this.props;
-        //updateMasterState(attrName, updatedValue);
     }
 
     render() {

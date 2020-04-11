@@ -15,7 +15,7 @@ export class TopicCreatorBox extends Component {
     render() {
         const {
             title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, topicScale, editable, topics, setName, active
+            value, keyboardType, updateMasterState, topicScale, editable, topics, setName, active, onTopicDelete,
         }
             = this.props
         return (<EntryBox title={title}
@@ -33,6 +33,7 @@ export class TopicCreatorBox extends Component {
                                 height="100%"
                                 topicScale={topicScale}
                                 topics={topics}
+                                onTopicDelete={onTopicDelete}
                 >
                     <StyledTextInput multiline={multiline}
                                      attrName={attrName}

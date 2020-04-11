@@ -27,6 +27,15 @@ export default class WriteScreen extends Screen {
         this.state.currTopic = ''
         this.state.topics = new Set()
         this.state.topicBank = this.props.route.params.journal.topics
+        this.state.activeTopics = new Set()
+    }
+
+    _onTopicDelete = (topic) => {
+        console.log("aygghs")
+        let {activeTopics} = this.state
+        let newActiveTopics = new Set(activeTopics)
+        newActiveTopics.delete(topic)
+        if(newActiveTopics.size != activeTopics.size) this.setState({activeTopics: newActiveTopics})
     }
 
     createOrSave = () => {
@@ -96,6 +105,7 @@ export default class WriteScreen extends Screen {
                             height= {1.5*TOPIC_HEIGHT}
                             width='100%'
                             topics={this.state.topics}
+                            onTopicDelete={this._onTopicDelete}
                         />
                         <TopicBank
                             attrName='topicBank'
@@ -109,6 +119,8 @@ export default class WriteScreen extends Screen {
                             width= '100%'
                             height={1.5*TOPIC_HEIGHT}
                             onTopicActivityChange={this._onTopicActivityChange}
+                            activeTopicsName ={'activeTopics'}
+                            activeTopics = {this.state.activeTopics}
                         />
                     </View>
                     <View style = {newStyles.bottomFrame}>

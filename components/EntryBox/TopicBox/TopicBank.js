@@ -18,6 +18,22 @@ export class TopicBank extends Component {
         super(props);
     }
 
+    _onTopicPress = (topic) =>
+    {return () => {
+        let {onTopicActivityChange, activeTopics, updateMasterState, activeTopicsName} = this.props;
+        let newActiveTopics = new Set(activeTopics)
+        if (newActiveTopics.has(topic)){
+            newActiveTopics.delete(topic)
+            onTopicActivityChange(topic, false)
+        }
+        else{
+            newActiveTopics.add(topic);
+            onTopicActivityChange(topic, true)
+        }
+        updateMasterState(activeTopicsName, newActiveTopics)
+    }
+    }
+
     render() {
         const {
             title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
@@ -40,7 +56,10 @@ export class TopicBank extends Component {
                     topicScale={topicScale}
                     topics={topics}
                     activeTopicStyle = {{backgroundColor : '#ae43ec'}}
+                    activeTopics = {this.props.activeTopics}
                     onTopicActivityChange = {this.props.onTopicActivityChange}
+                    onTopicPress = {this._onTopicPress}
+                    onTopicDelete = {this.props.onTopicDelete}
                 />
             </EntryBox>
         )

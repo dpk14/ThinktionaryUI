@@ -11,7 +11,6 @@ export default class ReadScreen extends Screen {
 
     constructor(props) {
         super(props);
-        console.log(props.route.params.journal)
         this.state.journal = props.route.params.journal
         this.state.title = ''
         this.state.text = ''
