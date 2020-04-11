@@ -71,7 +71,6 @@ export default class TopicContainer extends Component {
     renderTopicBoxes() {
         const TopicBoxes = []
         if(this.props.topics.size > 0  && !this.props.active) this.props.updateContainerState(true)
-        if(this.props.topics.size == 0  && this.props.active) this.props.updateContainerState(false)
         this.props.topics.forEach(topic => TopicBoxes.push(
             <CustomButton
                 text={topic}
@@ -90,7 +89,7 @@ export default class TopicContainer extends Component {
     }
 
     _onKeyPress = ({nativeEvent}) => {
-        const {topics, setName} = this.props;
+        const {topics, setName, updateContainerState} = this.props;
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size > 0) {
             let endTopic = Array.from(topics).pop()
             topics.delete(endTopic)
