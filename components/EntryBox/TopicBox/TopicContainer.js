@@ -43,7 +43,7 @@ export default class TopicContainer extends Component {
         this.state = {
             loading: true,
             textLeftOffset: 0,
-            activeSet : new Set(),
+            activeTopics : new Set(),
         }
     }
 
@@ -54,11 +54,11 @@ export default class TopicContainer extends Component {
 
     _onTopicPress = (topic) =>
     {return () => {
-        console.log(this.props.update)
-        this.props.updateContainerState(true)
+        //this.props.updateContainerState(true)
         let {onTopicActivityChange} = this.props;
         let {activeTopics} = this.state;
         let newActiveTopics = new Set(activeTopics)
+        this.props.updateContainerState(true)
         if (newActiveTopics.has(topic)){
             newActiveTopics.delete(topic)
             onTopicActivityChange(topic, false)
@@ -67,8 +67,7 @@ export default class TopicContainer extends Component {
             newActiveTopics.add(topic);
             onTopicActivityChange(topic, true)
         }
-        //if(this.props.topics.size == 0) this.props.updateContainerState(!this.props.active)
-        //this.setState({activeSet: newActiveTopics})
+        this.setState({activeTopics: newActiveTopics})
     }
     }
 
@@ -96,7 +95,7 @@ export default class TopicContainer extends Component {
                 scale={this.props.topicScale}
                 alignItems="flex-start"
                 onPress={this._onTopicPress(topic)}
-                style ={this.state.activeSet.has(topic) ? this.props.activeTopicStyle : {}}
+                style ={this.state.activeTopics.has(topic) ? this.props.activeTopicStyle : {}}
             />));
         return TopicBoxes
     }
@@ -111,13 +110,13 @@ export default class TopicContainer extends Component {
     //if text length exceeds that of textbox, move to next line. "lines" can just be stacks of views.
 
     _onKeyPress = ({nativeEvent}) => {
-        const {topics, activeSet, activeSetName, updateMasterState} = this.props;
+        const {topics, activeTopics, activeTopicsName, updateMasterState} = this.props;
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size > 0) {
             let endTopic = Array.from(topics).pop()
             topics.delete(endTopic)
-            let newActiveSet = new Set(activeSet)
-            newActiveSet.delete(endTopic)
-            newActiveSet.size != activeSet.size ? this.setState({activeSet: newActiveSet}) :
+            let newactiveTopics = new Set(activeTopics)
+            newactiveTopics.delete(endTopic)
+            newactiveTopics.size != activeTopics.size ? this.setState({activeTopics: newactiveTopics}) :
                 this.setState({
                     topics: topics
                 }
