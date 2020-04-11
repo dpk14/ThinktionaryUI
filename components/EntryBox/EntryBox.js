@@ -135,7 +135,7 @@ export default class EntryBox extends Component {
             width: '100%',
             height: _scale(typeof height == "string" ? height : height - innerViewOffset, scale),
             borderRadius: _scale(borderRadius, scale),
-            marginTop : innerViewOffset,
+            marginTop : innerViewOffset + 1,
             alignItems : 'flex-start'
         }
     }
