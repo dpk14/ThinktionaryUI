@@ -22,15 +22,17 @@ export class TopicBank extends Component {
     {return () => {
         let {onTopicActivityChange, activeTopics, updateMasterState, activeTopicsName} = this.props;
         let newActiveTopics = new Set(activeTopics)
+        let topicActive = false
         if (newActiveTopics.has(topic)){
             newActiveTopics.delete(topic)
-            onTopicActivityChange(topic, false)
+            topicActive = false
         }
         else{
             newActiveTopics.add(topic);
-            onTopicActivityChange(topic, true)
+            topicActive = true
         }
         updateMasterState(activeTopicsName, newActiveTopics)
+        onTopicActivityChange(topic, topicActive)
     }
     }
 

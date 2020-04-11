@@ -18,30 +18,33 @@ export default class ReadScreen extends Screen {
         this.state.text = ''
         this.state.date = ''
         this.state.activeTopics = new Set()
-        this.state.journalTitle = ReadScreen.BASE_JOURNAL_TITLE
         this.journal = props.route.params.journal
         this.topics = this.journal.topics
     }
 
     _onTopicActivityChange = () => {
+
+    }
+
+    _getJournalTitle = () => {
         let {activeTopics} = this.state
-        let journalTitle = ReadScreen.BASE_JOURNAL_TITLE
-        if(activeTopics.size == 0) journalTitle = ReadScreen.DEFAULT_JOURNAL_TITLE
+        if (activeTopics.size == 0) return ReadScreen.DEFAULT_JOURNAL_TITLE
         else {
-            activeTopics.forEach((topic) => journalTitle+=topic+", ")
-            journalTitle+=":"
+            let journalTitle = ReadScreen.BASE_JOURNAL_TITLE
+            activeTopics.forEach((topic) => journalTitle += topic + ", ")
+            return journalTitle.substring(0, journalTitle.length-2) + ":"
         }
-        this.setState({journalTitle : journalTitle})
     }
 
     render() {
+        let journalTitle = this._getJournalTitle()
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
                     <View style = {readStyles.topFrame}>
                             <StyledInputBox
                                 attrName='journal'
-                                title={this.state.journalTitle}
+                                title={journalTitle}
                                 value={''}
                                 updateMasterState={this._updateMasterState}
                                 scale = {.75}
