@@ -8,7 +8,7 @@ const MULTILINE_TOPMARGIN_ADJUSTER = 4
 import {childrenWithProps} from "../../utils/general";
 import EntryHeader from "./EntryHeader";
 import EntryBox from "../EntryBox";
-import {_scale} from "../../../DONT_USE_THIS/thinktionary/components/utils/scaling";
+import {_scale} from "../../utils/scaling";
 
 export default class JournalContainer extends Component {
 

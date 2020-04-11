@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import {StyleSheet, Text} from "react-native";
+import React, { Component} from 'react';
+import {StyleSheet, Text, View} from "react-native";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 import {PURPLE} from "../../utils/baseStyles";
-import {View} from "react-native-web";
 import {string, func, object, number, bool, PropTypes} from 'prop-types';
 import CustomButton from "../../CustomButton";
 import ScreenNames from "../../../navigation/ScreenNames"
@@ -24,7 +23,7 @@ export default class EntryHeader extends Component{
 
     static defaultProps = {
         width : 150,
-        height : 50,
+        height : 30,
         scale : 1,
     }
 
@@ -45,6 +44,11 @@ export default class EntryHeader extends Component{
         }
     }
 
+    _onPress = () => {
+        let {navigation, journal, entry} = this.props
+        navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
+    }
+
     render() {
         let {scale, title, created, modified, navigation, entry, journal} = this.props
         return (<View style = {[entryHeaderStyle.outerFrame, this._outerDimensions()]}>
@@ -61,11 +65,11 @@ export default class EntryHeader extends Component{
                     </View>
                     <View style = {entryHeaderStyle.rightFrame}>
                         <CustomButton
-                            text={"Edit"}
+                            text="Edit"
                             scale={_scale(.5, scale)}
                             alignItems="flex-start"
-                            onPress={navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})}
-                        />));
+                            onPress={this._onPress}
+                        />
                     </View>
                 </View>
         )
