@@ -127,15 +127,15 @@ export default class WriteScreen extends Screen {
                         <CustomButton
                             text="Save"
                             scale = {.8}
-                            marginTop={8}
-                            width = {180}
+                            marginTop={0}
+                            width = {165}
                             onPress={() => this.createOrSave()}
                         />
                         <CustomButton
                             text="Submit"
                             scale = {.8}
-                            marginTop={8}
-                            width = {180}
+                            marginTop={0}
+                            width = {165}
                             onPress={() => {this.createOrSave();
                                             this.submit();
                             }}
@@ -158,18 +158,18 @@ export const newStyles = StyleSheet.create({
     */
     bottomFrame: {
         flex: 1,
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
+        //alignItems: 'center',
         flexDirection: 'row',
-        position: 'relative'
+        width : '100%'
     },
     topFrame:{
         flex: 1,
-        position: 'relative',
     },
     outerFrame:{
         marginTop : 60,
         flex : 1,
-        marginHorizontal : 15
+        marginHorizontal : 30
     }
 
 });

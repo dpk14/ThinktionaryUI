@@ -9,12 +9,29 @@ import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 
 export default class ReadScreen extends Screen {
 
+    static DEFAULT_JOURNAL_TITLE = 'All entries:'
+    static BASE_JOURNAL_TITLE = 'All entries about '
+
     constructor(props) {
         super(props);
-        this.state.journal = props.route.params.journal
         this.state.title = ''
         this.state.text = ''
         this.state.date = ''
+        this.state.activeTopics = new Set()
+        this.state.journalTitle = ReadScreen.BASE_JOURNAL_TITLE
+        this.journal = props.route.params.journal
+        this.topics = this.journal.topics
+    }
+
+    _onTopicActivityChange = () => {
+        let {activeTopics} = this.state
+        let journalTitle = ReadScreen.BASE_JOURNAL_TITLE
+        if(activeTopics.size == 0) journalTitle = ReadScreen.DEFAULT_JOURNAL_TITLE
+        else {
+            activeTopics.forEach((topic) => journalTitle+=topic+", ")
+            journalTitle+=":"
+        }
+        this.setState({journalTitle : journalTitle})
     }
 
     render() {
@@ -23,25 +40,12 @@ export default class ReadScreen extends Screen {
                 <View style = {[readStyles.outerFrame]}>
                     <View style = {readStyles.topFrame}>
                             <StyledInputBox
-                                attrName='entries'
-                                title='Entries'
-                                value={''}
-                                updateMasterState={this._updateMasterState}
-                                scale = {.75}
-                                width='25%'
-                                height = '90%'
-                                multiline = {true}
-                                blurOnSubmit={false}
-                                alwaysActive = {true}
-                                editable = {false}
-                            />
-                            <StyledInputBox
                                 attrName='journal'
-                                title='Journal'
+                                title={this.state.journalTitle}
                                 value={''}
                                 updateMasterState={this._updateMasterState}
                                 scale = {.75}
-                                width='70%'
+                                width='100%'
                                 height = '90%'
                                 multiline = {true}
                                 blurOnSubmit={false}
@@ -53,14 +57,17 @@ export default class ReadScreen extends Screen {
                         <TopicBank
                             attrName='topicBank'
                             setName='topicBankCurr'
-                            title='Topic Bank'
-                            active = {this.state.journal.topics.size > 0}
+                            title='Select tags to search past entries!'
+                            active = {this.topics.size > 0}
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
                             topicScale = {.62}
-                            topics = {this.state.journal.topics}
+                            topics = {this.topics}
                             width= '100%'
                             height={1.5*TOPIC_HEIGHT}
+                            onTopicActivityChange={this._onTopicActivityChange}
+                            activeTopicsName ={'activeTopics'}
+                            activeTopics = {this.state.activeTopics}
                         />
                     </View>
                 </View>
