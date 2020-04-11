@@ -147,9 +147,7 @@ export default class StyledTextInput extends Component {
                     onSubmitEditing = {setOrDefault(onSubmitEditing, StyledTextInput.defaultProps.onSubmitEditing, this._onSubmitEditing) }
                     autoCompletType = {false}
                 />)
-
             }
-
 }
 
 export const TextInputStyles = StyleSheet.create({

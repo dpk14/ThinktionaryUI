@@ -12,7 +12,7 @@ import {_scale} from "../../../DONT_USE_THIS/thinktionary/components/utils/scali
 
 export default class JournalContainer extends Component {
 
-    static defaultProps  = {
+    static propTypes  = {
         journal : object.isRequired,
         entries : object.isRequired,
         navigation : object.isRequired,
@@ -55,27 +55,27 @@ export default class JournalContainer extends Component {
         let {navigation, journal, scale} = this.props
         let currentEntry = this.entries[entryIndex]
         return (
-            <View style={[journalContainerStyles.outerFrame, _outerDimensions()]}>
+            <View style={[journalContainerStyles.outerFrame, this._outerDimensions()]}>
                 <EntryHeader>
                     title = {currentEntry.title},
                     created = {currentEntry.created},
-                    modified = {currentEntry.created}
-                    navigation : {navigation}
-                    entry : {currentEntry}
-                    journal : {journal}
-                    width : {'100%'},
-                    height : {'15%'},
-                    scale : {_scale(.8, scale)},
+                    modified = {currentEntry.modified}
+                    navigation = {navigation}
+                    entry = {currentEntry}
+                    journal = {journal}
+                    width = {'100%'},
+                    height = {'15%'},
+                    scale = {_scale(.8, scale)},
                 </EntryHeader>
                 <StyledTextInput
                      multiline = {true}
-                     attrName={''}
-                     value={currentEntry.text}
-                     updateMasterState={()=>{}}
+                     attrName = {''}
+                     value = {currentEntry.text}
+                     updateMasterState = {()=>{}}
                      width = {'100%'}
                      height = {'75%'}
                      scale = {_scale(.8, scale)}
-                     editable={false}
+                     editable = {false}
                 />
                 <View style={journalContainerStyles.bottomFrame}>
                 </View>
