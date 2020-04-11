@@ -70,6 +70,8 @@ export default class TopicContainer extends Component {
 
     renderTopicBoxes() {
         const TopicBoxes = []
+        if(this.props.topics.size > 0  && !this.props.active) this.props.updateContainerState(true)
+        if(this.props.topics.size == 0  && this.props.active) this.props.updateContainerState(false)
         this.props.topics.forEach(topic => TopicBoxes.push(
             <CustomButton
                 text={topic}

@@ -12,7 +12,7 @@ class customButton extends Component {
 
     static propTypes = {
         text: PropTypes.string.isRequired,
-        onPress: PropTypes.func.isRequired,
+        onPress: PropTypes.func,
         width: PropTypes.number,
         fontSize: PropTypes.number,
         scale: PropTypes.number,

@@ -31,7 +31,6 @@ export default class WriteScreen extends Screen {
     }
 
     _onTopicDelete = (topic) => {
-        console.log("aygghs")
         let {activeTopics} = this.state
         let newActiveTopics = new Set(activeTopics)
         newActiveTopics.delete(topic)
@@ -69,6 +68,7 @@ export default class WriteScreen extends Screen {
     }
 
     renderScreen() {
+        console.log("yaya")
         return (
             <StyledBase>
                 <View style = {newStyles.outerFrame}>
