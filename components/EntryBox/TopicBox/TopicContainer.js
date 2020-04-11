@@ -158,11 +158,4 @@ const addStyles = StyleSheet.create({
         borderRadius: 20,
         opacity: .9
     },
-    titleStyles: {
-        position: 'absolute',
-        fontFamily: HP_SIMPLIFIED_BOLD,
-        fontWeight: '300',
-        lineHeight: 24,
-    }
-
 })

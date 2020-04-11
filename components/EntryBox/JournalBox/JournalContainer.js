@@ -51,9 +51,9 @@ export default class JournalContainer extends Component {
     }
 
     render() {
-        let {entryIndex, entries} = this.state
+        let {entryIndex} = this.state
         let {navigation, journal, scale} = this.props
-        let currentEntry = entries(entryIndex)
+        let currentEntry = this.entries[entryIndex]
         return (
             <View style={[journalContainerStyles.outerFrame, _outerDimensions()]}>
                 <EntryHeader>

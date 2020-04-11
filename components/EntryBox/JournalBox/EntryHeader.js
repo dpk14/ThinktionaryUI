@@ -93,11 +93,11 @@ const entryHeaderStyle = StyleSheet.create({
     titleText:{
         fontFamily: HP_SIMPLIFIED_BOLD,
         fontSize: 15,
-        fontColor: 'white',
+        color: 'white',
     },
     dateText:{
         fontFamily: HP_SIMPLIFIED,
         fontSize: 12,
-        fontColor: 'white',
+        color: 'white',
     },
 })
