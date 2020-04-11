@@ -8,11 +8,12 @@ import CustomButton from "../../CustomButton";
 import ScreenNames from "../../../navigation/ScreenNames"
 import {_scale} from "../../utils/scaling";
 
-class EntryHeader extends Component{
+export default class EntryHeader extends Component{
 
     static propTypes = {
         title : string.isRequired,
-        date : string.isRequired,
+        created : string.isRequired,
+        modified : string.isRequired,
         navigation : object.isRequired,
         entry : object.isRequired,
         journal : object.isRequired,
@@ -45,14 +46,17 @@ class EntryHeader extends Component{
     }
 
     render() {
-        let {scale, title, date, navigation, entry, journal} = this.props
+        let {scale, title, created, modified, navigation, entry, journal} = this.props
         return (<View style = {[entryHeaderStyle.outerFrame, this._outerDimensions()]}>
                     <View style = {entryHeaderStyle.leftFrame}>
                         <Text style = {entryHeaderStyle.titleText}>
                             {title}
                         </Text>
                         <Text style = {entryHeaderStyle.dateText}>
-                            {date}
+                            {"Created on " + created}
+                        </Text>
+                        <Text style = {entryHeaderStyle.dateText}>
+                            {"Last modified on " + modified}
                         </Text>
                     </View>
                     <View style = {entryHeaderStyle.rightFrame}>
