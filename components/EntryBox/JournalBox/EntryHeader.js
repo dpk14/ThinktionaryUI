@@ -4,12 +4,18 @@ import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtil
 import {PURPLE} from "../../utils/baseStyles";
 import {View} from "react-native-web";
 import {string, func, object, number, bool, PropTypes} from 'prop-types';
+import CustomButton from "../../CustomButton";
+import ScreenNames from "../../../navigation/ScreenNames"
+import {_scale} from "../../utils/scaling";
 
 class EntryHeader extends Component{
 
     static propTypes = {
         title : string.isRequired,
         date : string.isRequired,
+        navigation : object.isRequired,
+        entry : object.isRequired,
+        journal : object.isRequired,
         width : number,
         height : number,
         scale : number,
@@ -30,9 +36,17 @@ class EntryHeader extends Component{
         this.setState({loading: false})
     }
 
+    _outerDimensions = () => {
+        let {width, height, scale} = this.props
+        return {
+            width : _scale(width, scale),
+            height : _scale(height, scale)
+        }
+    }
+
     render() {
-        let {title, date} = this.props
-        return (<View style = {entryHeaderStyle.outerFrame}>
+        let {scale, title, date, navigation, entry, journal} = this.props
+        return (<View style = {[entryHeaderStyle.outerFrame, this._outerDimensions()]}>
                     <View style = {entryHeaderStyle.leftFrame}>
                         <Text style = {entryHeaderStyle.titleText}>
                             {title}
@@ -42,7 +56,12 @@ class EntryHeader extends Component{
                         </Text>
                     </View>
                     <View style = {entryHeaderStyle.rightFrame}>
-
+                        <CustomButton
+                            text={"Edit"}
+                            scale={_scale(.5, scale)}
+                            alignItems="flex-start"
+                            onPress={navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})}
+                        />));
                     </View>
                 </View>
         )

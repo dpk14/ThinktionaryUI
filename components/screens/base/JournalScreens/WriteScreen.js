@@ -68,7 +68,6 @@ export default class WriteScreen extends Screen {
     }
 
     renderScreen() {
-        console.log("yaya")
         return (
             <StyledBase>
                 <View style = {newStyles.outerFrame}>
