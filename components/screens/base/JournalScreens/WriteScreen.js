@@ -169,7 +169,7 @@ export const newStyles = StyleSheet.create({
     outerFrame:{
         marginTop : 60,
         flex : 1,
-        marginHorizontal : 30
+        marginHorizontal : 15
     }
 
 });
