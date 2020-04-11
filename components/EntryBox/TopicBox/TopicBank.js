@@ -4,6 +4,7 @@ import StyledTextInput from "../TextInputBox/StyledTextInput";
 import TopicContainer from "./TopicContainer";
 import React, { Component } from 'react';
 import {Keyboard} from "react-native";
+import {PURPLE} from "../../utils/baseStyles";
 
 export class TopicBank extends Component {
     static propTypes = {...TopicContainer.propTypes,
@@ -57,7 +58,7 @@ export class TopicBank extends Component {
                     height="100%"
                     topicScale={topicScale}
                     topics={topics}
-                    activeTopicStyle = {{backgroundColor : '#ae43ec'}}
+                    activeTopicStyle = {{backgroundColor : PURPLE}}
                     activeTopics = {this.props.activeTopics}
                     onTopicActivityChange = {this.props.onTopicActivityChange}
                     onTopicPress = {this._onTopicPress}

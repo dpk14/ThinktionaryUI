@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import LoginScreen from "./AccountScreens/LoginScreen";
 import Wrapper from "../../utils/Wrapper";
 import {baseStyles} from "./Screen";
+import {ORANGE, PURPLE} from "../../utils/baseStyles";
 
 export default class StyledBase extends Component{
 
@@ -22,7 +23,7 @@ export default class StyledBase extends Component{
                         >
                         <TouchableWithoutFeedback style = {{flex : 1}}
                                                   onPress={Keyboard.dismiss} accessible={false}>
-                            <LinearGradient colors={['#ae43ec', '#E76F1F']} end={[1, 0]}
+                            <LinearGradient colors={[PURPLE, ORANGE]} end={[1, 0]}
                                             start={[0, 1]} style={styles.linearGradient}>
 
                                 <View style = {styles.container}>
