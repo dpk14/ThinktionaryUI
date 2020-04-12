@@ -8,11 +8,14 @@ import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
 import {ScalingView} from "../ScalingView";
 import {invScale} from "../../DONT_USE_THIS/thinktionary/components/utils/scaling";
 
-class customButton extends Component {
+export default class RightLeftNavigator extends Component {
 
     static propTypes = {
         onLeftPress: PropTypes.func.isRequired,
         onRightPress: PropTypes.func.isRequired,
+        minimum : PropTypes.number.isRequired,
+        maximum : PropTypes.number.isRequired,
+        current : PropTypes.number.isRequired,
         width: PropTypes.number,
         fontSize: PropTypes.number,
         scale: PropTypes.number,
@@ -24,7 +27,7 @@ class customButton extends Component {
     static defaultProps = {
         onPress : ()=>{},
         fontSize : 25,
-        width: 120,
+        width: 300,
         scale: 1,
         height: 56,
         padding: 12,
@@ -52,42 +55,43 @@ class customButton extends Component {
         return {
             width : _scale(width, scale),
             height: _scale(height, scale),
-            borderRadius : _scale(customButton.defaultScalableStyles.borderRadius, scale),
-            shadowRadius : _scale(customButton.defaultScalableStyles.shadowRadius, scale),
+            borderRadius : _scale(RightLeftNavigator.defaultScalableStyles.borderRadius, scale),
+            shadowRadius : _scale(RightLeftNavigator.defaultScalableStyles.shadowRadius, scale),
         }
     }
 
     getButtonStyles(){
-        const {width, scale, alignItems, height, padding} = this.props
+        const {width, scale, height, padding} = this.props
         let ret = {
             height : _scale(height, scale),
             padding : _scale(padding, scale),
-            borderRadius : _scale(customButton.defaultScalableStyles.borderRadius, scale),
-            shadowRadius : _scale(customButton.defaultScalableStyles.shadowRadius, scale)
+            borderRadius : _scale(RightLeftNavigator.defaultScalableStyles.borderRadius, scale),
+            shadowRadius : _scale(RightLeftNavigator.defaultScalableStyles.shadowRadius, scale)
         }
-        /*
-        if(width != customButton.defaultProps.width) {
+        if(width != RightLeftNavigator.defaultProps.width) {
             ret.width = width
         }
-        */
         return ret
     }
 
-    getCustomSeparatorStyle(){
+    getCustomConnectorStyle(){
         let {scale, width, height} = this.props
-        let borderRadius = _scale(customButton.defaultScalableStyles.borderRadius, scale)
+        let borderRadius = _scale(RightLeftNavigator.defaultScalableStyles.borderRadius, scale)
         return {
-            left : _scale(width, scale) - borderRadius,
+            left : _scale(width/2, scale) - borderRadius,
+            top : 0,
             height: _scale(height, scale),
             width: 2*borderRadius
+
         }
     }
 
     getFontSpecs(){
-        const {scale, fontSize} = this.props
+        const {padding, scale, fontSize} = this.props
         return {
             fontFamily : HP_SIMPLIFIED_BOLD,
-            fontSize : _scale(fontSize, scale)
+            fontSize : _scale(fontSize, scale),
+            marginTop : _scale(-padding/2, scale),
         }
     }
 
@@ -108,7 +112,7 @@ class customButton extends Component {
                             onLayout = {this.props.onLayout}
                             style={[styles.textStyle, this.getFontSpecs()]}
                         >
-                            {"<"}
+                            {"<     "}
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -119,10 +123,10 @@ class customButton extends Component {
                             onLayout = {this.props.onLayout}
                             style={[styles.textStyle, this.getFontSpecs()]}
                         >
-                            {">"}
+                            {"     >"}
                         </Text>
                     </TouchableOpacity>
-                    <View style={[styles.separator, this.getCustomSeparatorStyle()]}/>
+                    <View style={[styles.connector, this.getCustomConnectorStyle()]}/>
                 </View>
             );
         }
@@ -138,9 +142,10 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: 'white',
-        textAlign: 'center',
+        textAlign: 'left',
         fontWeight: 'bold',
         flex : 1,
+        fontFamily: HP_SIMPLIFIED_BOLD,
         shadowRadius: 2,
         shadowOpacity : .25,
         shadowOffset: { height: 1},
@@ -149,21 +154,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFB03F',
         alignItems : 'center',
         justifyContent : 'center',
-        opacity : .95,
         shadowRadius: 15,
         shadowOpacity : .1,
         shadowOffset: { height: 4},
     },
     leftStyle: {
-       justifyContent : 'flex-start'
+       justifyContent : 'flex-start',
+        width : '50%'
     },
     rightStyle: {
-        justifyContent : 'flex-end'
+        justifyContent : 'flex-end',
+        width : '50%'
     },
     connector : {
+        backgroundColor: '#FFB03F',
+        alignItems : 'center',
+        justifyContent : 'center',
         position : 'absolute'
     }
 
 });
 
-export default customButton;

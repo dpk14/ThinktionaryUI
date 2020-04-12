@@ -84,7 +84,7 @@ export default class JournalContainer extends Component {
                     entry = {currentEntry}
                     journal = {journal}
                     width = {'100%'}
-                    height = {'15%'}
+                    height = {'17%'}
                     scale = {_scale(.8, scale)}
                 />
                 <StyledTextInput
@@ -99,7 +99,10 @@ export default class JournalContainer extends Component {
                     editable = {false}
                 />
                 <View style={journalContainerStyles.bottomFrame}>
-                    <RightLeftNavigator onLeftPress={this._pageLeft} onRightPress={this._pageRight} width={'70%'}/>
+                    <RightLeftNavigator onLeftPress={this._pageLeft}
+                                        onRightPress={this._pageRight}
+                                        width={200}
+                                        height={40}/>
                 </View>
             </View>
         )
@@ -112,12 +115,13 @@ const journalContainerStyles = StyleSheet.create({
         marginVertical : 15
     },
     middleFrame:{
-        height : '70%',
+        height : '75%',
         width : '100%'
     },
     bottomFrame:{
-        width : '15%',
+        width: '100%',
         justifyContent : 'center',
+        alignItems : 'center'
     }
 
 })

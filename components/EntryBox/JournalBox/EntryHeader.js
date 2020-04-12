@@ -90,16 +90,6 @@ export default class EntryHeader extends Component{
 }
 
 const entryHeaderStyle = StyleSheet.create({
-/*
-    gradient: {
-        flex : 1,
-        opacity : .9,
-        shadowOffset: { height: 3,},
-        shadowRadius: 20,
-        shadowOpacity: .9
-    },
-
- */
     outerFrame: {
         flex : 1,
         flexDirection : 'row',
