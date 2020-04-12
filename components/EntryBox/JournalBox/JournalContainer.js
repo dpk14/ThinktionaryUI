@@ -33,7 +33,7 @@ export default class JournalContainer extends Component {
         this.state = {
             loading: true,
             textLeftOffset: 0,
-            entryIndex : 0,
+            entryIndex : this.entries.length == 0 ? 0 : this.entries.length-1,
         }
     }
 
@@ -53,10 +53,10 @@ export default class JournalContainer extends Component {
     render() {
         let {entryIndex} = this.state
         let {navigation, journal, scale} = this.props
-        if (this.entries.size == 0) return (<View/>)
+        if (this.entries.length == 0) return (<View/>)
         let currentEntry = this.entries[entryIndex]
-        console.log("twayhe")
-        console.log(currentEntry)
+        console.log("squirt")
+        console.log(this.entries)
         return(
             <View style={[journalContainerStyles.outerFrame, this._outerDimensions()]}>
                 <EntryHeader
@@ -67,7 +67,7 @@ export default class JournalContainer extends Component {
                     entry = {currentEntry}
                     journal = {journal}
                     width = {'100%'}
-                    height = {'15%'}
+                    height = {'10%'}
                     scale = {_scale(.8, scale)}
                 />
                 <StyledTextInput
@@ -89,7 +89,8 @@ export default class JournalContainer extends Component {
 
 const journalContainerStyles = StyleSheet.create({
     outerFrame : {
-        flex : 1
+        flex : 1,
+        marginVertical : 12
     },
     middleFrame:{
         height : '70%',

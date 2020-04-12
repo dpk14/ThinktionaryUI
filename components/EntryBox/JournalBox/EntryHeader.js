@@ -19,12 +19,14 @@ export default class EntryHeader extends Component{
         width : number,
         height : number,
         scale : number,
+        marginLeft : number,
     }
 
     static defaultProps = {
         width : 150,
         height : 30,
         scale : 1,
+        marginLeft : 21,
     }
 
     constructor(props) {
@@ -44,6 +46,13 @@ export default class EntryHeader extends Component{
         }
     }
 
+    _textDimensions = () => {
+        let {marginLeft, scale} = this.props
+        return {
+            marginLeft : _scale(marginLeft, scale)
+        }
+    }
+
     _onPress = () => {
         let {navigation, journal, entry} = this.props
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
@@ -53,20 +62,20 @@ export default class EntryHeader extends Component{
         let {scale, title, created, modified} = this.props
         return (<View style = {[entryHeaderStyle.outerFrame, this._outerDimensions()]}>
                     <View style = {entryHeaderStyle.leftFrame}>
-                        <Text style = {entryHeaderStyle.titleText}>
+                        <Text style = {[entryHeaderStyle.titleText, this._textDimensions()]}>
                             {title}
                         </Text>
-                        <Text style = {entryHeaderStyle.dateText}>
+                        <Text style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
                             {"Created on " + created}
                         </Text>
-                        <Text style = {entryHeaderStyle.dateText}>
+                        <Text style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
                             {"Last modified on " + modified}
                         </Text>
                     </View>
                     <View style = {entryHeaderStyle.rightFrame}>
                         <CustomButton
                             text="Edit"
-                            scale={_scale(.5, scale)}
+                            scale={_scale(.8, scale)}
                             alignItems="flex-start"
                             onPress={this._onPress}
                         />
@@ -81,12 +90,13 @@ const entryHeaderStyle = StyleSheet.create({
     outerFrame: {
         flex : 1,
         flexDirection : 'row',
-        backgroundColor: PURPLE
+        backgroundColor: PURPLE,
+        opacity : .95
     },
     leftFrame: {
         flex : 1,
         width : '80%',
-        justifyContent: 'space-between'
+        justifyContent: 'space-evenly'
     },
     rightFrame: {
         flex : 1,
@@ -98,6 +108,7 @@ const entryHeaderStyle = StyleSheet.create({
         fontFamily: HP_SIMPLIFIED_BOLD,
         fontSize: 15,
         color: 'white',
+        marginLeft : 10,
     },
     dateText:{
         fontFamily: HP_SIMPLIFIED,

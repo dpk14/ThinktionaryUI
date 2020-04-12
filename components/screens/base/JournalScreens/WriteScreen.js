@@ -99,7 +99,7 @@ export default class WriteScreen extends Screen {
                             title = 'What tags do you want to use?'
                             active = {this.state.topics.size > 0}
                             value = {this.state.currTopic}
-                            updateMasterStatev= {this._updateMasterState}
+                            updateMasterState= {this._updateMasterState}
                             scale = {.75}
                             topicScale = {.62}
                             height = {1.5*TOPIC_HEIGHT}
