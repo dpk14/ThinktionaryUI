@@ -118,7 +118,10 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         fontWeight: 'bold',
-        flex : 1
+        flex : 1,
+        shadowRadius: 2,
+        shadowOpacity : .25,
+        shadowOffset: { height: 1},
     },
     buttonStyle: {
         backgroundColor: '#FFB03F',
@@ -126,6 +129,8 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         opacity : .95,
         shadowRadius: 15,
+        shadowOpacity : .1,
+        shadowOffset: { height: 4},
     }
 });
 

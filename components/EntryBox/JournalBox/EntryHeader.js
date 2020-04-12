@@ -91,15 +91,16 @@ const entryHeaderStyle = StyleSheet.create({
         flex : 1,
         flexDirection : 'row',
         backgroundColor: PURPLE,
-        opacity : .95
+        opacity : .95,
+        shadowOffset: { height: 5, width : 5},
+        shadowRadius: 15,
+        shadowOpacity: .5
     },
     leftFrame: {
-        flex : 1,
         width : '80%',
         justifyContent: 'space-evenly'
     },
     rightFrame: {
-        flex : 1,
         width : '20%',
         alignItems: 'center',
         justifyContent: 'center',

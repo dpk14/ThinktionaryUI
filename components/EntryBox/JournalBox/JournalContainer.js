@@ -67,7 +67,7 @@ export default class JournalContainer extends Component {
                     entry = {currentEntry}
                     journal = {journal}
                     width = {'100%'}
-                    height = {'10%'}
+                    height = {'15%'}
                     scale = {_scale(.8, scale)}
                 />
                 <StyledTextInput
@@ -76,7 +76,7 @@ export default class JournalContainer extends Component {
                     value = {currentEntry.text}
                     updateMasterState = {()=>{}}
                     width = {'100%'}
-                    height = {'75%'}
+                    height = {'80%'}
                     scale = {_scale(.8, scale)}
                     editable = {false}
                 />

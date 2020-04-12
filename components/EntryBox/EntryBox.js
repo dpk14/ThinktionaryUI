@@ -112,7 +112,7 @@ export default class EntryBox extends Component {
             ),
             shadowOpacity: this.shadow.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, .2]}
+                outputRange: [0, .3]}
             ),
         }
     }
