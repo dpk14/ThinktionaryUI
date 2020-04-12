@@ -159,7 +159,8 @@ export const TextInputStyles = StyleSheet.create({
         height: 65,
         position: 'relative',
         borderRadius: 20,
-        opacity: .9
+        opacity: .9,
+        flexWrap : "wrap",
     },
 
 })

@@ -16,12 +16,14 @@ export default class JournalContainer extends Component {
         journal : object.isRequired,
         entries : object.isRequired,
         navigation : object.isRequired,
+        style : object,
         width : number,
         height : number,
         scale : number,
     }
 
     static defaultProps = {
+        style : {},
         scale : 1,
         width : 360,
         height : 600,
@@ -52,13 +54,13 @@ export default class JournalContainer extends Component {
 
     render() {
         let {entryIndex} = this.state
-        let {navigation, journal, scale} = this.props
+        let {navigation, journal, scale, style} = this.props
         if (this.entries.length == 0) return (<View/>)
         let currentEntry = this.entries[entryIndex]
         console.log("squirt")
         console.log(this.entries)
         return(
-            <View style={[journalContainerStyles.outerFrame, this._outerDimensions()]}>
+            <View style={[journalContainerStyles.outerFrame, this._outerDimensions(), style]}>
                 <EntryHeader
                     title = {currentEntry.title}
                     created = {currentEntry.created}
@@ -77,6 +79,7 @@ export default class JournalContainer extends Component {
                     updateMasterState = {()=>{}}
                     width = {'100%'}
                     height = {'80%'}
+                    style = {{marginTop : 5}}
                     scale = {_scale(.8, scale)}
                     editable = {false}
                 />
@@ -90,7 +93,7 @@ export default class JournalContainer extends Component {
 const journalContainerStyles = StyleSheet.create({
     outerFrame : {
         flex : 1,
-        marginVertical : 12
+        marginVertical : 15
     },
     middleFrame:{
         height : '70%',
