@@ -3,7 +3,7 @@ import {StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 import {ORANGE, PURPLE} from "../../utils/baseStyles";
 import {string, func, object, number, bool, PropTypes} from 'prop-types';
-import CustomButton from "../../CustomButton";
+import CustomButton from "../../Buttons/CustomButton";
 import ScreenNames from "../../../navigation/ScreenNames"
 import {_scale} from "../../utils/scaling";
 import {LinearGradient} from "expo-linear-gradient";
@@ -121,7 +121,7 @@ const entryHeaderStyle = StyleSheet.create({
     },
     titleText:{
         fontFamily: HP_SIMPLIFIED_BOLD,
-        fontSize: 18,
+        fontSize: 20,
         color: 'white',
         marginLeft : 10,
         marginTop : 7,
@@ -132,12 +132,13 @@ const entryHeaderStyle = StyleSheet.create({
         opacity : .85
     },
     dateText:{
-        fontFamily: HP_SIMPLIFIED,
-        fontSize: 14,
+        fontFamily: HP_SIMPLIFIED_BOLD,
+        fontSize: 13,
         color: 'white',
         shadowOffset: { height: 1,},
         shadowRadius: 2,
         shadowOpacity: .4,
-        opacity : .85
+        opacity : .85,
+        marginVertical : 1
     },
 })

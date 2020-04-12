@@ -5,7 +5,7 @@ import * as Font from 'expo-font';
 import {AppLoading} from 'expo';
 
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
-import CustomButton from "../../../CustomButton";
+import CustomButton from "../../../Buttons/CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import Screen, {baseStyles, styles} from "../Screen";

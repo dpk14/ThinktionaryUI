@@ -189,6 +189,7 @@ export const Styles = StyleSheet.create({
         backgroundColor : "white",
         shadowOffset: { height: 4},
         shadowRadius: 20,
+        flexWrap : 'wrap'
     },
     titleStyles: {
         position: 'absolute',

@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import  {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import Screen, {baseStyles, styles} from "../Screen";
 import React from "react";
-import CustomButton from "../../../CustomButton";
+import CustomButton from "../../../Buttons/CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {TOPIC_HEIGHT} from "../../../strings";
 import {TopicCreatorBox} from "../../../EntryBox/TopicBox/TopicCreatorBox";

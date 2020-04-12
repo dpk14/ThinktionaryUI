@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import {StyleSheet, View} from 'react-native';
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
-import CustomButton from "../../../CustomButton";
+import CustomButton from "../../../Buttons/CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import {baseStyles, styles} from "../Screen";
 import React from "react";

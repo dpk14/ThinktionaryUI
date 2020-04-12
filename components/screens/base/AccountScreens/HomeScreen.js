@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import CustomButton from "../../../CustomButton";
+import CustomButton from "../../../Buttons/CustomButton";
 import ScreenNames from "../../../../navigation/ScreenNames"
 import {baseStyles} from "../Screen";
 import Screen from "../Screen"

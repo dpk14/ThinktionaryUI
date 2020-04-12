@@ -116,7 +116,7 @@ export default class StyledTextInput extends Component {
         let marginTop = _scale(active ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop, scale)
 
         return {
-            marginTop : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
+            marginVertical : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
             fontSize : _scale(this.props.fontSize, scale),
             marginLeft: _scale(this.props.textMarginLeft, scale),
             marginRight : _scale(this.props.textMarginRight, scale),
@@ -145,7 +145,7 @@ export default class StyledTextInput extends Component {
                 {...this.props.otherTextInputProps}
                     onKeyPress = {setOrDefault(onKeyPress, StyledTextInput.defaultProps.onKeyPress, this._onKeyPress)}
                     onSubmitEditing = {setOrDefault(onSubmitEditing, StyledTextInput.defaultProps.onSubmitEditing, this._onSubmitEditing) }
-                    autoCompletType = {false}
+                    autoCompleteType = {false}
                 />)
             }
 }

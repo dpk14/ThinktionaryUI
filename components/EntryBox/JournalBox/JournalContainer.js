@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Animated, StyleSheet, TextInput, ScrollView, Text, Keyboard } from 'react-native';
 import { string, func, object, number, bool, PropTypes } from 'prop-types';
 import StyledTextInput, {Styles} from "../TextInputBox/StyledTextInput";
-import CustomButton from "../../CustomButton";
+import CustomButton from "../../Buttons/CustomButton";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 import {childrenWithProps} from "../../utils/general";
 import EntryHeader from "./EntryHeader";
 import EntryBox from "../EntryBox";
 import {_scale} from "../../utils/scaling";
+import RightLeftNavigator from "../../Buttons/RightLeftNavigator";
 
 export default class JournalContainer extends Component {
 
@@ -52,6 +53,20 @@ export default class JournalContainer extends Component {
         }
     }
 
+    _pageRight = () => {
+        let {entryIndex} = this.state
+        if( entryIndex < this.entries.length - 1){
+            this.setState({entryIndex : entryIndex++})
+        }
+    }
+
+    _pageLeft = () => {
+        let {entryIndex} = this.state
+        if( entryIndex > 0){
+            this.setState({entryIndex : entryIndex--})
+        }
+    }
+
     render() {
         let {entryIndex} = this.state
         let {navigation, journal, scale, style} = this.props
@@ -84,6 +99,7 @@ export default class JournalContainer extends Component {
                     editable = {false}
                 />
                 <View style={journalContainerStyles.bottomFrame}>
+                    <RightLeftNavigator onLeftPress={this._pageLeft} onRightPress={this._pageRight} width={'70%'}/>
                 </View>
             </View>
         )

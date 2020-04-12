@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import * as Font from 'expo-font';
-import FontUtils, {HP_SIMPLIFIED_BOLD} from "./utils/FontUtils";
-import {_scale} from "./utils/scaling";
+import FontUtils, {HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
+import {_scale} from "../utils/scaling";
 import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
-import {ScalingView} from "./ScalingView";
-import {invScale} from "../DONT_USE_THIS/thinktionary/components/utils/scaling";
+import {ScalingView} from "../ScalingView";
+import {invScale} from "../../DONT_USE_THIS/thinktionary/components/utils/scaling";
 
 class customButton extends Component {
 
