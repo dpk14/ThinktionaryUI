@@ -55,15 +55,16 @@ export default class JournalContainer extends Component {
 
     _pageRight = () => {
         let {entryIndex} = this.state
-        if( entryIndex < this.entries.length - 1){
-            this.setState({entryIndex : entryIndex++})
+        if( entryIndex > 0){
+            this.setState({entryIndex : entryIndex-1})
         }
+
     }
 
     _pageLeft = () => {
         let {entryIndex} = this.state
-        if( entryIndex > 0){
-            this.setState({entryIndex : entryIndex--})
+        if( entryIndex < this.entries.length - 1){
+            this.setState({entryIndex : entryIndex+1})
         }
     }
 
@@ -72,8 +73,6 @@ export default class JournalContainer extends Component {
         let {navigation, journal, scale, style} = this.props
         if (this.entries.length == 0) return (<View/>)
         let currentEntry = this.entries[entryIndex]
-        console.log("squirt")
-        console.log(this.entries)
         return(
             <View style={[journalContainerStyles.outerFrame, this._outerDimensions(), style]}>
                 <EntryHeader
@@ -84,7 +83,7 @@ export default class JournalContainer extends Component {
                     entry = {currentEntry}
                     journal = {journal}
                     width = {'100%'}
-                    height = {'17%'}
+                    height = {'20%'}
                     scale = {_scale(.8, scale)}
                 />
                 <StyledTextInput
@@ -102,7 +101,11 @@ export default class JournalContainer extends Component {
                     <RightLeftNavigator onLeftPress={this._pageLeft}
                                         onRightPress={this._pageRight}
                                         width={200}
-                                        height={40}/>
+                                        height={40}
+                                        minimum={1}
+                                        maximum={this.entries.length}
+                                        current={this.entries.length - this.state.entryIndex}
+                                        />
                 </View>
             </View>
         )

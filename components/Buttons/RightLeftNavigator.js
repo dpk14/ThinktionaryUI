@@ -81,8 +81,7 @@ export default class RightLeftNavigator extends Component {
             left : _scale(width/2, scale) - borderRadius,
             top : 0,
             height: _scale(height, scale),
-            width: 2*borderRadius
-
+            width: 2*borderRadius,
         }
     }
 
@@ -95,18 +94,26 @@ export default class RightLeftNavigator extends Component {
         }
     }
 
+    getNavBarText(){
+        let {scale, height} = this.props
+        return {
+            fontSize :_scale(14, scale),
+            marginTop : _scale(_scale(height/2, scale) - _scale(14/2, scale), scale)
+        }
+    }
+
     //TODO: get views to LOCK in a width = to the width of the children
     render() {
         if (this.loading) return null;
         else {
 
-            const {onLeftPress, onRightPress, style} = this.props;
+            const {onLeftPress, onRightPress, style, maximum, current} = this.props;
             return (
                 <View
                     style = {[styles.container, this.getCustomContainerStyles(), style]}>
                     <TouchableOpacity
                         style={[styles.buttonStyle, this.getButtonStyles(), styles.leftStyle]}
-                        onPress={() => onLeftPress}
+                        onPress={onLeftPress}
                     >
                         <Text
                             onLayout = {this.props.onLayout}
@@ -117,7 +124,7 @@ export default class RightLeftNavigator extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonStyle, this.getButtonStyles(), styles.rightStyle]}
-                        onPress={() => onRightPress}
+                        onPress={onRightPress}
                     >
                         <Text
                             onLayout = {this.props.onLayout}
@@ -126,7 +133,13 @@ export default class RightLeftNavigator extends Component {
                             {"     >"}
                         </Text>
                     </TouchableOpacity>
-                    <View style={[styles.connector, this.getCustomConnectorStyle()]}/>
+                    <View style={[styles.connector, this.getCustomConnectorStyle()]}>
+                        <Text
+                            style={[styles.textStyle, this.getNavBarText()]}
+                        >
+                            {current + " / " + maximum}
+                        </Text>
+                    </View>
                 </View>
             );
         }
@@ -167,6 +180,7 @@ const styles = StyleSheet.create({
         width : '50%'
     },
     connector : {
+        flex : 1,
         backgroundColor: '#FFB03F',
         alignItems : 'center',
         justifyContent : 'center',

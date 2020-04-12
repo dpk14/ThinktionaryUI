@@ -71,7 +71,7 @@ export default class EntryHeader extends Component{
                         <Text style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
                             {"Created on " + created}
                         </Text>
-                        <Text style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
+                        <Text style = {[entryHeaderStyle.dateText, this._textDimensions(), {marginBottom : 10}]}>
                             {"Last modified on " + modified}
                         </Text>
                     </View>
