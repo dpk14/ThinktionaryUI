@@ -53,7 +53,7 @@ export default class ReadScreen extends Screen {
                             width = '100%'
                             height = '90%'
                             blurOnSubmit = {false}
-                            active = {true}
+                            active = {this.journal.entries.size>0}
                             journal = {this.journal}
                             navigation = {navigation}
                             />

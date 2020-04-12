@@ -53,8 +53,11 @@ export default class JournalContainer extends Component {
     render() {
         let {entryIndex} = this.state
         let {navigation, journal, scale} = this.props
+        if (this.entries.size == 0) return (<View/>)
         let currentEntry = this.entries[entryIndex]
-        return (
+        console.log("twayhe")
+        console.log(currentEntry)
+        return(
             <View style={[journalContainerStyles.outerFrame, this._outerDimensions()]}>
                 <EntryHeader
                     title = {currentEntry.title}
@@ -68,14 +71,14 @@ export default class JournalContainer extends Component {
                     scale = {_scale(.8, scale)}
                 />
                 <StyledTextInput
-                     multiline = {true}
-                     attrName = {''}
-                     value = {currentEntry.text}
-                     updateMasterState = {()=>{}}
-                     width = {'100%'}
-                     height = {'75%'}
-                     scale = {_scale(.8, scale)}
-                     editable = {false}
+                    multiline = {true}
+                    attrName = {''}
+                    value = {currentEntry.text}
+                    updateMasterState = {()=>{}}
+                    width = {'100%'}
+                    height = {'75%'}
+                    scale = {_scale(.8, scale)}
+                    editable = {false}
                 />
                 <View style={journalContainerStyles.bottomFrame}>
                 </View>

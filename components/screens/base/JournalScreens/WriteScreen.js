@@ -20,12 +20,13 @@ export default class WriteScreen extends Screen {
 
     constructor(props) {
         super(props);
-        this.state.entryID = props.route.params.entry == undefined ? undefined : props.route.params.entry.entryID
+        this.entry = props.route.params.entry == undefined ? undefined : props.route.params.entry
+        this.entryID = this.entry == undefined ? undefined : this.entry.entryID
         this.state.title = ''
         this.state.text = ''
         this.state.date = ''
         this.state.currTopic = ''
-        this.state.topics = new Set()
+        this.state.topics = this.entry == undefined || this.entry.topics == null? new Set() : this.entry.topics
         this.state.topicBank = this.props.route.params.journal.topics
         this.state.activeTopics = new Set()
     }
@@ -40,7 +41,7 @@ export default class WriteScreen extends Screen {
     createOrSave = () => {
         const {title, text, date, topics} = this.state
         this.state.entryID == undefined ?
-            new BuildEntry(this.props.route.params.journal.userID, title, text, topics, undefined).
+            new BuildEntry(this.props.route.params.journal.userID, title=='' ? "Untitled" : title, text, topics, undefined).
             fetchAndExecute(_onCreate(this.setEntryID)) :
             this.save()
     }
@@ -51,7 +52,7 @@ export default class WriteScreen extends Screen {
 
     save = () => {
         const {title, text, date, topics} = this.state
-        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title, text, topics).
+        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title=='' ? "Untitled" : title, text, topics).
         fetchAndExecute()
     }
 
@@ -93,18 +94,18 @@ export default class WriteScreen extends Screen {
                             blurOnSubmit={false}
                         />
                         <TopicCreatorBox
-                            attrName='currTopic'
-                            setName='topics'
-                            title='What tags do you want to use?'
+                            attrName = 'currTopic'
+                            setName = 'topics'
+                            title = 'What tags do you want to use?'
                             active = {this.state.topics.size > 0}
-                            value={this.state.currTopic}
-                            updateMasterState={this._updateMasterState}
+                            value = {this.state.currTopic}
+                            updateMasterStatev= {this._updateMasterState}
                             scale = {.75}
                             topicScale = {.62}
-                            height= {1.5*TOPIC_HEIGHT}
-                            width='100%'
-                            topics={this.state.topics}
-                            onTopicDelete={this._onTopicDelete}
+                            height = {1.5*TOPIC_HEIGHT}
+                            width = '100%'
+                            topics = {this.state.topics}
+                            onTopicDelete = {this._onTopicDelete}
                         />
                         <TopicBank
                             attrName='topicBank'

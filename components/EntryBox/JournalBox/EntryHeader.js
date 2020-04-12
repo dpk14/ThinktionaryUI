@@ -50,7 +50,7 @@ export default class EntryHeader extends Component{
     }
 
     render() {
-        let {scale, title, created, modified, navigation, entry, journal} = this.props
+        let {scale, title, created, modified} = this.props
         return (<View style = {[entryHeaderStyle.outerFrame, this._outerDimensions()]}>
                     <View style = {entryHeaderStyle.leftFrame}>
                         <Text style = {entryHeaderStyle.titleText}>
