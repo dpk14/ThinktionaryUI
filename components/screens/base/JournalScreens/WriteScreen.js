@@ -22,9 +22,9 @@ export default class WriteScreen extends Screen {
         super(props);
         this.entry = props.route.params.entry == undefined ? undefined : props.route.params.entry
         this.entryID = this.entry == undefined ? undefined : this.entry.entryID
-        this.state.title = ''
-        this.state.text = ''
-        this.state.date = ''
+        this.state.title = this.entry == undefined ? '' : this.entry.title
+        this.state.text = this.entry == undefined ? '' : this.entry.text
+        this.state.date = this.entry == undefined ? '' : this.entry.date
         this.state.currTopic = ''
         this.state.topics = this.entry == undefined || this.entry.topics == null? new Set() : this.entry.topics
         this.state.topicBank = this.props.route.params.journal.topics

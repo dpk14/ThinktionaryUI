@@ -57,6 +57,7 @@ export default class EntryHeader extends Component{
 
     _onPress = () => {
         let {navigation, journal, entry} = this.props
+        console.log(entry)
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
     }
 
