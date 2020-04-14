@@ -20,16 +20,54 @@ export default class WriteScreen extends Screen {
 
     constructor(props) {
         super(props);
-        this.entry = props.route.params.entry == undefined ? undefined : props.route.params.entry
-        this.entryID = this.entry == undefined ? undefined : this.entry.entryID
-        this.state.title = this.entry == undefined ? '' : this.entry.title
-        this.state.text = this.entry == undefined ? '' : this.entry.text
-        this.state.date = this.entry == undefined ? '' : this.entry.date
-        this.state.currTopic = ''
-        this.state.topics = this.entry == undefined || this.entry.topics == null? new Set() : this.entry.topics
-        this.state.topicBank = this.props.route.params.journal.topics
-        this.state.activeTopics = new Set()
+        this.state = {
+        ...this.state, ...this.initialize()
+        }
     }
+
+    initialize(){
+        let {entry, journal} = this.props.route.params
+        return {
+            entry : entry == undefined ? undefined : entry,
+            entryID : entry == undefined ? undefined : entry.entryID,
+            title : entry == undefined ? '' : entry.title,
+            text : entry == undefined ? '' : entry.text,
+            date : entry == undefined ? '' : entry.date,
+            currTopic : '',
+            topics : entry == undefined || entry.topics == null? new Set() : entry.topics,
+            topicBank : journal.topics,
+            activeTopics : new Set()
+        }
+    }
+
+    clear() {
+        return {
+            entry: undefined,
+            entryID: undefined,
+            title: '',
+            text: '',
+            date: '',
+            currTopic: '',
+            topics: new Set(),
+            topicBank: new Set(),
+            activeTopics: new Set()
+        }
+    }
+
+    componentDidMount() {
+        this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
+            this.setState(this.clear())
+        });
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
+            this.setState(this.initialize())
+        });
+    }
+
+    componentWillUnmount() {
+        this._blurUnsubscribe()
+        this._focusUnsubscribe()
+    }
+
 
     _onTopicDelete = (topic) => {
         let {activeTopics} = this.state

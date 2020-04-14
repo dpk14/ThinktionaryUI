@@ -8,6 +8,9 @@ import ScreenNames from "../../../navigation/ScreenNames"
 import {_scale} from "../../utils/scaling";
 import {LinearGradient} from "expo-linear-gradient";
 import {styles} from "../../screens/base/StyledBase";
+import {StackActions, NavigationActions} from "react-navigation";
+import { CommonActions } from '@react-navigation/native';
+
 
 export default class EntryHeader extends Component{
 
@@ -57,7 +60,16 @@ export default class EntryHeader extends Component{
 
     _onPress = () => {
         let {navigation, journal, entry} = this.props
-        console.log(entry)
+        /*
+        const resetAction = CommonActions.setParams({
+            index: 0,
+            key: null, // <-- this
+            actions: [CommonActions.navigate({journal : journal, entry : entry}
+        })
+                this.props.navigation.dispatch(resetAction)
+        */
+        //avigation.dispatch(NavigationActions.setParams({ params : {journal : journal, entry : entry}, key: ScreenNames.WRITE_SCREEN})
+        //);
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
     }
 
