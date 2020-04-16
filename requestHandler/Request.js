@@ -82,7 +82,9 @@ export default class Request{
     }
 
     translateBody(response, callBack){
-        response.json().then(json => this.parser(json)).then(parsedResponse => callBack(parsedResponse))
+        response.json().
+        then(json => this.parser(json)).
+        then(parsedResponse => Array.isArray(callBack) ? callBack.forEach((func) => func(parsedResponse)) : callBack(parsedResponse))
     }
 
     translateException(e, errorHandler){

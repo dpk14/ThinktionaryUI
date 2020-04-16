@@ -49,7 +49,6 @@ export default class WriteScreen extends Screen {
             date: '',
             currTopic: '',
             topics: new Set(),
-            topicBank: new Set(),
             activeTopics: new Set()
         }
     }
@@ -75,22 +74,22 @@ export default class WriteScreen extends Screen {
         if(newActiveTopics.size != activeTopics.size) this.setState({activeTopics: newActiveTopics})
     }
 
-    createOrSave = () => {
-        const {title, text, date, topics} = this.state
+    createOrSave = (onSave=()=>{}) => {
+        const {title, text, topics} = this.state
         this.state.entryID == undefined ?
             new BuildEntry(this.props.route.params.journal.userID, title=='' ? "Untitled" : title, text, topics, undefined).
-            fetchAndExecute(_onCreate(this.setEntryID)) :
-            this.save()
+            fetchAndExecute([_onCreate(this.setEntryID), onSave]) :
+            this.save(onSave)
     }
 
     setEntryID = (entryID) =>{
         this.setState({entryID : entryID})
     }
 
-    save = () => {
+    save = (onSave=()=>{}) => {
         const {title, text, date, topics} = this.state
         new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title=='' ? "Untitled" : title, text, topics).
-        fetchAndExecute()
+        fetchAndExecute(onSave())
     }
 
     submit = () => {
@@ -173,9 +172,8 @@ export default class WriteScreen extends Screen {
                             scale = {.8}
                             marginTop={0}
                             width = {165}
-                            onPress={async () => {
-                                await this.createOrSave();
-                                this.submit();
+                            onPress={() => {
+                                this.createOrSave(this.submit);
                             }}
                         />
                     </View>

@@ -32,11 +32,12 @@ export default class JournalContainer extends Component {
 
     constructor(props) {
         super(props);
-        this.entries = Array.from(props.entries)
+        let entries = Array.from(props.entries)
         this.state = {
             loading: true,
             textLeftOffset: 0,
-            entryIndex : this.entries.length == 0 ? 0 : this.entries.length-1,
+            lastLength : entries.length,
+            entryIndex : entries.length == 0 ? 0 : entries.length-1,
         }
     }
 
@@ -55,7 +56,7 @@ export default class JournalContainer extends Component {
 
     _pageRight = () => {
         let {entryIndex} = this.state
-        if( entryIndex > 0){
+        if(entryIndex > 0){
             this.setState({entryIndex : entryIndex-1})
         }
 
@@ -63,16 +64,18 @@ export default class JournalContainer extends Component {
 
     _pageLeft = () => {
         let {entryIndex} = this.state
-        if( entryIndex < this.entries.length - 1){
+        if( entryIndex < Array.from(this.props.entries).length - 1){
             this.setState({entryIndex : entryIndex+1})
         }
     }
 
     render() {
-        let {entryIndex} = this.state
+        let {entryIndex, lastLength} = this.state
+        let entries = Array.from(this.props.entries)
+        if (entries.length != lastLength) this.setState({lastLength : entries.length, entryIndex : entries.length-1})
         let {navigation, journal, scale, style} = this.props
-        if (this.entries.length == 0) return (<View/>)
-        let currentEntry = this.entries[entryIndex]
+        if (entries.length == 0) return (<View/>)
+        let currentEntry = entries[entryIndex]
         return(
             <View style={[journalContainerStyles.outerFrame, this._outerDimensions(), style]}>
                 <EntryHeader
@@ -103,8 +106,8 @@ export default class JournalContainer extends Component {
                                         width={200}
                                         height={40}
                                         minimum={1}
-                                        maximum={this.entries.length}
-                                        current={this.entries.length - this.state.entryIndex}
+                                        maximum={entries.length}
+                                        current={entries.length - this.state.entryIndex}
                                         />
                 </View>
             </View>

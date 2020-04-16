@@ -14,7 +14,7 @@ export class JournalContainerBox extends Component {
 
     render() {
         const {
-            title, scale, width, height, active, journal, navigation,
+            title, scale, width, height, active, journal, entries, navigation,
         }
             = this.props
         return (<EntryBox title={title}
@@ -28,7 +28,7 @@ export class JournalContainerBox extends Component {
                     height="100%"
                     scale = {1}
                     journal = {journal}
-                    entries = {journal.entries}
+                    entries = {entries}
                     navigation = {navigation}
                 />
             </EntryBox>

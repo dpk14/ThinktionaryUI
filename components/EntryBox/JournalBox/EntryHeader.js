@@ -68,8 +68,6 @@ export default class EntryHeader extends Component{
         })
                 this.props.navigation.dispatch(resetAction)
         */
-        //avigation.dispatch(NavigationActions.setParams({ params : {journal : journal, entry : entry}, key: ScreenNames.WRITE_SCREEN})
-        //);
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
     }
 

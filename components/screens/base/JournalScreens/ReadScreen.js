@@ -25,6 +25,7 @@ export default class ReadScreen extends Screen {
         return {
             activeTopics : new Set(),
             journal : journal,
+            entries : journal.entries,
             topics : journal.topics
         }
     }
@@ -39,8 +40,23 @@ export default class ReadScreen extends Screen {
         this._focusUnsubscribe()
     }
 
-    _onTopicActivityChange = () => {
-
+    _onTopicActivityChange = (topic, isActive) => {
+        let {entries, activeTopics} = this.state
+        let newEntries = new Set();
+        console.log("BLEEP")
+        for(let entry of entries){
+            console.log(entry)
+            let hasAllTopics = true;
+            for(let topic of activeTopics) {
+                console.log(topic)
+                if (!entry.topics.has(topic)){
+                    hasAllTopics = false;
+                    break;
+                }
+            }
+            if(hasAllTopics) newEntries.add(entry)
+        }
+        this.setState({entries : newEntries})
     }
 
     _getJournalTitle = () => {
@@ -56,8 +72,7 @@ export default class ReadScreen extends Screen {
     render() {
         let journalTitle = this._getJournalTitle()
         let {navigation} = this.props
-        let {journal, topics, activeTopics} = this.state
-        console.log(journal)
+        let {journal, topics, activeTopics, entries} = this.state
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
@@ -71,7 +86,8 @@ export default class ReadScreen extends Screen {
                             width = '100%'
                             height = '90%'
                             blurOnSubmit = {false}
-                            active = {journal.entries.size>0}
+                            active = {entries.size>0}
+                            entries = {entries}
                             journal = {journal}
                             navigation = {navigation}
                             />
