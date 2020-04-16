@@ -49,6 +49,7 @@ export default class WriteScreen extends Screen {
             date: '',
             currTopic: '',
             topics: new Set(),
+            topicBank : this.props.route.params.journal.topics,
             activeTopics: new Set()
         }
     }
@@ -58,8 +59,18 @@ export default class WriteScreen extends Screen {
             this.setState(this.clear())
         });
         this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
-            this.setState(this.initialize())
+            this.reloadAndInitialize()
         });
+    }
+
+    reloadAndInitialize(){
+        let {username, password} = this.props.route.params.journal
+        new Login(username, password).
+        fetchAndExecute(
+            [(journal) => this.props.navigation.setParams({
+                journal : journal
+            }), () => this.setState(this.initialize())]
+        )
     }
 
     componentWillUnmount() {

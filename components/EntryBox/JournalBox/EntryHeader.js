@@ -60,14 +60,6 @@ export default class EntryHeader extends Component{
 
     _onPress = () => {
         let {navigation, journal, entry} = this.props
-        /*
-        const resetAction = CommonActions.setParams({
-            index: 0,
-            key: null, // <-- this
-            actions: [CommonActions.navigate({journal : journal, entry : entry}
-        })
-                this.props.navigation.dispatch(resetAction)
-        */
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
     }
 
