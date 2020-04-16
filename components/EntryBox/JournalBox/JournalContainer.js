@@ -81,15 +81,10 @@ export default class JournalContainer extends Component {
 
     render() {
         let entries = Array.from(this.props.entries)
-//        if (entries.length != lastLength) this.setState({lastLength : entries.length, entryIndex : entries.length == 0 ? 0 : entries.length-1})
         let {entryIndex} = this.state
         let {navigation, journal, scale, style} = this.props
         if (entries.length == 0) return (<View/>)
-        console.log("iooo")
-        console.log(entryIndex)
-        console.log(entries)
         let currentEntry = entries[entryIndex]
-        console.log(currentEntry.title)
         return(
             <View style={[journalContainerStyles.outerFrame, this._outerDimensions(), style]}>
                 <EntryHeader

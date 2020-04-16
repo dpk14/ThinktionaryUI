@@ -26,6 +26,7 @@ export default class ReadScreen extends Screen {
             activeTopics : new Set(),
             journal : journal,
             entries : journal.entries,
+            activeEntries : journal.entries,
             topics : journal.topics
         }
     }
@@ -42,7 +43,7 @@ export default class ReadScreen extends Screen {
 
     _onTopicActivityChange = (topic, isActive) => {
         let {entries, activeTopics} = this.state
-        let newEntries = new Set();
+        let newActiveEntries = new Set();
         for(let entry of entries){
             let hasAllTopics = true;
             for(let topic of activeTopics) {
@@ -51,9 +52,9 @@ export default class ReadScreen extends Screen {
                     break;
                 }
             }
-            if(hasAllTopics) newEntries.add(entry)
+            if(hasAllTopics) newActiveEntries.add(entry)
         }
-        this.setState({entries : newEntries})
+        this.setState({activeEntries : newActiveEntries})
     }
 
     _getJournalTitle = () => {
@@ -69,7 +70,7 @@ export default class ReadScreen extends Screen {
     render() {
         let journalTitle = this._getJournalTitle()
         let {navigation} = this.props
-        let {journal, topics, activeTopics, entries} = this.state
+        let {journal, topics, activeTopics, entries, activeEntries} = this.state
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
@@ -84,7 +85,7 @@ export default class ReadScreen extends Screen {
                             height = '90%'
                             blurOnSubmit = {false}
                             active = {entries.size>0}
-                            entries = {entries}
+                            entries = {activeEntries}
                             journal = {journal}
                             navigation = {navigation}
                             />
