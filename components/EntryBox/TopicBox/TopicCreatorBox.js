@@ -14,7 +14,7 @@ export class TopicCreatorBox extends Component {
 
     render() {
         const {
-            title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
+            title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit, onTopicPress,
             value, keyboardType, updateMasterState, topicScale, editable, topics, setName, active, onTopicDelete,
         }
             = this.props
@@ -34,6 +34,7 @@ export class TopicCreatorBox extends Component {
                                 topicScale={topicScale}
                                 topics={topics}
                                 onTopicDelete={onTopicDelete}
+                                onTopicPress={onTopicPress}
                 >
                     <StyledTextInput multiline={multiline}
                                      attrName={attrName}
@@ -41,7 +42,7 @@ export class TopicCreatorBox extends Component {
                                      blurOnSubmit={blurOnSubmit}
                                      value={value}
                                      keyboardType={keyboardType}
-                                     autoCompletType={false}
+                                     autoCompleteType={false}
                                      updateMasterState={updateMasterState}
                                      height="100%"
                                      scale={scale}

@@ -75,6 +75,15 @@ export default class WriteScreen extends Screen {
         if(newActiveTopics.size != activeTopics.size) this.setState({activeTopics: newActiveTopics})
     }
 
+    _onTopicCreatorPress = (topic) => {
+        return () => {
+        let {activeTopics, topics} = this.state
+        activeTopics.delete(topic)
+        topics.delete(topic)
+        this.setState({topics: topics, activeTopics: activeTopics})
+    }
+    }
+
     createOrSave = (onSave=()=>{}) => {
         const {title, text, topics} = this.state
         this.state.entryID == undefined ?
@@ -143,6 +152,7 @@ export default class WriteScreen extends Screen {
                             width = '100%'
                             topics = {this.state.topics}
                             onTopicDelete = {this._onTopicDelete}
+                            onTopicPress = {this._onTopicCreatorPress}
                         />
                         <TopicBank
                             attrName='topicBank'
