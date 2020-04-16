@@ -43,12 +43,9 @@ export default class ReadScreen extends Screen {
     _onTopicActivityChange = (topic, isActive) => {
         let {entries, activeTopics} = this.state
         let newEntries = new Set();
-        console.log("BLEEP")
         for(let entry of entries){
-            console.log(entry)
             let hasAllTopics = true;
             for(let topic of activeTopics) {
-                console.log(topic)
                 if (!entry.topics.has(topic)){
                     hasAllTopics = false;
                     break;

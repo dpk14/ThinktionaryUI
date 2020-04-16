@@ -1,5 +1,6 @@
 import {Journal} from "../../../structs/Journal";
 import ScreenNames from "../../../../navigation/ScreenNames";
+import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 
 export function parseOrAlert(parser=undefined, params) {
     return (response, exceptionThrown) =>{
@@ -28,5 +29,15 @@ export function _onCreate(setEntryID){
     return (entry) =>{
         setEntryID(entry.entryID)
     }
+}
+
+export function reloadJournalAndInitialize(props, initializer){
+    let {username, password} = props.route.params.journal
+    new Login(username, password).
+    fetchAndExecute(
+        [(journal) => props.navigation.setParams({
+            journal : journal
+        }), initializer]
+    )
 }
 

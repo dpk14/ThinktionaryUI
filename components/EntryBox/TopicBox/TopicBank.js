@@ -20,19 +20,18 @@ export class TopicBank extends Component {
     }
 
     _onTopicPress = (topic) =>
-    {return () => {
+    {return async () => {
         let {onTopicActivityChange, activeTopics, updateMasterState, activeTopicsName} = this.props;
         let newActiveTopics = new Set(activeTopics)
         let topicActive = false
-        if (newActiveTopics.has(topic)){
+        if (newActiveTopics.has(topic)) {
             newActiveTopics.delete(topic)
             topicActive = false
-        }
-        else{
+        } else {
             newActiveTopics.add(topic);
             topicActive = true
         }
-        updateMasterState(activeTopicsName, newActiveTopics)
+        await updateMasterState(activeTopicsName, newActiveTopics)
         onTopicActivityChange(topic, topicActive)
     }
     }

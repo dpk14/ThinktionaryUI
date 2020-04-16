@@ -12,7 +12,7 @@ import {TopicCreatorBox} from "../../../EntryBox/TopicBox/TopicCreatorBox";
 import StyledBase from "../StyledBase";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
 import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
-import {_onCreate, _onLogin, _onSubmit, parseOrAlert} from "../functions/callBacks";
+import {_onCreate, _onLogin, _onSubmit, parseOrAlert, reloadJournalAndInitialize} from "../functions/callBacks";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 
@@ -59,18 +59,8 @@ export default class WriteScreen extends Screen {
             this.setState(this.clear())
         });
         this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
-            this.reloadAndInitialize()
+            reloadJournalAndInitialize(this.props,() => this.setState(this.initialize()))
         });
-    }
-
-    reloadAndInitialize(){
-        let {username, password} = this.props.route.params.journal
-        new Login(username, password).
-        fetchAndExecute(
-            [(journal) => this.props.navigation.setParams({
-                journal : journal
-            }), () => this.setState(this.initialize())]
-        )
     }
 
     componentWillUnmount() {
