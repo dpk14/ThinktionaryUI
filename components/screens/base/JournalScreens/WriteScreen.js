@@ -68,7 +68,6 @@ export default class WriteScreen extends Screen {
         this._focusUnsubscribe()
     }
 
-
     _onTopicDelete = (topic) => {
         let {activeTopics} = this.state
         let newActiveTopics = new Set(activeTopics)
@@ -174,8 +173,9 @@ export default class WriteScreen extends Screen {
                             scale = {.8}
                             marginTop={0}
                             width = {165}
-                            onPress={() => {this.createOrSave();
-                                            this.submit();
+                            onPress={async () => {
+                                await this.createOrSave();
+                                this.submit();
                             }}
                         />
                     </View>

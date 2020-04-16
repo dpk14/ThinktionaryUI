@@ -68,11 +68,11 @@ export default class Request{
                     this.translateBody(checkedResponse, callBack)
                 })
                 .catch(e => {
-                    console.log(e);
-                    if(e instanceof fetchError && ResponseHandler.isUserException(e)){
+                    //console.warn(e.message);
+                    //if(e instanceof fetchError && ResponseHandler.isUserException(e)){
                         this.translateException(e, errorHandler);
-                    }
-                    else throw e;
+                    //}
+                    //else throw e;
                 })
 
         }

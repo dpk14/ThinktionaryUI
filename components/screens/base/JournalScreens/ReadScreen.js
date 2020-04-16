@@ -15,12 +15,28 @@ export default class ReadScreen extends Screen {
 
     constructor(props) {
         super(props);
-        this.state.title = ''
-        this.state.text = ''
-        this.state.date = ''
-        this.state.activeTopics = new Set()
-        this.journal = props.route.params.journal
-        this.topics = this.journal.topics
+        this.state = {
+            ...this.state, ...this.initialize()
+        }
+    }
+
+    initialize(){
+        let {journal} = this.props.route.params
+        return {
+            activeTopics : new Set(),
+            journal : journal,
+            topics : journal.topics
+        }
+    }
+
+    componentDidMount() {
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
+            this.setState(this.initialize())
+        });
+    }
+
+    componentWillUnmount() {
+        this._focusUnsubscribe()
     }
 
     _onTopicActivityChange = () => {
@@ -40,6 +56,8 @@ export default class ReadScreen extends Screen {
     render() {
         let journalTitle = this._getJournalTitle()
         let {navigation} = this.props
+        let {journal, topics, activeTopics} = this.state
+        console.log(journal)
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
@@ -53,8 +71,8 @@ export default class ReadScreen extends Screen {
                             width = '100%'
                             height = '90%'
                             blurOnSubmit = {false}
-                            active = {this.journal.entries.size>0}
-                            journal = {this.journal}
+                            active = {journal.entries.size>0}
+                            journal = {journal}
                             navigation = {navigation}
                             />
                     </View>
@@ -63,16 +81,16 @@ export default class ReadScreen extends Screen {
                             attrName='topicBank'
                             setName='topicBankCurr'
                             title='Select tags to search past entries!'
-                            active = {this.topics.size > 0}
+                            active = {topics.size > 0}
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
                             topicScale = {.62}
-                            topics = {this.topics}
+                            topics = {topics}
                             width= '100%'
                             height={1.5*TOPIC_HEIGHT}
                             onTopicActivityChange={this._onTopicActivityChange}
                             activeTopicsName ={'activeTopics'}
-                            activeTopics = {this.state.activeTopics}
+                            activeTopics = {activeTopics}
                         />
                     </View>
                 </View>
