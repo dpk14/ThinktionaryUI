@@ -7,7 +7,7 @@ import {Override, setOrDefault} from "../../utils/defaultHandling";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 import {ABSTRACT_METHOD} from "../../utils/abstraction";
 import EntryBox from "../EntryBox";
-const MULTILINE_TOPMARGIN_ADJUSTER = -1
+const MULTILINE_TOPMARGIN_ADJUSTER = 1
 
 export default class StyledTextInput extends Component {
     static propTypes = {
@@ -110,19 +110,20 @@ export default class StyledTextInput extends Component {
 
     _returnAnimatedInputStyles = () => {
         const {
-            textInputActiveMargins, textInputInactiveMargins, scale, active
+            textInputActiveMargins, textInputInactiveMargins, scale, active, multiline
         } = this.props;
 
         let marginTop = _scale(active ? textInputActiveMargins.marginTop : textInputInactiveMargins.marginTop, scale)
 
         return {
-            marginVertical : this.props.multiline ? MULTILINE_TOPMARGIN_ADJUSTER*marginTop : marginTop,
+            marginVertical : multiline ? _scale(10, scale) + marginTop : marginTop,
+            //marginBottom : 20,//multiline ? _scale(100, scale) : marginTop,
             fontSize : _scale(this.props.fontSize, scale),
             marginLeft: _scale(this.props.textMarginLeft, scale),
             marginRight : _scale(this.props.textMarginRight, scale),
             paddingRight : _scale(this.props.textMarginRight, scale)*1.5,
             borderRadius : _scale(this.props.borderRadius, scale),
-            height : _scale(this.props.height, scale),
+            height : typeof this.props.height === 'string' ? '93%' : _scale(this.props.height, scale)*(.93),
         }
     }
 

@@ -91,6 +91,7 @@ export default class TopicContainer extends Component {
     _onKeyPress = ({nativeEvent}) => {
         const {topics, setName, updateContainerState} = this.props;
         if (nativeEvent.key === 'Backspace' && this.props.value == '' && topics.size > 0) {
+            console.log(nativeEvent.key)
             let endTopic = Array.from(topics).pop()
             topics.delete(endTopic)
             this.props.updateMasterState(setName, topics)
@@ -118,7 +119,7 @@ export default class TopicContainer extends Component {
                 >
                     <View style={[addStyles.scrollView]}>
                         {TopicBoxes}
- <View style = {{ flex : 1 }} >
+                        <View style = {{ flex : 1 }} >
                             {children}
                         </View>
                     </View>

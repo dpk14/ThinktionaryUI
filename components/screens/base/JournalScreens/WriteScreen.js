@@ -1,9 +1,9 @@
 
-import { StyleSheet, Text, View} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {LinearGradient} from 'expo-linear-gradient';
 
 import  {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
-import Screen, {baseStyles, styles} from "../Screen";
+import Screen, {baseStyles} from "../Screen";
 import React from "react";
 import CustomButton from "../../../Buttons/CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
@@ -15,6 +15,9 @@ import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/Mod
 import {_onCreate, _onLogin, _onSubmit, parseOrAlert, reloadJournalAndInitialize} from "../functions/callBacks";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
+
+
+const MARGIN_HORIZONTAL = 15
 
 export default class WriteScreen extends Screen {
 
@@ -211,12 +214,13 @@ export const newStyles = StyleSheet.create({
         width : '100%'
     },
     topFrame:{
-        flex: 1,
+        width : '100%',
+        //flex: 1,
     },
     outerFrame:{
         marginTop : 60,
-        flex : 1,
-        marginHorizontal : 15
+        width : Math.round(Dimensions.get('window').width) - 2*MARGIN_HORIZONTAL,
+        marginHorizontal : MARGIN_HORIZONTAL
     }
 
 });
