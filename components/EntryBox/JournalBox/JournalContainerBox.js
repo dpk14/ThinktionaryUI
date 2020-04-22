@@ -15,7 +15,7 @@ export class JournalContainerBox extends Component {
     render() {
         const {
             title, scale, width, height, active, journal, entries, navigation,
-            style,
+            style, onEntryRemoval
         }
             = this.props
         return (<EntryBox title={title}
@@ -33,6 +33,7 @@ export class JournalContainerBox extends Component {
                     journal = {journal}
                     entries = {entries}
                     navigation = {navigation}
+                    onEntryRemoval = {onEntryRemoval}
                 />
             </EntryBox>
         )
