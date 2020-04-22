@@ -20,6 +20,7 @@ export default class StyledBase extends Component{
                 <KeyboardAvoidingView
                     style={{flex : 1}} behavior="padding" enabled>
                     <ScrollView contentContainerStyle = {{flexGrow : 1}}
+                                keyboardShouldPersistTaps = {'handled'}
                         >
                         <TouchableWithoutFeedback style = {{flex : 1}}
                                                   onPress={Keyboard.dismiss} accessible={false}>

@@ -112,6 +112,7 @@ export default class TopicContainer extends Component {
         return (
                 <ScrollView
                     contentContainerStyle = {{flexGrow : 1}}
+                    keyboardShouldPersistTaps = {'handled'}
                     style = {{height : '100%', width : '100%',
                         marginHorizontal: 10,
                         marginVertical: 10,
