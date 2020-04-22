@@ -81,8 +81,7 @@ export default class ReadScreen extends Screen {
                             value=''
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
-                            width = '100%'
-                            style = {{flex : .85}}
+                            style = {{flex : .80}}
                             blurOnSubmit = {false}
                             active = {entries.size>0}
                             entries = {activeEntries}
@@ -115,7 +114,7 @@ export default class ReadScreen extends Screen {
 export const readStyles = StyleSheet.create({
     bottomFrame:{
         flex : .15,
-        marginTop: 20,
+        marginTop: 10,
     },
     leftFrame: {
     },

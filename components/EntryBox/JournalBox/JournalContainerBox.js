@@ -20,14 +20,14 @@ export class JournalContainerBox extends Component {
             = this.props
         return (<EntryBox title={title}
                           scale={scale}
-                          width={width}
-                          height={height}
+                          width={style.flex == undefined ? width : '100%' }
+                          height={style.flex == undefined ? height : '100%'}
                           active={active}
                           style={style}
             >
                 <JournalContainer
-                    width = "100%"
-                    height = "100%"
+                    width = {"100%"}
+                    height = {"100%"}
                     style = {{flex : 1}}
                     scale = {1}
                     journal = {journal}

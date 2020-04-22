@@ -134,7 +134,7 @@ export default class EntryBox extends Component {
         const innerViewOffset = isFieldActive ? _scale(titleActivePos + titleActiveSize, scale) : 0
 
         return {
-            width: '100%',
+            width: _scale(width, scale),
             height: _scale(typeof height == "string" ? height : height - innerViewOffset, scale),
             borderRadius: _scale(borderRadius, scale),
             marginTop : innerViewOffset + 1,

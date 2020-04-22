@@ -75,11 +75,11 @@ export default class RightLeftNavigator extends Component {
     }
 
     getCustomConnectorStyle(){
-        let {scale, width, height} = this.props
+        let {scale, width, height, padding} = this.props
         let borderRadius = _scale(RightLeftNavigator.defaultScalableStyles.borderRadius, scale)
         return {
             left : _scale(width/2, scale) - borderRadius,
-            top : _scale(-this.props.padding, scale),
+            top :  0,
             height: _scale(height, scale),
             width: 2*borderRadius,
         }
@@ -150,7 +150,7 @@ export default class RightLeftNavigator extends Component {
 const styles = StyleSheet.create({
     container : {
         flex: 1,
-        alignItems : 'center',
+//        alignItems : 'center',
         flexDirection: 'row',
     },
     textStyle: {
@@ -173,14 +173,14 @@ const styles = StyleSheet.create({
     },
     leftStyle: {
        justifyContent : 'flex-start',
-        width : '50%'
+        flex : 1,
     },
     rightStyle: {
         justifyContent : 'flex-end',
-        width : '50%'
+        flex : 1
     },
     connector : {
-        flex : 1,
+        //flex : 1,
         backgroundColor: '#FFB03F',
         alignItems : 'center',
         justifyContent : 'center',

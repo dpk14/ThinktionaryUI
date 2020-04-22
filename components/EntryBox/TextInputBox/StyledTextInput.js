@@ -126,6 +126,7 @@ export default class StyledTextInput extends Component {
             paddingRight : _scale(this.props.textMarginRight, scale)*1.5,
             borderRadius : _scale(this.props.borderRadius, scale),
             height : typeof this.props.height === 'string' ? scalePercentage(this.props.height, .93) : _scale(this.props.height, scale)*(.93),
+            width : this.props.width
         }
     }
 
