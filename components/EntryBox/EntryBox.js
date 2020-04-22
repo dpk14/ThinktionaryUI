@@ -23,7 +23,8 @@ export default class EntryBox extends Component {
         active : bool,
             titleActivePos : number,
             titleInactivePos : number,
-        }
+        },
+        style : object,
     }
 
     static defaultProps = {
@@ -38,6 +39,7 @@ export default class EntryBox extends Component {
             active: false,
             titleActivePos : 4,
             titleInactivePos : 20,
+            style : {}
         }
     }
 
@@ -167,7 +169,7 @@ export default class EntryBox extends Component {
             });
         if (!this.loading) {
             return (
-                <Animated.View style={this.returnAllContainerStyles()}>
+                <Animated.View style={this.returnAllContainerStyles(this.props.style)}>
                     <Animated.Text
                         style={[Styles.titleStyles, this._returnAnimatedTitleStyles()]}
                     >

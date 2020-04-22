@@ -15,6 +15,7 @@ export class JournalContainerBox extends Component {
     render() {
         const {
             title, scale, width, height, active, journal, entries, navigation,
+            style,
         }
             = this.props
         return (<EntryBox title={title}
@@ -22,10 +23,12 @@ export class JournalContainerBox extends Component {
                           width={width}
                           height={height}
                           active={active}
+                          style={style}
             >
                 <JournalContainer
-                    width="100%"
-                    height="100%"
+                    width = "100%"
+                    height = "100%"
+                    style = {{flex : 1}}
                     scale = {1}
                     journal = {journal}
                     entries = {entries}

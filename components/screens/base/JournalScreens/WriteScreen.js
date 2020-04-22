@@ -15,6 +15,7 @@ import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/Mod
 import {_onCreate, _onLogin, _onSubmit, parseOrAlert, reloadJournalAndInitialize} from "../functions/callBacks";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
+import {getScreenWidth} from "../../../utils/scaling";
 
 
 const MARGIN_HORIZONTAL = 15
@@ -178,14 +179,14 @@ export default class WriteScreen extends Screen {
                             text="Save"
                             scale = {.8}
                             marginTop={0}
-                            width = {165}
+                            width = {187.5}
                             onPress={() => this.createOrSave()}
                         />
                         <CustomButton
                             text="Submit"
                             scale = {.8}
                             marginTop={0}
-                            width = {165}
+                            width = {187.5}
                             onPress={() => {
                                 this.createOrSave(this.submit);
                             }}
@@ -207,19 +208,19 @@ export const newStyles = StyleSheet.create({
     },
     */
     bottomFrame: {
-        flex: 1,
-        justifyContent: 'space-evenly',
+        //flex: 1,
+        marginTop : 7.5,
+        justifyContent: 'space-between',
         //alignItems: 'center',
         flexDirection: 'row',
         width : '100%'
     },
     topFrame:{
         width : '100%',
-        //flex: 1,
     },
     outerFrame:{
         marginTop : 60,
-        width : Math.round(Dimensions.get('window').width) - 2*MARGIN_HORIZONTAL,
+        width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL
     }
 

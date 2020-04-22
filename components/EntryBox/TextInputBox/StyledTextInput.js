@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as Font from 'expo-font';
 import { View, Animated, StyleSheet, TextInput } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
-import {_scale, invScale} from "../../utils/scaling";
+import {_scale, invScale, scalePercentage} from "../../utils/scaling";
 import {Override, setOrDefault} from "../../utils/defaultHandling";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 import {ABSTRACT_METHOD} from "../../utils/abstraction";
@@ -18,6 +18,7 @@ export default class StyledTextInput extends Component {
         textInputInactiveMargins : object,
         textInputActiveMargins : object,
         textInputStyles: object,
+        style : object,
         otherTextInputProps: object,
         width : number | string,
         height : number | string,
@@ -41,6 +42,7 @@ export default class StyledTextInput extends Component {
 
     static defaultProps = {
         secureTextEntry : false,
+        style : {},
         borderRadius: 20,
         textMarginLeft: 21,
         textMarginRight: 21,
@@ -123,7 +125,7 @@ export default class StyledTextInput extends Component {
             marginRight : _scale(this.props.textMarginRight, scale),
             paddingRight : _scale(this.props.textMarginRight, scale)*1.5,
             borderRadius : _scale(this.props.borderRadius, scale),
-            height : typeof this.props.height === 'string' ? '93%' : _scale(this.props.height, scale)*(.93),
+            height : typeof this.props.height === 'string' ? scalePercentage(this.props.height, .93) : _scale(this.props.height, scale)*(.93),
         }
     }
 

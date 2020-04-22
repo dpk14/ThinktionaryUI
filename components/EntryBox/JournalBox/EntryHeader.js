@@ -25,6 +25,7 @@ export default class EntryHeader extends Component{
         height : number,
         scale : number,
         marginLeft : number,
+        style : object,
     }
 
     static defaultProps = {
@@ -32,6 +33,7 @@ export default class EntryHeader extends Component{
         height : 30,
         scale : 1,
         marginLeft : 21,
+        style : {}
     }
 
     constructor(props) {
@@ -64,9 +66,9 @@ export default class EntryHeader extends Component{
     }
 
     render() {
-        let {scale, title, created, modified} = this.props
+        let {scale, title, created, modified, style} = this.props
         return (
-                <View style = {[entryHeaderStyle.outerFrame, this._outerDimensions()]}>
+                <View style = {[entryHeaderStyle.outerFrame, this._outerDimensions(), style]}>
                     <View style = {entryHeaderStyle.leftFrame}>
                         <Text style = {[entryHeaderStyle.titleText, this._textDimensions()]}>
                             {title}

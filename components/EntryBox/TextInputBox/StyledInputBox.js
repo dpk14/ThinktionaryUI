@@ -17,19 +17,19 @@ export class StyledInputBox extends Component{
                           width = {width}
                           height = {height}
             >
-                <StyledTextInput                 multiline = {multiline}
-                                                 attrName={attrName}
-                                                 returnKeyType = {returnKeyType}
-                                                 blurOnSubmit = {blurOnSubmit}
-                                                 value={value}
-                                                 keyboardType={keyboardType}
-                                                 autoCompletType = {false}
-                                                 updateMasterState={updateMasterState}
-                                                 width = {'100%'}
-                                                 height = {'100%'}
-                                                 scale = {scale}
-                                                 secureTextEntry={secureTextEntry}
-                                                 editable={editable}/>
+                    <StyledTextInput multiline = {multiline}
+                                 attrName={attrName}
+                                 returnKeyType = {returnKeyType}
+                                 blurOnSubmit = {blurOnSubmit}
+                                 value={value}
+                                 keyboardType={keyboardType}
+                                 autoCompletType = {false}
+                                 updateMasterState={updateMasterState}
+                                 width = {'100%'}
+                                 height = {'100%'}
+                                 scale = {scale}
+                                 secureTextEntry={secureTextEntry}
+                                 editable={editable}/>
             </EntryBox>
         )
     }

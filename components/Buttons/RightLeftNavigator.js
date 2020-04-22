@@ -79,7 +79,7 @@ export default class RightLeftNavigator extends Component {
         let borderRadius = _scale(RightLeftNavigator.defaultScalableStyles.borderRadius, scale)
         return {
             left : _scale(width/2, scale) - borderRadius,
-            top : 0,
+            top : _scale(-this.props.padding, scale),
             height: _scale(height, scale),
             width: 2*borderRadius,
         }

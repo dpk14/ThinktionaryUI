@@ -7,6 +7,7 @@ import StyledBase from "../StyledBase";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
+import {getScreenHeight} from "../../../utils/scaling";
 
 export default class ReadScreen extends Screen {
 
@@ -74,7 +75,6 @@ export default class ReadScreen extends Screen {
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
-                    <View style = {readStyles.topFrame}>
                         <JournalContainerBox
                             attrName=''
                             title={journalTitle}
@@ -82,14 +82,13 @@ export default class ReadScreen extends Screen {
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
                             width = '100%'
-                            height = '90%'
+                            style = {{flex : .85}}
                             blurOnSubmit = {false}
                             active = {entries.size>0}
                             entries = {activeEntries}
                             journal = {journal}
                             navigation = {navigation}
                             />
-                    </View>
                     <View style={readStyles.bottomFrame}>
                         <TopicBank
                             attrName='topicBank'
@@ -114,14 +113,9 @@ export default class ReadScreen extends Screen {
 }
 
 export const readStyles = StyleSheet.create({
-    topFrame: {
-        flex: 1,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        position: 'relative',
-        height: '60%'
-    },
     bottomFrame:{
+        flex : .15,
+        marginTop: 20,
     },
     leftFrame: {
     },
@@ -129,7 +123,7 @@ export const readStyles = StyleSheet.create({
     },
     outerFrame:{
         marginTop : 60,
-        //flex: 1,
+        height : getScreenHeight() - 70,
         marginHorizontal : 15,
         marginBottom : 10,
     }

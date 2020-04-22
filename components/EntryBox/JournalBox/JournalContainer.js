@@ -94,8 +94,8 @@ export default class JournalContainer extends Component {
                     navigation = {navigation}
                     entry = {currentEntry}
                     journal = {journal}
-                    width = {'100%'}
-                    height = {'20%'}
+                    style = {{flex : .22}}
+                    width = '100%'
                     scale = {_scale(.8, scale)}
                 />
                 <StyledTextInput
@@ -103,9 +103,9 @@ export default class JournalContainer extends Component {
                     attrName = {''}
                     value = {currentEntry.text}
                     updateMasterState = {()=>{}}
-                    width = {'100%'}
-                    height = {'80%'}
-                    style = {{marginTop : 5}}
+                    style = {{flex : .68}}
+                    width = '100%'
+                    //style = {{marginTop : 5}}
                     scale = {_scale(.8, scale)}
                     editable = {false}
                 />
@@ -130,11 +130,12 @@ const journalContainerStyles = StyleSheet.create({
         marginVertical : 15
     },
     middleFrame:{
-        height : '75%',
+        //height : '75%',
         width : '100%'
     },
     bottomFrame:{
-        width: '100%',
+        //width: '100%',
+        flex : .1,
         justifyContent : 'center',
         alignItems : 'center'
     }
