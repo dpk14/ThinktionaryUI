@@ -10,6 +10,7 @@ import EntryHeader from "./EntryHeader";
 import EntryBox from "../EntryBox";
 import {_scale} from "../../utils/scaling";
 import RightLeftNavigator from "../../Buttons/RightLeftNavigator";
+import {StyledInputBox} from "../TextInputBox/StyledInputBox";
 
 export default class JournalContainer extends Component {
 

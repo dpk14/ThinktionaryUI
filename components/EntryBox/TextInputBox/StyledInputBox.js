@@ -11,11 +11,12 @@ export class StyledInputBox extends Component{
     }
     render() {
         const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, secureTextEntry, editable}  = this.props
+            value, keyboardType, updateMasterState, secureTextEntry, editable, onChangeText, style}  = this.props
         return (<EntryBox title={title}
                           scale={scale}
-                          width = {width}
-                          height = {height}
+                          width={style.flex == undefined ? width : '100%' }
+                          height={style.flex == undefined ? height : '100%'}
+                          style = {style}
             >
                     <StyledTextInput multiline = {multiline}
                                  attrName={attrName}
@@ -29,7 +30,9 @@ export class StyledInputBox extends Component{
                                  height = {'100%'}
                                  scale = {scale}
                                  secureTextEntry={secureTextEntry}
-                                 editable={editable}/>
+                                 editable={editable}
+                                 onChangeText={onChangeText}
+                                />
             </EntryBox>
         )
     }

@@ -28,7 +28,8 @@ export default class ReadScreen extends Screen {
             journal : journal,
             entries : journal.entries,
             activeEntries : journal.entries,
-            topics : journal.topics
+            topics : journal.topics,
+            searched : ''
         }
     }
 
@@ -44,6 +45,10 @@ export default class ReadScreen extends Screen {
 
     _onTopicActivityChange = (topic, isActive) => {
         let {entries, activeTopics} = this.state
+        this.setState({activeEntries : this._getEntriesWithTopics(entries, activeTopics)})
+    }
+
+    _getEntriesWithTopics = (entries, activeTopics) => {
         let newActiveEntries = new Set();
         for(let entry of entries){
             let hasAllTopics = true;
@@ -55,7 +60,7 @@ export default class ReadScreen extends Screen {
             }
             if(hasAllTopics) newActiveEntries.add(entry)
         }
-        this.setState({activeEntries : newActiveEntries})
+        return newActiveEntries
     }
 
     _onEntryRemoval = (entry) =>
@@ -76,19 +81,38 @@ export default class ReadScreen extends Screen {
         }
     }
 
+    _search = (searched) => {
+        let {entries, activeTopics} = this.state
+        let activeSet = this._getEntriesWithTopics(entries, activeTopics)
+        let newActiveSet = new Set()
+        for(let entry of activeSet){
+            if (entry.text.includes(searched) || entry.title.includes(searched)){
+                newActiveSet.add(entry)
+            }
+        }
+        this.setState({activeEntries : newActiveSet})
+    }
+
     render() {
         let journalTitle = this._getJournalTitle()
         let {navigation} = this.props
-        let {journal, topics, activeTopics, entries, activeEntries} = this.state
+        let {journal, topics, activeTopics, entries, activeEntries, searched} = this.state
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
-                        <JournalContainerBox
+                    <StyledInputBox attrName={'searched'}
+                                    value={searched}
+                                    title = {'Search'}
+                                    updateMasterState={this._updateMasterState}
+                                    style = {{flex : .10}}
+                                    scale = {.65}
+                                    onChangeText={this._search}
+                    />
+                    <JournalContainerBox
                             title={journalTitle}
-                            _entryRemoval
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
-                            style = {{flex : .80}}
+                            style = {{flex : .70}}
                             blurOnSubmit = {false}
                             active = {entries.size>0}
                             entries = {activeEntries}

@@ -38,6 +38,7 @@ export default class StyledTextInput extends Component {
         secureTextEntry : bool,
         editable : bool,
         active : bool,
+        onChangeText : func,
     }
 
     static defaultProps = {
@@ -68,6 +69,7 @@ export default class StyledTextInput extends Component {
         },
         onKeyPress: () => {
         },
+        onChangeText: () => {},
         blurOnSubmit: true,
         updateContainerState: () => {},
         onFocus: () => {},
@@ -89,8 +91,9 @@ export default class StyledTextInput extends Component {
     }
 
     _onChangeText = (updatedValue) => {
-        const { attrName, updateMasterState } = this.props;
+        const { attrName, updateMasterState, onChangeText} = this.props;
         updateMasterState(attrName, updatedValue);
+        onChangeText(updatedValue)
     }
 
     _handleFocus = () => {
