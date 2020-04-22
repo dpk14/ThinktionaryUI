@@ -8,6 +8,7 @@ import LoginScreen from "./AccountScreens/LoginScreen";
 import Wrapper from "../../utils/Wrapper";
 import {baseStyles} from "./Screen";
 import {ORANGE, PURPLE} from "../../utils/baseStyles";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 export default class StyledBase extends Component{
 
@@ -17,9 +18,8 @@ export default class StyledBase extends Component{
 
     render() {
             return (
-                <KeyboardAvoidingView
-                    style={{flex : 1}} behavior="padding" enabled>
-                    <ScrollView contentContainerStyle = {{flexGrow : 1}}
+                <KeyboardAwareScrollView
+                 contentContainerStyle = {{flexGrow : 1}}
                                 keyboardShouldPersistTaps = {'handled'}
                         >
                         <TouchableWithoutFeedback style = {{flex : 1}}
@@ -32,8 +32,7 @@ export default class StyledBase extends Component{
                                 </View>
                             </LinearGradient>
                         </TouchableWithoutFeedback>
-                    </ScrollView>
-                </KeyboardAvoidingView>
+                </KeyboardAwareScrollView>
             );
         }
 }

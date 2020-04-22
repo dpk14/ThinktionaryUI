@@ -157,6 +157,7 @@ export default class WriteScreen extends Screen {
                             topics = {this.state.topics}
                             onTopicDelete = {this._onTopicDelete}
                             onTopicPress = {this._onTopicCreatorPress}
+                            blurOnSubmit = {false}
                         />
                         <TopicBank
                             attrName='topicBank'
