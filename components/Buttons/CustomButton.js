@@ -7,6 +7,7 @@ import {_scale} from "../utils/scaling";
 import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
 import {ScalingView} from "../ScalingView";
 import {invScale} from "../../DONT_USE_THIS/thinktionary/components/utils/scaling";
+import {SOFT_ORANGE} from "../utils/baseStyles";
 
 class customButton extends Component {
 
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
         shadowOffset: { height: 1},
     },
     buttonStyle: {
-        backgroundColor: '#FFB03F',
+        backgroundColor: SOFT_ORANGE,
         alignItems : 'center',
         justifyContent : 'center',
         opacity : .95,

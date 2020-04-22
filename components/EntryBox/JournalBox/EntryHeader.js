@@ -110,10 +110,10 @@ export default class EntryHeader extends Component{
                             alignItems="flex-start"
                             onPress={this._editEntry}
                         />
-                        <CustomButton text={"x"}
-                                      height={50}
+                        <CustomButton text={"X"}
+                                      //height={50}
                                       scale={_scale(.8, scale)}
-                                      style = {{borderRadius : 5, backgroundColor: 'red', opacity : '.7', marginLeft : 15}}
+                                      style = {{borderRadius : 5, marginLeft : 15}}
                                       onPress={this._removeEntry}
                         />
                     </View>
