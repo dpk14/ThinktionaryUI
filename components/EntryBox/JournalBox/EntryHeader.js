@@ -65,19 +65,34 @@ export default class EntryHeader extends Component{
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
     }
 
+    getTopicText = () => {
+        let {topics} = this.props.entry
+        if (topics.size == 0) return "No tags used"
+        let str = "Tags used: "
+        topics.forEach((topic) => str+=topic+", ")
+        return str.substring(0, str.length-2)
+    }
+
     render() {
         let {scale, title, created, modified, style} = this.props
         return (
                 <View style = {[entryHeaderStyle.outerFrame, this._outerDimensions(), style]}>
                     <View style = {entryHeaderStyle.leftFrame}>
-                        <Text style = {[entryHeaderStyle.titleText, this._textDimensions()]}>
+                        <Text numberOfLines = {1}
+                              style = {[entryHeaderStyle.titleText, this._textDimensions()]}>
                             {title}
                         </Text>
-                        <Text style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
+                        <Text numberOfLines = {1}
+                              style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
                             {"Created on " + created}
                         </Text>
-                        <Text style = {[entryHeaderStyle.dateText, this._textDimensions(), {marginBottom : 10}]}>
+                        <Text numberOfLines = {1}
+                              style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
                             {"Last modified on " + modified}
+                        </Text>
+                        <Text numberOfLines = {1}
+                              style = {[entryHeaderStyle.dateText, this._textDimensions(), {marginBottom : 10}]}>
+                            {this.getTopicText()}
                         </Text>
                     </View>
                     <View style = {entryHeaderStyle.rightFrame}>
