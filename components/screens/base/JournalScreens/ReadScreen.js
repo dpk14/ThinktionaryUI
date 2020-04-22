@@ -58,6 +58,14 @@ export default class ReadScreen extends Screen {
         this.setState({activeEntries : newActiveEntries})
     }
 
+    _onEntryRemoval = (entry) =>
+    {
+        let {entries, activeEntries} = this.state
+        entries.delete(entry)
+        activeEntries.delete(entry)
+        this.setState({activeEntries : activeEntries, entries : entries})
+    }
+
     _getJournalTitle = () => {
         let {activeTopics} = this.state
         if (activeTopics.size == 0) return ReadScreen.DEFAULT_JOURNAL_TITLE
@@ -76,9 +84,8 @@ export default class ReadScreen extends Screen {
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
                         <JournalContainerBox
-                            attrName=''
                             title={journalTitle}
-                            value=''
+                            _entryRemoval
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
                             style = {{flex : .80}}
@@ -87,6 +94,7 @@ export default class ReadScreen extends Screen {
                             entries = {activeEntries}
                             journal = {journal}
                             navigation = {navigation}
+                            onEntryRemoval = {this._onEntryRemoval}
                             />
                     <View style={readStyles.bottomFrame}>
                         <TopicBank

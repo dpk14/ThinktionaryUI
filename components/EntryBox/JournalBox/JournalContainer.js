@@ -17,6 +17,7 @@ export default class JournalContainer extends Component {
         journal : object.isRequired,
         entries : object.isRequired,
         navigation : object.isRequired,
+        onEntryRemoval : func.isRequired,
         style : object,
         width : number,
         height : number,
@@ -82,7 +83,7 @@ export default class JournalContainer extends Component {
     render() {
         let entries = Array.from(this.props.entries)
         let {entryIndex} = this.state
-        let {navigation, journal, scale, style} = this.props
+        let {navigation, journal, scale, style, onEntryRemoval} = this.props
         if (entries.length == 0) return (<View/>)
         let currentEntry = entries[entryIndex]
         return(
@@ -97,6 +98,7 @@ export default class JournalContainer extends Component {
                     style = {{flex : .20}}
                     width = '100%'
                     scale = {_scale(.8, scale)}
+                    onEntryRemoval = {onEntryRemoval}
                 />
                 <View style = {{flex : .68}}>
                 <StyledTextInput

@@ -1,12 +1,12 @@
-import {bool} from "prop-types";
+import {bool, string} from "prop-types";
 import EntryBox from "../EntryBox";
 import StyledTextInput from "../TextInputBox/StyledTextInput";
 import JournalContainer from "./JournalContainer";
 import React, { Component } from 'react';
 
 export class JournalContainerBox extends Component {
-    static propTypes = {...JournalContainer.propTypes, ...{active: bool}}
-    static defaultProps = {...JournalContainer.defaultProps, ...{active: false}}
+    static propTypes = {...JournalContainer.propTypes, ...{active: bool, attrName: string, value : string}}
+    static defaultProps = {...JournalContainer.defaultProps, ...{active: false, attrName : '', value : ''}}
 
     constructor(props) {
         super(props);

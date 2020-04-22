@@ -10,6 +10,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import {styles} from "../../screens/base/StyledBase";
 import {StackActions, NavigationActions} from "react-navigation";
 import { CommonActions } from '@react-navigation/native';
+import RemoveEntry from "../../../requestHandler/Requests/JournalCommands/RemoveEntry";
 
 
 export default class EntryHeader extends Component{
@@ -21,6 +22,7 @@ export default class EntryHeader extends Component{
         navigation : object.isRequired,
         entry : object.isRequired,
         journal : object.isRequired,
+        onEntryRemoval : func.isRequired,
         width : number,
         height : number,
         scale : number,
@@ -60,9 +62,15 @@ export default class EntryHeader extends Component{
         }
     }
 
-    _onPress = () => {
+    _editEntry = () => {
         let {navigation, journal, entry} = this.props
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
+    }
+
+    _removeEntry = () => {
+        let {journal, entry, onEntryRemoval} = this.props
+        new RemoveEntry(journal.userID, entry.entryID).fetchAndExecute()
+        onEntryRemoval(entry)
     }
 
     getTopicText = () => {
@@ -100,7 +108,11 @@ export default class EntryHeader extends Component{
                             text="Edit"
                             scale={_scale(.8, scale)}
                             alignItems="flex-start"
-                            onPress={this._onPress}
+                            onPress={this._editEntry}
+                        />
+                        <CustomButton text={"x"}
+                                      scale={_scale(.8, scale)}
+                                      onPress={this._removeEntry}
                         />
                     </View>
             </View>
@@ -121,13 +133,14 @@ const entryHeaderStyle = StyleSheet.create({
         borderRadius : 3,
     },
     leftFrame: {
-        width : '80%',
+        flex : .8,
         justifyContent: 'flex-start'
     },
     rightFrame: {
-        width : '20%',
+        flex : .2,
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'row'
     },
     titleText:{
         fontFamily: HP_SIMPLIFIED_BOLD,
