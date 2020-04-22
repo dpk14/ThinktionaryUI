@@ -27,7 +27,6 @@ class customButton extends Component {
         fontSize : 25,
         width: 120,
         scale: 1,
-        alignItems : 'center',
         marginTop: 0,
         padding: 12,
         height: 56,
@@ -102,7 +101,7 @@ class customButton extends Component {
                                 {text}
                             </Text>
                         </TouchableOpacity>
-                    </ScalingView>
+                     </ScalingView>
             );
         }
     }
