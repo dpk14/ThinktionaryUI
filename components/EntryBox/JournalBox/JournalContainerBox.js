@@ -20,7 +20,7 @@ export class JournalContainerBox extends Component {
             = this.props
         return (<EntryBox title={title}
                           scale={scale}
-                          width={style.flex == undefined ? width : '100%' }
+                          width={width}
                           height={style.flex == undefined ? height : '100%'}
                           active={active}
                           style={style}

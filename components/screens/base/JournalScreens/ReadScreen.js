@@ -8,6 +8,7 @@ import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
 import {getScreenHeight} from "../../../utils/scaling";
+import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
 
 export default class ReadScreen extends Screen {
 
@@ -100,19 +101,21 @@ export default class ReadScreen extends Screen {
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
-                    <StyledInputBox attrName={'searched'}
-                                    value={searched}
-                                    title = {'Search'}
-                                    updateMasterState={this._updateMasterState}
-                                    style = {{flex : .10}}
-                                    scale = {.65}
-                                    onChangeText={this._search}
+                    <SearchBar attrName={'searched'}
+                               value={searched}
+                               title = {'Search'}
+                               width = {'100%'}
+                               updateMasterState={this._updateMasterState}
+                               style = {{flex : .08}}
+                               scale = {.65}
+                               onChangeText={this._search}
                     />
                     <JournalContainerBox
                             title={journalTitle}
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
-                            style = {{flex : .70}}
+                            width = {'100%'}
+                            style = {{flex : .75}}
                             blurOnSubmit = {false}
                             active = {entries.size>0}
                             entries = {activeEntries}

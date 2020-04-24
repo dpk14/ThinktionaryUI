@@ -52,7 +52,8 @@ export default class JournalContainer extends Component {
         let {lastLength} = this.state
         let entries = Array.from(nextProps.entries)
         if (entries.length != lastLength) {
-            this.setState({lastLength : entries.length, entryIndex : entries.length == 0 ? 0 : entries.length-1})
+            this.setState({lastLength : entries.length,
+                                entryIndex : entries.length == 0 ? 0 : entries.length-1})
             return false;
         }
         return true;
