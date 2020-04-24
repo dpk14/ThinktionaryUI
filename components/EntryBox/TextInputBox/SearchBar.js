@@ -12,9 +12,16 @@ export class SearchBar extends Component{
         super(props);
     }
     render() {
-        const {scale, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, secureTextEntry, editable, onChangeText}  = this.props
-        return (<SearchBarContainer>
+        const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
+            value, keyboardType, updateMasterState, secureTextEntry, editable, onChangeText, style}  = this.props
+        return (
+            <EntryBox title={title}
+                      scale={scale}
+                      width={width}
+                      height={style.flex == undefined ? height : '100%'}
+                      style = {style}
+            >
+            <SearchBarContainer>
                 <StyledTextInput multiline = {multiline}
                                  attrName={attrName}
                                  returnKeyType = {returnKeyType}
@@ -31,6 +38,7 @@ export class SearchBar extends Component{
                                  onChangeText={onChangeText}
                 />
             </SearchBarContainer>
+            </EntryBox>
         )
     }
 
