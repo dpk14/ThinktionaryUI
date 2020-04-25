@@ -24,7 +24,7 @@ export class StyledInputBox extends Component{
                                  blurOnSubmit = {blurOnSubmit}
                                  value={value}
                                  keyboardType={keyboardType}
-                                 autoCompletType = {false}
+                                 autoCompleteType = {false}
                                  updateMasterState={updateMasterState}
                                  width = {'100%'}
                                  height = {'100%'}

@@ -97,7 +97,7 @@ export default class JournalContainer extends Component {
                     navigation = {navigation}
                     entry = {currentEntry}
                     journal = {journal}
-                    style = {{flex : .20}}
+                    style = {{flex : .215}}
                     width = '100%'
                     scale = {_scale(.8, scale)}
                     onEntryRemoval = {onEntryRemoval}
@@ -108,7 +108,6 @@ export default class JournalContainer extends Component {
                     attrName = {''}
                     value = {currentEntry.text}
                     updateMasterState = {()=>{}}
-                    width={"100%"}
                     height={"100%"}
                     style = {{marginTop : 5}}
                     scale = {_scale(.8, scale)}

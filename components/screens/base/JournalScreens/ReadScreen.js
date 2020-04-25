@@ -7,9 +7,10 @@ import StyledBase from "../StyledBase";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
-import {getScreenHeight} from "../../../utils/scaling";
+import {getScreenHeight, getScreenWidth} from "../../../utils/scaling";
 import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
 
+let MARGIN_HORIZONTAL = 15
 export default class ReadScreen extends Screen {
 
     static DEFAULT_JOURNAL_TITLE = 'All entries:'
@@ -113,7 +114,7 @@ export default class ReadScreen extends Screen {
                     <JournalContainerBox
                             title={journalTitle}
                             updateMasterState={this._updateMasterState}
-                            scale = {.75}
+                            scale = {.85}
                             width = {'100%'}
                             style = {{flex : .75}}
                             blurOnSubmit = {false}
@@ -149,7 +150,6 @@ export default class ReadScreen extends Screen {
 export const readStyles = StyleSheet.create({
     bottomFrame:{
         flex : .15,
-        marginTop: 10,
     },
     leftFrame: {
     },
@@ -158,7 +158,8 @@ export const readStyles = StyleSheet.create({
     outerFrame:{
         marginTop : 60,
         height : getScreenHeight() - 70,
-        marginHorizontal : 15,
+        width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
+        marginHorizontal : MARGIN_HORIZONTAL,
         marginBottom : 10,
     }
 
