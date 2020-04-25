@@ -15,27 +15,27 @@ export class SearchBar extends Component{
         const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
             value, keyboardType, updateMasterState, secureTextEntry, editable, onChangeText, style}  = this.props
         return (
-            <EntryBox title={title}
-                      scale={scale}
-                      width={width}
-                      height={style.flex == undefined ? height : '100%'}
+            <EntryBox title = {''}
+                      scale = {scale}
+                      width = {style.flexDirection == 'row' ? '100%' : width}
+                      height = {style.flex == undefined ? height : '100%'}
                       style = {style}
             >
             <SearchBarContainer>
                 <StyledTextInput multiline = {multiline}
-                                 attrName={attrName}
+                                 attrName = {attrName}
                                  returnKeyType = {returnKeyType}
                                  blurOnSubmit = {blurOnSubmit}
-                                 value={value}
-                                 keyboardType={keyboardType}
+                                 value = {value}
+                                 keyboardType = {keyboardType}
                                  autoCompleteType = {false}
-                                 updateMasterState={updateMasterState}
-                                 style = {{flex : .85}}
+                                 updateMasterState = {updateMasterState}
+                                 style = {{flex : 1}}
                                  height = {'100%'}
                                  scale = {scale}
-                                 secureTextEntry={secureTextEntry}
-                                 editable={editable}
-                                 onChangeText={onChangeText}
+                                 secureTextEntry = {secureTextEntry}
+                                 editable = {editable}
+                                 onChangeText = {onChangeText}
                 />
             </SearchBarContainer>
             </EntryBox>

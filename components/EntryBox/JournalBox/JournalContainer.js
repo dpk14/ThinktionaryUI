@@ -77,7 +77,7 @@ export default class JournalContainer extends Component {
 
     _pageLeft = () => {
         let {entryIndex} = this.state
-        if( entryIndex < Array.from(this.props.entries).length - 1){
+        if(entryIndex < Array.from(this.props.entries).length - 1){
             this.setState({entryIndex : entryIndex+1})
         }
     }

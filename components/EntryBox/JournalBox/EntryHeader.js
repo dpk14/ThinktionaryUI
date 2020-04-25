@@ -6,10 +6,6 @@ import {string, func, object, number, bool, PropTypes} from 'prop-types';
 import CustomButton from "../../Buttons/CustomButton";
 import ScreenNames from "../../../navigation/ScreenNames"
 import {_scale} from "../../utils/scaling";
-import {LinearGradient} from "expo-linear-gradient";
-import {styles} from "../../screens/base/StyledBase";
-import {StackActions, NavigationActions} from "react-navigation";
-import { CommonActions } from '@react-navigation/native';
 import RemoveEntry from "../../../requestHandler/Requests/JournalCommands/RemoveEntry";
 
 

@@ -106,8 +106,8 @@ export default class ReadScreen extends Screen {
                                title = {'Search'}
                                width = {'100%'}
                                updateMasterState={this._updateMasterState}
-                               style = {{flex : .08}}
-                               scale = {.65}
+                               style = {{flex : .065}}
+                               scale = {.60}
                                onChangeText={this._search}
                     />
                     <JournalContainerBox

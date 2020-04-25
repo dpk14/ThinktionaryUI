@@ -10,16 +10,14 @@ export class SearchBarContainer extends Component{
         super(props);
     }
     render() {
-        console.log("Splurg")
-        console.log(this.props.updateContainerState)
         let children = childrenWithProps(this.props.children, {
             active : this.props.active,
             updateContainerState : this.props.updateContainerState,
         })
         return (
-                <View style={{flexDirection : 'row'}}>
-                    <Image style = {{flex : .15, height : "100%"}}
-                           source = {"../../../assets/images/magnifying_glass.png"}
+                <View style = {{flexDirection : 'row', flex : 1}}>
+                    <Image style = {{flex : .08, height : "50%", marginLeft : "2%", marginTop : "3%"}}
+                           source = {require("../../../assets/images/magnifying_glass.png")}
                     />
                     {children}
                 </View>
