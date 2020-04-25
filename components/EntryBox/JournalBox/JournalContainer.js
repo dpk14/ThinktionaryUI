@@ -50,10 +50,13 @@ export default class JournalContainer extends Component {
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         let {lastLength} = this.state
+        let {active, updateContainerState} = this.props
         let entries = Array.from(nextProps.entries)
         if (entries.length != lastLength) {
             this.setState({lastLength : entries.length,
                                 entryIndex : entries.length == 0 ? 0 : entries.length-1})
+            if(entries.length == 0 && active) updateContainerState(false)
+            else if (entries.length > 0 && !active) updateContainerState(true)
             return false;
         }
         return true;
