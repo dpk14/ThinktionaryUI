@@ -6,10 +6,8 @@ import {
     AsyncStorage
 } from 'react-native'
 
-import { goToAuth, goHome } from './navigation'
-
-import { USER_KEY } from './config'
 import {HP_SIMPLIFIED_BOLD} from "../components/utils/FontUtils";
+import {USER_KEY} from "../assets/config";
 
 
 let screenOptions={
@@ -29,20 +27,24 @@ let screenOptions={
 export default class Initialising extends React.Component {
 
     async componentDidMount() {
-        let {navigation} = this.props
         try {
             const user = await AsyncStorage.getItem(USER_KEY)
             if (user) {
-                navigation.navigate(screenNames.APP_NAVIGATION)
+                this.goHome()
             } else {
-                navigation.navigate(screenNames.AUTH_NAVIGATION)
+                this.goToAuth()
             }
         } catch (err) {
-            goToAuth()
+            this.goToAuth()
         }
     }
 
     goHome(){
+        this.props.navigation.navigate(screenNames.APP_NAVIGATION)
+    }
+
+    goToAuth(){
+        this.props.navigation.navigate(screenNames.AUTH_NAVIGATION)
     }
 
     render() {

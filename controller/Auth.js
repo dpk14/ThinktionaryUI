@@ -22,7 +22,6 @@ export default class Auth extends Component {
         super(props);
     }
 
-
     async componentWillMount() {
         await FontUtils.loadFonts()
         this.setState({loading : false})
@@ -34,7 +33,18 @@ export default class Auth extends Component {
         return (
             <NavigationContainer>
                 <Stack.Navigator
-                    screenOptions={this.props.screenOptions}
+                    screenOptions={{
+                        headerTitle : "Thinktionary",
+                        headerBackTitle: false,
+                        headerTransparent: true,
+                        gestureResponseDistance : {horizontal : 600 },
+                        headerTitleStyle: {
+                            color : '#FFFFFF',
+                            fontFamily: HP_SIMPLIFIED_BOLD,
+                            shadowOffset: { height: 4},
+                            shadowRadius: 20,
+                            shadowOpacity: .5
+                        }}}
                 >
                     <Stack.Screen
                         name={ScreenNames.HOME_SCREEN}

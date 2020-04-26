@@ -18,8 +18,6 @@ import ReadScreen from "../components/screens/base/JournalScreens/ReadScreen";
 
 export default class App extends Component {
 
-
-
     async componentWillMount() {
         await FontUtils.loadFonts()
         this.setState({loading : false})

@@ -14,6 +14,7 @@ import ReadScreen from "../components/screens/base/JournalScreens/ReadScreen";
 import Initializer from "./Initializer";
 import Auth from "./Auth";
 import App from "./App";
+import React from "react";
 
 //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
 
@@ -40,7 +41,6 @@ export default class Main extends Component {
 
     render(){
         let Stack = createStackNavigator()
-
         return (
             <NavigationContainer>
                 <Stack.Navigator
