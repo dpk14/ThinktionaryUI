@@ -7,6 +7,7 @@ import CustomButton from "../../Buttons/CustomButton";
 import ScreenNames from "../../../navigation/ScreenNames"
 import {_scale} from "../../utils/scaling";
 import RemoveEntry from "../../../requestHandler/Requests/JournalCommands/RemoveEntry";
+import {CustomButtonImg} from "../../Buttons/CustomButtonImg";
 
 
 export default class EntryHeader extends Component{
@@ -100,15 +101,16 @@ export default class EntryHeader extends Component{
                         </Text>
                     </View>
                     <View style = {entryHeaderStyle.rightFrame}>
-                        <CustomButton
-                            text="Edit"
-                            scale={_scale(.8, scale)}
-                            style = {{alignItems:"flex-start"}}
-                            onPress={this._editEntry}
+                        <CustomButtonImg
+                            source = {require("../../../assets/images/pencil.png")}
+                            scale = {_scale(.8, scale)}
+                            style = {{borderRadius : 5, alignItems:"flex-start"}}
+                            imageStyle={{width : 20, height : 20}}
+                            onPress = {this._editEntry}
                         />
-                        <CustomButton text={"X"}
-                                      //height={50}
-                                      scale={_scale(.8, scale)}
+                        <CustomButtonImg source={require("../../../assets/images/trash_can.png")}
+                                      imageStyle={{width : 20, height : 20, flex : 1}}
+                                         scale={_scale(.8, scale)}
                                       style = {{borderRadius : 5, marginLeft : 15}}
                                       onPress={this._removeEntry}
                         />

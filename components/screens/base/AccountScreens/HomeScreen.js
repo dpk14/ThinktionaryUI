@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CustomButton from "../../../Buttons/CustomButton";
 import ScreenNames from "../../../../navigation/ScreenNames"
 import {baseStyles} from "../Screen";
 import Screen from "../Screen"
 import StyledBase from "../StyledBase";
+import {CustomButtonImg} from "../../../Buttons/CustomButtonImg";
+import {_scale} from "../../../utils/scaling";
 
 export default class HomeScreen extends Screen{
 

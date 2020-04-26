@@ -52,7 +52,6 @@ class customButton extends Component {
             const {text, onPress, scale, style} = this.props;
                 return (
                     <ButtonFrame
-                        text={text}
                         onPress={onPress}
                         scale={scale}
                         style={style}>
