@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 14200,
+  "packagerPid": 14600,
   "expoServerNgrokUrl": "https://6t-wnr.anonymous.thinktionary.exp.direct",
   "packagerNgrokUrl": "https://packager.6t-wnr.anonymous.thinktionary.exp.direct",
-  "ngrokPid": 11068
+  "ngrokPid": 24968
 }

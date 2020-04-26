@@ -1,6 +1,6 @@
 import 'react-native';
 import React from 'react';
-import App from '../controller/App';
+import App from '../controller/Main';
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';

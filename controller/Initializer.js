@@ -1,4 +1,5 @@
 import React from 'react'
+import ScreenNames from '../navigation/ScreenNames'
 import {
     View,
     Text,
@@ -8,21 +9,6 @@ import {
 
 import {HP_SIMPLIFIED_BOLD} from "../components/utils/FontUtils";
 import {USER_KEY} from "../assets/config";
-
-
-let screenOptions={
-    headerTitle : "Thinktionary",
-        headerBackTitle: false,
-        headerTransparent: true,
-        gestureResponseDistance : {horizontal : 600 },
-    headerTitleStyle: {
-        color : '#FFFFFF',
-            fontFamily: HP_SIMPLIFIED_BOLD,
-            shadowOffset: { height: 4},
-        shadowRadius: 20,
-            shadowOpacity: .5
-    },
-}
 
 export default class Initialising extends React.Component {
 
@@ -40,11 +26,11 @@ export default class Initialising extends React.Component {
     }
 
     goHome(){
-        this.props.navigation.navigate(screenNames.APP_NAVIGATION)
+        this.props.navigation.navigate(ScreenNames.APP_NAVIGATION)
     }
 
     goToAuth(){
-        this.props.navigation.navigate(screenNames.AUTH_NAVIGATION)
+        this.props.navigation.navigate(ScreenNames.AUTH_NAVIGATION)
     }
 
     render() {

@@ -1,6 +1,6 @@
 import { AppRegistry } from 'react-native';
-import App from './controller/App';
-import Initializer from "./controller/Initializer";
+//import Initializer from "./controller/Initializer";
 import { name as appName } from './app.json';
+import App from "./App";
 
-AppRegistry.registerComponent(appName, () => Initializer);
+AppRegistry.registerComponent(appName, () => App);
