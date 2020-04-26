@@ -51,11 +51,13 @@ export default class NewAccountScreen extends Screen {
                     />
                     <CustomButton
                         text="Create Account"
-                        marginTop={8}
+                        style={{
+                            marginTop : 8,
+                            width : 220
+                        }}
                         onPress={() => {
                             new makeAccount(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
                         }}
-                        width={220}
                     />
             </StyledBase>
         );

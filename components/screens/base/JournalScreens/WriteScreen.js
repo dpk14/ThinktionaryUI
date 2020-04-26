@@ -180,14 +180,14 @@ export default class WriteScreen extends Screen {
                             text="Save"
                             scale = {.8}
                             marginTop={0}
-                            width = {187.5}
+                            style = {{width : 187.5}}
                             onPress={() => this.createOrSave()}
                         />
                         <CustomButton
                             text="Submit"
                             scale = {.8}
                             marginTop={0}
-                            width = {187.5}
+                            style = {{width : 187.5}}
                             onPress={() => {
                                 this.createOrSave(this.submit);
                             }}

@@ -43,8 +43,7 @@ export default class LoginScreen extends Screen {
                     />
                     <CustomButton
                         text="Login"
-                        width={150}
-                        marginTop={8}
+                        style={{width : 150, marginTop : 8}}
                         onPress={() => {
                             new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation));
                         }}

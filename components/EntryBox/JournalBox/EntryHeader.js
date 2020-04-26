@@ -103,7 +103,7 @@ export default class EntryHeader extends Component{
                         <CustomButton
                             text="Edit"
                             scale={_scale(.8, scale)}
-                            alignItems="flex-start"
+                            style = {{alignItems:"flex-start"}}
                             onPress={this._editEntry}
                         />
                         <CustomButton text={"X"}

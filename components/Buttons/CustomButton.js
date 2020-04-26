@@ -8,36 +8,22 @@ import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
 import {ScalingView} from "../ScalingView";
 import {invScale} from "../../DONT_USE_THIS/thinktionary/components/utils/scaling";
 import {SOFT_ORANGE} from "../utils/baseStyles";
+import ButtonFrame from "./ButtonFrame";
 
 class customButton extends Component {
 
     static propTypes = {
         text: PropTypes.string.isRequired,
         onPress: PropTypes.func,
-        width: PropTypes.number,
         fontSize: PropTypes.number,
         scale: PropTypes.number,
-        alignItems : PropTypes.string,
-        marginTop: PropTypes.number,
-        padding : PropTypes.number,
-        height: PropTypes.number,
         style : PropTypes.object,
     }
 
     static defaultProps = {
         fontSize : 25,
-        width: 120,
         scale: 1,
-        marginTop: 0,
-        padding: 12,
-        height: 56,
-        marginLeft : 0,
         style : {}
-    }
-
-    static defaultScalableStyles = {
-        borderRadius: 20,
-        shadowRadius: 15,
     }
 
     constructor(props) {
@@ -49,29 +35,6 @@ class customButton extends Component {
     async componentWillMount() {
         await FontUtils.loadFonts()
         this.setState({loading: false})
-    }
-
-    customContainerStyles() {
-        const {scale, alignItems, height} = this.props
-        return {
-            alignItems: alignItems,
-            height: _scale(height, scale),
-        }
-    }
-
-    getButtonStyles(){
-        const {width, scale, alignItems, height, marginTop, padding} = this.props
-            let ret = {
-                height : _scale(height, scale),
-                marginTop : _scale(marginTop, scale),
-                padding : _scale(padding, scale),
-                borderRadius : _scale(customButton.defaultScalableStyles.borderRadius, scale),
-                shadowRadius : _scale(customButton.defaultScalableStyles.shadowRadius, scale)
-            }
-        if(width != customButton.defaultProps.width) {
-            ret.width = width
-        }
-        return ret
     }
 
     getFontSpecs(){
@@ -86,23 +49,20 @@ class customButton extends Component {
     render() {
         if (this.loading) return null;
         else {
-
-            const {text, onPress} = this.props;
+            const {text, onPress, scale, style} = this.props;
                 return (
-                    <ScalingView
-                        style = {[styles.container, this.customContainerStyles()]}>
-                        <TouchableOpacity
-                            style={[styles.buttonStyle, this.getButtonStyles(), this.props.style]}
-                            onPress={() => onPress()}
-                        >
+                    <ButtonFrame
+                        text={text}
+                        onPress={onPress}
+                        scale={scale}
+                        style={style}>
                             <Text
                                 onLayout = {this.props.onLayout}
                                     style={[styles.textStyle, this.getFontSpecs()]}
                             >
                                 {text}
                             </Text>
-                        </TouchableOpacity>
-                     </ScalingView>
+                    </ButtonFrame>
             );
         }
     }
@@ -110,10 +70,6 @@ class customButton extends Component {
 }
 
 const styles = StyleSheet.create({
-    container : {
-        flex: 1,
-        alignItems : 'center',
-    },
     textStyle: {
         color: 'white',
         textAlign: 'center',
@@ -123,15 +79,6 @@ const styles = StyleSheet.create({
         shadowOpacity : .25,
         shadowOffset: { height: 1},
     },
-    buttonStyle: {
-        backgroundColor: SOFT_ORANGE,
-        alignItems : 'center',
-        justifyContent : 'center',
-        opacity : .95,
-        shadowRadius: 15,
-        shadowOpacity : .1,
-        shadowOffset: { height: 4},
-    }
 });
 
 export default customButton;

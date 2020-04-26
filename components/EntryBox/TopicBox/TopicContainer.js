@@ -75,9 +75,8 @@ export default class TopicContainer extends Component {
             <CustomButton
                 text={topic}
                 scale={this.props.topicScale}
-                alignItems="flex-start"
                 onPress={this.props.onTopicPress(topic)}
-                style ={this.props.activeTopics.has(topic) ? this.props.activeTopicStyle : {}}
+                style ={this.props.activeTopics.has(topic) ? {...this.props.activeTopicStyle, ...{alignItems : "flex-start"}} : {}}
             />));
         return TopicBoxes
     }

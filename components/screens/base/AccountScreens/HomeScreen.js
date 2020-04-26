@@ -22,14 +22,12 @@ export default class HomeScreen extends Screen{
                             <CustomButton
                                 text="Create Account"
                                 onPress={() => this.props.navigation.navigate(ScreenNames.NEW_ACCT_SCREEN)}
-                                width = {220}
-                                marginTop={20}
+                                style = {{width : 220, marginTop : 20}}
                             />
                             <CustomButton
                                 text="Login"
                                 onPress={() => this.props.navigation.navigate(ScreenNames.LOGIN_SCREEN)}
-                                width = {150}
-                                marginTop={20}
+                                style= {{width : 150, marginTop : 20}}
                             />
                         </View>
                 </StyledBase>
