@@ -13,6 +13,7 @@ import HomeScreen from "./components/screens/base/AccountScreens/HomeScreen";
 import LoginScreen from "./components/screens/base/AccountScreens/LoginScreen";
 import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccountScreen";
 import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
+import ReadScreen from "./components/screens/base/JournalScreens/ReadScreen";
 
 
 export default class App extends Component {
@@ -34,14 +35,27 @@ export default class App extends Component {
         let Stack = createStackNavigator()
         return (
             <NavigationContainer>
-                <Stack.Navigator screenOptions={{headerShown : false}}>
+                <Stack.Navigator screenOptions={{
+                    headerTitle : "Thinktionary",
+                    headerBackTitle: false,
+                    headerTransparent: true,
+                    gestureResponseDistance : {horizontal : 600 },
+                    headerTitleStyle: {
+                    color: '#FFFFFF',
+                    fontFamily: HP_SIMPLIFIED_BOLD,
+                    shadowOffset: {height: 4},
+                    shadowRadius: 20,
+                    shadowOpacity: .5
+                }}}>
                     <Stack.Screen
                         name={ScreenNames.INITIALIZER_SCREEN}
                         component={Initializer}
+                        options={{headerShown : false}}
                     />
                     <Stack.Screen
                         name={ScreenNames.HOME_SCREEN}
                         component={HomeScreen}
+                        options={{headerShown : false}}
                     />
                     <Stack.Screen
                         name={ScreenNames.LOGIN_SCREEN}
@@ -54,6 +68,12 @@ export default class App extends Component {
                     <Stack.Screen
                         name={ScreenNames.WRITE_SCREEN}
                         component={WriteScreen}
+                        options={{headerShown : false}}
+                    />
+                    <Stack.Screen
+                        name={ScreenNames.READ_SCREEN}
+                        component={ReadScreen}
+                        options={{headerShown : false}}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

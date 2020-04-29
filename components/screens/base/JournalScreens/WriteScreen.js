@@ -17,6 +17,7 @@ import ScreenNames from "../../../../navigation/ScreenNames";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenWidth} from "../../../utils/scaling";
 import JSONParser from "../../../../requestHandler/Utils/JSONParser";
+import FontUtils from "../../../utils/FontUtils";
 
 
 const MARGIN_HORIZONTAL = 15
@@ -30,12 +31,18 @@ export default class WriteScreen extends Screen {
         }
     }
 
+    async componentDidMount() {
+        await FontUtils.loadFonts()
+        this.setState({loading : false})
+    }
+
+    _updateMasterState = (attrName, value) => {
+        this.setState({ [attrName]: value });
+    }
+
+
     initialize(){
         let {entry, journal} = this.props.route.params
-        console.log("Splargh")
-        console.log(journal)
-        journal = JSONParser.parseJournal(journal)
-        console.log(journal)
         return {
             entry : entry == undefined ? undefined : entry,
             entryID : entry == undefined ? undefined : entry.entryID,
@@ -45,7 +52,7 @@ export default class WriteScreen extends Screen {
             currTopic : '',
             topics : entry == undefined || entry.topics == null? new Set() : entry.topics,
             topicBank : journal.topics,
-            activeTopics : new Set()
+            activeTopics : new Set(),
         }
     }
 
@@ -124,7 +131,6 @@ export default class WriteScreen extends Screen {
     }
 
     renderScreen() {
-        console.log("SKEET")
         return (
             <StyledBase>
                 <View style = {newStyles.outerFrame}>

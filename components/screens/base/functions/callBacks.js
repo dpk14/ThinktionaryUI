@@ -19,12 +19,12 @@ export function parseOrAlert(parser=undefined, params) {
 
 export function _onLogin(navigation) {
     return (journal) => {
-        console.log(journal)
+        navigation.reset({
+            index: 0,
+            routes: [{ name: ScreenNames.WRITE_SCREEN, params : {journal : journal}} ]
+        })
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
-        /*
-        navigation.navigate(ScreenNames.APP_NAVIGATION, {},
-                NavigationActions.navigate({routeName: ScreenNames.WRITE_SCREEN, params: {journal : journal}}))
-        */
+        //navigation.navigate(ScreenNames.APP_NAVIGATION, {screen : ScreenNames.WRITE_SCREEN, params: {journal : journal}})
         //AsyncStorage.setItem(USER_KEY, journal.username)
     }
 }

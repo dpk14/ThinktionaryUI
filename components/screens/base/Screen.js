@@ -17,7 +17,7 @@ export default class Screen extends Component{
         }
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         await FontUtils.loadFonts()
         this.setState({loading : false})
     }
