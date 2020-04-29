@@ -16,8 +16,6 @@ import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
 import ReadScreen from "./components/screens/base/JournalScreens/ReadScreen";
 import {Image} from "react-native";
 //import {BackButton, BackButtonImage} from "./components/BackButtonImage";
-
-
 export default class App extends Component {
 
     constructor(props) {
@@ -51,7 +49,7 @@ export default class App extends Component {
                     fontFamily: HP_SIMPLIFIED_BOLD,
                     shadowOffset: {height: 4},
                     shadowRadius: 20,
-                    shadowOpacity: .5
+                    shadowOpacity: .5,
                 }}}>
                     <Stack.Screen
                         name={ScreenNames.INITIALIZER_SCREEN}
@@ -74,6 +72,7 @@ export default class App extends Component {
                     <Stack.Screen
                         name={ScreenNames.WRITE_SCREEN}
                         component={WriteScreen}
+                        options={{}}
                     />
                     <Stack.Screen
                         name={ScreenNames.READ_SCREEN}

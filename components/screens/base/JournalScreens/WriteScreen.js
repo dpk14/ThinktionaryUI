@@ -18,7 +18,7 @@ import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenWidth} from "../../../utils/scaling";
 import JSONParser from "../../../../requestHandler/Utils/JSONParser";
 import FontUtils from "../../../utils/FontUtils";
-
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 const MARGIN_HORIZONTAL = 15
 
@@ -132,81 +132,89 @@ export default class WriteScreen extends Screen {
 
     renderScreen() {
         return (
-            <StyledBase>
-                <View style = {newStyles.outerFrame}>
-                    <View style = {newStyles.topFrame}>
-                        <StyledInputBox
-                            attrName='title'
-                            title="Title your thoughts!"
-                            value={this.state.title}
-                            updateMasterState={this._updateMasterState}
-                            scale = {0.75}
-                            width = '100%'
-                            //width= '48.5%'
+            <GestureRecognizer
+                onSwipeLeft={(state) => {
+                    _onSubmit(this.props.navigation)(this.props.route.params.journal)
+                }}
+                style = {{width: "100%", height: "100%", flex : 1}}
+                config={{directionalOffsetThreshold:50000}}
+            >
+                <StyledBase>
+                    <View style = {newStyles.outerFrame}>
+                        <View style = {newStyles.topFrame}>
+                            <StyledInputBox
+                                attrName='title'
+                                title="Title your thoughts!"
+                                value={this.state.title}
+                                updateMasterState={this._updateMasterState}
+                                scale = {0.75}
+                                width = '100%'
+                                //width= '48.5%'
+                                />
+                            <StyledInputBox
+                                attrName='text'
+                                title='What are you thinking about?'
+                                value={this.state.text}
+                                updateMasterState={this._updateMasterState}
+                                scale = {.75}
+                                width='100%'
+                                height = {400}
+                                multiline = {true}
+                                blurOnSubmit={false}
                             />
-                        <StyledInputBox
-                            attrName='text'
-                            title='What are you thinking about?'
-                            value={this.state.text}
-                            updateMasterState={this._updateMasterState}
-                            scale = {.75}
-                            width='100%'
-                            height = {400}
-                            multiline = {true}
-                            blurOnSubmit={false}
-                        />
-                        <TopicCreatorBox
-                            attrName = 'currTopic'
-                            setName = 'topics'
-                            title = 'What tags do you want to use?'
-                            active = {this.state.topics.size > 0}
-                            value = {this.state.currTopic}
-                            updateMasterState= {this._updateMasterState}
-                            scale = {.75}
-                            topicScale = {.62}
-                            height = {1.5*TOPIC_HEIGHT}
-                            width = '100%'
-                            topics = {this.state.topics}
-                            onTopicDelete = {this._onTopicDelete}
-                            onTopicPress = {this._onTopicCreatorPress}
-                            blurOnSubmit = {false}
-                        />
-                        <TopicBank
-                            attrName='topicBank'
-                            setName='topicBankCurr'
-                            title="Select from tags you've used before:"
-                            active = {this.state.topicBank.size > 0}
-                            updateMasterState={this._updateMasterState}
-                            scale = {.75}
-                            topicScale = {.62}
-                            topics = {this.state.topicBank}
-                            width= '100%'
-                            height={1.5*TOPIC_HEIGHT}
-                            onTopicActivityChange={this._onTopicActivityChange}
-                            activeTopicsName ={'activeTopics'}
-                            activeTopics = {this.state.activeTopics}
-                        />
+                            <TopicCreatorBox
+                                attrName = 'currTopic'
+                                setName = 'topics'
+                                title = 'What tags do you want to use?'
+                                active = {this.state.topics.size > 0}
+                                value = {this.state.currTopic}
+                                updateMasterState= {this._updateMasterState}
+                                scale = {.75}
+                                topicScale = {.62}
+                                height = {1.5*TOPIC_HEIGHT}
+                                width = '100%'
+                                topics = {this.state.topics}
+                                onTopicDelete = {this._onTopicDelete}
+                                onTopicPress = {this._onTopicCreatorPress}
+                                blurOnSubmit = {false}
+                            />
+                            <TopicBank
+                                attrName='topicBank'
+                                setName='topicBankCurr'
+                                title="Select from tags you've used before:"
+                                active = {this.state.topicBank.size > 0}
+                                updateMasterState={this._updateMasterState}
+                                scale = {.75}
+                                topicScale = {.62}
+                                topics = {this.state.topicBank}
+                                width= '100%'
+                                height={1.5*TOPIC_HEIGHT}
+                                onTopicActivityChange={this._onTopicActivityChange}
+                                activeTopicsName ={'activeTopics'}
+                                activeTopics = {this.state.activeTopics}
+                            />
+                        </View>
+                        <View style = {newStyles.bottomFrame}>
+                            <CustomButton
+                                text="Save"
+                                scale = {.8}
+                                marginTop={0}
+                                style = {{width : 187.5}}
+                                onPress={() => this.createOrSave()}
+                            />
+                            <CustomButton
+                                text="Submit"
+                                scale = {.8}
+                                marginTop={0}
+                                style = {{width : 187.5}}
+                                onPress={() => {
+                                    this.createOrSave(this.submit);
+                                }}
+                            />
+                        </View>
                     </View>
-                    <View style = {newStyles.bottomFrame}>
-                        <CustomButton
-                            text="Save"
-                            scale = {.8}
-                            marginTop={0}
-                            style = {{width : 187.5}}
-                            onPress={() => this.createOrSave()}
-                        />
-                        <CustomButton
-                            text="Submit"
-                            scale = {.8}
-                            marginTop={0}
-                            style = {{width : 187.5}}
-                            onPress={() => {
-                                this.createOrSave(this.submit);
-                            }}
-                        />
-                    </View>
-                </View>
-            </StyledBase>
+                </StyledBase>
+            </GestureRecognizer>
             );
         }
 }
