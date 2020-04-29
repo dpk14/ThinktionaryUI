@@ -19,11 +19,6 @@ export default class App extends Component {
         }
     }
 
-    async componentWillMount() {
-        await FontUtils.loadFonts()
-        this.setState({loading : false})
-    }
-
     render(){
         let Stack = createStackNavigator()
         return (
@@ -35,7 +30,7 @@ export default class App extends Component {
                     gestureResponseDistance : {horizontal : 600 },
                     headerTitleStyle: {
                         color: '#FFFFFF',
-                        //fontFamily: HP_SIMPLIFIED_BOLD,
+                        fontFamily: HP_SIMPLIFIED_BOLD,
                         shadowOffset: {height: 4},
                         shadowRadius: 20,
                         shadowOpacity: .5

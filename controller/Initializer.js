@@ -14,14 +14,9 @@ export default class Initializer extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            loading : true
-        }
     }
 
     async componentDidMount() {
-        await FontUtils.loadFonts()
-        this.setState({loading : false})
         try {
             const user = await AsyncStorage.getItem(USER_KEY)
             if (user) {

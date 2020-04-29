@@ -52,7 +52,7 @@ export const baseStyles = StyleSheet.create({
         marginTop: 150,
         marginVertical: 30,
         color : '#FFFFFF',
-        //fontFamily: HP_SIMPLIFIED_BOLD,
+        fontFamily: HP_SIMPLIFIED_BOLD,
         shadowOffset: { height: 4},
         shadowRadius: 20,
         shadowOpacity: .5

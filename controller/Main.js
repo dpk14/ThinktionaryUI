@@ -22,33 +22,12 @@ export default class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            loading : true
-        }
-    }
-
-    async componentDidMount() {
-        await FontUtils.loadFonts()
-        this.setState({loading : false})
     }
 
     render(){
-        if(this.state.loading) return <AppLoading></AppLoading>
         let Stack = createStackNavigator()
     return (
           <Stack.Navigator
-              screenOptions={{
-                  headerTitle : "Thinktionary",
-                  headerBackTitle: false,
-                  headerTransparent: true,
-                  gestureResponseDistance : {horizontal : 600 },
-                  headerTitleStyle: {
-                  color: '#FFFFFF',
-                  //fontFamily: HP_SIMPLIFIED_BOLD,
-                  shadowOffset: {height: 4},
-                  shadowRadius: 20,
-                  shadowOpacity: .5
-              }}}
               >
               <Stack.Screen
                   name={ScreenNames.WRITE_SCREEN}
