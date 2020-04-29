@@ -16,6 +16,7 @@ import {_onCreate, _onLogin, _onSubmit, parseOrAlert, reloadJournalAndInitialize
 import ScreenNames from "../../../../navigation/ScreenNames";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenWidth} from "../../../utils/scaling";
+import JSONParser from "../../../../requestHandler/Utils/JSONParser";
 
 
 const MARGIN_HORIZONTAL = 15
@@ -31,6 +32,10 @@ export default class WriteScreen extends Screen {
 
     initialize(){
         let {entry, journal} = this.props.route.params
+        console.log("Splargh")
+        console.log(journal)
+        journal = JSONParser.parseJournal(journal)
+        console.log(journal)
         return {
             entry : entry == undefined ? undefined : entry,
             entryID : entry == undefined ? undefined : entry.entryID,
@@ -119,6 +124,7 @@ export default class WriteScreen extends Screen {
     }
 
     renderScreen() {
+        console.log("SKEET")
         return (
             <StyledBase>
                 <View style = {newStyles.outerFrame}>

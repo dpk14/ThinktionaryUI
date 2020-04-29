@@ -8,6 +8,11 @@ import Initializer from "./controller/Initializer";
 import React, {Component} from "react";
 import Auth from "./controller/Auth";
 import Main from "./controller/Main";
+import AppLoading from "expo/build/launch/AppLoading";
+import HomeScreen from "./components/screens/base/AccountScreens/HomeScreen";
+import LoginScreen from "./components/screens/base/AccountScreens/LoginScreen";
+import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccountScreen";
+import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
 
 
 export default class App extends Component {
@@ -19,33 +24,36 @@ export default class App extends Component {
         }
     }
 
+    async componentWillMount() {
+        await FontUtils.loadFonts()
+        this.setState({loading : false})
+    }
+
     render(){
+        if (this.state.loading) return <AppLoading></AppLoading>
         let Stack = createStackNavigator()
         return (
             <NavigationContainer>
-                <Stack.Navigator screenOptions={{
-                    headerTitle : "Thinktionary",
-                    headerBackTitle: false,
-                    headerTransparent: true,
-                    gestureResponseDistance : {horizontal : 600 },
-                    headerTitleStyle: {
-                        color: '#FFFFFF',
-                        fontFamily: HP_SIMPLIFIED_BOLD,
-                        shadowOffset: {height: 4},
-                        shadowRadius: 20,
-                        shadowOpacity: .5
-                    }}}>
+                <Stack.Navigator screenOptions={{headerShown : false}}>
                     <Stack.Screen
                         name={ScreenNames.INITIALIZER_SCREEN}
                         component={Initializer}
                     />
                     <Stack.Screen
-                        name={ScreenNames.AUTH_NAVIGATION}
-                        component={Auth}
+                        name={ScreenNames.HOME_SCREEN}
+                        component={HomeScreen}
                     />
                     <Stack.Screen
-                        name={ScreenNames.APP_NAVIGATION}
-                        component={Main}
+                        name={ScreenNames.LOGIN_SCREEN}
+                        component={LoginScreen}
+                    />
+                    <Stack.Screen
+                        name={ScreenNames.NEW_ACCT_SCREEN}
+                        component={NewAccountScreen}
+                    />
+                    <Stack.Screen
+                        name={ScreenNames.WRITE_SCREEN}
+                        component={WriteScreen}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
@@ -54,4 +62,33 @@ export default class App extends Component {
 
 }
 
+/*
+                    <Stack.Screen
+                        name={ScreenNames.AUTH_NAVIGATION}
+                        component={Auth}
+                    />
+                    <Stack.Screen
+                        name={ScreenNames.APP_NAVIGATION}
+                        component={Main}
+                    />
 
+ */
+
+/*
+<Stack.Screen
+    name={ScreenNames.HOME_SCREEN}
+    component={HomeScreen}
+/>
+<Stack.Screen
+name={ScreenNames.LOGIN_SCREEN}
+component={LoginScreen}
+/>
+<Stack.Screen
+    name={ScreenNames.NEW_ACCT_SCREEN}
+    component={NewAccountScreen}
+/>
+<Stack.Screen
+name={ScreenNames.WRITE_SCREEN}
+component={WriteScreen}
+/>
+*/

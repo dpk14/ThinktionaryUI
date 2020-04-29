@@ -1,8 +1,10 @@
 import {Journal} from "../../../structs/Journal";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
-import {AsyncStorage} from "react-native-web";
-import {USER_KEY} from "../../../../assets/config";
+import {AsyncStorage} from "react-native";
+import {JOURNAL_KEY, USER_KEY} from "../../../../assets/config";
+import {NavigationActions} from "react-navigation";
+import JSONParser from "../../../../requestHandler/Utils/JSONParser";
 
 export function parseOrAlert(parser=undefined, params) {
     return (response, exceptionThrown) =>{
@@ -16,9 +18,14 @@ export function parseOrAlert(parser=undefined, params) {
 }
 
 export function _onLogin(navigation) {
-    return (journal) =>{
+    return (journal) => {
+        console.log(journal)
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
-        AsyncStorage.setItem(USER_KEY, journal.username)
+        /*
+        navigation.navigate(ScreenNames.APP_NAVIGATION, {},
+                NavigationActions.navigate({routeName: ScreenNames.WRITE_SCREEN, params: {journal : journal}}))
+        */
+        //AsyncStorage.setItem(USER_KEY, journal.username)
     }
 }
 

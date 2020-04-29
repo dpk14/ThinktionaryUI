@@ -15,7 +15,7 @@ const CREATED = "myCreated"
 
 export default class Request{
 
-    constructor(url, type, json, hasReturn, parser=()=>{}) {
+    constructor(url, type, json, hasReturn, parser=(value)=>{return value}) {
         this.url = url
         this.type = type
         this.json = json
