@@ -14,6 +14,8 @@ import LoginScreen from "./components/screens/base/AccountScreens/LoginScreen";
 import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccountScreen";
 import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
 import ReadScreen from "./components/screens/base/JournalScreens/ReadScreen";
+import {Image} from "react-native";
+//import {BackButton, BackButtonImage} from "./components/BackButtonImage";
 
 
 export default class App extends Component {
@@ -33,11 +35,15 @@ export default class App extends Component {
     render(){
         if (this.state.loading) return <AppLoading></AppLoading>
         let Stack = createStackNavigator()
+        let img = ()=>(<Image
+            style={{width : 20, height : 20, marginLeft : 10, shadowRadius: 5, shadowOpacity: .2}}
+            source={require("./assets/images/back_button.png")}/>)
         return (
             <NavigationContainer>
                 <Stack.Navigator screenOptions={{
                     headerTitle : "Thinktionary",
-                    headerBackTitle: false,
+                    headerBackTitle: " ",
+                    headerBackImage: img,
                     headerTransparent: true,
                     gestureResponseDistance : {horizontal : 600 },
                     headerTitleStyle: {
@@ -68,7 +74,6 @@ export default class App extends Component {
                     <Stack.Screen
                         name={ScreenNames.WRITE_SCREEN}
                         component={WriteScreen}
-                        options={{headerShown : false}}
                     />
                     <Stack.Screen
                         name={ScreenNames.READ_SCREEN}
