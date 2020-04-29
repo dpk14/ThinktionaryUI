@@ -32,7 +32,7 @@ class customButton extends Component {
             textWidth : 0};
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         await FontUtils.loadFonts()
         this.setState({loading: false})
     }
@@ -47,8 +47,7 @@ class customButton extends Component {
 
     //TODO: get views to LOCK in a width = to the width of the children
     render() {
-        if (this.loading) return null;
-        else {
+        if (this.state.loading) return (<View/>);
             const {text, onPress, scale, style} = this.props;
                 return (
                     <ButtonFrame
@@ -64,7 +63,6 @@ class customButton extends Component {
                     </ButtonFrame>
             );
         }
-    }
 
 }
 

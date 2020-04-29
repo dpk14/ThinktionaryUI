@@ -5,11 +5,19 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ScreenNames from "./navigation/ScreenNames";
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "./components/utils/FontUtils";
 import Initializer from "./controller/Initializer";
+import React, {Component} from "react";
 import Auth from "./controller/Auth";
 import Main from "./controller/Main";
-import React, {Component} from "react";
+
 
 export default class App extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading : true
+        }
+    }
 
     async componentWillMount() {
         await FontUtils.loadFonts()
@@ -20,7 +28,18 @@ export default class App extends Component {
         let Stack = createStackNavigator()
         return (
             <NavigationContainer>
-                <Stack.Navigator>
+                <Stack.Navigator screenOptions={{
+                    headerTitle : "Thinktionary",
+                    headerBackTitle: false,
+                    headerTransparent: true,
+                    gestureResponseDistance : {horizontal : 600 },
+                    headerTitleStyle: {
+                        color: '#FFFFFF',
+                        //fontFamily: HP_SIMPLIFIED_BOLD,
+                        shadowOffset: {height: 4},
+                        shadowRadius: 20,
+                        shadowOpacity: .5
+                    }}}>
                     <Stack.Screen
                         name={ScreenNames.INITIALIZER_SCREEN}
                         component={Initializer}
@@ -37,6 +56,7 @@ export default class App extends Component {
             </NavigationContainer>
         );
     }
+
 }
 
 

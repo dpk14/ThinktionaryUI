@@ -17,7 +17,7 @@ export default class Screen extends Component{
         }
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         await FontUtils.loadFonts()
         this.setState({loading : false})
     }
@@ -27,11 +27,10 @@ export default class Screen extends Component{
     }
 
     render() {
-        console.log(this.state.username)
             if(this.state.loading){
-                return null
+                return <AppLoading/>
             }
-            else return this.renderScreen()
+            return this.renderScreen()
         }
 
     renderScreen() {
@@ -53,7 +52,7 @@ export const baseStyles = StyleSheet.create({
         marginTop: 150,
         marginVertical: 30,
         color : '#FFFFFF',
-        fontFamily: HP_SIMPLIFIED_BOLD,
+        //fontFamily: HP_SIMPLIFIED_BOLD,
         shadowOffset: { height: 4},
         shadowRadius: 20,
         shadowOpacity: .5

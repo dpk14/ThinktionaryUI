@@ -5,7 +5,7 @@ export const HP_SIMPLIFIED_BOLD = "hp-simplified-bold";
 export default class FontUtils {
     static async loadFonts() {
         await Font.loadAsync({
-            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-bold.ttf'),
+            'hp-simplified-bold': require('../../assets/fonts/hp-simplified-556.ttf'),
             'hp-simplified': require('../../assets/fonts/hp-simplified.ttf'),
         });
     }

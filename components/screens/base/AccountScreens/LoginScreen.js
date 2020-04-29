@@ -16,9 +16,10 @@ export default class LoginScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-            loading : true,
-            username : '',
-            password : ''
+            ...this.state, ...{
+                username: '',
+                password: '',
+            }
         }
     }
 

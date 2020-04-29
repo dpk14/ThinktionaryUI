@@ -13,35 +13,42 @@ import NewAccountScreen from "../components/screens/base/AccountScreens/NewAccou
 import WriteScreen from "../components/screens/base/JournalScreens/WriteScreen";
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "../components/utils/FontUtils";
 import ReadScreen from "../components/screens/base/JournalScreens/ReadScreen";
+import {screenOptions} from "../App";
+import AppLoading from "expo/build/launch/AppLoading";
 
 //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
 
-export default class App extends Component {
+export default class Main extends Component {
 
-    async componentWillMount() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading : true
+        }
+    }
+
+    async componentDidMount() {
         await FontUtils.loadFonts()
         this.setState({loading : false})
     }
 
     render(){
+        if(this.state.loading) return <AppLoading></AppLoading>
         let Stack = createStackNavigator()
-
     return (
-        <NavigationContainer>
           <Stack.Navigator
               screenOptions={{
                   headerTitle : "Thinktionary",
                   headerBackTitle: false,
                   headerTransparent: true,
                   gestureResponseDistance : {horizontal : 600 },
-              headerTitleStyle: {
-                  color : '#FFFFFF',
-                  fontFamily: HP_SIMPLIFIED_BOLD,
-                  shadowOffset: { height: 4},
+                  headerTitleStyle: {
+                  color: '#FFFFFF',
+                  //fontFamily: HP_SIMPLIFIED_BOLD,
+                  shadowOffset: {height: 4},
                   shadowRadius: 20,
                   shadowOpacity: .5
-              },
-              }}
+              }}}
               >
               <Stack.Screen
                   name={ScreenNames.WRITE_SCREEN}
@@ -52,7 +59,6 @@ export default class App extends Component {
                   component={ReadScreen}
               />
           </Stack.Navigator>
-        </NavigationContainer>
     );
   }
 }
