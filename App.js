@@ -15,7 +15,9 @@ import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccoun
 import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
 import ReadScreen from "./components/screens/base/JournalScreens/ReadScreen";
 import {Image} from "react-native";
-//import {BackButton, BackButtonImage} from "./components/BackButtonImage";
+//import {BackButton, {BackButtonImage} from "./components/BackButtonImage";
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
+
 export default class App extends Component {
 
     constructor(props) {
@@ -32,13 +34,13 @@ export default class App extends Component {
 
     render(){
         if (this.state.loading) return <AppLoading></AppLoading>
-        let Stack = createStackNavigator()
+        let Tab = createMaterialTopTabNavigator()
         let img = ()=>(<Image
             style={{width : 20, height : 20, marginLeft : 10, shadowRadius: 5, shadowOpacity: .2}}
             source={require("./assets/images/back_button.png")}/>)
         return (
             <NavigationContainer>
-                <Stack.Navigator screenOptions={{
+                <Tab.Navigator screenOptions={{
                     headerTitle : "Thinktionary",
                     headerBackTitle: " ",
                     headerBackImage: img,
@@ -49,37 +51,36 @@ export default class App extends Component {
                     fontFamily: HP_SIMPLIFIED_BOLD,
                     shadowOffset: {height: 4},
                     shadowRadius: 20,
-                    shadowOpacity: .5,
+                    shadowOpacity: .5
                 }}}>
-                    <Stack.Screen
+                    <Tab.Screen
                         name={ScreenNames.INITIALIZER_SCREEN}
                         component={Initializer}
                         options={{headerShown : false}}
                     />
-                    <Stack.Screen
+                    <Tab.Screen
                         name={ScreenNames.HOME_SCREEN}
                         component={HomeScreen}
                         options={{headerShown : false}}
                     />
-                    <Stack.Screen
+                    <Tab.Screen
                         name={ScreenNames.LOGIN_SCREEN}
                         component={LoginScreen}
                     />
-                    <Stack.Screen
+                    <Tab.Screen
                         name={ScreenNames.NEW_ACCT_SCREEN}
                         component={NewAccountScreen}
                     />
-                    <Stack.Screen
+                    <Tab.Screen
                         name={ScreenNames.WRITE_SCREEN}
                         component={WriteScreen}
-                        options={{}}
                     />
-                    <Stack.Screen
+                    <Tab.Screen
                         name={ScreenNames.READ_SCREEN}
                         component={ReadScreen}
                         options={{headerShown : false}}
                     />
-                </Stack.Navigator>
+                </Tab.Navigator>
             </NavigationContainer>
         );
     }
