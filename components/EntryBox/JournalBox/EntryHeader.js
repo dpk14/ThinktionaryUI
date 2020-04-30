@@ -102,7 +102,7 @@ export default class EntryHeader extends Component{
                     </View>
                     <View style = {entryHeaderStyle.rightFrame}>
                         <CustomButtonImg
-                            source = {require("../../../assets/images/pencil.png")}
+                            source = {require("../../../assets/images/pencil1.png")}
                             scale = {_scale(.8, scale)}
                             style = {{borderRadius : 5, alignItems:"flex-start"}}
                             imageStyle={{width : 20, height : 20}}

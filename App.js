@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+
 import ScreenNames from "./navigation/ScreenNames";
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "./components/utils/FontUtils";
 import Initializer from "./controller/Initializer";
@@ -15,8 +16,10 @@ import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccoun
 import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
 import ReadScreen from "./components/screens/base/JournalScreens/ReadScreen";
 import {Image} from "react-native";
-//import {BackButton, {BackButtonImage} from "./components/BackButtonImage";
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
+import BackButtonImg from "./components/Buttons/HeaderButtons/BackButtonImg";
+import WriteBackButton from "./components/Buttons/HeaderButtons/WriteBackButton";
+//import {BackButton, BackButtonImage} from "./components/BackButtonImage";
+
 
 export default class App extends Component {
 
@@ -34,16 +37,13 @@ export default class App extends Component {
 
     render(){
         if (this.state.loading) return <AppLoading></AppLoading>
-        let Tab = createMaterialTopTabNavigator()
-        let img = ()=>(<Image
-            style={{width : 20, height : 20, marginLeft : 10, shadowRadius: 5, shadowOpacity: .2}}
-            source={require("./assets/images/back_button.png")}/>)
+        let Stack = createStackNavigator()
         return (
             <NavigationContainer>
-                <Tab.Navigator screenOptions={{
+                <Stack.Navigator screenOptions={{
                     headerTitle : "Thinktionary",
                     headerBackTitle: " ",
-                    headerBackImage: img,
+                    headerBackImage: ()=>{return <BackButtonImg/>},
                     headerTransparent: true,
                     gestureResponseDistance : {horizontal : 600 },
                     headerTitleStyle: {
@@ -53,34 +53,34 @@ export default class App extends Component {
                     shadowRadius: 20,
                     shadowOpacity: .5
                 }}}>
-                    <Tab.Screen
+                    <Stack.Screen
                         name={ScreenNames.INITIALIZER_SCREEN}
                         component={Initializer}
                         options={{headerShown : false}}
                     />
-                    <Tab.Screen
+                    <Stack.Screen
                         name={ScreenNames.HOME_SCREEN}
                         component={HomeScreen}
                         options={{headerShown : false}}
                     />
-                    <Tab.Screen
+                    <Stack.Screen
                         name={ScreenNames.LOGIN_SCREEN}
                         component={LoginScreen}
                     />
-                    <Tab.Screen
+                    <Stack.Screen
                         name={ScreenNames.NEW_ACCT_SCREEN}
                         component={NewAccountScreen}
                     />
-                    <Tab.Screen
+                    <Stack.Screen
                         name={ScreenNames.WRITE_SCREEN}
                         component={WriteScreen}
                     />
-                    <Tab.Screen
+                    <Stack.Screen
                         name={ScreenNames.READ_SCREEN}
                         component={ReadScreen}
-                        options={{headerShown : false}}
+                        options={{headerBackImage : ()=> {return <WriteBackButton/>}}}
                     />
-                </Tab.Navigator>
+                </Stack.Navigator>
             </NavigationContainer>
         );
     }

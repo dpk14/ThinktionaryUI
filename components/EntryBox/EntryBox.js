@@ -195,6 +195,7 @@ export const Styles = StyleSheet.create({
     },
     titleStyles: {
         position: 'absolute',
+        flexWrap : 'wrap',
         fontFamily: HP_SIMPLIFIED_BOLD,
         fontWeight: '300',
         lineHeight: 24,
