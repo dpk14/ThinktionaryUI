@@ -24,6 +24,14 @@ export default class LoginScreen extends Screen {
         }
     }
 
+    async componentDidMount() {
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=> this.setState({loading : false}))
+    }
+
+    componentWillUnmount() {
+        this._focusUnsubscribe()
+    }
+
     renderScreen() {
         return (
             <StyledBase>
@@ -48,8 +56,8 @@ export default class LoginScreen extends Screen {
                         style={{width : 150, marginTop : 8}}
                         disabled={this.state.loading}
                         onPress={() => {
-                            this.setState({loading : true})
-                            new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation));
+                            new Login(this.state.username, this.state.password).fetchAndExecute([
+                                _onLogin(this.props.navigation), ()=>this.setState({loading: true})]);
                         }}
                     />
                 </StyledBase>)

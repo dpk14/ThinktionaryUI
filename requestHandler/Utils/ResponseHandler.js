@@ -3,10 +3,10 @@ import FetchError from "../ErrorHandling/FetchError";
 export default class responseHandler {
 
     static checkStatusOk(response) {
-        if (response.ok) {
-            return response;
-        } else {
+        if (!response.ok) {
             throw new FetchError(response.statusText, response.status, response);
+        } else {
+            return response;
         }
     }
 

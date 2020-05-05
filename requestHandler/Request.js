@@ -62,15 +62,12 @@ export default class Request{
         }
             return fetch(url, init)
                 .then(response => {
-                    return ResponseHandler.checkStatusOk(response)
-                })
-                .then(checkedResponse => {
+                    let checkedResponse = ResponseHandler.checkStatusOk(response)
                     this.translateBody(checkedResponse, callBack)
                 })
                 .catch(e => {
-                        this.translateException(e, errorHandler);
+                    this.translateException(e, errorHandler);
                 })
-
         }
 
     fetchAndExecute(callBack=(parsedResponse)=>{}, params={}){
