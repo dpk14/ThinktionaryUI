@@ -11,6 +11,8 @@ import ReadScreen from "../ReadScreen";
 import WriteBackButtonImg from "../../../../Buttons/HeaderButtons/Images/WriteBackButtonImg";
 import {createStackNavigator} from "@react-navigation/stack";
 import {HEADER_STYLES} from "../../../../utils/baseStyles";
+import {WriteBackButton} from "../../../../Buttons/HeaderButtons/Buttons/WriteBackButton";
+import {ReadFwdButton} from "../../../../Buttons/HeaderButtons/Buttons/ReadFwdButton";
 
 
 export default class WriteScreenFrame extends Component{
@@ -21,7 +23,8 @@ export default class WriteScreenFrame extends Component{
 
     render() {
         let Stack = createStackNavigator()
-        return (<Stack.Navigator screenOptions={HEADER_STYLES}>
+        return (<Stack.Navigator screenOptions={{...HEADER_STYLES,
+            ...{headerRight : ()=><ReadFwdButton navigation={this.props.navigation}/>}}}>
             <Stack.Screen
                 name={ScreenNames.WRITE_SCREEN}
                 component={WriteScreen}

@@ -3,7 +3,8 @@ import React, {Component} from "react"
 import {TouchableOpacity, View} from "react-native";
 import WriteBackButtonImg from "../Images/WriteBackButtonImg";
 import screenNames from "../../../../navigation/ScreenNames";
-export class WriteBackButton extends Component {
+import ReadFwdImg from "../Images/ReadFwdImg";
+export class ReadFwdButton extends Component {
 
     static propTypes = {
         navigation : object.isRequired
@@ -15,9 +16,9 @@ export class WriteBackButton extends Component {
 
     render() {
         return(
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate(screenNames.WRITE_SCREEN)}
-                    style={{flex : 1}}>
-                <WriteBackButtonImg/>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate(screenNames.READ_SCREEN)}
+                              style={{flex : 1}}>
+                <ReadFwdImg/>
             </TouchableOpacity>
         )
 

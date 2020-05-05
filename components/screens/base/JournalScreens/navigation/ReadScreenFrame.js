@@ -20,7 +20,6 @@ export default class ReadScreenFrame extends Component{
             <Stack.Screen
                 name={ScreenNames.READ_SCREEN}
                 component={ReadScreen}
-                //options={{headerLeft : ()=><WriteBackButton navigation={this.props.navigation}/>}}
             />
         </Stack.Navigator>)
     }
