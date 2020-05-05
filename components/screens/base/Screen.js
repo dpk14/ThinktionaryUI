@@ -13,13 +13,13 @@ export default class Screen extends Component{
         super(props);
 
         this.state = {
-            loading: true,
+            fontLoading: true,
         }
     }
 
     async componentWillMount() {
         await FontUtils.loadFonts()
-        this.setState({loading : false})
+        this.setState({fontLoading : false})
     }
 
     _updateMasterState = (attrName, value) => {
@@ -27,7 +27,7 @@ export default class Screen extends Component{
     }
 
     render() {
-            if(this.state.loading){
+            if(this.state.fontLoading){
                 return <AppLoading/>
             }
             return this.renderScreen()

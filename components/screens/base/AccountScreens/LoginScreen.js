@@ -19,6 +19,7 @@ export default class LoginScreen extends Screen {
             ...this.state, ...{
                 username: '',
                 password: '',
+                loading: false,
             }
         }
     }
@@ -45,7 +46,9 @@ export default class LoginScreen extends Screen {
                     <CustomButton
                         text="Login"
                         style={{width : 150, marginTop : 8}}
+                        disabled={this.state.loading}
                         onPress={() => {
+                            this.setState({loading : true})
                             new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation));
                         }}
                     />

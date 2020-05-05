@@ -30,8 +30,6 @@ export function _onLogin(navigation) {
             routes: [{ name: ScreenNames.APP_NAVIGATION } ]
         })
         navigation.navigate(ScreenNames.APP_NAVIGATION)
-        //navigation.navigate(ScreenNames.APP_NAVIGATION, {screen : ScreenNames.WRITE_SCREEN, params: {journal : journal}})
-        //AsyncStorage.setItem(USER_KEY, journal.username)
     }
 }
 

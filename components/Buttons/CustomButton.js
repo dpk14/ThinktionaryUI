@@ -15,12 +15,14 @@ class customButton extends Component {
         fontSize: PropTypes.number,
         scale: PropTypes.number,
         style : PropTypes.object,
+        disabled : PropTypes.bool
     }
 
     static defaultProps = {
         fontSize : 25,
         scale: 1,
-        style : {}
+        style : {},
+        disabled : false,
     }
 
     constructor(props) {
@@ -45,12 +47,14 @@ class customButton extends Component {
     //TODO: get views to LOCK in a width = to the width of the children
     render() {
         if (this.state.loading) return (<View/>);
-            const {text, onPress, scale, style} = this.props;
+            const {text, onPress, scale, style, disabled} = this.props;
                 return (
                     <ButtonFrame
                         onPress={onPress}
                         scale={scale}
-                        style={style}>
+                        style={style}
+                        disabled={disabled}
+                    >
                             <Text
                                 onLayout = {this.props.onLayout}
                                     style={[styles.textStyle, this.getFontSpecs()]}

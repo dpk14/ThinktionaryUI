@@ -12,13 +12,17 @@ import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";
 import {_onLogin, parseOrAlert} from "../functions/callBacks";
 
+let USERNAME_MIN_LENGTH = 1
+let PASSWORD_MIN_LENGTH = 6
+
 export default class NewAccountScreen extends Screen {
 
     constructor(props) {
         super(props);
         this.state = {
             username : '',
-            password : ''
+            password : '',
+            loading : false,
         }
     }
 
@@ -27,6 +31,23 @@ export default class NewAccountScreen extends Screen {
             alert(response);
         } else {
             new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation))
+        }
+    }
+
+    createAccount(username, password) {
+        if (this.validateInfo(username, password)) new makeAccount(username, password).fetchAndExecute(this._onButtonClick);
+    }
+
+    validateInfo(username, password){
+        let messages = []
+        if (username.length < 1) messages.push("Username cannot be empty")
+        if (password.length < PASSWORD_MIN_LENGTH) messages.push("Password must exceed " + (PASSWORD_MIN_LENGTH - 1).toString() + " characters")
+        if(messages.length == 0) return true
+        else {
+            let message = ""
+            messages.forEach((msg) => message+=msg + "\n")
+            alert(message)
+            return false
         }
     }
 
@@ -51,12 +72,14 @@ export default class NewAccountScreen extends Screen {
                     />
                     <CustomButton
                         text="Create Account"
+                        disabled={this.state.loading}
                         style={{
                             marginTop : 8,
                             width : 220
                         }}
                         onPress={() => {
-                            new makeAccount(this.state.username, this.state.password).fetchAndExecute(this._onButtonClick);
+                            this.setState({loading : true})
+                            this.createAccount(this.state.username, this.state.password)
                         }}
                     />
             </StyledBase>

@@ -29,7 +29,6 @@ export default class JournalScreen extends Component{
                     <Tab.Screen
                         name={ScreenNames.READ_SCREEN_FRAME}
                         component={ReadScreenFrame}
-                        //options={{headerBackImage : ()=> {return <WriteBackButtonImg/>}}}
                         />
             </Tab.Navigator>)
         }

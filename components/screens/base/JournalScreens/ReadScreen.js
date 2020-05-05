@@ -96,7 +96,7 @@ export default class ReadScreen extends Screen {
     }
 
     render() {
-        if (this.state.loading || this.state.journalLoading) return <AppLoading/>
+        if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
         let journalTitle = this._getJournalTitle()
         let {navigation} = this.props
         let {journal, topics, activeTopics, entries, activeEntries, searched, loading, journalLoading} = this.state

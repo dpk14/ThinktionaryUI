@@ -138,7 +138,7 @@ export default class WriteScreen extends Screen {
     }
 
     render() {
-        if (this.state.loading || this.state.journalLoading) return <AppLoading/>
+        if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
         return (
                 <StyledBase>
                     <View style = {newStyles.outerFrame}>
