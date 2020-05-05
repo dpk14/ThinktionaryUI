@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StyleSheet, Text, View, Image } from 'react-native';
 import { string, func, object, number, bool } from 'prop-types';
 import {HEADER_HEIGHT} from "../utils/scaling";
-import BackButtonImg from "../Buttons/HeaderButtons/BackButtonImg";
+import BackButtonImg from "../Buttons/HeaderButtons/Images/BackButtonImg";
 import {HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
 
 export class Header extends Component{

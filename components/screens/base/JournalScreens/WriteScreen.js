@@ -248,6 +248,7 @@ export const newStyles = StyleSheet.create({
         width : '100%',
     },
     outerFrame:{
+        marginTop : 60,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL
     }

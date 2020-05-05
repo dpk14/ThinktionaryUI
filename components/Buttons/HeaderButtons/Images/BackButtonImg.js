@@ -10,7 +10,7 @@ export default class BackButtonImg extends Component{
     render() {
         return(<Image
             style={{width : 20, height : 20, marginLeft : 10, shadowRadius: 5, shadowOpacity: .2}}
-            source={require("../../../assets/images/back_button.png")}/>)
+            source={require("../../../../assets/images/back_button.png")}/>)
     }
 
 

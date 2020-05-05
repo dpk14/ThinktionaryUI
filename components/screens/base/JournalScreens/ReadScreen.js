@@ -39,7 +39,6 @@ export default class ReadScreen extends Screen {
 
     async componentDidMount() {
         await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
-        //this.props.navigation.navigate(screenNames.APP_NAVIGATION)
         this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=>loginAndInitialize((journal) => this.setState(this.initialize(journal))))    }
 
     componentWillUnmount() {
@@ -158,6 +157,7 @@ export const readStyles = StyleSheet.create({
     rightFrame: {
     },
     outerFrame:{
+        marginTop : 60,
         height : getScreenHeight() - 70,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL,

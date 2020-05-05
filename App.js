@@ -16,9 +16,10 @@ import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccoun
 import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
 import ReadScreen from "./components/screens/base/JournalScreens/ReadScreen";
 import {Image} from "react-native";
-import BackButtonImg from "./components/Buttons/HeaderButtons/BackButtonImg";
-import WriteBackButton from "./components/Buttons/HeaderButtons/WriteBackButton";
-import JournalScreen from "./components/screens/base/JournalScreens/JournalScreen";
+import BackButtonImg from "./components/Buttons/HeaderButtons/Images/BackButtonImg";
+import WriteBackButtonImg from "./components/Buttons/HeaderButtons/Images/WriteBackButtonImg";
+import JournalScreen from "./components/screens/base/JournalScreens/navigation/JournalScreen";
+import {HEADER_STYLES} from "./components/utils/baseStyles";
 //import {BackButton, BackButtonImage} from "./components/BackButtonImage";
 
 
@@ -41,19 +42,7 @@ export default class App extends Component {
         let Stack = createStackNavigator()
         return (
             <NavigationContainer>
-                <Stack.Navigator screenOptions={{
-                    headerTitle : "Thinktionary",
-                    headerBackTitle: " ",
-                    headerBackImage: ()=>{return <BackButtonImg/>},
-                    headerTransparent: true,
-                    gestureResponseDistance : {horizontal : 600 },
-                    headerTitleStyle: {
-                    color: '#FFFFFF',
-                    fontFamily: HP_SIMPLIFIED_BOLD,
-                    shadowOffset: {height: 4},
-                    shadowRadius: 20,
-                    shadowOpacity: .5
-                }}}>
+                <Stack.Navigator screenOptions={HEADER_STYLES}>
                     <Stack.Screen
                         name={ScreenNames.INITIALIZER_SCREEN}
                         component={Initializer}
@@ -88,7 +77,7 @@ export default class App extends Component {
 <Stack.Screen
     name={ScreenNames.READ_SCREEN}
     component={ReadScreen}
-    options={{headerBackImage : ()=> {return <WriteBackButton/>}}}
+    options={{headerBackImage : ()=> {return <WriteBackButtonImg/>}}}
 />
 */
 
