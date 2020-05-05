@@ -62,6 +62,7 @@ export default class Auth extends Component {
                 <Stack.Screen
                     name={ScreenNames.NEW_ACCT_SCREEN}
                     component={NewAccountScreen}
+                    options={{headerShown: false}}
                 />
             </Stack.Navigator>
         );

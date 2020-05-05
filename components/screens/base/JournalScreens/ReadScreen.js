@@ -5,16 +5,12 @@ import {TOPIC_HEIGHT} from "../../../strings";
 import React from "react";
 import StyledBase from "../StyledBase";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
-import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
 import {getScreenHeight, getScreenWidth} from "../../../utils/scaling";
 import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
-import {AsyncStorage} from "react-native"
-import {JOURNAL_KEY, PWD, USER_KEY} from "../../../../assets/config";
-import {initialize} from "expo/build/Payments";
 import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
-import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {loginAndInitialize} from "../functions/callBacks";
+import {Header} from "../../../Headers/Header";
 
 let MARGIN_HORIZONTAL = 15
 export default class ReadScreen extends Screen {
@@ -43,6 +39,7 @@ export default class ReadScreen extends Screen {
 
     async componentDidMount() {
         await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
+        //this.props.navigation.navigate(screenNames.APP_NAVIGATION)
         this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=>loginAndInitialize((journal) => this.setState(this.initialize(journal))))    }
 
     componentWillUnmount() {
@@ -161,7 +158,6 @@ export const readStyles = StyleSheet.create({
     rightFrame: {
     },
     outerFrame:{
-        marginTop : 60,
         height : getScreenHeight() - 70,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL,

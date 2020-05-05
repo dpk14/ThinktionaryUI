@@ -19,7 +19,7 @@ export default class JournalScreen extends Component{
 
     render() {
         let Tab = createMaterialTopTabNavigator()
-        return (<Tab.Navigator>
+        return (<Tab.Navigator tabBar = {()=><View/>}>
                     <Tab.Screen
                         name={ScreenNames.WRITE_SCREEN}
                         component={WriteScreen}

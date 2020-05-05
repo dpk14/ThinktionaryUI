@@ -75,6 +75,7 @@ export default class App extends Component {
                     <Stack.Screen
                         name={ScreenNames.APP_NAVIGATION}
                         component={JournalScreen}
+                        options={{headerShown : false}}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

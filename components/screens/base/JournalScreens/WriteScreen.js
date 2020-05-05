@@ -29,6 +29,7 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import {AsyncStorage} from "react-native"
 import {JOURNAL_KEY, PWD, USER_KEY} from "../../../../assets/config";
 import AppLoading from "expo/build/launch/AppLoading";
+import {Header} from "../../../Headers/Header";
 
 const MARGIN_HORIZONTAL = 15
 
@@ -76,21 +77,6 @@ export default class WriteScreen extends Screen {
             activeTopics: new Set()
         }
     }
-
-    async loginAndInitialize(){
-        try {
-            let username = await AsyncStorage.getItem(USER_KEY)
-            let pwd = await AsyncStorage.getItem(PWD)
-            if(username == null || pwd == null) alert("error loading async user info")
-            new Login(username, pwd).
-            fetchAndExecute((journal) => this.setState(this.initialize(journal)))
-        }
-        catch(e){
-            alert("Could not retrieve user data")
-            console.warn(e)
-        }
-    }
-
 
     async componentDidMount() {
         this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
@@ -262,7 +248,6 @@ export const newStyles = StyleSheet.create({
         width : '100%',
     },
     outerFrame:{
-        marginTop : 60,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL
     }
