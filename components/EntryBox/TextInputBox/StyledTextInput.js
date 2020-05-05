@@ -151,7 +151,8 @@ export default class StyledTextInput extends Component {
                 {...this.props.otherTextInputProps}
                     onKeyPress = {setOrDefault(onKeyPress, StyledTextInput.defaultProps.onKeyPress, this._onKeyPress)}
                     onSubmitEditing = {setOrDefault(onSubmitEditing, StyledTextInput.defaultProps.onSubmitEditing, this._onSubmitEditing) }
-                    autoCompleteType = {false}
+                    autoCorrect = {false}
+                    spellCheck = {true}
                 />)
             }
 }

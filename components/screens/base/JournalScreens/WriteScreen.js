@@ -140,13 +140,6 @@ export default class WriteScreen extends Screen {
     render() {
         if (this.state.loading || this.state.journalLoading) return <AppLoading/>
         return (
-            <GestureRecognizer
-                onSwipeLeft={(state) => {
-                    _onSubmit(this.props.navigation)(this.state.journal)
-                }}
-                style = {{width: "100%", height: "100%", flex : 1}}
-                config={{directionalOffsetThreshold:50000}}
-            >
                 <StyledBase>
                     <View style = {newStyles.outerFrame}>
                         <View style = {newStyles.topFrame}>
@@ -222,7 +215,6 @@ export default class WriteScreen extends Screen {
                         </View>
                     </View>
                 </StyledBase>
-            </GestureRecognizer>
             );
         }
 }
