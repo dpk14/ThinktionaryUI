@@ -150,7 +150,6 @@ export default class WriteScreen extends Screen {
                                 updateMasterState={this._updateMasterState}
                                 scale = {0.75}
                                 width = '100%'
-                                //width= '48.5%'
                                 />
                             <StyledInputBox
                                 attrName='text'
@@ -220,19 +219,9 @@ export default class WriteScreen extends Screen {
 }
 
 export const newStyles = StyleSheet.create({
-    /*
-    topFrame: {
-        flex: 1,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        position: 'relative'
-    },
-    */
     bottomFrame: {
-        //flex: 1,
         marginTop : 7.5,
         justifyContent: 'space-between',
-        //alignItems: 'center',
         flexDirection: 'row',
         width : '100%'
     },

@@ -64,13 +64,14 @@ class customButton extends Component {
         if (this.loading) return null;
         else {
 
-            const {onPress} = this.props;
+            const {onPress, style, disabled} = this.props;
             return (
                 <ScalingView
                     style = {[styles.container, this.customContainerStyles()]}>
                     <TouchableOpacity
-                        style={[styles.buttonStyle, this.getButtonStyles(), this.props.style]}
+                        style={[styles.buttonStyle, this.getButtonStyles(), style]}
                         onPress={() => onPress()}
+                        disabled={disabled}
                     >
                         {this.props.children}
                     </TouchableOpacity>

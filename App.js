@@ -51,7 +51,7 @@ export default class App extends Component {
                     <Stack.Screen
                         name={ScreenNames.HOME_SCREEN}
                         component={HomeScreen}
-                        options={{headerShown : false}}
+                        options={{headerShown : false, gestureEnabled : false}}
                     />
                     <Stack.Screen
                         name={ScreenNames.LOGIN_SCREEN}
