@@ -9,6 +9,12 @@ import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
 import {getScreenHeight, getScreenWidth} from "../../../utils/scaling";
 import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
+import {AsyncStorage} from "react-native"
+import {JOURNAL_KEY, PWD, USER_KEY} from "../../../../assets/config";
+import {initialize} from "expo/build/Payments";
+import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
+import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
+import {loginAndInitialize} from "../functions/callBacks";
 
 let MARGIN_HORIZONTAL = 15
 export default class ReadScreen extends Screen {
@@ -19,27 +25,25 @@ export default class ReadScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-            ...this.state, ...this.initialize()
+            ...this.state, ...{journalLoading : true}
         }
     }
 
-    initialize(){
-        let {journal} = this.props.route.params
+    initialize(journal){
         return {
             activeTopics : new Set(),
             journal : journal,
             entries : journal.entries,
             activeEntries : journal.entries,
             topics : journal.topics,
-            searched : ''
+            searched : '',
+            journalLoading : false,
         }
     }
 
-    componentDidMount() {
-        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
-            this.setState(this.initialize())
-        });
-    }
+    async componentDidMount() {
+        await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=>loginAndInitialize((journal) => this.setState(this.initialize(journal))))    }
 
     componentWillUnmount() {
         this._focusUnsubscribe()
@@ -96,9 +100,10 @@ export default class ReadScreen extends Screen {
     }
 
     render() {
+        if (this.state.loading || this.state.journalLoading) return <AppLoading/>
         let journalTitle = this._getJournalTitle()
         let {navigation} = this.props
-        let {journal, topics, activeTopics, entries, activeEntries, searched} = this.state
+        let {journal, topics, activeTopics, entries, activeEntries, searched, loading, journalLoading} = this.state
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>

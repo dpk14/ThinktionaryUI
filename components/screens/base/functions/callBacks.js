@@ -1,10 +1,8 @@
 import {Journal} from "../../../structs/Journal";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
-import {AsyncStorage} from "react-native";
-import {JOURNAL_KEY, USER_KEY} from "../../../../assets/config";
-import {NavigationActions} from "react-navigation";
-import JSONParser from "../../../../requestHandler/Utils/JSONParser";
+import {AsyncStorage} from "react-native"
+import {JOURNAL_KEY, PWD, USER_KEY} from "../../../../assets/config";
 
 export function parseOrAlert(parser=undefined, params) {
     return (response, exceptionThrown) =>{
@@ -18,14 +16,36 @@ export function parseOrAlert(parser=undefined, params) {
 }
 
 export function _onLogin(navigation) {
-    return (journal) => {
+    return async (journal) => {
+        try {
+            await AsyncStorage.setItem(USER_KEY, journal.username)
+            await AsyncStorage.setItem(PWD, journal.password)
+        }
+        catch(e){
+            alert("Async error: could not log username and password")
+            console.error(e)
+        }
         navigation.reset({
             index: 0,
-            routes: [{ name: ScreenNames.WRITE_SCREEN, params : {journal : journal}} ]
+            routes: [{ name: ScreenNames.APP_NAVIGATION } ]
         })
-        navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal})
+        navigation.navigate(ScreenNames.APP_NAVIGATION)
         //navigation.navigate(ScreenNames.APP_NAVIGATION, {screen : ScreenNames.WRITE_SCREEN, params: {journal : journal}})
         //AsyncStorage.setItem(USER_KEY, journal.username)
+    }
+}
+
+export async function loginAndInitialize(callBack){
+    try {
+        let username = await AsyncStorage.getItem(USER_KEY)
+        let pwd = await AsyncStorage.getItem(PWD)
+        if(username == null || pwd == null) alert("error loading async user info")
+        new Login(username, pwd).
+        fetchAndExecute((journal) => callBack(journal))
+    }
+    catch(e){
+        alert("Could not retrieve user data")
+        console.warn(e)
     }
 }
 
@@ -42,7 +62,7 @@ export function _onCreate(setEntryID){
 }
 
 export function reloadJournalAndInitialize(props, initializer){
-    let {username, password} = props.route.params.journal
+    let {username, password} = props.journal
     new Login(username, password).
     fetchAndExecute(
         [(journal) => props.navigation.setParams({
@@ -50,4 +70,3 @@ export function reloadJournalAndInitialize(props, initializer){
         }), initializer]
     )
 }
-

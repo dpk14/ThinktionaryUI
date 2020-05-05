@@ -18,6 +18,7 @@ import ReadScreen from "./components/screens/base/JournalScreens/ReadScreen";
 import {Image} from "react-native";
 import BackButtonImg from "./components/Buttons/HeaderButtons/BackButtonImg";
 import WriteBackButton from "./components/Buttons/HeaderButtons/WriteBackButton";
+import JournalScreen from "./components/screens/base/JournalScreens/JournalScreen";
 //import {BackButton, BackButtonImage} from "./components/BackButtonImage";
 
 
@@ -72,13 +73,8 @@ export default class App extends Component {
                         component={NewAccountScreen}
                     />
                     <Stack.Screen
-                        name={ScreenNames.WRITE_SCREEN}
-                        component={WriteScreen}
-                    />
-                    <Stack.Screen
-                        name={ScreenNames.READ_SCREEN}
-                        component={ReadScreen}
-                        options={{headerBackImage : ()=> {return <WriteBackButton/>}}}
+                        name={ScreenNames.APP_NAVIGATION}
+                        component={JournalScreen}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
@@ -86,6 +82,14 @@ export default class App extends Component {
     }
 
 }
+
+/*
+<Stack.Screen
+    name={ScreenNames.READ_SCREEN}
+    component={ReadScreen}
+    options={{headerBackImage : ()=> {return <WriteBackButton/>}}}
+/>
+*/
 
 /*
                     <Stack.Screen

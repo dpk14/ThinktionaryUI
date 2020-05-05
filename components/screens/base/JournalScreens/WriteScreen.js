@@ -12,13 +12,23 @@ import {TopicCreatorBox} from "../../../EntryBox/TopicBox/TopicCreatorBox";
 import StyledBase from "../StyledBase";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
 import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
-import {_onCreate, _onLogin, _onSubmit, parseOrAlert, reloadJournalAndInitialize} from "../functions/callBacks";
+import {
+    _onCreate,
+    _onLogin,
+    _onSubmit,
+    loginAndInitialize,
+    parseOrAlert,
+    reloadJournalAndInitialize
+} from "../functions/callBacks";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenWidth} from "../../../utils/scaling";
 import JSONParser from "../../../../requestHandler/Utils/JSONParser";
 import FontUtils from "../../../utils/FontUtils";
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import {AsyncStorage} from "react-native"
+import {JOURNAL_KEY, PWD, USER_KEY} from "../../../../assets/config";
+import AppLoading from "expo/build/launch/AppLoading";
 
 const MARGIN_HORIZONTAL = 15
 
@@ -27,13 +37,8 @@ export default class WriteScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-        ...this.state, ...this.initialize()
-        }
-    }
+        ...this.state, ...{journalLoading : true}}
 
-    async componentDidMount() {
-        await FontUtils.loadFonts()
-        this.setState({loading : false})
     }
 
     _updateMasterState = (attrName, value) => {
@@ -41,9 +46,10 @@ export default class WriteScreen extends Screen {
     }
 
 
-    initialize(){
-        let {entry, journal} = this.props.route.params
+    initialize(journal){
+        let entry = this.props.route.params == undefined ? undefined : this.props.route.params.entry
         return {
+            journal : journal,
             entry : entry == undefined ? undefined : entry,
             entryID : entry == undefined ? undefined : entry.entryID,
             title : entry == undefined ? '' : entry.title,
@@ -53,6 +59,7 @@ export default class WriteScreen extends Screen {
             topics : entry == undefined || entry.topics == null? new Set() : entry.topics,
             topicBank : journal.topics,
             activeTopics : new Set(),
+            journalLoading : false,
         }
     }
 
@@ -65,18 +72,32 @@ export default class WriteScreen extends Screen {
             date: '',
             currTopic: '',
             topics: new Set(),
-            topicBank : this.props.route.params.journal.topics,
+            topicBank : this.state.journal.topics,
             activeTopics: new Set()
         }
     }
 
-    componentDidMount() {
+    async loginAndInitialize(){
+        try {
+            let username = await AsyncStorage.getItem(USER_KEY)
+            let pwd = await AsyncStorage.getItem(PWD)
+            if(username == null || pwd == null) alert("error loading async user info")
+            new Login(username, pwd).
+            fetchAndExecute((journal) => this.setState(this.initialize(journal)))
+        }
+        catch(e){
+            alert("Could not retrieve user data")
+            console.warn(e)
+        }
+    }
+
+
+    async componentDidMount() {
         this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
             this.setState(this.clear())
         });
-        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
-            reloadJournalAndInitialize(this.props,() => this.setState(this.initialize()))
-        });
+        await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=>loginAndInitialize((journal) => this.setState(this.initialize(journal))))
     }
 
     componentWillUnmount() {
@@ -103,7 +124,7 @@ export default class WriteScreen extends Screen {
     createOrSave = (onSave=()=>{}) => {
         const {title, text, topics} = this.state
         this.state.entryID == undefined ?
-            new BuildEntry(this.props.route.params.journal.userID, title=='' ? "Untitled" : title, text, topics, undefined).
+            new BuildEntry(this.state.journal.userID, title=='' ? "Untitled" : title, text, topics, undefined).
             fetchAndExecute([_onCreate(this.setEntryID), onSave]) :
             this.save(onSave)
     }
@@ -114,12 +135,12 @@ export default class WriteScreen extends Screen {
 
     save = (onSave=()=>{}) => {
         const {title, text, date, topics} = this.state
-        new ModifyEntry(this.props.route.params.journal.userID, this.state.entryID, title=='' ? "Untitled" : title, text, topics).
+        new ModifyEntry(this.state.journal.userID, this.state.entryID, title=='' ? "Untitled" : title, text, topics).
         fetchAndExecute(onSave())
     }
 
     submit = () => {
-        let {username, password} = this.props.route.params.journal
+        let {username, password} = this.state.journal
         new Login(username, password).fetchAndExecute(_onSubmit(this.props.navigation))
     }
 
@@ -130,11 +151,12 @@ export default class WriteScreen extends Screen {
         this.setState({topics : newTopics})
     }
 
-    renderScreen() {
+    render() {
+        if (this.state.loading || this.state.journalLoading) return <AppLoading/>
         return (
             <GestureRecognizer
                 onSwipeLeft={(state) => {
-                    _onSubmit(this.props.navigation)(this.props.route.params.journal)
+                    _onSubmit(this.props.navigation)(this.state.journal)
                 }}
                 style = {{width: "100%", height: "100%", flex : 1}}
                 config={{directionalOffsetThreshold:50000}}
