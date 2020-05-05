@@ -2,17 +2,34 @@ import React, { Component } from 'react';
 import {StyleSheet, Text, View, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import CustomButton from "../../../Buttons/CustomButton";
-import ScreenNames from "../../../../navigation/ScreenNames"
+import screenNames from "../../../../navigation/ScreenNames"
 import {baseStyles} from "../Screen";
 import Screen from "../Screen"
 import StyledBase from "../StyledBase";
 import {CustomButtonImg} from "../../../Buttons/CustomButtonImg";
 import {_scale} from "../../../utils/scaling";
+import {loginAndInitialize} from "../functions/callBacks";
 
 export default class HomeScreen extends Screen{
 
     constructor(props) {
         super(props);
+        this.state = {
+            ...this.state, ...{loading : false}
+        }
+    }
+
+    async componentDidMount() {
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=> this.setState({loading : false}))
+    }
+
+    componentWillUnmount() {
+        this._focusUnsubscribe()
+    }
+
+    async navigateAndDisable(toScreen) {
+        this.setState({loading: true})
+        this.props.navigation.navigate(toScreen)
     }
 
     renderScreen() {
@@ -23,12 +40,14 @@ export default class HomeScreen extends Screen{
                             >
                             <CustomButton
                                 text="Create Account"
-                                onPress={() => this.props.navigation.navigate(ScreenNames.NEW_ACCT_SCREEN)}
+                                disabled = {this.state.loading}
+                                onPress={() => this.navigateAndDisable(screenNames.NEW_ACCT_SCREEN)}
                                 style = {{width : 220, marginTop : 20}}
                             />
                             <CustomButton
                                 text="Login"
-                                onPress={() => this.props.navigation.navigate(ScreenNames.LOGIN_SCREEN)}
+                                disabled = {this.state.loading}
+                                onPress={() => this.navigateAndDisable(screenNames.LOGIN_SCREEN)}
                                 style= {{width : 150, marginTop : 20}}
                             />
                         </View>
