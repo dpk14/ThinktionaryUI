@@ -26,16 +26,25 @@ export default class NewAccountScreen extends Screen {
         }
     }
 
-    _onButtonClick = (response, exceptionThrown) => {
-        if (exceptionThrown) {
-            alert(response);
-        } else {
-            new Login(this.state.username, this.state.password).fetchAndExecute(_onLogin(this.props.navigation))
-        }
+    async componentDidMount() {
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=> this.setState({loading : false}))
+    }
+
+    componentWillUnmount() {
+        this._focusUnsubscribe()
+    }
+
+    _onButtonClick = (navigation, username, password) => {
+        return () => new Login(username, password).fetchAndExecute(_onLogin(navigation))
     }
 
     createAccount(username, password) {
-        if (this.validateInfo(username, password)) new makeAccount(username, password).fetchAndExecute(this._onButtonClick);
+        if (this.validateInfo(username, password)) {
+            new makeAccount(username, password).fetchAndExecute(
+                this._onButtonClick(this.props.navigation, username, password), () => this.setState({loading: false}));
+        } else {
+            this.setState({loading: false})
+        }
     }
 
     validateInfo(username, password){

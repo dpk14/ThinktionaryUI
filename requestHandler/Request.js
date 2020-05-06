@@ -49,7 +49,11 @@ export default class Request{
         else request.send()
     }
 
-    request(url, type, json, hasReturn, callBack, errorHandler=(message)=>{alert(message)}){
+    request(url, type, json, hasReturn, callBack, errorCallBack, errorHandler){
+        errorCallBack = errorCallBack == undefined ? ()=>{} :
+                        Array.isArray(errorCallBack) ? ()=>errorCallBack.forEach((callBack) => callBack()) : errorCallBack
+        errorHandler = errorHandler == undefined ? (message)=>{alert(message); errorCallBack()} : ()=>{errorHandler(); errorCallBack()}
+
         let init = { method: type};
         if (hasReturn) {
             init.headers = {
@@ -70,8 +74,8 @@ export default class Request{
                 })
         }
 
-    fetchAndExecute(callBack=(parsedResponse)=>{}, params={}){
-        this.request(this.url, this.type, this.json, this.hasReturn, callBack);
+    fetchAndExecute(callBack=(parsedResponse)=>{}, errorCallBack=(parsedError)=>{}, errorHandler){
+        this.request(this.url, this.type, this.json, this.hasReturn, callBack, errorCallBack, errorHandler);
     }
 
     translateBody(response, callBack){
