@@ -20,16 +20,9 @@ import {
     parseOrAlert,
     reloadJournalAndInitialize
 } from "../functions/callBacks";
-import ScreenNames from "../../../../navigation/ScreenNames";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenWidth} from "../../../utils/scaling";
-import JSONParser from "../../../../requestHandler/Utils/JSONParser";
-import FontUtils from "../../../utils/FontUtils";
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-import {AsyncStorage} from "react-native"
-import {JOURNAL_KEY, PWD, USER_KEY} from "../../../../assets/config";
 import AppLoading from "expo/build/launch/AppLoading";
-import {Header} from "../../../Headers/Header";
 
 const MARGIN_HORIZONTAL = 15
 
