@@ -19,7 +19,7 @@ export default class ReadScreenDrawerFrame extends Component{
     render() {
         let Drawer = createDrawerNavigator()
         let {navigation} = this.props
-        return (<Drawer.Navigator drawerContent={<OptionsMenu navigation={navigation}/>}
+        return (<Drawer.Navigator drawerContent={()=><OptionsMenu navigation={navigation}/>}
                 >
             <Drawer.Screen
                 name={ScreenNames.READ_SCREEN_FRAME}

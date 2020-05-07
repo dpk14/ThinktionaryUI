@@ -33,6 +33,20 @@ export function _onLogin(navigation) {
     }
 }
 
+export function _onLogout(navigation){
+    return async ()=>{
+        navigation.navigate(ScreenNames.HOME_SCREEN)
+        try {
+            await AsyncStorage.removeItem(USER_KEY)
+            await AsyncStorage.removeItem(PWD)
+        }
+        catch(e){
+                alert("Async error: could not remove username and password")
+                console.error(e)
+            }
+    }
+}
+
 export async function loginAndInitialize(callBack){
     try {
         let username = await AsyncStorage.getItem(USER_KEY)

@@ -20,7 +20,7 @@ export default class WriteScreenDrawerFrame extends Component{
         let Drawer = createDrawerNavigator()
         let {navigation} = this.props
         return (<Drawer.Navigator
-            drawerContent={<OptionsMenu navigation={navigation}/>}
+            drawerContent={()=><OptionsMenu navigation={navigation}/>}
         >
             <Drawer.Screen
                 name={ScreenNames.WRITE_SCREEN_FRAME}
