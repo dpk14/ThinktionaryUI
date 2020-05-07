@@ -10,15 +10,15 @@ import React, {Component} from "react";
 import Auth from "./controller/Auth";
 import Main from "./controller/Main";
 import AppLoading from "expo/build/launch/AppLoading";
-import HomeScreen from "./components/screens/base/AccountScreens/HomeScreen";
-import LoginScreen from "./components/screens/base/AccountScreens/LoginScreen";
-import NewAccountScreen from "./components/screens/base/AccountScreens/NewAccountScreen";
+import HomeScreen from "./components/screens/base/AuthScreens/HomeScreen";
+import LoginScreen from "./components/screens/base/AuthScreens/LoginScreen";
+import NewAccountScreen from "./components/screens/base/AuthScreens/NewAccountScreen";
 import WriteScreen from "./components/screens/base/JournalScreens/WriteScreen";
 import ReadScreen from "./components/screens/base/JournalScreens/ReadScreen";
 import {Image} from "react-native";
 import BackButtonImg from "./components/Buttons/HeaderButtons/Images/BackButtonImg";
 import WriteBackButtonImg from "./components/Buttons/HeaderButtons/Images/WriteBackButtonImg";
-import JournalScreen from "./components/screens/base/JournalScreens/navigation/JournalScreen";
+import JournalTabScreen from "./components/screens/base/JournalScreens/navigation/JournalTabScreen";
 import {HEADER_STYLES} from "./components/utils/baseStyles";
 //import {BackButton, BackButtonImage} from "./components/BackButtonImage";
 
@@ -28,16 +28,16 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading : true
+            loading: true
         }
     }
 
     async componentWillMount() {
         await FontUtils.loadFonts()
-        this.setState({loading : false})
+        this.setState({loading: false})
     }
 
-    render(){
+    render() {
         if (this.state.loading) return <AppLoading></AppLoading>
         let Stack = createStackNavigator()
         return (
@@ -46,12 +46,12 @@ export default class App extends Component {
                     <Stack.Screen
                         name={ScreenNames.INITIALIZER_SCREEN}
                         component={Initializer}
-                        options={{headerShown : false}}
+                        options={{headerShown: false}}
                     />
                     <Stack.Screen
                         name={ScreenNames.HOME_SCREEN}
                         component={HomeScreen}
-                        options={{headerShown : false, gestureEnabled : false}}
+                        options={{headerShown: false, gestureEnabled: false}}
                     />
                     <Stack.Screen
                         name={ScreenNames.LOGIN_SCREEN}
@@ -63,51 +63,11 @@ export default class App extends Component {
                     />
                     <Stack.Screen
                         name={ScreenNames.APP_NAVIGATION}
-                        component={JournalScreen}
-                        options={{headerShown : false, gestureEnabled : false}}
+                        component={JournalTabScreen}
+                        options={{headerShown: false, gestureEnabled: false}}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
         );
     }
-
 }
-
-/*
-<Stack.Screen
-    name={ScreenNames.READ_SCREEN}
-    component={ReadScreen}
-    options={{headerBackImage : ()=> {return <WriteBackButtonImg/>}}}
-/>
-*/
-
-/*
-                    <Stack.Screen
-                        name={ScreenNames.AUTH_NAVIGATION}
-                        component={Auth}
-                    />
-                    <Stack.Screen
-                        name={ScreenNames.APP_NAVIGATION}
-                        component={Main}
-                    />
-
- */
-
-/*
-<Stack.Screen
-    name={ScreenNames.HOME_SCREEN}
-    component={HomeScreen}
-/>
-<Stack.Screen
-name={ScreenNames.LOGIN_SCREEN}
-component={LoginScreen}
-/>
-<Stack.Screen
-    name={ScreenNames.NEW_ACCT_SCREEN}
-    component={NewAccountScreen}
-/>
-<Stack.Screen
-name={ScreenNames.WRITE_SCREEN}
-component={WriteScreen}
-/>
-*/

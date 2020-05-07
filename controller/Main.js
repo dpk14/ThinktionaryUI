@@ -7,9 +7,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ScreenNames from "../navigation/ScreenNames";
 import * as Font from "expo-font";
 
-import HomeScreen from "../components/screens/base/AccountScreens/HomeScreen";
-import LoginScreen from "../components/screens/base/AccountScreens/LoginScreen";
-import NewAccountScreen from "../components/screens/base/AccountScreens/NewAccountScreen";
+import HomeScreen from "../components/screens/base/AuthScreens/HomeScreen";
+import LoginScreen from "../components/screens/base/AuthScreens/LoginScreen";
+import NewAccountScreen from "../components/screens/base/AuthScreens/NewAccountScreen";
 import WriteScreen from "../components/screens/base/JournalScreens/WriteScreen";
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "../components/utils/FontUtils";
 import ReadScreen from "../components/screens/base/JournalScreens/ReadScreen";

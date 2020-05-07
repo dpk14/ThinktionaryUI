@@ -8,8 +8,10 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import ScreenNames from "../../../../../navigation/ScreenNames";
 import WriteScreenFrame from "./WriteScreenFrame";
 import ReadScreenFrame from "./ReadScreenFrame";
+import WriteScreenDrawerFrame from "./WriteScreenDrawerFrame";
+import ReadScreenDrawerFrame from "./ReadScreenDrawerFrame";
 
-export default class JournalScreen extends Component{
+export default class JournalTabScreen extends Component{
 
     constructor(props) {
         super(props)
@@ -18,14 +20,14 @@ export default class JournalScreen extends Component{
     render() {
         const Tab = createMaterialTopTabNavigator()
         return (<Tab.Navigator tabBar = {()=><View/>}>
-            <Tab.Screen
-                name={ScreenNames.WRITE_SCREEN_FRAME}
-                component={WriteScreenFrame}
-            />
-            <Tab.Screen
-                name={ScreenNames.READ_SCREEN_FRAME}
-                component={ReadScreenFrame}
-            />
-        </Tab.Navigator>)
-    }
+                    <Tab.Screen
+                        name={ScreenNames.WRITE_SCREEN_DRAWER_FRAME}
+                        component={WriteScreenDrawerFrame}
+                    />
+                    <Tab.Screen
+                        name={ScreenNames.READ_SCREEN_DRAWER_FRAME}
+                        component={ReadScreenDrawerFrame}
+                        />
+            </Tab.Navigator>)
+        }
 }

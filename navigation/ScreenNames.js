@@ -9,4 +9,9 @@ export default class screenNames{
     static INITIALIZER_SCREEN = "loading";
     static AUTH_NAVIGATION = "Auth"
     static APP_NAVIGATION = "App"
+    static OPTIONS_MENU = "Options"
+    static OPTIONS_MENU_INTERIOR = "OptionsMenu";
+    static JOURNAL_TAB_SCREEN = "JournalTab";
+    static WRITE_SCREEN_DRAWER_FRAME = "WriteDrawer";
+    static READ_SCREEN_DRAWER_FRAME = "ReadDrawer";
 }
