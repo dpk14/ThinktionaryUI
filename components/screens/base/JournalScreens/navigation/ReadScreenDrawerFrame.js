@@ -8,6 +8,7 @@ import WriteBackButtonImg from "../../../../Buttons/HeaderButtons/Images/WriteBa
 import OptionButton from "../../../../Buttons/HeaderButtons/Buttons/OptionButton";
 import ReadScreenFrame from "./ReadScreenFrame";
 import {createDrawerNavigator} from "@react-navigation/drawer";
+import {OptionsMenu} from "../../Menu/OptionsMenu";
 
 export default class ReadScreenDrawerFrame extends Component{
 
@@ -18,7 +19,7 @@ export default class ReadScreenDrawerFrame extends Component{
     render() {
         let Drawer = createDrawerNavigator()
         let {navigation} = this.props
-        return (<Drawer.Navigator
+        return (<Drawer.Navigator drawerContent={<OptionsMenu navigation={navigation}/>}
                 >
             <Drawer.Screen
                 name={ScreenNames.READ_SCREEN_FRAME}
