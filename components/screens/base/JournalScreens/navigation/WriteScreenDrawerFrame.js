@@ -17,7 +17,6 @@ export default class WriteScreenDrawerFrame extends Component{
 
     render() {
         let Drawer = createDrawerNavigator()
-        let {navigation} = this.props
         return (<Drawer.Navigator
         >
             <Drawer.Screen

@@ -32,7 +32,7 @@ export class OptionsMenu extends Component{
         return (
             <View style={{flex: 1, backgroundColor: PURPLE, opacity: .9, marginTop: 30}}>
                 <TouchableOpacity style={{flex: 1}}
-                                  onPress={() => new Logout(username, pwd).fetchAndExecute(this.props.navigation.navigate(ScreenNames.AUTH_NAVIGATION))}>
+                                  onPress={() => new Logout(username, pwd).fetchAndExecute(()=>this.props.navigation.navigate(ScreenNames.AUTH_NAVIGATION))}>
                     <Text>
                         {"Logout"}
                     </Text>
