@@ -1,14 +1,5 @@
-import Screen, {baseStyles} from "../Screen";
-import {View} from "react-native";
-import React from "react";
+import React, {Component} from 'react'
 
-export default class OptionsMenu extends Screen {
+export class OptionsMenu extends Component{
 
-    constructor(props) {
-        super(props);
-    }
-
-    renderScreen() {
-        return <View style={{flex: 1}}/>;
-    }
 }
