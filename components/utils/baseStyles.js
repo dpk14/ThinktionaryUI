@@ -1,6 +1,7 @@
 import BackButtonImg from "../Buttons/HeaderButtons/Images/BackButtonImg";
 import {HP_SIMPLIFIED_BOLD} from "./FontUtils";
 import React from "react";
+import {HEADER_HEIGHT} from "./scaling";
 
 export const PURPLE = '#ae43ec';
 export const ORANGE = '#E76F1F';
@@ -19,5 +20,8 @@ export let HEADER_STYLES = {
         shadowOffset: {height: 4},
         shadowRadius: 20,
         shadowOpacity: .5
+    },
+    headerStyle : {
+        height : HEADER_HEIGHT
     }
 }

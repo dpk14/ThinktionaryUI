@@ -21,7 +21,7 @@ import {
     reloadJournalAndInitialize
 } from "../functions/callBacks";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
-import {getScreenWidth} from "../../../utils/scaling";
+import {getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import AppLoading from "expo/build/launch/AppLoading";
 
 const MARGIN_HORIZONTAL = 15
@@ -222,7 +222,7 @@ export const newStyles = StyleSheet.create({
         width : '100%',
     },
     outerFrame:{
-        marginTop : 60,
+        marginTop : HEADER_HEIGHT,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL
     }

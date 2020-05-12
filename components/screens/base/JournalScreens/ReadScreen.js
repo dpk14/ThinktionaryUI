@@ -6,7 +6,7 @@ import React from "react";
 import StyledBase from "../StyledBase";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
-import {getScreenHeight, getScreenWidth} from "../../../utils/scaling";
+import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
 import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
 import {loginAndInitialize} from "../functions/callBacks";
@@ -157,7 +157,7 @@ export const readStyles = StyleSheet.create({
     rightFrame: {
     },
     outerFrame:{
-        marginTop : 60,
+        marginTop : HEADER_HEIGHT,
         height : getScreenHeight() - 70,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL,

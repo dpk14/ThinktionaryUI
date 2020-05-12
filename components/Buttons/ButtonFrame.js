@@ -6,9 +6,7 @@ import FontUtils, {HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
 import {_scale} from "../utils/scaling";
 import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
 import {ScalingView} from "../ScalingView";
-import {invScale} from "../../DONT_USE_THIS/thinktionary/components/utils/scaling";
 import {SOFT_ORANGE} from "../utils/baseStyles";
-
 class customButton extends Component {
 
     static propTypes = {
