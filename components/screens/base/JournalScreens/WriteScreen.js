@@ -21,10 +21,15 @@ import {
     reloadJournalAndInitialize
 } from "../functions/callBacks";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
-import {getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
+import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import AppLoading from "expo/build/launch/AppLoading";
+import {BUTTON_HEIGHT, ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
 
 const MARGIN_HORIZONTAL = 15
+const TOPIC_BOX_HEIGHT = 1.5 * TOPIC_HEIGHT
+const ENTRY_BOX_SCALE = .75
+const BUTTON_SCALE = .8
+const BOTTOM_FRAME_TOP_MARGIN = 7.5
 
 export default class WriteScreen extends Screen {
 
@@ -130,6 +135,19 @@ export default class WriteScreen extends Screen {
         this.setState({topics : newTopics})
     }
 
+    getWriteBoxHeight() {
+        let ERROR_MARGIN = 7.5
+        return (1 / ENTRY_BOX_SCALE) * (getScreenHeight()
+            -(HEADER_HEIGHT)
+            -(ENTRY_BOX_HEIGHT*ENTRY_BOX_SCALE)
+            -(TOPIC_BOX_HEIGHT*2*ENTRY_BOX_SCALE)
+            -(BUTTON_SCALE*BUTTON_HEIGHT)
+            -(8*ENTRY_BOX_VERT_MARGIN)
+            -(BOTTOM_FRAME_TOP_MARGIN)
+            -ERROR_MARGIN
+        )
+    }
+
     render() {
         if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
         return (
@@ -141,7 +159,7 @@ export default class WriteScreen extends Screen {
                                 title="Title your thoughts!"
                                 value={this.state.title}
                                 updateMasterState={this._updateMasterState}
-                                scale = {0.75}
+                                scale = {ENTRY_BOX_SCALE}
                                 width = '100%'
                                 />
                             <StyledInputBox
@@ -149,9 +167,9 @@ export default class WriteScreen extends Screen {
                                 title='What are you thinking about?'
                                 value={this.state.text}
                                 updateMasterState={this._updateMasterState}
-                                scale = {.75}
+                                scale = {ENTRY_BOX_SCALE}
                                 width='100%'
-                                height = {400}
+                                height = {this.getWriteBoxHeight()}
                                 multiline = {true}
                                 blurOnSubmit={false}
                             />
@@ -162,9 +180,9 @@ export default class WriteScreen extends Screen {
                                 active = {this.state.topics.size > 0}
                                 value = {this.state.currTopic}
                                 updateMasterState= {this._updateMasterState}
-                                scale = {.75}
+                                scale = {ENTRY_BOX_SCALE}
                                 topicScale = {.62}
-                                height = {1.5*TOPIC_HEIGHT}
+                                height = {TOPIC_BOX_HEIGHT}
                                 width = '100%'
                                 topics = {this.state.topics}
                                 onTopicDelete = {this._onTopicDelete}
@@ -177,11 +195,11 @@ export default class WriteScreen extends Screen {
                                 title="Select from tags you've used before:"
                                 active = {this.state.topicBank.size > 0}
                                 updateMasterState={this._updateMasterState}
-                                scale = {.75}
+                                scale = {ENTRY_BOX_SCALE}
                                 topicScale = {.62}
                                 topics = {this.state.topicBank}
                                 width= '100%'
-                                height={1.5*TOPIC_HEIGHT}
+                                height={TOPIC_BOX_HEIGHT}
                                 onTopicActivityChange={this._onTopicActivityChange}
                                 activeTopicsName ={'activeTopics'}
                                 activeTopics = {this.state.activeTopics}
@@ -190,14 +208,14 @@ export default class WriteScreen extends Screen {
                         <View style = {newStyles.bottomFrame}>
                             <CustomButton
                                 text="Save"
-                                scale = {.8}
+                                scale = {BUTTON_SCALE}
                                 marginTop={0}
                                 style = {{width : 187.5}}
                                 onPress={() => this.createOrSave()}
                             />
                             <CustomButton
                                 text="Submit"
-                                scale = {.8}
+                                scale = {BUTTON_SCALE}
                                 marginTop={0}
                                 style = {{width : 187.5}}
                                 onPress={() => {
@@ -213,15 +231,16 @@ export default class WriteScreen extends Screen {
 
 export const newStyles = StyleSheet.create({
     bottomFrame: {
-        marginTop : 7.5,
+        marginTop : BOTTOM_FRAME_TOP_MARGIN,
         justifyContent: 'space-between',
         flexDirection: 'row',
-        width : '100%'
+        width : '100%',
     },
     topFrame:{
         width : '100%',
-    },
+  },
     outerFrame:{
+        flex : 1,
         marginTop : HEADER_HEIGHT,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL
