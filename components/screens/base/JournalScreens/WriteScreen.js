@@ -15,7 +15,7 @@ import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/Mod
 import {
     _onCreate,
     _onLogin,
-    _onSubmit,
+    _onSubmit, createOrSave,
     loginAndInitialize,
     parseOrAlert,
     reloadJournalAndInitialize
@@ -103,24 +103,6 @@ export default class WriteScreen extends Screen {
         topics.delete(topic)
         this.setState({topics: topics, activeTopics: activeTopics})
     }
-    }
-
-    createOrSave = (onSave=()=>{}) => {
-        const {title, text, topics} = this.state
-        this.state.entryID == undefined ?
-            new BuildEntry(this.state.journal.userID, title=='' ? "Untitled" : title, text, topics, undefined).
-            fetchAndExecute([_onCreate(this.setEntryID), onSave]) :
-            this.save(onSave)
-    }
-
-    setEntryID = (entryID) =>{
-        this.setState({entryID : entryID})
-    }
-
-    save = (onSave=()=>{}) => {
-        const {title, text, date, topics} = this.state
-        new ModifyEntry(this.state.journal.userID, this.state.entryID, title=='' ? "Untitled" : title, text, topics).
-        fetchAndExecute(onSave())
     }
 
     submit = () => {
@@ -211,7 +193,7 @@ export default class WriteScreen extends Screen {
                                 scale = {BUTTON_SCALE}
                                 marginTop={0}
                                 style = {{width : 187.5}}
-                                onPress={() => this.createOrSave()}
+                                onPress={() => createOrSave(this.state)}
                             />
                             <CustomButton
                                 text="Submit"
@@ -219,7 +201,7 @@ export default class WriteScreen extends Screen {
                                 marginTop={0}
                                 style = {{width : 187.5}}
                                 onPress={() => {
-                                    this.createOrSave(this.submit);
+                                    createOrSave(this.state, this.submit);
                                 }}
                             />
                         </View>
