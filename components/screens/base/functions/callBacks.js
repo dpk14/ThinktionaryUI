@@ -3,6 +3,8 @@ import ScreenNames from "../../../../navigation/ScreenNames";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {AsyncStorage} from "react-native"
 import {JOURNAL_KEY, PWD, USER_KEY} from "../../../../assets/config";
+import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
+import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
 
 export function parseOrAlert(parser=undefined, params) {
     return (response, exceptionThrown) =>{
@@ -81,4 +83,18 @@ export function reloadJournalAndInitialize(props, initializer){
             journal : journal
         }), initializer]
     )
+}
+
+export let createOrSave = (state, setEntryID, onSave=()=>{}) => {
+    const {title, text, topics} = state
+    state.entryID == undefined ?
+        new BuildEntry(state.journal.userID, title=='' ? "Untitled" : title, text, topics, undefined).
+        fetchAndExecute([_onCreate(setEntryID), onSave]) :
+        save(state, onSave)
+}
+
+export let save = (state, onSave=()=>{}) => {
+    const {title, text, date, topics} = state
+    new ModifyEntry(state.journal.userID, state.entryID, title=='' ? "Untitled" : title, text, topics).
+    fetchAndExecute(onSave())
 }

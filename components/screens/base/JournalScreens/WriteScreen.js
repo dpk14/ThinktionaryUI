@@ -15,7 +15,7 @@ import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/Mod
 import {
     _onCreate,
     _onLogin,
-    _onSubmit,
+    _onSubmit, createOrSave,
     loginAndInitialize,
     parseOrAlert,
     reloadJournalAndInitialize
@@ -59,6 +59,7 @@ export default class WriteScreen extends Screen {
             topicBank : journal.topics,
             activeTopics : new Set(),
             journalLoading : false,
+            loading : false,
         }
     }
 
@@ -105,24 +106,6 @@ export default class WriteScreen extends Screen {
     }
     }
 
-    createOrSave = (onSave=()=>{}) => {
-        const {title, text, topics} = this.state
-        this.state.entryID == undefined ?
-            new BuildEntry(this.state.journal.userID, title=='' ? "Untitled" : title, text, topics, undefined).
-            fetchAndExecute([_onCreate(this.setEntryID), onSave]) :
-            this.save(onSave)
-    }
-
-    setEntryID = (entryID) =>{
-        this.setState({entryID : entryID})
-    }
-
-    save = (onSave=()=>{}) => {
-        const {title, text, date, topics} = this.state
-        new ModifyEntry(this.state.journal.userID, this.state.entryID, title=='' ? "Untitled" : title, text, topics).
-        fetchAndExecute(onSave())
-    }
-
     submit = () => {
         let {username, password} = this.state.journal
         new Login(username, password).fetchAndExecute(_onSubmit(this.props.navigation))
@@ -133,6 +116,10 @@ export default class WriteScreen extends Screen {
         let newTopics = new Set(topics)
         isActive ? newTopics.add(topic) : newTopics.delete(topic)
         this.setState({topics : newTopics})
+    }
+
+    setEntryID = (entryID) =>{
+        this.setState({entryID : entryID})
     }
 
     getWriteBoxHeight() {
@@ -211,15 +198,17 @@ export default class WriteScreen extends Screen {
                                 scale = {BUTTON_SCALE}
                                 marginTop={0}
                                 style = {{width : 187.5}}
-                                onPress={() => this.createOrSave()}
+                                onPress={() => createOrSave(this.state, this.setEntryID)}
                             />
                             <CustomButton
                                 text="Submit"
                                 scale = {BUTTON_SCALE}
+                                disabled={this.state.loading}
                                 marginTop={0}
                                 style = {{width : 187.5}}
                                 onPress={() => {
-                                    this.createOrSave(this.submit);
+                                    this.setState({loading : true})
+                                    createOrSave(this.state, this.setEntryID, this.submit);
                                 }}
                             />
                         </View>
