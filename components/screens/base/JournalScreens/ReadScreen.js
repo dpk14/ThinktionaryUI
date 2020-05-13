@@ -21,7 +21,7 @@ export default class ReadScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-            ...this.state, ...{journalLoading : true}
+            ...this.state, ...{journalLoading : true, loading : false}
         }
     }
 

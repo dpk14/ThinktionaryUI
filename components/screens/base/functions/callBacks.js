@@ -85,16 +85,12 @@ export function reloadJournalAndInitialize(props, initializer){
     )
 }
 
-export let createOrSave = (state, onSave=()=>{}) => {
+export let createOrSave = (state, setEntryID, onSave=()=>{}) => {
     const {title, text, topics} = state
     state.entryID == undefined ?
         new BuildEntry(state.journal.userID, title=='' ? "Untitled" : title, text, topics, undefined).
-        fetchAndExecute([_onCreate(this.setEntryID), onSave]) :
-        this.save(state, onSave)
-}
-
-export let setEntryID = (entryID) =>{
-    this.setState({entryID : entryID})
+        fetchAndExecute([_onCreate(setEntryID), onSave]) :
+        save(state, onSave)
 }
 
 export let save = (state, onSave=()=>{}) => {

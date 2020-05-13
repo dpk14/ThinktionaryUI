@@ -59,6 +59,7 @@ export default class WriteScreen extends Screen {
             topicBank : journal.topics,
             activeTopics : new Set(),
             journalLoading : false,
+            loading : false,
         }
     }
 
@@ -115,6 +116,10 @@ export default class WriteScreen extends Screen {
         let newTopics = new Set(topics)
         isActive ? newTopics.add(topic) : newTopics.delete(topic)
         this.setState({topics : newTopics})
+    }
+
+    setEntryID = (entryID) =>{
+        this.setState({entryID : entryID})
     }
 
     getWriteBoxHeight() {
@@ -193,15 +198,17 @@ export default class WriteScreen extends Screen {
                                 scale = {BUTTON_SCALE}
                                 marginTop={0}
                                 style = {{width : 187.5}}
-                                onPress={() => createOrSave(this.state)}
+                                onPress={() => createOrSave(this.state, this.setEntryID)}
                             />
                             <CustomButton
                                 text="Submit"
                                 scale = {BUTTON_SCALE}
+                                disabled={this.state.loading}
                                 marginTop={0}
                                 style = {{width : 187.5}}
                                 onPress={() => {
-                                    createOrSave(this.state, this.submit);
+                                    this.setState({loading : true})
+                                    createOrSave(this.state, this.setEntryID, this.submit);
                                 }}
                             />
                         </View>
