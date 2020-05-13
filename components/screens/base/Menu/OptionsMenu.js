@@ -57,16 +57,19 @@ export class OptionsMenu extends Component{
                 <DrawerItem
                     label="Logout"
                     labelStyle={menuStyles.headerText}
+                    icon = {() => {return <Icon source={require("../../../../assets/images/logout.png")}/>}}
                     onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(navigation))}
                 />
                 <DrawerItem
                     label="Help"
                     labelStyle={menuStyles.headerText}
+                    icon = {() => {return <Icon source={require("../../../../assets/images/help.png")}/>}}
                     onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(navigation))}
                 />
                 <DrawerItem
                     label="About"
                     labelStyle={menuStyles.headerText}
+                    icon = {() => {return <Icon source={require("../../../../assets/images/about.png")}/>}}
                     onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(navigation))}
                 />
 
