@@ -129,7 +129,7 @@ export default class ReadScreen extends Screen {
                         <TopicBank
                             attrName='topicBank'
                             setName='topicBankCurr'
-                            title='Select tags to search past entries!'
+                            title='Look up your thoughts in the Thinktionary!'
                             active = {topics.size > 0}
                             updateMasterState={this._updateMasterState}
                             scale = {.75}
