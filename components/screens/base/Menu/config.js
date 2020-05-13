@@ -1,3 +1,3 @@
-import {getScreenWidth} from "../../../../utils/scaling";
+import {getScreenWidth} from "../../../utils/scaling";
 
-export const drawerStyle = {width : getScreenWidth()/3}
+export const drawerStyle = {width : getScreenWidth()/2}

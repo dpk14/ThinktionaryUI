@@ -136,7 +136,7 @@ export default class WriteScreen extends Screen {
     }
 
     getWriteBoxHeight() {
-        let ERROR_MARGIN = 7.5
+        let ERROR_MARGIN = 20
         return (1 / ENTRY_BOX_SCALE) * (getScreenHeight()
             -(HEADER_HEIGHT)
             -(ENTRY_BOX_HEIGHT*ENTRY_BOX_SCALE)

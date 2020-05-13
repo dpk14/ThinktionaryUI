@@ -15,8 +15,6 @@ import LoginScreen from "./components/screens/base/AuthScreens/LoginScreen";
 import NewAccountScreen from "./components/screens/base/AuthScreens/NewAccountScreen";
 import JournalTabScreen from "./components/screens/base/JournalScreens/navigation/JournalTabScreen";
 import {HEADER_STYLES} from "./components/utils/baseStyles";
-//import {BackButton, BackButtonImage} from "./components/BackButtonImage";
-
 
 export default class App extends Component {
 

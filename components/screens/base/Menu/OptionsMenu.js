@@ -8,6 +8,7 @@ import {PWD, USER_KEY} from "../../../../assets/config";
 import Logout from "../../../../requestHandler/Requests/AccountRequests/Logout";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import {_onLogout} from "../functions/callBacks";
+import {DrawerContentScrollView, DrawerItemList} from "@react-navigation/drawer";
 
 export class OptionsMenu extends Component{
 
@@ -31,8 +32,8 @@ export class OptionsMenu extends Component{
         if (this.state.loading) return <AppLoading/>
         let {username, pwd} = this.state
         return (
-            <View style={{flex: 1, backgroundColor: PURPLE, opacity: .9}}>
-                <View style={{marginTop : 40, marginLeft : 20, flex : 1}}>
+            <DrawerContentScrollView>
+                <DrawerItemList>
                 <TouchableOpacity style={{flex: 1}}
                                   onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(this.props.navigation))}>
                     <Text style={menuStyles.headerText}>
@@ -47,7 +48,7 @@ export class OptionsMenu extends Component{
 
 const menuStyles = StyleSheet.create({
     headerText : {
-        fontSize : 15,
+        fontSize : 22,
         color: '#FFFFFF',
         fontFamily: HP_SIMPLIFIED_BOLD,
         shadowOffset: {height: 4},
@@ -56,3 +57,23 @@ const menuStyles = StyleSheet.create({
     }
 
 });
+
+/*
+    render() {
+        if (this.state.loading) return <AppLoading/>
+        let {username, pwd} = this.state
+        return (
+            <View style={{flex: 1, backgroundColor: PURPLE, opacity: .9}}>
+                <View style={{marginTop : 40, marginLeft : 20, flex : 1}}>
+                <TouchableOpacity style={{flex: 1}}
+                                  onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(this.props.navigation))}>
+                    <Text style={menuStyles.headerText}>
+                        {"Logout"}
+                    </Text>
+                </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+}
+ */
