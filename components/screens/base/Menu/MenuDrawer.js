@@ -15,8 +15,8 @@ export default class MenuDrawer extends Component{
         let {navigation, children} = this.props
         return(
         <Drawer.Navigator
-            drawerStyle={drawerStyle}
-            drawerContent={()=><OptionsMenu navigation={navigation}/>}
+            //drawerStyle={drawerStyle}
+            drawerContent={(props)=><OptionsMenu {...props}/>}
         >
             {children}
         </Drawer.Navigator>)
