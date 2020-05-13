@@ -8,6 +8,7 @@ import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
 import {ABSTRACT_METHOD} from "../utils/abstraction";
 import {basePropDefaults, basePropTypes} from "./baseProps";
 import {childrenWithProps} from "../utils/general";
+import {ENTRY_BOX_VERT_MARGIN} from "../utils/baseStyles";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 
 export default class EntryBox extends Component {
@@ -31,7 +32,7 @@ export default class EntryBox extends Component {
         ...basePropDefaults, ...{
             marginRight: 0,
             marginLeft: 0,
-            marginVertical: 6,
+            marginVertical: ENTRY_BOX_VERT_MARGIN,
             titleActiveSize: 13,
             titleInActiveSize: 15,
             titleActiveColor: '#512da8',

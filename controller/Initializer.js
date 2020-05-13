@@ -6,8 +6,6 @@ import {
     StyleSheet,
     AsyncStorage
 } from 'react-native'
-
-import FontUtils, {HP_SIMPLIFIED_BOLD} from "../components/utils/FontUtils";
 import {USER_KEY} from "../assets/config";
 
 export default class Initializer extends React.Component {

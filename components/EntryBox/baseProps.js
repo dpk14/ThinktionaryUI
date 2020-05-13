@@ -1,6 +1,7 @@
 
 
 import { string, func, object, number, bool } from 'prop-types';
+import {ENTRY_BOX_HEIGHT} from "../utils/baseStyles";
 export const basePropTypes = {
     width : number | string,
     height : number | string,
@@ -15,6 +16,6 @@ export const basePropDefaults = {
     textMarginLeft : 21,
     textMarginRight : 21,
     scale : 1,
-    height : 65,
+    height : ENTRY_BOX_HEIGHT,
     width : 275,
 }

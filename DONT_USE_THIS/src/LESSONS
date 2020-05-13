@@ -1,2 +1,0 @@
-Make sure you have setRequestHeaders if the method involves sending a body of JSON; make sure you give server an indication
-of what to look for.

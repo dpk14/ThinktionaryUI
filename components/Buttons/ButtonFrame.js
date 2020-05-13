@@ -6,9 +6,7 @@ import FontUtils, {HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
 import {_scale} from "../utils/scaling";
 import rnTextSize, { TSFontSpecs } from 'react-native-text-size'
 import {ScalingView} from "../ScalingView";
-import {invScale} from "../../DONT_USE_THIS/thinktionary/components/utils/scaling";
-import {SOFT_ORANGE} from "../utils/baseStyles";
-
+import {BUTTON_HEIGHT, SOFT_ORANGE} from "../utils/baseStyles";
 class customButton extends Component {
 
     static propTypes = {
@@ -42,14 +40,14 @@ class customButton extends Component {
         const {scale, height, style} = this.props
         let ret = {}
         ret.alignItems = _scale(style.alignItems == undefined ? 'stretch' : style.alignItems, scale)
-        ret.height = _scale(style.height == undefined ? 56 : style.height, scale)
+        ret.height = _scale(style.height == undefined ? BUTTON_HEIGHT : style.height, scale)
         return ret
     }
 
     getButtonStyles(){
         let ret = {}
         const {style, scale} = this.props
-        ret.height = _scale(style.height == undefined ? 56 : style.height, scale)
+        ret.height = _scale(style.height == undefined ? BUTTON_HEIGHT : style.height, scale)
         ret.marginTop = _scale(style.marginTop == undefined ? 0 : style.marginTop, scale)
         ret.padding = _scale(style.padding == undefined ? 12 : style.padding, scale)
         ret.marginLeft = _scale(style.marginLeft == undefined ? 0 : style.marginLeft, scale)
