@@ -11,9 +11,11 @@ import OptionButton from "../../../../Buttons/HeaderButtons/Buttons/OptionButton
 import ScreenNames from "../../../../../navigation/ScreenNames";
 import ReadScreen from "../../JournalScreens/ReadScreen";
 
+const TOP_MARGIN = 10;
+
 export default class NotificationsScreen extends Component {
 
-       constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {active : false, loading : false}
     }
@@ -29,7 +31,9 @@ export default class NotificationsScreen extends Component {
                     value={''}
                     updateMasterState={this._updateMasterState}
                     scale = {.8}
-                    style={{width : getScreenWidth()-30, height : getScreenHeight()-(ENTRY_BOX_VERT_MARGIN*2)-HEADER_HEIGHT, marginTop : HEADER_HEIGHT}}
+                    style={{width : getScreenWidth()-30,
+                            height : getScreenHeight()-(ENTRY_BOX_VERT_MARGIN*2)-HEADER_HEIGHT-TOP_MARGIN,
+                            marginTop : HEADER_HEIGHT + TOP_MARGIN}}
                     active={active}
                     editable={false}
                 />
