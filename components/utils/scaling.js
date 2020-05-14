@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Dimensions, StyleSheet, View} from "react-native";
 import {HP_SIMPLIFIED_BOLD} from "./FontUtils";
-export const HEADER_HEIGHT = 70
+export const HEADER_HEIGHT = 80
 
 export function _scale(prop, scale){
     if(typeof prop == "string" && prop.includes("%")){

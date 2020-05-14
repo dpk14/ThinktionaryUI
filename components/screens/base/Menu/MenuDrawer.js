@@ -7,11 +7,26 @@ import ScreenNames from "../../../../navigation/ScreenNames";
 import WriteScreenFrame from "../JournalScreens/navigation/WriteScreenFrame";
 import {NOTIFICATIONS_SCREEN} from "./MenuScreenNames";
 import NotificationsScreen from "./MenuScreens/NotificationsScreen";
+import MenuScreen from "./MenuScreens/MenuScreen";
 
 export default class MenuDrawer extends Component{
 
     constructor(props) {
         super(props);
+    }
+
+    frame(screenName){
+        return screenName + "Frame"
+    }
+
+    buildMenuScreen(Drawer, screenName, screen){
+        return <Drawer.Screen
+            name={screenName}
+            component={(props)=> {
+                let newProps = {...props, ...{screenName : screenName, screen : screen}}
+                return <MenuScreen {...newProps} />
+            }}
+        />
     }
 
     render(){
@@ -23,10 +38,7 @@ export default class MenuDrawer extends Component{
             drawerContent={(props)=><OptionsMenu {...props}/>}
         >
             {children}
-            <Drawer.Screen
-                name={NOTIFICATIONS_SCREEN}
-                component={NotificationsScreen}
-            />
+            {this.buildMenuScreen(Drawer, NOTIFICATIONS_SCREEN, (props) => <NotificationsScreen {...props}/>)}
         </Drawer.Navigator>)
    }
 }
