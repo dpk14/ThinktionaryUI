@@ -14,7 +14,7 @@ import {styles} from "../StyledBase";
 import {LinearGradient} from "expo-linear-gradient";
 import BackButtonImg from "../../../Buttons/HeaderButtons/Images/BackButtonImg";
 import Icon from "../../../Buttons/HeaderButtons/Images/Icon";
-import {NOTIFICATIONS_SCREEN} from "./MenuScreenNames";
+import {ABOUT_SCREEN, HELP_SCREEN, NOTIFICATIONS_SCREEN} from "./MenuScreenNames";
 
 export class OptionsMenu extends Component{
 
@@ -65,13 +65,13 @@ export class OptionsMenu extends Component{
                     label="Help"
                     labelStyle={menuStyles.headerText}
                     icon = {() => {return <Icon source={require("../../../../assets/images/help.png")}/>}}
-                    onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(navigation))}
+                    onPress={() => navigation.navigate(HELP_SCREEN)}E
                 />
                 <DrawerItem
                     label="About"
                     labelStyle={menuStyles.headerText}
                     icon = {() => {return <Icon source={require("../../../../assets/images/about.png")}/>}}
-                    onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(navigation))}
+                    onPress={() => navigation.navigate(ABOUT_SCREEN)}
                 />
             </DrawerContentScrollView>
             </LinearGradient>

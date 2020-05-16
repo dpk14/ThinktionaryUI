@@ -5,11 +5,7 @@ import {ENTRY_BOX_VERT_MARGIN, HEADER_STYLES} from "../../../../utils/baseStyles
 import StyledBase from "../../StyledBase";
 import {StyledInputBox} from "../../../../EntryBox/TextInputBox/StyledInputBox";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../../utils/scaling";
-import {createStackNavigator} from "@react-navigation/stack";
-import {WriteBackButton} from "../../../../Buttons/HeaderButtons/Buttons/WriteBackButton";
-import OptionButton from "../../../../Buttons/HeaderButtons/Buttons/OptionButton";
-import ScreenNames from "../../../../../navigation/ScreenNames";
-import ReadScreen from "../../JournalScreens/ReadScreen";
+import FontUtils from "../../../../utils/FontUtils";
 
 const TOP_MARGIN = 10;
 
@@ -17,7 +13,12 @@ export default class NotificationsScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {active : false, loading : false}
+        this.state = {active : false, loading : false, fontLoading : true}
+    }
+
+    async componentWillMount(){
+        await FontUtils.loadFonts()
+        this.setState({fontLoading : false})
     }
 
     render() {
@@ -31,8 +32,8 @@ export default class NotificationsScreen extends Component {
                     value={''}
                     updateMasterState={this._updateMasterState}
                     scale = {.8}
-                    style={{width : getScreenWidth()-30,
-                            height : getScreenHeight()-(ENTRY_BOX_VERT_MARGIN*2)-HEADER_HEIGHT-TOP_MARGIN,
+                    style={{width : getScreenWidth() - 30,
+                            height : getScreenHeight() - (ENTRY_BOX_VERT_MARGIN*2)-HEADER_HEIGHT-TOP_MARGIN,
                             marginTop : HEADER_HEIGHT + TOP_MARGIN}}
                     active={active}
                     editable={false}

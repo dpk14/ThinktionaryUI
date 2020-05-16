@@ -17,6 +17,7 @@ export default class MenuScreen extends Component{
     constructor(props) {
         super(props);
     }
+
     render() {
         let {screen, screenName} = this.props
         let Stack = createStackNavigator()
