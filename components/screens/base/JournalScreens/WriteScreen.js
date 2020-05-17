@@ -137,20 +137,20 @@ export default class WriteScreen extends Screen {
         )
     }
 
-    getDerivedStateFromProps(props, state){
-        this.autoSave(state)
-        return state
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        this.autoSave(nextState)
+        return true
     }
 
     autoSave(nextState){
         let {journal, text, title, topics, entryID, entryMade, saving} = this.state
         if (journal != undefined && (title != nextState.title || text != nextState.title || topics.size != nextState.topics.size)) {
             if (!entryMade) {
-                this.setState({entryMade : true})
+                nextState.entryMade = true
                 new BuildEntry(this.state.journal.userID, title == '' ? "Untitled" : title, text, topics, undefined).fetchAndExecute(_onCreate(this.setEntryID))
             }
-            else if (entryID !=undefined && !saving){
-                this.setState({saving : true})
+            else if (entryID != undefined && !saving){
+                nextState.saving = true
                 save(this.state, () => setTimeout(()=> this.setState({saving : false}), 3000))
             }
         }
@@ -158,7 +158,6 @@ export default class WriteScreen extends Screen {
 
     render() {
         if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
-        //this.autoSave()
         return (
                 <StyledBase>
                     <View style = {newStyles.outerFrame}>
