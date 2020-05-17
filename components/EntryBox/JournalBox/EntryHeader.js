@@ -78,10 +78,23 @@ export default class EntryHeader extends Component{
         return str.substring(0, str.length-2)
     }
 
+    calculateHeight(){
+        return {
+            height :
+            entryHeaderStyle.titleText.marginTop +
+                entryHeaderStyle.titleText.marginBottom +
+                entryHeaderStyle.titleText.fontSize +
+                3*(
+                entryHeaderStyle.dateText.marginVertical*2 +
+                    entryHeaderStyle.dateText.fontSize
+                )
+        }
+    }
+
     render() {
         let {scale, title, created, modified, style} = this.props
         return (
-                <View style = {[entryHeaderStyle.outerFrame, this._outerDimensions(), style]}>
+                <View style = {[entryHeaderStyle.outerFrame, this._outerDimensions(), style, this.calculateHeight()]}>
                     <View style = {entryHeaderStyle.leftFrame}>
                         <Text numberOfLines = {1}
                               style = {[entryHeaderStyle.titleText, this._textDimensions()]}>
