@@ -18,7 +18,7 @@ import {
     _onSubmit, createOrSave,
     loginAndInitialize,
     parseOrAlert,
-    reloadJournalAndInitialize
+    reloadJournalAndInitialize, save
 } from "../functions/callBacks";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
@@ -36,14 +36,12 @@ export default class WriteScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-        ...this.state, ...{journalLoading : true}}
-
+        ...this.state, ...{journalLoading : true, entryMade : false, saving : false}}
     }
 
     _updateMasterState = (attrName, value) => {
         this.setState({ [attrName]: value });
     }
-
 
     initialize(journal){
         let entry = this.props.route.params == undefined ? undefined : this.props.route.params.entry
@@ -73,7 +71,9 @@ export default class WriteScreen extends Screen {
             currTopic: '',
             topics: new Set(),
             topicBank : this.state.journal.topics,
-            activeTopics: new Set()
+            activeTopics: new Set(),
+            entryMade : false,
+            saving : false,
         }
     }
 
@@ -137,6 +137,16 @@ export default class WriteScreen extends Screen {
 
     render() {
         if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
+        let {journal, text, title, topics, entryID, entryMade} = this.state
+        if (journal != undefined && (title != "" || text != "" || topics.size > 0)) {
+            if (!entryMade) {
+                this.setState({entryMade : true})
+                new BuildEntry(this.state.journal.userID, title == '' ? "Untitled" : title, text, topics, undefined).fetchAndExecute(_onCreate(this.setEntryID))
+            }
+            else if (entryID !=undefined){
+                save(this.state)
+            }
+        }
         return (
                 <StyledBase>
                     <View style = {newStyles.outerFrame}>
