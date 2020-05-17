@@ -24,6 +24,7 @@ import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import AppLoading from "expo/build/launch/AppLoading";
 import {BUTTON_HEIGHT, ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
+import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 
 const MARGIN_HORIZONTAL = 15
 const TOPIC_BOX_HEIGHT = 1.5 * TOPIC_HEIGHT
@@ -130,7 +131,7 @@ export default class WriteScreen extends Screen {
             -(HEADER_HEIGHT)
             -(ENTRY_BOX_HEIGHT*ENTRY_BOX_SCALE)
             -(TOPIC_BOX_HEIGHT*2*ENTRY_BOX_SCALE)
-            -(BUTTON_SCALE*BUTTON_HEIGHT)
+            //-(BUTTON_SCALE*BUTTON_HEIGHT)
             -(8*ENTRY_BOX_VERT_MARGIN)
             -(BOTTOM_FRAME_TOP_MARGIN)
             -ERROR_MARGIN
@@ -151,7 +152,11 @@ export default class WriteScreen extends Screen {
             }
             else if (entryID != undefined && !saving){
                 nextState.saving = true
-                save(this.state, () => setTimeout(()=> this.setState({saving : false}), 3000))
+                this.props.navigation.setParams({saving : true})
+                save(this.state, () =>
+                    setTimeout(()=>
+                        {this.props.navigation.setParams({saving : false}); this.setState({saving : false});
+                        }, 3000))
             }
         }
     }
@@ -161,6 +166,11 @@ export default class WriteScreen extends Screen {
         return (
                 <StyledBase>
                     <View style = {newStyles.outerFrame}>
+                        <View style = {[newStyles.bottomFrame, {height : this.state.saving ? 17 : 0}]}>
+                            <Text style = {{fontFamily : HP_SIMPLIFIED_BOLD, color : "#FFFFFF", fontSize : 14}}>
+                                {this.state.saving ? 'Saving...' : ''}
+                            </Text>
+                        </View>
                         <View style = {newStyles.topFrame}>
                             <StyledInputBox
                                 attrName='title'
@@ -213,26 +223,6 @@ export default class WriteScreen extends Screen {
                                 activeTopics = {this.state.activeTopics}
                             />
                         </View>
-                        <View style = {newStyles.bottomFrame}>
-                            <CustomButton
-                                text="Save"
-                                scale = {BUTTON_SCALE}
-                                marginTop={0}
-                                style = {{width : 187.5}}
-                                onPress={() => createOrSave(this.state, this.setEntryID)}
-                            />
-                            <CustomButton
-                                text="Submit"
-                                scale = {BUTTON_SCALE}
-                                disabled={this.state.loading}
-                                marginTop={0}
-                                style = {{width : 187.5}}
-                                onPress={() => {
-                                    this.setState({loading : true})
-                                    createOrSave(this.state, this.setEntryID, this.submit);
-                                }}
-                            />
-                        </View>
                     </View>
                 </StyledBase>
             );
@@ -241,19 +231,42 @@ export default class WriteScreen extends Screen {
 
 export const newStyles = StyleSheet.create({
     bottomFrame: {
-        marginTop : BOTTOM_FRAME_TOP_MARGIN,
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         flexDirection: 'row',
         width : '100%',
+        marginTop : BOTTOM_FRAME_TOP_MARGIN
     },
     topFrame:{
         width : '100%',
   },
     outerFrame:{
+        marginTop: HEADER_HEIGHT,
         flex : 1,
-        marginTop : HEADER_HEIGHT,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL
     }
 
 });
+
+/*
+<View style = {newStyles.bottomFrame}>
+    <CustomButton
+        text="Save"
+        scale = {BUTTON_SCALE}
+        marginTop={0}
+        style = {{width : 187.5}}
+        onPress={() => createOrSave(this.state, this.setEntryID)}
+    />
+    <CustomButton
+        text="Submit"
+        scale = {BUTTON_SCALE}
+        disabled={this.state.loading}
+        marginTop={0}
+        style = {{width : 187.5}}
+        onPress={() => {
+            this.setState({loading : true})
+            createOrSave(this.state, this.setEntryID, this.submit);
+        }}
+    />
+</View>
+*/

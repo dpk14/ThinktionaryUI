@@ -28,8 +28,8 @@ export default class Initializer extends React.Component {
     }
 
     goHome(){
-        this.props.navigation.navigate(ScreenNames.HOME_SCREEN)
-        //this.props.navigation.navigate(ScreenNames.APP_NAVIGATION)
+        //this.props.navigation.navigate(ScreenNames.HOME_SCREEN)
+        this.props.navigation.navigate(ScreenNames.APP_NAVIGATION)
     }
 
     goToAuth(){
