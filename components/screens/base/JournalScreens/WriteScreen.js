@@ -36,7 +36,7 @@ export default class WriteScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-        ...this.state, ...{journalLoading : true, entryMade : false, saving : false}}
+        ...this.state, ...{journalLoading : true, saving : false}}
     }
 
     _updateMasterState = (attrName, value) => {
@@ -45,6 +45,7 @@ export default class WriteScreen extends Screen {
 
     initialize(journal){
         let entry = this.props.route.params == undefined ? undefined : this.props.route.params.entry
+        let entryID = entry == undefined ? undefined : entry.entryID
         return {
             journal : journal,
             entry : entry == undefined ? undefined : entry,
@@ -58,6 +59,7 @@ export default class WriteScreen extends Screen {
             activeTopics : new Set(),
             journalLoading : false,
             loading : false,
+            entryMade : entryID != undefined
         }
     }
 
@@ -72,17 +74,17 @@ export default class WriteScreen extends Screen {
             topics: new Set(),
             topicBank : this.state.journal.topics,
             activeTopics: new Set(),
-            entryMade : false,
             saving : false,
         }
     }
 
     async componentDidMount() {
         this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
+            save(this.state)
             this.setState(this.clear())
         });
         await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
-        this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=>loginAndInitialize((journal) => this.setState(this.initialize(journal))))
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => loginAndInitialize((journal) => this.setState(this.initialize(journal))))
     }
 
     componentWillUnmount() {
@@ -137,14 +139,15 @@ export default class WriteScreen extends Screen {
 
     render() {
         if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
-        let {journal, text, title, topics, entryID, entryMade} = this.state
+        let {journal, text, title, topics, entryID, entryMade, saving} = this.state
         if (journal != undefined && (title != "" || text != "" || topics.size > 0)) {
             if (!entryMade) {
                 this.setState({entryMade : true})
                 new BuildEntry(this.state.journal.userID, title == '' ? "Untitled" : title, text, topics, undefined).fetchAndExecute(_onCreate(this.setEntryID))
             }
-            else if (entryID !=undefined){
-                save(this.state)
+            else if (entryID !=undefined && !saving){
+                this.setState({saving : true})
+                save(this.state, () => setTimeout(()=> this.setState({saving : false}), 3000))
             }
         }
         return (
