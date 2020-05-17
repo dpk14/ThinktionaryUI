@@ -9,6 +9,7 @@ import {_scale} from "../../utils/scaling";
 import RemoveEntry from "../../../requestHandler/Requests/JournalCommands/RemoveEntry";
 import {CustomButtonImg} from "../../Buttons/CustomButtonImg";
 
+let MARGIN_BOTTOM = 10
 
 export default class EntryHeader extends Component{
 
@@ -29,7 +30,7 @@ export default class EntryHeader extends Component{
 
     static defaultProps = {
         width : 150,
-        height : 30,
+        height : 50,
         scale : 1,
         marginLeft : 21,
         style : {}
@@ -81,13 +82,13 @@ export default class EntryHeader extends Component{
     calculateHeight(){
         return {
             height :
-            entryHeaderStyle.titleText.marginTop +
+                (entryHeaderStyle.titleText.marginTop +
                 entryHeaderStyle.titleText.marginBottom +
                 entryHeaderStyle.titleText.fontSize +
-                3*(
-                entryHeaderStyle.dateText.marginVertical*2 +
+                (3*(
+                    (entryHeaderStyle.dateText.marginVertical*2) +
                     entryHeaderStyle.dateText.fontSize
-                )
+                ))) + 2*MARGIN_BOTTOM
         }
     }
 
@@ -109,7 +110,7 @@ export default class EntryHeader extends Component{
                             {"Last modified on " + modified}
                         </Text>
                         <Text numberOfLines = {1}
-                              style = {[entryHeaderStyle.dateText, this._textDimensions(), {marginBottom : 10}]}>
+                              style = {[entryHeaderStyle.dateText, this._textDimensions(), {marginBottom : MARGIN_BOTTOM}]}>
                             {this.getTopicText()}
                         </Text>
                     </View>
@@ -136,7 +137,6 @@ export default class EntryHeader extends Component{
 
 const entryHeaderStyle = StyleSheet.create({
     outerFrame: {
-        flex : 1,
         flexDirection : 'row',
         backgroundColor: PURPLE,
         opacity : .95,

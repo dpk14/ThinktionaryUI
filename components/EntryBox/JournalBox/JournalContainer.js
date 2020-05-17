@@ -100,7 +100,7 @@ export default class JournalContainer extends Component {
                     navigation = {navigation}
                     entry = {currentEntry}
                     journal = {journal}
-                    style = {{flex : .215}}
+                    //style = {{flex : .215}}
                     width = '100%'
                     scale = {_scale(.8, scale)}
                     onEntryRemoval = {onEntryRemoval}
@@ -143,7 +143,7 @@ const journalContainerStyles = StyleSheet.create({
     },
     bottomFrame:{
         //width: '100%',
-        flex : .1,
+        flex : .05,
         //justifyContent : 'center',
         alignItems : 'center'
     }
