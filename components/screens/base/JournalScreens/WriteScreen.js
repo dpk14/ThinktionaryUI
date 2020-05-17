@@ -75,13 +75,12 @@ export default class WriteScreen extends Screen {
             topicBank : this.state.journal.topics,
             activeTopics: new Set(),
             saving : false,
-            journalLoading : true,
         }
     }
 
     async componentDidMount() {
         this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
-            save(this.state)
+            if (this.state.text != '' || this.state.title != '' || this.state.topics.size > 0) save(this.state)
             this.setState(this.clear())
         });
         await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
@@ -97,7 +96,7 @@ export default class WriteScreen extends Screen {
         let {activeTopics} = this.state
         let newActiveTopics = new Set(activeTopics)
         newActiveTopics.delete(topic)
-        if(newActiveTopics.size != activeTopics.size) this.setState({activeTopics: newActiveTopics})
+        if (newActiveTopics.size != activeTopics.size) this.setState({activeTopics: newActiveTopics})
     }
 
     _onTopicCreatorPress = (topic) => {
@@ -138,10 +137,14 @@ export default class WriteScreen extends Screen {
         )
     }
 
-    render() {
-        if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
+    getDerivedStateFromProps(props, state){
+        this.autoSave(state)
+        return state
+    }
+
+    autoSave(nextState){
         let {journal, text, title, topics, entryID, entryMade, saving} = this.state
-        if (journal != undefined && (title != "" || text != "" || topics.size > 0)) {
+        if (journal != undefined && (title != nextState.title || text != nextState.title || topics.size != nextState.topics.size)) {
             if (!entryMade) {
                 this.setState({entryMade : true})
                 new BuildEntry(this.state.journal.userID, title == '' ? "Untitled" : title, text, topics, undefined).fetchAndExecute(_onCreate(this.setEntryID))
@@ -151,6 +154,11 @@ export default class WriteScreen extends Screen {
                 save(this.state, () => setTimeout(()=> this.setState({saving : false}), 3000))
             }
         }
+    }
+
+    render() {
+        if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
+        //this.autoSave()
         return (
                 <StyledBase>
                     <View style = {newStyles.outerFrame}>

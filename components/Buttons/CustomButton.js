@@ -64,7 +64,6 @@ class customButton extends Component {
                     </ButtonFrame>
             );
         }
-
 }
 
 const styles = StyleSheet.create({
