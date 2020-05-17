@@ -18,15 +18,13 @@ export default class WriteScreenFrame extends Component{
     render() {
         let Stack = createStackNavigator()
         let {navigation} = this.props
-        return (<Stack.Navigator screenOptions={{...HEADER_STYLES,
+        return (<Stack.Navigator screenOptions={({navigation, route})=>{ if (typeof(route.params)!=='undefined') {console.log(route.params.saving);} return({...HEADER_STYLES,
             ...{
-                headerTitle : () => {return (typeof(navigation.state.params)==='undefined' ||
-                                    typeof(navigation.state.params.title) === 'undefined' ?
+                headerTitle : (typeof(route.params)==='undefined' ?
                                     "Thinktionary" :
-                                    typeof(navigation.state.params.saving) !== 'undefined' &&
-                                    navigation.state.params.saving == true ?
-                                    "             Thinktionary    Saving..." :
-                                    "Thinktionary ")},
+                                    route.params.saving ?
+                                    "Saving..." :
+                                    "Thinktionary "),
                 headerRight : () => <ReadFwdButton navigation={navigation}/>,
                 headerLeft : () => <OptionButton position={'left'}
                                                   navigation={navigation}
@@ -34,7 +32,7 @@ export default class WriteScreenFrame extends Component{
                 headerBackground : ()=> {return <LinearGradient colors={['rgba(127, 63, 191, 1)', 'rgba(127, 63, 191, 0)']} end={[0, 1, 1]}
                                                          start={[1, 0, 0]} style={{height : HEADER_HEIGHT}}/>},
                 headerTransparent : true,
-        }}}>
+        }})}}>
             <Stack.Screen
                 name={ScreenNames.WRITE_SCREEN}
                 component={WriteScreen}

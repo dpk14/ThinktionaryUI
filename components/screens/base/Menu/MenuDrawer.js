@@ -9,6 +9,7 @@ import {ABOUT_SCREEN, HELP_SCREEN, NOTIFICATIONS_SCREEN} from "./MenuScreenNames
 import NotificationsScreen from "./MenuScreens/NotificationsScreen";
 import MenuScreen from "./MenuScreens/MenuScreen";
 import AboutScreen from "./MenuScreens/InfoScreens/AboutScreen";
+import HelpScreen from "./MenuScreens/InfoScreens/HelpScreen";
 
 export default class MenuDrawer extends Component{
 

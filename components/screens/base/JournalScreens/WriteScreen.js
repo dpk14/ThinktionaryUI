@@ -166,11 +166,6 @@ export default class WriteScreen extends Screen {
         return (
                 <StyledBase>
                     <View style = {newStyles.outerFrame}>
-                        <View style = {[newStyles.bottomFrame, {height : this.state.saving ? 17 : 0}]}>
-                            <Text style = {{fontFamily : HP_SIMPLIFIED_BOLD, color : "#FFFFFF", fontSize : 14}}>
-                                {this.state.saving ? 'Saving...' : ''}
-                            </Text>
-                        </View>
                         <View style = {newStyles.topFrame}>
                             <StyledInputBox
                                 attrName='title'
@@ -269,4 +264,11 @@ export const newStyles = StyleSheet.create({
         }}
     />
 </View>
+
+
+<View style = {[newStyles.bottomFrame, {height : this.state.saving ? 17 : 0}]}>
+                            <Text style = {{fontFamily : HP_SIMPLIFIED_BOLD, color : "#FFFFFF", fontSize : 14}}>
+                                {this.state.saving ? 'Saving...' : ''}
+                            </Text>
+                        </View>
 */
