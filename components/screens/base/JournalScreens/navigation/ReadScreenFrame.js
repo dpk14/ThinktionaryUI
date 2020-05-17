@@ -4,7 +4,6 @@ import ReadScreen from "../ReadScreen";
 import {createStackNavigator} from "@react-navigation/stack";
 import {HEADER_STYLES} from "../../../../utils/baseStyles";
 import {WriteBackButton} from "../../../../Buttons/HeaderButtons/Buttons/WriteBackButton";
-import WriteBackButtonImg from "../../../../Buttons/HeaderButtons/Images/WriteBackButtonImg";
 import OptionButton from "../../../../Buttons/HeaderButtons/Buttons/OptionButton";
 import LinearGradient from "expo-linear-gradient/build/LinearGradient";
 import {HEADER_HEIGHT} from "../../../../utils/scaling";

@@ -135,7 +135,8 @@ export default class JournalContainer extends Component {
 const journalContainerStyles = StyleSheet.create({
     outerFrame : {
         flex : 1,
-        marginVertical : 15
+        marginVertical : 15,
+        justifyContent : 'space-between'
     },
     middleFrame:{
         //height : '75%',

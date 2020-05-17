@@ -18,7 +18,7 @@ export class SearchBar extends Component{
             <EntryBox title = {''}
                       scale = {scale}
                       width = {style.flexDirection == 'row' ? '100%' : width}
-                      height = {style.flex == undefined ? height : '100%'}
+                      height = {style.flex == undefined ? style.height == undefined ? '100%' : style.height : '100%'}
                       style = {style}
             >
             <SearchBarContainer>

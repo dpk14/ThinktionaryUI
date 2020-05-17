@@ -11,8 +11,16 @@ import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
 import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
 import {loginAndInitialize} from "../functions/callBacks";
 import {Header} from "../../../Headers/Header";
+import {TOPIC_BOX_HEIGHT} from "./WriteScreen";
+import {ENTRY_BOX_HEIGHT} from "../../../utils/baseStyles";
 
 let MARGIN_HORIZONTAL = 15
+let MARGIN_BOTTOM = 30
+let BAR_SCALE = .6
+let TOPIC_BANK_SCALE = .75
+let BAR_HEIGHT = getScreenHeight()*.055
+let JOURNAL_CONTAINER_SCALE = .85
+
 export default class ReadScreen extends Screen {
 
     static DEFAULT_JOURNAL_TITLE = 'All entries:'
@@ -95,6 +103,16 @@ export default class ReadScreen extends Screen {
         this.setState({activeEntries : newActiveSet})
     }
 
+    getJournalContainerHeight(){
+        return (getScreenHeight() -
+            HEADER_HEIGHT -
+            MARGIN_BOTTOM -
+            (TOPIC_BANK_SCALE * TOPIC_BOX_HEIGHT) -
+            (BAR_HEIGHT / BAR_SCALE)
+        ) / JOURNAL_CONTAINER_SCALE
+
+    }
+
     render() {
         if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
         let journalTitle = this._getJournalTitle()
@@ -108,40 +126,39 @@ export default class ReadScreen extends Screen {
                                title = {'Search'}
                                width = {'100%'}
                                updateMasterState={this._updateMasterState}
-                               style = {{flex : .065}}
-                               scale = {.60}
+                               style = {{height : BAR_HEIGHT}}
+                               scale = {BAR_SCALE}
                                onChangeText={this._search}
                     />
                     <JournalContainerBox
                             title={journalTitle}
                             updateMasterState={this._updateMasterState}
-                            scale = {.85}
+                            scale = {JOURNAL_CONTAINER_SCALE}
                             width = {'100%'}
-                            style = {{flex : .75}}
+                            //style = {{flex : .75}}
+                            height = {this.getJournalContainerHeight()}
                             blurOnSubmit = {false}
-                            active = {entries.size>0}
+                            active = {entries.size > 0}
                             entries = {activeEntries}
                             journal = {journal}
                             navigation = {navigation}
                             onEntryRemoval = {this._onEntryRemoval}
                             />
-                    <View style={readStyles.bottomFrame}>
                         <TopicBank
                             attrName='topicBank'
                             setName='topicBankCurr'
                             title='Look up your thoughts in the Thinktionary!'
                             active = {topics.size > 0}
                             updateMasterState={this._updateMasterState}
-                            scale = {.75}
+                            scale = {TOPIC_BANK_SCALE}
                             topicScale = {.62}
                             topics = {topics}
-                            width= '100%'
-                            height={1.5*TOPIC_HEIGHT}
-                            onTopicActivityChange={this._onTopicActivityChange}
-                            activeTopicsName ={'activeTopics'}
+                            width = '100%'
+                            height = {TOPIC_BOX_HEIGHT}
+                            onTopicActivityChange = {this._onTopicActivityChange}
+                            activeTopicsName = {'activeTopics'}
                             activeTopics = {activeTopics}
                         />
-                    </View>
                 </View>
             </StyledBase>
         )
@@ -158,10 +175,10 @@ export const readStyles = StyleSheet.create({
     },
     outerFrame:{
         marginTop : HEADER_HEIGHT,
-        height : getScreenHeight() - 70,
+        height : getScreenHeight() - HEADER_HEIGHT - MARGIN_BOTTOM,
         width : getScreenWidth() - 2*MARGIN_HORIZONTAL,
         marginHorizontal : MARGIN_HORIZONTAL,
-        marginBottom : 10,
+        marginBottom : MARGIN_BOTTOM,
     }
 
 });

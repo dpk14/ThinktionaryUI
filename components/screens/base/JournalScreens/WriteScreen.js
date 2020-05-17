@@ -27,7 +27,7 @@ import {BUTTON_HEIGHT, ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../u
 import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 
 const MARGIN_HORIZONTAL = 15
-const TOPIC_BOX_HEIGHT = 1.5 * TOPIC_HEIGHT
+export const TOPIC_BOX_HEIGHT = 1.5 * TOPIC_HEIGHT
 const ENTRY_BOX_SCALE = .75
 const BUTTON_SCALE = .8
 const BOTTOM_FRAME_TOP_MARGIN = 7.5
