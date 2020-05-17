@@ -75,6 +75,7 @@ export default class WriteScreen extends Screen {
             topicBank : this.state.journal.topics,
             activeTopics: new Set(),
             saving : false,
+            journalLoading : true,
         }
     }
 
