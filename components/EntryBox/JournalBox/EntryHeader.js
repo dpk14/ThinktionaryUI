@@ -11,29 +11,29 @@ import {CustomButtonImg} from "../../Buttons/CustomButtonImg";
 
 let MARGIN_BOTTOM = 10
 
-export default class EntryHeader extends Component{
+export default class EntryHeader extends Component {
 
     static propTypes = {
-        title : string.isRequired,
-        created : string.isRequired,
-        modified : string.isRequired,
-        navigation : object.isRequired,
-        entry : object.isRequired,
-        journal : object.isRequired,
-        onEntryRemoval : func.isRequired,
-        width : number,
-        height : number,
-        scale : number,
-        marginLeft : number,
-        style : object,
+        title: string.isRequired,
+        created: string.isRequired,
+        modified: string.isRequired,
+        navigation: object.isRequired,
+        entry: object.isRequired,
+        journal: object.isRequired,
+        onEntryRemoval: func.isRequired,
+        width: number,
+        height: number,
+        scale: number,
+        marginLeft: number,
+        style: object,
     }
 
     static defaultProps = {
-        width : 150,
-        height : 50,
-        scale : 1,
-        marginLeft : 21,
-        style : {}
+        width: 150,
+        height: 50,
+        scale: 1,
+        marginLeft: 21,
+        style: {}
     }
 
     constructor(props) {
@@ -48,21 +48,21 @@ export default class EntryHeader extends Component{
     _outerDimensions = () => {
         let {width, height, scale} = this.props
         return {
-            width : _scale(width, scale),
-            height : _scale(height, scale)
+            width: _scale(width, scale),
+            height: _scale(height, scale)
         }
     }
 
     _textDimensions = () => {
         let {marginLeft, scale} = this.props
         return {
-            marginLeft : _scale(marginLeft, scale)
+            marginLeft: _scale(marginLeft, scale)
         }
     }
 
     _editEntry = () => {
         let {navigation, journal, entry} = this.props
-        navigation.navigate(ScreenNames.WRITE_SCREEN, {journal : journal, entry : entry})
+        navigation.navigate(ScreenNames.WRITE_SCREEN, {journal: journal, entry: entry})
     }
 
     _removeEntry = () => {
@@ -75,67 +75,63 @@ export default class EntryHeader extends Component{
         let {topics} = this.props.entry
         if (topics.size == 0) return "No tags used"
         let str = "Tags used: "
-        topics.forEach((topic) => str+=topic+", ")
-        return str.substring(0, str.length-2)
-    }
-
-    calculateHeight(){
-        return {
-            height :
-                (entryHeaderStyle.titleText.marginTop +
-                entryHeaderStyle.titleText.marginBottom +
-                entryHeaderStyle.titleText.fontSize +
-                (3*(
-                    (entryHeaderStyle.dateText.marginVertical*2) +
-                    entryHeaderStyle.dateText.fontSize
-                ))) + 2*MARGIN_BOTTOM
-        }
+        topics.forEach((topic) => str += topic + ", ")
+        return str.substring(0, str.length - 2)
     }
 
     render() {
         let {scale, title, created, modified, style} = this.props
         return (
-                <View style = {[entryHeaderStyle.outerFrame, this._outerDimensions(), style, this.calculateHeight()]}>
-                    <View style = {entryHeaderStyle.leftFrame}>
-                        <Text numberOfLines = {1}
-                              style = {[entryHeaderStyle.titleText, this._textDimensions()]}>
-                            {title}
-                        </Text>
-                        <Text numberOfLines = {1}
-                              style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
-                            {"Created on " + created}
-                        </Text>
-                        <Text numberOfLines = {1}
-                              style = {[entryHeaderStyle.dateText, this._textDimensions()]}>
-                            {"Last modified on " + modified}
-                        </Text>
-                        <Text numberOfLines = {1}
-                              style = {[entryHeaderStyle.dateText, this._textDimensions(), {marginBottom : MARGIN_BOTTOM}]}>
-                            {this.getTopicText()}
-                        </Text>
-                    </View>
-                    <View style = {entryHeaderStyle.rightFrame}>
-                        <CustomButtonImg
-                            source = {require("../../../assets/images/pencil1.png")}
-                            scale = {_scale(.8, scale)}
-                            style = {{borderRadius : 5, alignItems:"flex-start"}}
-                            imageStyle={{width : 20, height : 20}}
-                            onPress = {this._editEntry}
-                        />
-                        <CustomButtonImg source={require("../../../assets/images/trash_can.png")}
-                                      imageStyle={{width : 20, height : 20, flex : 1}}
-                                         scale={_scale(.8, scale)}
-                                      style = {{borderRadius : 5, marginLeft : 15}}
-                                      onPress={this._removeEntry}
-                        />
-                    </View>
+            <View
+                style={[entryHeaderStyle.outerFrame, this._outerDimensions(), style, {height: EntryHeader.calculateEntryHeaderHeight()}]}>
+                <View style={entryHeaderStyle.leftFrame}>
+                    <Text numberOfLines={1}
+                          style={[entryHeaderStyle.titleText, this._textDimensions()]}>
+                        {title}
+                    </Text>
+                    <Text numberOfLines={1}
+                          style={[entryHeaderStyle.dateText, this._textDimensions()]}>
+                        {"Created on " + created}
+                    </Text>
+                    <Text numberOfLines={1}
+                          style={[entryHeaderStyle.dateText, this._textDimensions()]}>
+                        {"Last modified on " + modified}
+                    </Text>
+                    <Text numberOfLines={1}
+                          style={[entryHeaderStyle.dateText, this._textDimensions(), {marginBottom: MARGIN_BOTTOM}]}>
+                        {this.getTopicText()}
+                    </Text>
+                </View>
+                <View style={entryHeaderStyle.rightFrame}>
+                    <CustomButtonImg
+                        source={require("../../../assets/images/pencil1.png")}
+                        scale={_scale(.8, scale)}
+                        style={{borderRadius: 5, alignItems: "flex-start"}}
+                        imageStyle={{width: 20, height: 20}}
+                        onPress={this._editEntry}
+                    />
+                    <CustomButtonImg source={require("../../../assets/images/trash_can.png")}
+                                     imageStyle={{width: 20, height: 20, flex: 1}}
+                                     scale={_scale(.8, scale)}
+                                     style={{borderRadius: 5, marginLeft: 15}}
+                                     onPress={this._removeEntry}
+                    />
+                </View>
             </View>
         )
     }
 
+    static calculateEntryHeaderHeight() {
+        return (entryHeaderStyle.titleText.marginTop +
+            entryHeaderStyle.titleText.marginBottom +
+            entryHeaderStyle.titleText.fontSize +
+            (3 * (
+                (entryHeaderStyle.dateText.marginVertical * 2) +
+                entryHeaderStyle.dateText.fontSize
+            )) + (2 * MARGIN_BOTTOM))
+    }
 }
-
-const entryHeaderStyle = StyleSheet.create({
+    const entryHeaderStyle = StyleSheet.create({
     outerFrame: {
         flexDirection : 'row',
         backgroundColor: PURPLE,

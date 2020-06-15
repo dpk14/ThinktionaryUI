@@ -10,7 +10,12 @@ import EntryHeader from "./EntryHeader";
 import EntryBox from "../EntryBox";
 import {_scale} from "../../utils/scaling";
 import RightLeftNavigator from "../../Buttons/RightLeftNavigator";
-import {StyledInputBox} from "../TextInputBox/StyledInputBox";
+import {ENTRY_BOX_HEIGHT} from "../../utils/baseStyles";
+
+const TEXT_BOX_SCALE = .8
+const NAVIGATOR_HEIGHT = 40
+const MARGIN_VERTICAL = 15
+const SCALE =  .8
 
 export default class JournalContainer extends Component {
 
@@ -73,7 +78,7 @@ export default class JournalContainer extends Component {
     _pageRight = () => {
         let {entryIndex} = this.state
         if(entryIndex > 0){
-            this.setState({entryIndex : entryIndex-1})
+            this.setState({entryIndex : entryIndex - 1})
         }
 
     }
@@ -81,8 +86,13 @@ export default class JournalContainer extends Component {
     _pageLeft = () => {
         let {entryIndex} = this.state
         if(entryIndex < Array.from(this.props.entries).length - 1){
-            this.setState({entryIndex : entryIndex+1})
+            this.setState({entryIndex : entryIndex + 1})
         }
+    }
+
+    getTextInputHeight(){
+        let ttl_height = this.props.style.height == undefined ? this.props.height : this.props.style.height
+        return ttl_height - ENTRY_BOX_HEIGHT - EntryHeader.calculateEntryHeaderHeight()
     }
 
     render() {
@@ -100,20 +110,18 @@ export default class JournalContainer extends Component {
                     navigation = {navigation}
                     entry = {currentEntry}
                     journal = {journal}
-                    //style = {{flex : .215}}
                     width = '100%'
-                    scale = {_scale(.8, scale)}
+                    scale = {_scale(scale, SCALE)}
                     onEntryRemoval = {onEntryRemoval}
                 />
-                <View style = {{flex : .68}}>
-                <StyledTextInput
-                    multiline = {true}
-                    attrName = {''}
-                    value = {currentEntry.text}
+                <View style = {{height : this.getTextInputHeight()}}>
+                    <StyledTextInput
+                        multiline = {true}
+                        attrName = {''}
+                        value = {currentEntry.text}
                     updateMasterState = {()=>{}}
-                    height={"100%"}
-                    style = {{marginTop : 5}}
-                    scale = {_scale(.8, scale)}
+                    style = {{marginTop : 5, height : this.getTextInputHeight()}}
+                    scale = {_scale(TEXT_BOX_SCALE, scale)}
                     editable = {false}
                 />
                 </View>
@@ -121,7 +129,7 @@ export default class JournalContainer extends Component {
                     <RightLeftNavigator onLeftPress={this._pageLeft}
                                         onRightPress={this._pageRight}
                                         width={200}
-                                        height={40}
+                                        height={NAVIGATOR_HEIGHT}
                                         minimum={1}
                                         maximum={entries.length}
                                         current={entries.length - this.state.entryIndex}
@@ -139,13 +147,10 @@ const journalContainerStyles = StyleSheet.create({
         justifyContent : 'space-between'
     },
     middleFrame:{
-        //height : '75%',
         width : '100%'
     },
     bottomFrame:{
-        //width: '100%',
-        flex : .05,
-        //justifyContent : 'center',
+        height : ENTRY_BOX_HEIGHT,
         alignItems : 'center'
     }
 

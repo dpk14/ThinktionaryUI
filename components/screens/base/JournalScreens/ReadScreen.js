@@ -12,7 +12,7 @@ import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
 import {loginAndInitialize} from "../functions/callBacks";
 import {Header} from "../../../Headers/Header";
 import {TOPIC_BOX_HEIGHT} from "./WriteScreen";
-import {ENTRY_BOX_HEIGHT} from "../../../utils/baseStyles";
+import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
 
 let MARGIN_HORIZONTAL = 15
 let MARGIN_BOTTOM = 30
@@ -47,7 +47,7 @@ export default class ReadScreen extends Screen {
 
     async componentDidMount() {
         await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
-        this._focusUnsubscribe = this.props.navigation.addListener('focus', ()=>loginAndInitialize((journal) => this.setState(this.initialize(journal))))    }
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => loginAndInitialize((journal) => this.setState(this.initialize(journal))))    }
 
     componentWillUnmount() {
         this._focusUnsubscribe()
@@ -108,8 +108,9 @@ export default class ReadScreen extends Screen {
             HEADER_HEIGHT -
             MARGIN_BOTTOM -
             (TOPIC_BANK_SCALE * TOPIC_BOX_HEIGHT) -
-            (BAR_HEIGHT / BAR_SCALE)
-        ) / JOURNAL_CONTAINER_SCALE
+            (BAR_HEIGHT * BAR_SCALE)
+            -(6*ENTRY_BOX_VERT_MARGIN)
+        )
 
     }
 
@@ -122,7 +123,7 @@ export default class ReadScreen extends Screen {
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
                     <SearchBar attrName={'searched'}
-                               value={searched}
+                               value = {searched}
                                title = {'Search'}
                                width = {'100%'}
                                updateMasterState={this._updateMasterState}
@@ -131,12 +132,11 @@ export default class ReadScreen extends Screen {
                                onChangeText={this._search}
                     />
                     <JournalContainerBox
-                            title={journalTitle}
-                            updateMasterState={this._updateMasterState}
+                            title = {journalTitle}
+                            updateMasterState = {this._updateMasterState}
                             scale = {JOURNAL_CONTAINER_SCALE}
                             width = {'100%'}
-                            //style = {{flex : .75}}
-                            height = {this.getJournalContainerHeight()}
+                            style = {{height : this.getJournalContainerHeight()}}
                             blurOnSubmit = {false}
                             active = {entries.size > 0}
                             entries = {activeEntries}
@@ -145,9 +145,9 @@ export default class ReadScreen extends Screen {
                             onEntryRemoval = {this._onEntryRemoval}
                             />
                         <TopicBank
-                            attrName='topicBank'
-                            setName='topicBankCurr'
-                            title='Look up your thoughts in the Thinktionary!'
+                            attrName = 'topicBank'
+                            setName = 'topicBankCurr'
+                            title = 'Look up your thoughts in the Thinktionary!'
                             active = {topics.size > 0}
                             updateMasterState={this._updateMasterState}
                             scale = {TOPIC_BANK_SCALE}
