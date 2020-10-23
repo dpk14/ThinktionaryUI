@@ -11,6 +11,8 @@ import makeAccount from "../../../../requestHandler/Requests/AccountRequests/Mak
 import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";
 import {_onLogin, parseOrAlert} from "../functions/callBacks";
+import VerifyAccount from "../../../../requestHandler/Requests/AccountRequests/VerifyAccountInfo";
+import ScreenNames from "../../../../navigation/ScreenNames";
 
 let USERNAME_MIN_LENGTH = 1
 let PASSWORD_MIN_LENGTH = 6
@@ -22,6 +24,8 @@ export default class NewAccountScreen extends Screen {
         this.state = {
             username : '',
             password : '',
+            confirmPassword : '',
+            email : '',
             loading : false,
         }
     }
@@ -34,24 +38,23 @@ export default class NewAccountScreen extends Screen {
         this._focusUnsubscribe()
     }
 
-    _onButtonClick = (navigation, username, password) => {
-        return () => new Login(username, password).fetchAndExecute(_onLogin(navigation))
-    }
-
-    createAccount(username, password) {
-        if (this.validateInfo(username, password)) {
-            new makeAccount(username, password).fetchAndExecute(
-                this._onButtonClick(this.props.navigation, username, password), () => this.setState({loading: false}));
+    verifyAccountInfo(username, password, confirmPassword, email) {
+        if (this.validateInfo(username, password, confirmPassword, email)) {
+                new VerifyAccount(username, password, email).fetchAndExecute(
+                    () => this.props.navigation.navigate(ScreenNames.VERIFY_ACCT_SCREEN, {username : username, password : password, email : email}),
+                    () => this.setState({loading: false}));
         } else {
             this.setState({loading: false})
         }
     }
 
-    validateInfo(username, password){
+    validateInfo(username, password, confirmPassword, email){
         let messages = []
         if (username.length < 1) messages.push("Username cannot be empty")
         if (password.length < PASSWORD_MIN_LENGTH) messages.push("Password must exceed " + (PASSWORD_MIN_LENGTH - 1).toString() + " characters")
-        if(messages.length == 0) return true
+        if (password != confirmPassword) messages.push("Passwords do not match")
+        if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) messages.push ("Invalid email address");
+        if (messages.length == 0) return true
         else {
             let message = ""
             messages.forEach((msg) => message+=msg + "\n")
@@ -79,6 +82,22 @@ export default class NewAccountScreen extends Screen {
                         marginVertical={15}
                         secureTextEntry={true}
                     />
+                    <StyledInputBox
+                        attrName='confirmPassword'
+                        title='Confirm Password'
+                        value={this.state.confirmPassword}
+                        updateMasterState={this._updateMasterState}
+                        marginVertical={15}
+                        secureTextEntry={true}
+                    />
+                    <StyledInputBox
+                        attrName='email'
+                        title='Email'
+                        value={this.state.email}
+                        updateMasterState={this._updateMasterState}
+                        marginVertical={15}
+                        secureTextEntry={false}
+                    />
                     <CustomButton
                         text="Create Account"
                         disabled={this.state.loading}
@@ -88,7 +107,7 @@ export default class NewAccountScreen extends Screen {
                         }}
                         onPress={() => {
                             this.setState({loading : true})
-                            this.createAccount(this.state.username, this.state.password)
+                            this.verifyAccountInfo(this.state.username, this.state.password, this.state.confirmPassword, this.state.email)
                         }}
                     />
             </StyledBase>

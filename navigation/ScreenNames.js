@@ -2,6 +2,7 @@ export default class screenNames{
     static HOME_SCREEN = "home"
     static LOGIN_SCREEN = "login"
     static NEW_ACCT_SCREEN = "makeAccount"
+    static VERIFY_ACCT_SCREEN = "verifyAccount"
     static WRITE_SCREEN = "write"
     static WRITE_SCREEN_FRAME = "writeF"
     static READ_SCREEN = "read"

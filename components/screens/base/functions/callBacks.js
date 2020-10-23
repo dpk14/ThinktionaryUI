@@ -57,14 +57,14 @@ export async function loginAndInitialize(callBack){
         new Login(username, pwd).
         fetchAndExecute((journal) => callBack(journal))
     }
-    catch(e){
+    catch(e) {
         alert("Could not retrieve user data")
         console.warn(e)
     }
 }
 
 export function _onSubmit(navigation) {
-    return (journal) =>{
+    return (journal) => {
         navigation.navigate(ScreenNames.READ_SCREEN, {journal : journal})
     }
 }
