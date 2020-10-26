@@ -15,6 +15,8 @@ import LoginScreen from "./components/screens/base/AuthScreens/LoginScreen";
 import NewAccountScreen from "./components/screens/base/AuthScreens/NewAccountScreen";
 import JournalTabScreen from "./components/screens/base/JournalScreens/navigation/JournalTabScreen";
 import {HEADER_STYLES} from "./components/utils/baseStyles";
+import VerifyAccount from "./requestHandler/Requests/AccountRequests/VerifyAccountInfo";
+import VerifyEmailScreen from "./components/screens/base/AuthScreens/VerifyEmailScreen";
 
 export default class App extends Component {
 
@@ -55,6 +57,10 @@ export default class App extends Component {
                         component={NewAccountScreen}
                     />
                     <Stack.Screen
+                        name={ScreenNames.VERIFY_ACCT_SCREEN}
+                        component={VerifyEmailScreen}
+                    />
+                    <Stack.Screen
                         name={ScreenNames.APP_NAVIGATION}
                         component={JournalTabScreen}
                         options={{headerShown: false, gestureEnabled: false}}
@@ -63,4 +69,20 @@ export default class App extends Component {
             </NavigationContainer>
         );
     }
+
 }
+
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 60,
+        textAlign: 'center',
+        marginTop: "30%",
+        marginBottom: "%15",
+        color : '#FFFFFF',
+        fontFamily: HP_SIMPLIFIED_BOLD,
+        shadowOffset: { height: 4},
+        shadowRadius: 20,
+        shadowOpacity: .5
+    },
+
+});

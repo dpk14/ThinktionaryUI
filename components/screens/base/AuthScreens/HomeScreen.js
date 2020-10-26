@@ -6,9 +6,7 @@ import screenNames from "../../../../navigation/ScreenNames"
 import {baseStyles} from "../Screen";
 import Screen from "../Screen"
 import StyledBase from "../StyledBase";
-import {CustomButtonImg} from "../../../Buttons/CustomButtonImg";
-import {_scale} from "../../../utils/scaling";
-import {loginAndInitialize} from "../functions/callBacks";
+import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 
 export default class HomeScreen extends Screen{
 
@@ -35,20 +33,20 @@ export default class HomeScreen extends Screen{
     renderScreen() {
             return (
                 <StyledBase>
-                        <Text style={baseStyles.title}>Thinktionary</Text>
-                        <View style = {newStyles.buttonOuterLayout}
+                        <Text style={homeStyles.title}>Thinktionary</Text>
+                        <View style = {homeStyles.buttonOuterLayout}
                             >
-                            <CustomButton
-                                text="Create Account"
-                                disabled = {this.state.loading}
-                                onPress={() => this.navigateAndDisable(screenNames.NEW_ACCT_SCREEN)}
-                                style = {{width : 220, marginTop : 20}}
-                            />
                             <CustomButton
                                 text="Login"
                                 disabled = {this.state.loading}
                                 onPress={() => this.navigateAndDisable(screenNames.LOGIN_SCREEN)}
-                                style= {{width : 150, marginTop : 20}}
+                                style= {{width : 320, marginTop : 30}}
+                            />
+                            <CustomButton
+                                text="Create Account"
+                                disabled = {this.state.loading}
+                                onPress={() => this.navigateAndDisable(screenNames.NEW_ACCT_SCREEN)}
+                                style = {{width : 320, marginTop : 30}}
                             />
                         </View>
                 </StyledBase>
@@ -56,12 +54,21 @@ export default class HomeScreen extends Screen{
         }
 }
 
-const newStyles = StyleSheet.create({
+export const homeStyles = StyleSheet.create({
     buttonOuterLayout: {
         flex : 1,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom : 500
+    }, title: {
+        fontSize: 60,
+        textAlign: 'center',
+        marginTop: "60%",
+        marginBottom: 0,
+        color : '#FFFFFF',
+        fontFamily: HP_SIMPLIFIED_BOLD,
+        shadowOffset: { height: 4},
+        shadowRadius: 20,
+        shadowOpacity: .5
     }
-
 });

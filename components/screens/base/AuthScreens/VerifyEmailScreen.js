@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Font from 'expo-font';
-import {AppLoading} from 'expo';
 
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
-import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
+import MakeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";
 import {_onLogin, parseOrAlert} from "../functions/callBacks";
+import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 
 export default class NewAccountScreen extends Screen {
 
@@ -31,9 +29,10 @@ export default class NewAccountScreen extends Screen {
     }
 
     confirmEmailKeyAndCreateAccount() {
-        let {username, password, email} = this.props.navigation
 
-        new makeAccount(username, password, email, this.state.emailKey).fetchAndExecute(
+        let {username, password, email} = this.props.route.params
+
+        new MakeAccount(username, password, email, this.state.emailKey).fetchAndExecute(
             () => new Login(username, password).fetchAndExecute(_onLogin(this.props.navigation)),
             () => this.setState({loading: false}));
     }
@@ -41,27 +40,45 @@ export default class NewAccountScreen extends Screen {
     render() {
         return (
             <StyledBase>
-                <Text style={baseStyles.title}>Thinktionary</Text>
+                <Text style={verifyEmailStyles.title}>Thinktionary</Text>
                 <StyledInputBox
                     attrName='emailKey'
                     title='Email Verification Key'
                     value={this.state.emailKey}
                     updateMasterState={this._updateMasterState}
-                    marginVertical={15}
+                    marginVertical={30}
                 />
                 <CustomButton
                     text="Submit Key"
                     disabled={this.state.loading}
                     style={{
-                        marginTop : 8,
+                        marginTop : 10,
                         width : 220
                     }}
                     onPress={() => {
-                        this.setState({loading : true})
-                        this.confirmEmailKeyAndCreateAccount()
+                        if (isNaN(parseInt(this.state.emailKey))) {
+                            alert("Confirmation key must be a number")
+                        } else {
+                            this.setState({loading: true})
+                            this.confirmEmailKeyAndCreateAccount()
+                        }
                     }}
                 />
             </StyledBase>
         );
     }
 }
+
+export const verifyEmailStyles = StyleSheet.create({
+    title: {
+        fontSize: 60,
+        textAlign: 'center',
+        marginTop: "60%",
+        marginBottom: 30,
+        color : '#FFFFFF',
+        fontFamily: HP_SIMPLIFIED_BOLD,
+        shadowOffset: { height: 4},
+        shadowRadius: 20,
+        shadowOpacity: .5
+    }
+});

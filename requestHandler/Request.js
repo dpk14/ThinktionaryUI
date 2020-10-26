@@ -26,29 +26,6 @@ export default class Request{
         }
     }
 
-    requestXML(url, type, json, hasReturn){
-        var request = new XMLHttpRequest()
-        // get a callback when the server responds
-        request.onreadystatechange = e => {
-            if (request.readyState !== 4) {
-                return 'could not connect';
-            }
-
-            if (request.status === 200) {
-                return request;
-                console.log('success', request.responseText);
-            } else {
-                console.warn('error');
-            }
-        };
-        // open the request with the verb and the url
-        request.open(type, url)
-        if(hasReturn) request.setRequestHeader('Content-Type', 'application/json')
-        // send the request
-        if(json!=null) request.send(JSON.stringify(json))
-        else request.send()
-    }
-
     request(url, type, json, hasReturn, callBack, errorCallBack, errorHandler){
         errorCallBack = errorCallBack == undefined ? ()=>{} :
                         Array.isArray(errorCallBack) ? ()=>errorCallBack.forEach((callBack) => callBack()) : errorCallBack
@@ -60,14 +37,14 @@ export default class Request{
                 'Content-Type': 'application/json',
             }
         }
-        if(json != undefined) {
+        if (json != undefined) {
             init.headers['Accepts'] = 'application/json'
             init.body = JSON.stringify(json);
         }
             return fetch(url, init)
                 .then(response => {
                     let checkedResponse = ResponseHandler.checkStatusOk(response)
-                    this.translateBody(checkedResponse, callBack)
+                    this.translateBody(checkedResponse, callBack, hasReturn)
                 })
                 .catch(e => {
                     this.translateException(e, errorHandler);
@@ -78,10 +55,12 @@ export default class Request{
         this.request(this.url, this.type, this.json, this.hasReturn, callBack, errorCallBack, errorHandler);
     }
 
-    translateBody(response, callBack){
-        response.json().
-        then(json => this.parser(json)).
-        then(parsedResponse => Array.isArray(callBack) ? callBack.forEach((func) => func(parsedResponse)) : callBack(parsedResponse))
+    translateBody(response, callBack, hasReturn) {
+        hasReturn ?
+            response.json().
+                then(json => this.parser(json)).
+                then(parsedResponse => Array.isArray(callBack) ? callBack.forEach((func) => func(parsedResponse)) : callBack(parsedResponse))
+            : Array.isArray(callBack) ? callBack.forEach((func) => func()) : callBack()
     }
 
     translateException(e, errorHandler){

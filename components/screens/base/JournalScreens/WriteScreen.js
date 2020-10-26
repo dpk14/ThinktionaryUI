@@ -145,7 +145,7 @@ export default class WriteScreen extends Screen {
 
     autoSave(nextState){
         let {journal, text, title, topics, entryID, entryMade, saving} = this.state
-        if (journal != undefined && (title != nextState.title || text != nextState.title || topics.size != nextState.topics.size)) {
+        if (journal != undefined && (title != nextState.title || text != nextState.text || topics.size != nextState.topics.size)) {
             if (!entryMade) {
                 nextState.entryMade = true
                 new BuildEntry(this.state.journal.userID, title == '' ? "Untitled" : title, text, topics, undefined).fetchAndExecute(_onCreate(this.setEntryID))
