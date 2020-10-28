@@ -47,10 +47,16 @@ export default class EntryBox extends Component {
     constructor(props) {
         super(props);
         const { value } = this.props;
-        let isFieldActive = this.props.active ? true : false
+        console.log("AGHHAH")
+        console.log(this.props.title)
+        console.log(value)
+        console.log(this.props.value === "")
+        let isFieldActive = !(this.props.value === "") || (this.props.value === "" && this.props.active) ? true : false
+        console.log(isFieldActive)
         this.state = {
             loading : true,
-            isFieldActive: isFieldActive
+            isFieldActive: isFieldActive,
+            justInactivated : false,
         }
         this.position = new Animated.Value(value || isFieldActive? 1 : 0);
         this.shadow = new Animated.Value(value || isFieldActive? 1 : 0);
@@ -161,6 +167,27 @@ export default class EntryBox extends Component {
             isActive ? this._animateFocus() : this._animateBlur()
         //}
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.inactivateIfScreenReset(prevProps);
+    }
+
+    inactivateIfScreenReset(prevProps) {
+        if (prevProps.value != this.props.value && !this.props.value && !this.state.justInactivated) {
+            this.setState({
+                isFieldActive: false,
+                justInactivated: true
+            })
+            this._animateBlur()
+        } else if (this.state.justInactivated) {
+            console.log("SPLARGH")
+            this.setState({
+                justInactivated: false
+            })
+        }
+
+    }
+
 
     render() {
         const childrenWithLayout = //this.props.alwaysActive ? this.props.children :

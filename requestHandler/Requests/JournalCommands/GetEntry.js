@@ -1,4 +1,4 @@
-import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
+import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../Request";
 import JSONParser from "../../Utils/JSONParser";
 
 export default class getEntry extends Request {

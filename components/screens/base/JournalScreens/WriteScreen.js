@@ -1,30 +1,18 @@
+import {StyleSheet, View} from 'react-native';
 
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
-
-import  {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
-import Screen, {baseStyles} from "../Screen";
+import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
+import Screen from "../Screen";
 import React from "react";
-import CustomButton from "../../../Buttons/CustomButton";
-import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {TOPIC_HEIGHT} from "../../../strings";
 import {TopicCreatorBox} from "../../../EntryBox/TopicBox/TopicCreatorBox";
 import StyledBase from "../StyledBase";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
-import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
-import {
-    _onCreate,
-    _onLogin,
-    _onSubmit, createOrSave,
-    loginAndInitialize,
-    parseOrAlert,
-    reloadJournalAndInitialize, save
-} from "../functions/callBacks";
+import {_onCreate, loginAndInitialize, save} from "../functions/callBacks";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import AppLoading from "expo/build/launch/AppLoading";
-import {BUTTON_HEIGHT, ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
-import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
+import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
+import ScreenNames from "../../../../navigation/ScreenNames";
 
 const MARGIN_HORIZONTAL = 15
 export const TOPIC_BOX_HEIGHT = 1.5 * TOPIC_HEIGHT
@@ -50,7 +38,7 @@ export default class WriteScreen extends Screen {
         return {
             journal : journal,
             entry : entry == undefined ? undefined : entry,
-            entryID : entry == undefined ? undefined : entry.entryID,
+            entryID : entryID,
             title : entry == undefined ? '' : entry.title,
             text : entry == undefined ? '' : entry.text,
             date : entry == undefined ? '' : entry.date,
@@ -64,28 +52,22 @@ export default class WriteScreen extends Screen {
         }
     }
 
-    clear() {
-        return {
-            entry: undefined,
-            entryID: undefined,
-            title: '',
-            text: '',
-            date: '',
-            currTopic: '',
-            topics: new Set(),
-            topicBank : this.state.journal.topics,
-            activeTopics: new Set(),
-            saving : false,
-        }
-    }
-
     async componentDidMount() {
         this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
-            if (this.state.text != '' || this.state.title != '' || this.state.topics.size > 0) save(this.state)
-            this.setState(this.clear())
-        });
-        await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
-        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => loginAndInitialize((journal) => this.setState(this.initialize(journal))))
+            if (this.state.text != '' || this.state.title != '' || this.state.topics.size > 0) {
+                save(this.state)
+            }})            //this.setState(this.clear())
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
+            if (this.state.journal === undefined) {
+                if (this.props.route.params === undefined) {
+                    loginAndInitialize((journal) => this.setState(this.initialize(journal)))
+                } else {
+                    this.setState(this.initialize(this.props.route.params.journal));
+                }
+            } else {
+                this.setState(this.initialize(this.state.journal))
+            }
+        })
     }
 
     componentWillUnmount() {
@@ -102,16 +84,11 @@ export default class WriteScreen extends Screen {
 
     _onTopicCreatorPress = (topic) => {
         return () => {
-        let {activeTopics, topics} = this.state
-        activeTopics.delete(topic)
-        topics.delete(topic)
-        this.setState({topics: topics, activeTopics: activeTopics})
-    }
-    }
-
-    submit = () => {
-        let {username, password} = this.state.journal
-        new Login(username, password).fetchAndExecute(_onSubmit(this.props.navigation))
+            let {activeTopics, topics} = this.state
+            activeTopics.delete(topic)
+            topics.delete(topic)
+            this.setState({topics: topics, activeTopics: activeTopics})
+        }
     }
 
     _onTopicActivityChange = (topic, isActive) => {
@@ -149,8 +126,7 @@ export default class WriteScreen extends Screen {
             if (!entryMade) {
                 nextState.entryMade = true
                 new BuildEntry(this.state.journal.userID, title == '' ? "Untitled" : title, text, topics, undefined).fetchAndExecute(_onCreate(this.setEntryID))
-            }
-            else if (entryID != undefined && !saving){
+            } else if (entryID != undefined && !saving){
                 nextState.saving = true
                 this.props.navigation.setParams({saving : true})
                 save(this.state, () =>
@@ -242,33 +218,3 @@ export const newStyles = StyleSheet.create({
     }
 
 });
-
-/*
-<View style = {newStyles.bottomFrame}>
-    <CustomButton
-        text="Save"
-        scale = {BUTTON_SCALE}
-        marginTop={0}
-        style = {{width : 187.5}}
-        onPress={() => createOrSave(this.state, this.setEntryID)}
-    />
-    <CustomButton
-        text="Submit"
-        scale = {BUTTON_SCALE}
-        disabled={this.state.loading}
-        marginTop={0}
-        style = {{width : 187.5}}
-        onPress={() => {
-            this.setState({loading : true})
-            createOrSave(this.state, this.setEntryID, this.submit);
-        }}
-    />
-</View>
-
-
-<View style = {[newStyles.bottomFrame, {height : this.state.saving ? 17 : 0}]}>
-                            <Text style = {{fontFamily : HP_SIMPLIFIED_BOLD, color : "#FFFFFF", fontSize : 14}}>
-                                {this.state.saving ? 'Saving...' : ''}
-                            </Text>
-                        </View>
-*/

@@ -23,6 +23,7 @@ export class TopicCreatorBox extends Component {
                           width={width}
                           height={height}
                           active={active}
+                          value={value}
             >
                 <TopicContainer
                                 attrName={attrName}

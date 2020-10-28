@@ -17,6 +17,8 @@ import JournalTabScreen from "./components/screens/base/JournalScreens/navigatio
 import {HEADER_STYLES} from "./components/utils/baseStyles";
 import VerifyAccount from "./requestHandler/Requests/AccountRequests/VerifyAccountInfo";
 import VerifyEmailScreen from "./components/screens/base/AuthScreens/VerifyEmailScreen";
+import ForgotPwdScreen from "./components/screens/base/AuthScreens/ForgotPwdScreen";
+import ResetPwdScreen from "./components/screens/base/AuthScreens/ResetPwdScreen";
 
 export default class App extends Component {
 
@@ -51,6 +53,14 @@ export default class App extends Component {
                     <Stack.Screen
                         name={ScreenNames.LOGIN_SCREEN}
                         component={LoginScreen}
+                    />
+                    <Stack.Screen
+                        name={ScreenNames.FORGOT_PWD_SCREEN}
+                        component={ForgotPwdScreen}
+                    />
+                    <Stack.Screen
+                        name={ScreenNames.RESET_PWD_SCREEN}
+                        component={ResetPwdScreen}
                     />
                     <Stack.Screen
                         name={ScreenNames.NEW_ACCT_SCREEN}

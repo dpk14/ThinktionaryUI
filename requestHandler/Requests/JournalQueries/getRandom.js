@@ -1,4 +1,4 @@
-import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
+import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../Request";
 
 export default class getRandom extends Request {
     constructor(userID, topics) {

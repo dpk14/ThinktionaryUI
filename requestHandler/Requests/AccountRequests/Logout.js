@@ -1,9 +1,9 @@
-import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
+import {POST} from "../Request";
+import {AccountRequest} from "./AccountRequest";
 
-export default class Logout extends Request{
+export default class Logout extends AccountRequest{
     constructor(user, pwd) {
-        let url = BASE_URL+"/users/logout?user=" + user + "&pwd=" + pwd
-        super(url, GET, null, true)
+        super(POST, "/users/logout", true, user, pwd);
     }
 
 }

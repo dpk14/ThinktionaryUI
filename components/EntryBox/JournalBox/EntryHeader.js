@@ -62,6 +62,7 @@ export default class EntryHeader extends Component {
 
     _editEntry = () => {
         let {navigation, journal, entry} = this.props
+        console.log("edit entry")
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal: journal, entry: entry})
     }
 

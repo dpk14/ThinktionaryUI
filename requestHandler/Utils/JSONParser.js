@@ -11,7 +11,7 @@ export default class JSONParser{
         for(let key in response["myEntries"]){
             entries.add(JSONParser.parseEntry(response["myEntries"][key]))
         }
-        return new Journal(entries, response["myEntryMap"], topics, response["myUserID"], response['myUsername'], response['myPassword'])
+        return new Journal(entries, response["myEntryMap"], topics, response["myUserID"], response['myUsername'])
     }
 
     static parseEntry = (response) => {

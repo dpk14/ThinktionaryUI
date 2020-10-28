@@ -3,6 +3,11 @@ const TEXT = "myText"
 const CREATED = "myCreated"
 const TOPICS = "myTopics"
 
+const USERNAME = "username";
+const PASSWORD = "pwd";
+const EMAIL = "email";
+const CONF_KEY = "confKey";
+
 function buildDate(year, month, day, hour="00", minute="00", second="00.000") {
     let dates = {}
     dates["month"] = month
@@ -21,10 +26,21 @@ function buildEntryWithCreated(title, text, topics, created=undefined){
     let entry = {}
     entry[TITLE] = title
     entry[TEXT] = text
-    if(created != undefined) entry[CREATED] = created
+    if (created != undefined) entry[CREATED] = created
     entry[TOPICS] = setToArray(topics)
     return entry
 }
+
+function buildCredentials(username, password, email, confirmationKey){
+    let entry = {}
+    entry[USERNAME] = username
+    entry[PASSWORD] = password
+    entry[EMAIL] = email
+    entry[CONF_KEY] = confirmationKey
+    console.log(entry)
+    return entry
+}
+
 
 function setToArray(set){
     let arr = []
@@ -40,4 +56,4 @@ function buildEntry(title, text, topics){
     return entry
 }
 
-module.exports = {buildDate, buildEntry, buildEntryWithCreated}
+module.exports = {buildDate, buildEntry, buildCredentials, buildEntryWithCreated}

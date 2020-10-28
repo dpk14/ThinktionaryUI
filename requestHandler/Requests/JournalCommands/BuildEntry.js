@@ -1,5 +1,5 @@
 import JSONBuilder from "../../Utils/JSONBuilder"
-import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
+import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../Request";
 import {Journal} from "../../../components/structs/Journal";
 import JSONParser from "../../Utils/JSONParser";
 

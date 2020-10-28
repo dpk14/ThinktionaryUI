@@ -1,4 +1,4 @@
-import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../../Request";
+import Request, {POST, PUT, GET, DELETE, BASE_URL} from "../Request";
 
 export default class removeTopic extends Request {
     constructor(userId, topicName) {

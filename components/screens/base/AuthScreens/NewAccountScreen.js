@@ -11,7 +11,7 @@ import makeAccount from "../../../../requestHandler/Requests/AccountRequests/Mak
 import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";
 import {_onLogin, parseOrAlert} from "../functions/callBacks";
-import VerifyAccount from "../../../../requestHandler/Requests/AccountRequests/VerifyAccountInfo";
+import VerifyAccountInfo from "../../../../requestHandler/Requests/AccountRequests/VerifyAccountInfo";
 import ScreenNames from "../../../../navigation/ScreenNames";
 
 let USERNAME_MIN_LENGTH = 1
@@ -40,7 +40,7 @@ export default class NewAccountScreen extends Screen {
 
     verifyAccountInfo(username, password, confirmPassword, email) {
         if (this.validateInfo(username, password, confirmPassword, email)) {
-                new VerifyAccount(username, email).fetchAndExecute(
+                new VerifyAccountInfo(username, email).fetchAndExecute(
                     () => this.props.navigation.navigate(ScreenNames.VERIFY_ACCT_SCREEN, {username : username, password : password, email : email}),
                     () => this.setState({loading: false}));
         } else {

@@ -7,13 +7,13 @@
     "test": "jest"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "github:react-native-community/async-storage",
+    "@react-native-async-storage/async-storage": "github:react-native-async-storage/async-storage",
     "@react-native-community/masked-view": "0.1.6",
     "@react-navigation/bottom-tabs": "^5.2.8",
     "@react-navigation/material-top-tabs": "^5.1.10",
     "@react-navigation/stack": "^5.2.19",
     "es6-set-proptypes": "^1.0.0",
-    "expo": "^37.0.0",
+    "expo": "37.0.8",
     "expo-font": "~8.1.0",
     "expo-linear-gradient": "~8.1.0",
     "fetch-timeout": "0.0.2",
@@ -25,7 +25,6 @@
     "react-native": "0.61.4",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
-    "react-native-measure-text": "^1.0.0-alpha.2",
     "react-native-reanimated": "~1.7.0",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",
@@ -46,6 +45,7 @@
     "babel-jest": "~24.9.0",
     "jest": "~24.9.0",
     "metro-react-native-babel-preset": "~0.56.0",
+    "react-native-selectable-text": "^1.0.2",
     "react-test-renderer": "~16.9.0"
   },
   "jest": {

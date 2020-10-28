@@ -1,6 +1,7 @@
 import EntryBox from "../EntryBox";
 import StyledTextInput from "./StyledTextInput";
 import React, {Component} from "react";
+import {View} from "react-native";
 
 export class StyledInputBox extends Component{
     static propTypes = StyledTextInput.propTypes
@@ -12,11 +13,13 @@ export class StyledInputBox extends Component{
     render() {
         const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
             value, keyboardType, updateMasterState, secureTextEntry, editable, onChangeText, style}  = this.props
-        return (<EntryBox title={title}
+        return (<View>
+            <EntryBox title={title}
                           scale={scale}
                           width={style.flex == undefined ? width : '100%' }
                           height={style.flex == undefined ? height : '100%'}
                           style = {style}
+                          value = {value}
             >
                     <StyledTextInput multiline = {multiline}
                                  attrName={attrName}
@@ -34,6 +37,7 @@ export class StyledInputBox extends Component{
                                  onChangeText={onChangeText}
                                 />
             </EntryBox>
+            </View>
         )
     }
 

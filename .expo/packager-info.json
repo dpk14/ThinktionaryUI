@@ -1,9 +1,10 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 21624,
-  "expoServerNgrokUrl": "https://sv-bv4.anonymous.thinktionary.exp.direct",
-  "packagerNgrokUrl": "https://packager.sv-bv4.anonymous.thinktionary.exp.direct",
-  "ngrokPid": 9204
+  "packagerPid": 2072,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }

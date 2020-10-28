@@ -1,7 +1,7 @@
 import XMLHttpRequest from "react-native";
-import ResponseHandler from "./Utils/ResponseHandler";
-import fetchError from "./ErrorHandling/FetchError";
-import {ABSTRACT_CLASS} from "../components/utils/abstraction";
+import ResponseHandler from "../Utils/ResponseHandler";
+import fetchError from "../ErrorHandling/FetchError";
+import {ABSTRACT_CLASS} from "../../components/utils/abstraction";
 
 export const BASE_URL = 'https://thinktionary-backend.herokuapp.com'
 export const DELETE = "DELETE"
@@ -21,7 +21,7 @@ export default class Request{
         this.json = json
         this.hasReturn = hasReturn
         this.parser = parser
-        if(this.constructor === Request) {
+        if (this.constructor === Request) {
             ABSTRACT_CLASS()
         }
     }
@@ -32,13 +32,12 @@ export default class Request{
         errorHandler = errorHandler == undefined ? (message)=>{alert(message); errorCallBack()} : ()=>{errorHandler(); errorCallBack()}
 
         let init = { method: type};
-        if (hasReturn) {
-            init.headers = {
-                'Content-Type': 'application/json',
-            }
+        init.headers = {};
+        if (hasReturn || json!= undefined) {
+            init.headers['Content-Type'] = 'application/json';
+            init.headers['Accept'] = 'application/json';
         }
         if (json != undefined) {
-            init.headers['Accepts'] = 'application/json'
             init.body = JSON.stringify(json);
         }
             return fetch(url, init)

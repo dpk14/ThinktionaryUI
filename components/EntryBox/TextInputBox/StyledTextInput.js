@@ -97,18 +97,22 @@ export default class StyledTextInput extends Component {
     }
 
     _handleFocus = () => {
-            if (!this.props.active) {
-                this.props.updateContainerState(true)
-            }
+        this.props.updateContainerState(true)
     }
 
     _handleBlur = () => {
-        if (this.props.active && !this.props.value) {
-            //this.setState({ isFieldActive: false });
+        if (!this.props.value) {
             this.props.updateContainerState(false)
-            //this._animateBlur()
         }
     }
+
+/*
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.active != this.props.active) {
+            if (this.props.active)
+        }
+    }
+*/
 
     _onKeyPress = () => {}
     _onSubmitEditing = () => {}

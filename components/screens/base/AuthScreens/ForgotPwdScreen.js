@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import {StyleSheet, Text} from 'react-native';
 
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
-import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
-import MakeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
-import Screen, {baseStyles, styles} from "../Screen";
+import Screen from "../Screen";
 import StyledBase from "../StyledBase";
-import {_onLogin} from "../functions/callBacks";
 import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
+import SendConfKey from "../../../../requestHandler/Requests/AccountRequests/SendConfKey";
+import ScreenNames from "../../../../navigation/ScreenNames";
 
-export default class VerifyAccountScreen extends Screen {
+export default class ForgotPwdScreen extends Screen {
 
     constructor(props) {
         super(props);
         this.state = {
-            emailKey : '',
+            username : '',
+            email : '',
             loading : false,
         }
     }
@@ -28,38 +28,37 @@ export default class VerifyAccountScreen extends Screen {
         this._focusUnsubscribe()
     }
 
-    confirmEmailKeyAndCreateAccount() {
-        let {username, password, email} = this.props.route.params
-        new MakeAccount(username, password, email, this.state.emailKey).fetchAndExecute(
-            () => new Login(username, password).fetchAndExecute(_onLogin(this.props.navigation, username, password)),
-            () => this.setState({loading: false}));
-    }
-
     render() {
+        let {username, email} = this.state
         return (
             <StyledBase>
                 <Text style={verifyEmailStyles.title}>Thinktionary</Text>
                 <StyledInputBox
-                    attrName='emailKey'
-                    title='Email Verification Key'
-                    value={this.state.emailKey}
+                    attrName='username'
+                    title='Username'
+                    value={username}
+                    updateMasterState={this._updateMasterState}
+                    marginVertical={30}
+                />
+                <StyledInputBox
+                    attrName='email'
+                    title='Email'
+                    value={email}
                     updateMasterState={this._updateMasterState}
                     marginVertical={30}
                 />
                 <CustomButton
-                    text="Submit Key"
+                    text="Send Confirmation"
                     disabled={this.state.loading}
                     style={{
                         marginTop : 10,
-                        width : 220
                     }}
                     onPress={() => {
-                        if (isNaN(parseInt(this.state.emailKey))) {
-                            alert("Confirmation key must be a number")
-                        } else {
-                            this.setState({loading: true})
-                            this.confirmEmailKeyAndCreateAccount()
-                        }
+                        this.setState({loading: true})
+                        new SendConfKey(username, email).fetchAndExecute(
+                            () => {this.props.navigation.navigate(ScreenNames.RESET_PWD_SCREEN,
+                                {username : username, email : email})},
+                            () => this.setState({loading: false}));
                     }}
                 />
             </StyledBase>

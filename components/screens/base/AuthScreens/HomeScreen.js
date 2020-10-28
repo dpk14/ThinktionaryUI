@@ -8,7 +8,7 @@ import Screen from "../Screen"
 import StyledBase from "../StyledBase";
 import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 
-export default class HomeScreen extends Screen{
+export default class HomeScreen extends Screen {
 
     constructor(props) {
         super(props);

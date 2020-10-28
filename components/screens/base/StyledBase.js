@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import {Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoidingView, View} from 'react-native';
-import * as Font from 'expo-font';
-import {AppLoading} from 'expo';
 
 import { LinearGradient } from 'expo-linear-gradient';
-import LoginScreen from "./AuthScreens/LoginScreen";
-import Wrapper from "../../utils/Wrapper";
-import {baseStyles} from "./Screen";
 import {ORANGE, PURPLE} from "../../utils/baseStyles";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 

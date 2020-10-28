@@ -7,14 +7,21 @@ import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import MakeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";
-import {_onLogin} from "../functions/callBacks";
+import {_onLogin, parseOrAlert} from "../functions/callBacks";
 import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
+import VerifyAccount from "../../../../requestHandler/Requests/AccountRequests/VerifyAccountInfo";
+import ScreenNames from "../../../../navigation/ScreenNames";
+import ResetPassword from "../../../../requestHandler/Requests/AccountRequests/ResetPassword";
 
-export default class VerifyAccountScreen extends Screen {
+let PASSWORD_MIN_LENGTH = 6
+
+export default class ResetPwdScreen extends Screen {
 
     constructor(props) {
         super(props);
         this.state = {
+            password : '',
+            confirmPassword : '',
             emailKey : '',
             loading : false,
         }
@@ -28,17 +35,52 @@ export default class VerifyAccountScreen extends Screen {
         this._focusUnsubscribe()
     }
 
-    confirmEmailKeyAndCreateAccount() {
-        let {username, password, email} = this.props.route.params
-        new MakeAccount(username, password, email, this.state.emailKey).fetchAndExecute(
-            () => new Login(username, password).fetchAndExecute(_onLogin(this.props.navigation, username, password)),
-            () => this.setState({loading: false}));
+    resetPassword() {
+        let {password, confirmPassword, emailKey} = this.state;
+        let {username, email} = this.props.route.params
+        if (this.validateInfo(password, confirmPassword)) {
+            new ResetPassword(username, password, email, emailKey).fetchAndExecute(
+                () => new Login(username, password).fetchAndExecute(_onLogin(this.props.navigation, username, password)),
+                () => this.setState({loading: false}));
+        } else {
+            this.setState({loading: false})
+        }
+    }
+
+
+    validateInfo(password, confirmPassword){
+        let messages = []
+        if (password.length < PASSWORD_MIN_LENGTH) messages.push("Password must exceed " + (PASSWORD_MIN_LENGTH - 1).toString() + " characters")
+        if (password != confirmPassword) messages.push("Passwords do not match")
+        if (messages.length == 0) return true
+        else {
+            let message = ""
+            messages.forEach((msg) => message+=msg + "\n")
+            alert(message)
+            return false
+        }
     }
 
     render() {
         return (
             <StyledBase>
                 <Text style={verifyEmailStyles.title}>Thinktionary</Text>
+                <StyledInputBox
+                    attrName='password'
+                    title='New Password'
+                    value={this.state.password}
+                    updateMasterState={this._updateMasterState}
+                    marginVertical={15}
+                    secureTextEntry={true}
+                />
+                <StyledInputBox
+                    attrName='confirmPassword'
+                    title='Confirm New Password'
+                    value={this.state.confirmPassword}
+                    updateMasterState={this._updateMasterState}
+                    marginVertical={15}
+                    secureTextEntry={true}
+                />
                 <StyledInputBox
                     attrName='emailKey'
                     title='Email Verification Key'
@@ -47,7 +89,7 @@ export default class VerifyAccountScreen extends Screen {
                     marginVertical={30}
                 />
                 <CustomButton
-                    text="Submit Key"
+                    text="Reset Password"
                     disabled={this.state.loading}
                     style={{
                         marginTop : 10,
@@ -58,7 +100,7 @@ export default class VerifyAccountScreen extends Screen {
                             alert("Confirmation key must be a number")
                         } else {
                             this.setState({loading: true})
-                            this.confirmEmailKeyAndCreateAccount()
+                            this.resetPassword();
                         }
                     }}
                 />

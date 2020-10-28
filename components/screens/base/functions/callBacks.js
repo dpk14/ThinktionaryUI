@@ -1,4 +1,3 @@
-import {Journal} from "../../../structs/Journal";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {AsyncStorage} from "react-native"
@@ -17,14 +16,14 @@ export function parseOrAlert(parser=undefined, params) {
     }
 }
 
-export function _onLogin(navigation) {
+export function _onLogin(navigation, username, password) {
     return async (journal) => {
         try {
-            await AsyncStorage.setItem(USER_KEY, journal.username)
-            await AsyncStorage.setItem(PWD, journal.password)
+            await AsyncStorage.setItem(USER_KEY, username)
+            await AsyncStorage.setItem(PWD, password)
         }
-        catch(e){
-            alert("Async error: could not log username and password")
+        catch (e) {
+            alert ("Async error: could not log username and password")
             console.error(e)
         }
         navigation.reset({
@@ -43,9 +42,9 @@ export function _onLogout(navigation){
             await AsyncStorage.removeItem(PWD)
         }
         catch(e){
-                alert("Async error: could not remove username and password")
-                console.error(e)
-            }
+            alert("Async error: could not remove username and password")
+            console.error(e)
+        }
     }
 }
 
@@ -53,7 +52,7 @@ export async function loginAndInitialize(callBack){
     try {
         let username = await AsyncStorage.getItem(USER_KEY)
         let pwd = await AsyncStorage.getItem(PWD)
-        if(username == null || pwd == null) alert("error loading async user info")
+        if (username == null || pwd == null) alert("error loading async user info")
         new Login(username, pwd).
         fetchAndExecute((journal) => callBack(journal))
     }
