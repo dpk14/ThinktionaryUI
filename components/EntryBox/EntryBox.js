@@ -170,6 +170,12 @@ export default class EntryBox extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         this.inactivateIfScreenReset(prevProps);
+        if (this.props.value && !this.state.isFieldActive) {
+            this.setState({
+                isFieldActive: true,
+            })
+            this._animateFocus()
+        }
     }
 
     inactivateIfScreenReset(prevProps) {
@@ -180,12 +186,10 @@ export default class EntryBox extends Component {
             })
             this._animateBlur()
         } else if (this.state.justInactivated) {
-            console.log("SPLARGH")
             this.setState({
                 justInactivated: false
             })
         }
-
     }
 
 

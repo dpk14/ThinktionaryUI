@@ -52,11 +52,30 @@ export default class WriteScreen extends Screen {
         }
     }
 
+    clear() {
+        return {
+            entry: undefined,
+            entryID: undefined,
+            title: '',
+            text: '',
+            date: '',
+            currTopic: '',
+            topics: new Set(),
+            topicBank : this.state.journal.topics,
+            activeTopics: new Set(),
+            saving : false,
+        }
+    }
+
     async componentDidMount() {
         this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
             if (this.state.text != '' || this.state.title != '' || this.state.topics.size > 0) {
-                save(this.state)
-            }})            //this.setState(this.clear())
+                save(this.state,
+                    () => this.setState(this.clear()))
+            } else {
+                this.setState(this.clear())
+            }
+        })
         this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
             if (this.state.journal === undefined) {
                 if (this.props.route.params === undefined) {
