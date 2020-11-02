@@ -7,7 +7,6 @@ import {Override, setOrDefault} from "../../utils/defaultHandling";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 import {ABSTRACT_METHOD} from "../../utils/abstraction";
 import EntryBox from "../EntryBox";
-const MULTILINE_TOPMARGIN_ADJUSTER = 1
 
 export default class StyledTextInput extends Component {
     static propTypes = {

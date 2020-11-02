@@ -10,7 +10,6 @@ import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/sca
 import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
 import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
 import {loginAndInitialize} from "../functions/callBacks";
-import {Header} from "../../../Headers/Header";
 import {TOPIC_BOX_HEIGHT} from "./WriteScreen";
 import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
 
@@ -96,7 +95,7 @@ export default class ReadScreen extends Screen {
         let activeSet = this._getEntriesWithTopics(entries, activeTopics)
         let newActiveSet = new Set()
         for(let entry of activeSet){
-            if (entry.text.includes(searched) || entry.title.includes(searched)){
+            if (entry.text.includes(searched) || entry.title.includes(searched)) {
                 newActiveSet.add(entry)
             }
         }

@@ -13,7 +13,7 @@ export default class WriteScreenDrawerFrame extends Component{
     render() {
         let Drawer = createDrawerNavigator()
         let {navigation} = this.props
-        return (<MenuDrawer navigation={navigation}>
+        return (<MenuDrawer baseScreenName = {ScreenNames.WRITE_SCREEN_FRAME}>
             <Drawer.Screen
                 name={ScreenNames.WRITE_SCREEN_FRAME}
                 component={WriteScreenFrame}

@@ -1,0 +1,12 @@
+•	Write screen and read screen DrawerFrame are two separate Drawer navigator stacks inside of a Journal Tab screen, which swipes between the DrawerFrame stacks while removing the tab header
+•	The write and read DrawerFrame stacks have an inserted write and read Drawer element (which is a stack navigator), followed by option screens:
+•	<Drawer.Navigator
+    drawerContent={(props)=><OptionsMenu {...props}/>}
+>
+    {children}
+    {this.buildMenuScreen(Drawer, NOTIFICATIONS_SCREEN, (props) => <NotificationsScreen {...props}/>)}
+    {this.buildMenuScreen(Drawer, ABOUT_SCREEN, (props) => <AboutScreen {...props}/>)}
+    {this.buildMenuScreen(Drawer, HELP_SCREEN, (props) => <HelpScreen {...props}/>)}
+</Drawer.Navigator>)
+•	The {children} is the inserted write/read stack, which is just a one element stack, because this allows us to create our custom header at the top (with the left and right buttons and the “saving” notice
+ 

@@ -47,12 +47,7 @@ export default class EntryBox extends Component {
     constructor(props) {
         super(props);
         const { value } = this.props;
-        console.log("AGHHAH")
-        console.log(this.props.title)
-        console.log(value)
-        console.log(this.props.value === "")
         let isFieldActive = !(this.props.value === "") || (this.props.value === "" && this.props.active) ? true : false
-        console.log(isFieldActive)
         this.state = {
             loading : true,
             isFieldActive: isFieldActive,
@@ -139,7 +134,6 @@ export default class EntryBox extends Component {
         const {scale, width, height, borderRadius, titleActivePos, titleActiveSize, title} = this.props
         const {isFieldActive} = this.state
         const innerViewOffset = !isFieldActive || title.length == 0? 0 : _scale(titleActivePos + titleActiveSize, scale)
-
         return {
             width: _scale(width, scale),
             height: _scale(typeof height == "string" ? height : height - innerViewOffset, scale),

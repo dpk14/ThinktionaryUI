@@ -5,11 +5,20 @@ import DrawerNavigator from "@react-navigation/drawer/src/navigators/createDrawe
 import {createDrawerNavigator} from "@react-navigation/drawer";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import WriteScreenFrame from "../JournalScreens/navigation/WriteScreenFrame";
-import {ABOUT_SCREEN, HELP_SCREEN, NOTIFICATIONS_SCREEN} from "./MenuScreenNames";
+import {
+    ABOUT_SCREEN,
+    ABOUT_SCREEN_FRAME,
+    HELP_SCREEN, HELP_SCREEN_FRAME,
+    NOTIFICATIONS_SCREEN,
+    NOTIFICATIONS_SCREEN_FRAME
+} from "./MenuScreenNames";
 import NotificationsScreen from "./MenuScreens/NotificationsScreen";
 import MenuScreen from "./MenuScreens/MenuScreen";
 import AboutScreen from "./MenuScreens/InfoScreens/AboutScreen";
 import HelpScreen from "./MenuScreens/InfoScreens/HelpScreen";
+import NotificationsScreenFrame from "./MenuScreens/NotificationsScreenFrame";
+import AboutScreenFrame from "./MenuScreens/AboutScreenFrame";
+import HelpScreenFrame from "./MenuScreens/HelpScreenFrame";
 
 export default class MenuDrawer extends Component{
 
@@ -39,9 +48,18 @@ export default class MenuDrawer extends Component{
             drawerContent={(props)=><OptionsMenu {...props}/>}
         >
             {children}
-            {this.buildMenuScreen(Drawer, NOTIFICATIONS_SCREEN, (props) => <NotificationsScreen {...props}/>)}
-            {this.buildMenuScreen(Drawer, ABOUT_SCREEN, (props) => <AboutScreen {...props}/>)}
-            {this.buildMenuScreen(Drawer, HELP_SCREEN, (props) => <HelpScreen {...props}/>)}
+            <Drawer.Screen
+                name={NOTIFICATIONS_SCREEN_FRAME}
+                component={NotificationsScreenFrame}
+            />
+            <Drawer.Screen
+                name={ABOUT_SCREEN_FRAME}
+                component={AboutScreenFrame}
+            />
+            <Drawer.Screen
+                name={HELP_SCREEN_FRAME}
+                component={HelpScreenFrame}
+            />
         </Drawer.Navigator>)
    }
 }

@@ -14,7 +14,13 @@ import {styles} from "../StyledBase";
 import {LinearGradient} from "expo-linear-gradient";
 import BackButtonImg from "../../../Buttons/HeaderButtons/Images/BackButtonImg";
 import Icon from "../../../Buttons/HeaderButtons/Images/Icon";
-import {ABOUT_SCREEN, HELP_SCREEN, NOTIFICATIONS_SCREEN} from "./MenuScreenNames";
+import {
+    ABOUT_SCREEN, ABOUT_SCREEN_FRAME,
+    HELP_SCREEN,
+    HELP_SCREEN_FRAME,
+    NOTIFICATIONS_SCREEN,
+    NOTIFICATIONS_SCREEN_FRAME
+} from "./MenuScreenNames";
 
 export class OptionsMenu extends Component{
 
@@ -42,38 +48,38 @@ export class OptionsMenu extends Component{
         return (
             <LinearGradient colors={[PURPLE, ORANGE]} end={[1, 0]}
                             start={[0, 1]} style={{flex:1}}>
-            <DrawerContentScrollView {...scrollViewStyle}>
-                <DrawerItem
-                    label = "Back"
-                    icon = {() => {return <BackButtonImg/>}}
-                    labelStyle={menuStyles.headerText}
-                    onPress={() => navigation.closeDrawer()}
-                />
-                <DrawerItem
-                    label="Notifications"
-                    labelStyle={menuStyles.headerText}
-                    icon = {() => {return <Icon source={require("../../../../assets/images/bell.png")}/>}}
-                    onPress={() => navigation.navigate(NOTIFICATIONS_SCREEN)}
-                />
-                <DrawerItem
-                    label="Logout"
-                    labelStyle={menuStyles.headerText}
-                    icon = {() => {return <Icon source={require("../../../../assets/images/logout.png")}/>}}
-                    onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(navigation))}
-                />
-                <DrawerItem
-                    label="Help"
-                    labelStyle={menuStyles.headerText}
-                    icon = {() => {return <Icon source={require("../../../../assets/images/help.png")}/>}}
-                    onPress={() => navigation.navigate(HELP_SCREEN)}E
-                />
-                <DrawerItem
-                    label="About"
-                    labelStyle={menuStyles.headerText}
-                    icon = {() => {return <Icon source={require("../../../../assets/images/about.png")}/>}}
-                    onPress={() => navigation.navigate(ABOUT_SCREEN)}
-                />
-            </DrawerContentScrollView>
+                <DrawerContentScrollView {...scrollViewStyle}>
+                    <DrawerItem
+                        label = "Back"
+                        icon = {() => {return <BackButtonImg/>}}
+                        labelStyle={menuStyles.headerText}
+                        onPress={() => navigation.navigate(ScreenNames.WRITE_SCREEN)}
+                    />
+                    <DrawerItem
+                        label="Notifications"
+                        labelStyle={menuStyles.headerText}
+                        icon = {() => {return <Icon source={require("../../../../assets/images/bell.png")}/>}}
+                        onPress={() => navigation.navigate(NOTIFICATIONS_SCREEN_FRAME)}
+                    />
+                    <DrawerItem
+                        label="Logout"
+                        labelStyle={menuStyles.headerText}
+                        icon = {() => {return <Icon source={require("../../../../assets/images/logout.png")}/>}}
+                        onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(navigation))}
+                    />
+                    <DrawerItem
+                        label="Help"
+                        labelStyle={menuStyles.headerText}
+                        icon = {() => {return <Icon source={require("../../../../assets/images/help.png")}/>}}
+                        onPress={() => navigation.navigate(HELP_SCREEN_FRAME)}
+                    />
+                    <DrawerItem
+                        label="About"
+                        labelStyle={menuStyles.headerText}
+                        icon = {() => {return <Icon source={require("../../../../assets/images/about.png")}/>}}
+                        onPress={() => navigation.navigate(ABOUT_SCREEN_FRAME)}
+                    />
+                </DrawerContentScrollView>
             </LinearGradient>
         )
     }
@@ -91,23 +97,3 @@ const menuStyles = StyleSheet.create({
     }
 
 });
-
-/*
-    render() {
-        if (this.state.loading) return <AppLoading/>
-        let {username, pwd} = this.state
-        return (
-            <View style={{flex: 1, backgroundColor: PURPLE, opacity: .9}}>
-                <View style={{marginTop : 40, marginLeft : 20, flex : 1}}>
-                <TouchableOpacity style={{flex: 1}}
-                                  onPress={() => new Logout(username, pwd).fetchAndExecute(_onLogout(this.props.navigation))}>
-                    <Text style={menuStyles.headerText}>
-                        {"Logout"}
-                    </Text>
-                </TouchableOpacity>
-                </View>
-            </View>
-        )
-    }
-}
- */

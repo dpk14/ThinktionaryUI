@@ -19,7 +19,8 @@ export class SearchBar extends Component{
                       scale = {scale}
                       width = {style.flexDirection == 'row' ? '100%' : width}
                       height = {style.flex == undefined ? style.height == undefined ? '100%' : style.height : '100%'}
-                      style = {style}
+                      style = {{...style, ...{justifyContent : 'center', alignItems : 'center'}}}
+                      value = {value}
             >
             <SearchBarContainer>
                 <StyledTextInput multiline = {multiline}
@@ -30,8 +31,8 @@ export class SearchBar extends Component{
                                  keyboardType = {keyboardType}
                                  autoCompleteType = {false}
                                  updateMasterState = {updateMasterState}
-                                 style = {{flex : 1}}
-                                 height = {'100%'}
+                                 style = {{flex : 1, alignItems: 'center', justifyContent : 'center'}}
+                                 //height = {'100%'}
                                  scale = {scale}
                                  secureTextEntry = {secureTextEntry}
                                  editable = {editable}

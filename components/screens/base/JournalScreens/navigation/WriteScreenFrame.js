@@ -17,7 +17,6 @@ export default class WriteScreenFrame extends Component{
 
     render() {
         let Stack = createStackNavigator()
-        let {navigation} = this.props
         return (<Stack.Navigator screenOptions={({navigation, route})=>{ return({...HEADER_STYLES,
             ...{
                 headerTitle : (typeof(route.params)==='undefined' ?

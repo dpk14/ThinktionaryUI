@@ -12,7 +12,6 @@ import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import AppLoading from "expo/build/launch/AppLoading";
 import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
-import ScreenNames from "../../../../navigation/ScreenNames";
 
 const MARGIN_HORIZONTAL = 15
 export const TOPIC_BOX_HEIGHT = 1.5 * TOPIC_HEIGHT
@@ -25,19 +24,19 @@ export default class WriteScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-        ...this.state, ...{journalLoading : true, saving : false}}
+        ...this.state, ...{journalLoading : true,
+                saving : false}}
     }
 
     _updateMasterState = (attrName, value) => {
         this.setState({ [attrName]: value });
     }
 
-    initialize(journal){
-        let entry = this.props.route.params == undefined ? undefined : this.props.route.params.entry
+    initialize(journal, entry = this.state.entry) {
         let entryID = entry == undefined ? undefined : entry.entryID
         return {
             journal : journal,
-            entry : entry == undefined ? undefined : entry,
+            entry : entry,
             entryID : entryID,
             title : entry == undefined ? '' : entry.title,
             text : entry == undefined ? '' : entry.text,
@@ -63,8 +62,13 @@ export default class WriteScreen extends Screen {
             topics: new Set(),
             topicBank : this.state.journal.topics,
             activeTopics: new Set(),
-            saving : false,
+            saving : false
         }
+    }
+
+    async shouldComponentUpdate(nextProps, nextState, nextContext) {
+        this.autoSave(nextState)
+        return true
     }
 
     async componentDidMount() {
@@ -77,14 +81,11 @@ export default class WriteScreen extends Screen {
             }
         })
         this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
-            if (this.state.journal === undefined) {
-                if (this.props.route.params === undefined) {
-                    loginAndInitialize((journal) => this.setState(this.initialize(journal)))
-                } else {
-                    this.setState(this.initialize(this.props.route.params.journal));
-                }
+            if (this.props.route.params && this.props.route.params.journal) {
+                this.setState(this.initialize(this.props.route.params.journal, this.props.route.params.entry));
+                this.props.navigation.setParams({journal : undefined, entry : undefined})
             } else {
-                this.setState(this.initialize(this.state.journal))
+                loginAndInitialize((journal) => this.setState(this.initialize(journal)))
             }
         })
     }
@@ -132,11 +133,6 @@ export default class WriteScreen extends Screen {
             -(BOTTOM_FRAME_TOP_MARGIN)
             -ERROR_MARGIN
         )
-    }
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        this.autoSave(nextState)
-        return true
     }
 
     autoSave(nextState){
