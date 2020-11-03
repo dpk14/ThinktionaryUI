@@ -17,7 +17,7 @@ export default class HelpScreen extends Component {
                         <Text style={faqStyles.headerText}>I moved from writing to reading and then back, and my work disappeared!</Text>
                         <Text style={faqStyles.answerText}>{"\n"}As it should!
                             Whenever you move away from the writing screen, your work is saved at the front of your journal, and the writing screen is reset so you can make a new
-                            entry. If you want to keep working on that entry, just pull it up in the journal and hit the pencil button.</Text>
+                            entry. If you want to keep working on that entry, just pull it up in the journal and hit the pencil button.{"\n"}</Text>
 
                         <Text style={faqStyles.headerText}>How do I remove a tag from an entry I'm writing?</Text>
                         <Text style={faqStyles.answerText}>{"\n"}Go to the "What tags do you want to use?" section on the write screen,

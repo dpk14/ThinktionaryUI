@@ -4,4 +4,7 @@ export const HELP_SCREEN = "Help"
 export const NOTIFICATIONS_SCREEN_FRAME = "NotificationsFrame"
 export const ABOUT_SCREEN_FRAME = "AboutFrame"
 export const HELP_SCREEN_FRAME = "HelpFrame"
+export const ACCOUNT_SCREEN = "AccountScreen"
+export const ACCOUNT_SCREEN_FRAME = "AccountScreenFrame"
+export const CHANGE_EMAIL_SCREEN = "ChangeEmail"
 

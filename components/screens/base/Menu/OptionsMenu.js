@@ -15,7 +15,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import BackButtonImg from "../../../Buttons/HeaderButtons/Images/BackButtonImg";
 import Icon from "../../../Buttons/HeaderButtons/Images/Icon";
 import {
-    ABOUT_SCREEN, ABOUT_SCREEN_FRAME,
+    ABOUT_SCREEN, ABOUT_SCREEN_FRAME, ACCOUNT_SCREEN_FRAME,
     HELP_SCREEN,
     HELP_SCREEN_FRAME,
     NOTIFICATIONS_SCREEN,
@@ -54,6 +54,12 @@ export class OptionsMenu extends Component{
                         icon = {() => {return <BackButtonImg/>}}
                         labelStyle={menuStyles.headerText}
                         onPress={() => navigation.navigate(ScreenNames.WRITE_SCREEN)}
+                    />
+                    <DrawerItem
+                        label="Account"
+                        labelStyle={menuStyles.headerText}
+                        icon = {() => {return <Icon source={require("../../../../assets/images/about.png")}/>}}
+                        onPress={() => navigation.navigate(ACCOUNT_SCREEN_FRAME)}
                     />
                     <DrawerItem
                         label="Notifications"

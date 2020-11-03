@@ -207,6 +207,7 @@ export default class WriteScreen extends Screen {
                                 onTopicActivityChange={this._onTopicActivityChange}
                                 activeTopicsName ={'activeTopics'}
                                 activeTopics = {this.state.activeTopics}
+                                value = {''}
                             />
                         </View>
                     </View>

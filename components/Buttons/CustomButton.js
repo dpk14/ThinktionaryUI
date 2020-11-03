@@ -52,12 +52,12 @@ class customButton extends Component {
                     <ButtonFrame
                         onPress={onPress}
                         scale={scale}
-                        style={style}
+                        style={disabled ? {...style, ...styles.disabledButtonStyle} : style}
                         disabled={disabled}
                     >
                             <Text
                                 onLayout = {this.props.onLayout}
-                                    style={[styles.textStyle, this.getFontSpecs()]}
+                                    style={[disabled ? styles.disabledTextStyle : styles.textStyle, this.getFontSpecs()]}
                             >
                                 {text}
                             </Text>
@@ -76,6 +76,18 @@ const styles = StyleSheet.create({
         shadowOpacity : .25,
         shadowOffset: { height: 1},
     },
+    disabledTextStyle: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        flex : 1,
+        opacity : .7,
+        shadowRadius: 2,
+        shadowOpacity : .25,
+        shadowOffset: { height: 1},
+    }, disabledButtonStyle : {
+        opacity : .7
+    }
 });
 
 export default customButton;

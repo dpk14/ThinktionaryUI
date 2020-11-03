@@ -55,7 +55,7 @@ export default class ForgotPwdScreen extends Screen {
                     }}
                     onPress={() => {
                         this.setState({loading: true})
-                        new SendConfKey(username, email).fetchAndExecute(
+                        new SendConfKey(username, email, true).fetchAndExecute(
                             () => {this.props.navigation.navigate(ScreenNames.RESET_PWD_SCREEN,
                                 {username : username, email : email})},
                             () => this.setState({loading: false}));

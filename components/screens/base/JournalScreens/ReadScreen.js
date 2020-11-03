@@ -142,6 +142,7 @@ export default class ReadScreen extends Screen {
                             journal = {journal}
                             navigation = {navigation}
                             onEntryRemoval = {this._onEntryRemoval}
+                            value = {''}
                             />
                         <TopicBank
                             attrName = 'topicBank'
@@ -157,6 +158,7 @@ export default class ReadScreen extends Screen {
                             onTopicActivityChange = {this._onTopicActivityChange}
                             activeTopicsName = {'activeTopics'}
                             activeTopics = {activeTopics}
+                            value = {''}
                         />
                 </View>
             </StyledBase>

@@ -9,8 +9,9 @@ import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";
 import {_onLogin} from "../functions/callBacks";
 import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
+import ResetEmail from "../../../../requestHandler/Requests/AccountRequests/ResetEmail";
 
-export default class VerifyAccountScreen extends Screen {
+export default class VerifyEmailScreen extends Screen {
 
     constructor(props) {
         super(props);
@@ -31,6 +32,13 @@ export default class VerifyAccountScreen extends Screen {
     confirmEmailKeyAndCreateAccount() {
         let {username, password, email} = this.props.route.params
         new MakeAccount(username, password, email, this.state.emailKey).fetchAndExecute(
+            () => new Login(username, password).fetchAndExecute(_onLogin(this.props.navigation, username, password)),
+            () => this.setState({loading: false}));
+    }
+
+    confirmEmailKeyAndRegister() {
+        let {username, password, email} = this.props.route.params
+        new ResetEmail(username, email, this.state.emailKey).fetchAndExecute(
             () => new Login(username, password).fetchAndExecute(_onLogin(this.props.navigation, username, password)),
             () => this.setState({loading: false}));
     }
@@ -58,7 +66,7 @@ export default class VerifyAccountScreen extends Screen {
                             alert("Confirmation key must be a number")
                         } else {
                             this.setState({loading: true})
-                            this.confirmEmailKeyAndCreateAccount()
+                            this.props.route.params.newAccount ? this.confirmEmailKeyAndCreateAccount() : this.confirmEmailKeyAndRegister()
                         }
                     }}
                 />

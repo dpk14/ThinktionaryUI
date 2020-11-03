@@ -1,11 +1,10 @@
 import {createStackNavigator} from "@react-navigation/stack";
-import {HEADER_STYLES} from "../../../../utils/baseStyles";
-import OptionButton from "../../../../Buttons/HeaderButtons/Buttons/OptionButton";
+import {HEADER_STYLES} from "../../../../../utils/baseStyles";
+import OptionButton from "../../../../../Buttons/HeaderButtons/Buttons/OptionButton";
 import React, {Component} from 'react'
 import {object, string} from "prop-types"
-import {ABOUT_SCREEN, NOTIFICATIONS_SCREEN} from "../MenuScreenNames";
-import AboutScreen from "./InfoScreens/AboutScreen";
-import NotificationsScreen from "./NotificationsScreen";
+import {ABOUT_SCREEN} from "../../MenuScreenNames";
+import AboutScreen from "../InfoScreens/AboutScreen";
 
 export default class MenuScreen extends Component{
 
@@ -21,8 +20,8 @@ export default class MenuScreen extends Component{
                                                  navigation={navigation}
                 />}}}>
             <Stack.Screen
-                name={NOTIFICATIONS_SCREEN}
-                component={NotificationsScreen}
+                name={ABOUT_SCREEN}
+                component={AboutScreen}
             />
         </Stack.Navigator>)
     }

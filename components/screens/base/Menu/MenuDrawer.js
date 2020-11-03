@@ -7,7 +7,7 @@ import ScreenNames from "../../../../navigation/ScreenNames";
 import WriteScreenFrame from "../JournalScreens/navigation/WriteScreenFrame";
 import {
     ABOUT_SCREEN,
-    ABOUT_SCREEN_FRAME,
+    ABOUT_SCREEN_FRAME, ACCOUNT_SCREEN_FRAME,
     HELP_SCREEN, HELP_SCREEN_FRAME,
     NOTIFICATIONS_SCREEN,
     NOTIFICATIONS_SCREEN_FRAME
@@ -16,9 +16,10 @@ import NotificationsScreen from "./MenuScreens/NotificationsScreen";
 import MenuScreen from "./MenuScreens/MenuScreen";
 import AboutScreen from "./MenuScreens/InfoScreens/AboutScreen";
 import HelpScreen from "./MenuScreens/InfoScreens/HelpScreen";
-import NotificationsScreenFrame from "./MenuScreens/NotificationsScreenFrame";
-import AboutScreenFrame from "./MenuScreens/AboutScreenFrame";
-import HelpScreenFrame from "./MenuScreens/HelpScreenFrame";
+import NotificationsScreenFrame from "./MenuScreens/ScreenFrames/NotificationsScreenFrame";
+import AboutScreenFrame from "./MenuScreens/ScreenFrames/AboutScreenFrame";
+import HelpScreenFrame from "./MenuScreens/ScreenFrames/HelpScreenFrame";
+import AccountScreenFrame from "./MenuScreens/ScreenFrames/AccountScreenFrame";
 
 export default class MenuDrawer extends Component{
 
@@ -48,6 +49,10 @@ export default class MenuDrawer extends Component{
             drawerContent={(props)=><OptionsMenu {...props}/>}
         >
             {children}
+            <Drawer.Screen
+                name={ACCOUNT_SCREEN_FRAME}
+                component={AccountScreenFrame}
+            />
             <Drawer.Screen
                 name={NOTIFICATIONS_SCREEN_FRAME}
                 component={NotificationsScreenFrame}

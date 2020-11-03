@@ -41,7 +41,11 @@ export default class NewAccountScreen extends Screen {
     verifyAccountInfo(username, password, confirmPassword, email) {
         if (this.validateInfo(username, password, confirmPassword, email)) {
                 new VerifyAccountInfo(username, email).fetchAndExecute(
-                    () => this.props.navigation.navigate(ScreenNames.VERIFY_ACCT_SCREEN, {username : username, password : password, email : email}),
+                    () => this.props.navigation.navigate(ScreenNames.VERIFY_ACCT_SCREEN, {
+                        username : username,
+                        password : password,
+                        email : email,
+                        newAccount : true}),
                     () => this.setState({loading: false}));
         } else {
             this.setState({loading: false})

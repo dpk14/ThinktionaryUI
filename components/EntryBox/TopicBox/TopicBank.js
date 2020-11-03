@@ -42,11 +42,13 @@ export class TopicBank extends Component {
             value, keyboardType, updateMasterState, topicScale, editable, alwaysActive, topics, setName, active
         }
             = this.props
+        topics.forEach((topic) => console.log(topic))
         return (<EntryBox title={title}
                           scale={scale}
                           width={width}
                           height={height}
                           active={active}
+                          value={value}
             >
                 <TopicContainer
                     attrName={attrName}
@@ -56,7 +58,7 @@ export class TopicBank extends Component {
                     width={width}
                     height="100%"
                     topicScale={topicScale}
-                    topics={topics}
+                    topics={new Set(Array.from(topics).sort())}
                     activeTopicStyle = {{backgroundColor : PURPLE}}
                     activeTopics = {this.props.activeTopics}
                     onTopicActivityChange = {this.props.onTopicActivityChange}
