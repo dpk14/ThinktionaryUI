@@ -6,6 +6,7 @@ import CustomButton from "../../Buttons/CustomButton";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4
 import {childrenWithProps} from "../../utils/general";
+import {TouchableOpacity} from "react-native"
 
 export default class TopicContainer extends Component {
 
@@ -21,6 +22,7 @@ export default class TopicContainer extends Component {
             onTopicActivityChange : func,
             onTopicDelete : func,
             onTopicPress : func,
+            alphabetized : bool
         }
     }
 
@@ -30,6 +32,7 @@ export default class TopicContainer extends Component {
             topics : {},
             multiline: false,
             blurOnSubmit: false,
+            alphabetize : false,
             topicScale: 1,
             activeTopicStyle : {},
             activeTopics : new Set(),
@@ -81,6 +84,36 @@ export default class TopicContainer extends Component {
         return TopicBoxes
     }
 
+    renderAlphabetizedTopicBoxes() {
+        const TopicBoxes = []
+        const lettersUsed = new Set()
+        let currentChar = "A";
+        if (this.props.topics.size > 0  && !this.props.active) this.props.updateContainerState(true)
+        this.props.topics.forEach(topic => {
+            while (!(currentChar === topic.substring(0, 1) || currentChar.toLowerCase() === topic.substring(0, 1))
+                && currentChar.toLowerCase() != 'z' + 1) {
+                currentChar = String.fromCharCode(currentChar.charCodeAt() + 1);
+            }
+            if (!lettersUsed.has(currentChar)) {
+                TopicBoxes.push(
+                    <View style={{width : this.props.width, marginTop: TopicBoxes.length == 0 ? 2 : 0}}>
+                        <Text style = {addStyles.alphabetText} >
+                            {currentChar}
+                        </Text>
+                    </View>
+                )
+                lettersUsed.add(currentChar)
+            }
+            TopicBoxes.push(
+            <CustomButton
+                text={topic}
+                scale={this.props.topicScale}
+                onPress={this.props.onTopicPress(topic)}
+                style ={this.props.activeTopics.has(topic) ? {...this.props.activeTopicStyle, ...{alignItems : "flex-start"}} : {}}
+            />)});
+        return TopicBoxes
+    }
+
     _handleBlur = () => {
         if (!this.props.value && this.props.topics.size == 0) {
             this.props.updateContainerState(false)
@@ -106,7 +139,7 @@ export default class TopicContainer extends Component {
                 active : this.props.active,
                 updateContainerState : this.props.updateContainerState
             })
-        const TopicBoxes = this.renderTopicBoxes()
+        const TopicBoxes = this.props.alphabetize ? this.renderAlphabetizedTopicBoxes() : this.renderTopicBoxes()
         return (
                 <ScrollView
                     contentContainerStyle = {{flexGrow : 1}}
@@ -116,12 +149,14 @@ export default class TopicContainer extends Component {
                         marginVertical: 10,
                         borderRadius : 10}}
                 >
-                    <View style={[addStyles.scrollView]}>
+                    <TouchableOpacity
+                        activeOpacity = {.9}
+                        style={[addStyles.scrollView]}>
                         {TopicBoxes}
-                        <View style = {{ flex : 1 }} >
+                        <View style = {{ flex : 1}} >
                             {children}
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 </ScrollView>
         )
     }
@@ -158,4 +193,12 @@ const addStyles = StyleSheet.create({
         borderRadius: 20,
         opacity: .9
     },
+    alphabetText: {
+        fontFamily: HP_SIMPLIFIED_BOLD,
+        fontSize : 13,
+        color: '#512da8',
+        position: 'relative',
+        borderRadius: 20,
+        opacity: .9
+    }
 })

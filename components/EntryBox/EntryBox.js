@@ -26,6 +26,7 @@ export default class EntryBox extends Component {
             titleInactivePos : number,
         },
         style : object,
+        reset : bool
     }
 
     static defaultProps = {
@@ -40,7 +41,8 @@ export default class EntryBox extends Component {
             active: false,
             titleActivePos : 4,
             titleInactivePos : 20,
-            style : {}
+            style : {},
+            reset : false
         }
     }
 
@@ -173,7 +175,7 @@ export default class EntryBox extends Component {
     }
 
     inactivateIfScreenReset(prevProps) {
-        if (prevProps.value != this.props.value && !this.props.value && !this.state.justInactivated) {
+        if (this.props.reset) {
             this.setState({
                 isFieldActive: false,
                 justInactivated: true

@@ -9,9 +9,11 @@ import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainer
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
 import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
-import {loginAndInitialize} from "../functions/callBacks";
+import {loginAndInitialize, saving} from "../functions/callBacks";
 import {TOPIC_BOX_HEIGHT} from "./WriteScreen";
 import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
+import {AsyncStorage} from "react-native-web";
+import {SAVING} from "../../../../assets/config";
 
 let MARGIN_HORIZONTAL = 15
 let MARGIN_BOTTOM = 30
@@ -28,7 +30,9 @@ export default class ReadScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-            ...this.state, ...{journalLoading : true, loading : false}
+            ...this.state, ...{journalLoading : true,
+                journalSaving : true,
+                loading : false}
         }
     }
 
@@ -41,15 +45,39 @@ export default class ReadScreen extends Screen {
             topics : journal.topics,
             searched : '',
             journalLoading : false,
+            initializing : true,
         }
     }
 
     async componentDidMount() {
-        await loginAndInitialize((journal) => this.setState(this.initialize(journal)))
-        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => loginAndInitialize((journal) => this.setState(this.initialize(journal))))    }
+        setTimeout(() => this.tryLoad(), 50);
+        this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
+            setTimeout(() => this.tryLoad(), 50);
+        })
+        this._blurUnsubscribe = this.props.navigation.addListener('blur', () => setTimeout(() => this.setState({journalSaving : true}), 100));
+    }
+
+    async tryLoad() {
+        this.setState()
+        saving().then((saving) => {
+            if (saving) {
+                this.tryLoad()
+            } else {
+                this.setState({journalSaving : false})
+                loginAndInitialize((journal) => this.setState(this.initialize(journal)))
+            }
+        })
+    }
 
     componentWillUnmount() {
+        this._blurUnsubscribe()
         this._focusUnsubscribe()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.initializing) {
+            this.setState({initializing : false})
+        }
     }
 
     _onTopicActivityChange = (topic, isActive) => {
@@ -106,7 +134,7 @@ export default class ReadScreen extends Screen {
         return (getScreenHeight() -
             HEADER_HEIGHT -
             MARGIN_BOTTOM -
-            (TOPIC_BANK_SCALE * TOPIC_BOX_HEIGHT) -
+            (TOPIC_BANK_SCALE * 1.5*TOPIC_BOX_HEIGHT) -
             (BAR_HEIGHT * BAR_SCALE)
             -(6*ENTRY_BOX_VERT_MARGIN)
         )
@@ -114,10 +142,10 @@ export default class ReadScreen extends Screen {
     }
 
     render() {
-        if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
+        if (this.state.fontLoading || this.state.journalLoading || this.state.journalSaving) return <AppLoading/>
         let journalTitle = this._getJournalTitle()
         let {navigation} = this.props
-        let {journal, topics, activeTopics, entries, activeEntries, searched, loading, journalLoading} = this.state
+        let {journal, topics, activeTopics, entries, activeEntries, searched, journalLoading} = this.state
         return(
             <StyledBase>
                 <View style = {[readStyles.outerFrame]}>
@@ -154,11 +182,12 @@ export default class ReadScreen extends Screen {
                             topicScale = {.62}
                             topics = {topics}
                             width = '100%'
-                            height = {TOPIC_BOX_HEIGHT}
+                            height = {1.5*TOPIC_BOX_HEIGHT}
                             onTopicActivityChange = {this._onTopicActivityChange}
                             activeTopicsName = {'activeTopics'}
                             activeTopics = {activeTopics}
                             value = {''}
+                            reset = {this.state.initializing}
                         />
                 </View>
             </StyledBase>

@@ -15,7 +15,7 @@ export class TopicCreatorBox extends Component {
     render() {
         const {
             title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit, onTopicPress,
-            value, keyboardType, updateMasterState, topicScale, editable, topics, setName, active, onTopicDelete,
+            value, keyboardType, updateMasterState, topicScale, editable, topics, setName, active, onTopicDelete, reset
         }
             = this.props
         return (<EntryBox title={title}
@@ -24,6 +24,7 @@ export class TopicCreatorBox extends Component {
                           height={height}
                           active={active}
                           value={value}
+                          reset={reset}
             >
                 <TopicContainer
                                 attrName={attrName}

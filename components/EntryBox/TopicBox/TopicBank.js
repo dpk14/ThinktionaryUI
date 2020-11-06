@@ -39,16 +39,16 @@ export class TopicBank extends Component {
     render() {
         const {
             title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, topicScale, editable, alwaysActive, topics, setName, active
+            value, keyboardType, updateMasterState, topicScale, editable, alwaysActive, topics, setName, active, reset
         }
             = this.props
-        topics.forEach((topic) => console.log(topic))
         return (<EntryBox title={title}
                           scale={scale}
                           width={width}
                           height={height}
                           active={active}
                           value={value}
+                          reset={reset}
             >
                 <TopicContainer
                     attrName={attrName}
@@ -58,7 +58,10 @@ export class TopicBank extends Component {
                     width={width}
                     height="100%"
                     topicScale={topicScale}
-                    topics={new Set(Array.from(topics).sort())}
+                    topics={new Set(Array.from(topics).sort(function (a, b) {
+                        return a.toLowerCase().localeCompare(b.toLowerCase());
+                    }))}
+                    alphabetize = {true}
                     activeTopicStyle = {{backgroundColor : PURPLE}}
                     activeTopics = {this.props.activeTopics}
                     onTopicActivityChange = {this.props.onTopicActivityChange}

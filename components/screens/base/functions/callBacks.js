@@ -1,7 +1,7 @@
 import ScreenNames from "../../../../navigation/ScreenNames";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login";
 import {AsyncStorage} from "react-native"
-import {JOURNAL_KEY, PWD, USER_KEY} from "../../../../assets/config";
+import {JOURNAL_KEY, PWD, SAVING, USER_KEY} from "../../../../assets/config";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
 import ModifyEntry from "../../../../requestHandler/Requests/JournalCommands/ModifyEntry";
 
@@ -92,8 +92,18 @@ export let createOrSave = (state, setEntryID, onSave=()=>{}) => {
         save(state, onSave)
 }
 
-export let save = (state, onSave=()=>{}) => {
+export function save(state, onSave=()=>{}) {
+    AsyncStorage.setItem(SAVING, "true").then(() => {console.log("BEFOREBEFORE")
     const {title, text, date, topics} = state
     new ModifyEntry(state.journal.userID, state.entryID, title=='' ? "Untitled" : title, text, topics).
-    fetchAndExecute(onSave())
+    fetchAndExecute(onSave())})
+}
+
+export async function declareSaving(saving) {
+    await AsyncStorage.setItem(SAVING, saving.toString())
+}
+
+export async function saving() {
+    let saving = await AsyncStorage.getItem(SAVING).toString()
+    return !saving ? false : saving === "true"
 }

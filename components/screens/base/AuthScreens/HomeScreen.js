@@ -41,12 +41,14 @@ export default class HomeScreen extends Screen {
                                 disabled = {this.state.loading}
                                 onPress={() => this.navigateAndDisable(screenNames.LOGIN_SCREEN)}
                                 style= {{width : 320, marginTop : 30}}
+                                scale={.85}
                             />
                             <CustomButton
                                 text="Create Account"
                                 disabled = {this.state.loading}
                                 onPress={() => this.navigateAndDisable(screenNames.NEW_ACCT_SCREEN)}
                                 style = {{width : 320, marginTop : 30}}
+                                scale={.85}
                             />
                         </View>
                 </StyledBase>

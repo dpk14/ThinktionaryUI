@@ -1,7 +1,7 @@
 import XMLHttpRequest from "react-native";
 import ResponseHandler from "../Utils/ResponseHandler";
-import fetchError from "../ErrorHandling/FetchError";
 import {ABSTRACT_CLASS} from "../../components/utils/abstraction";
+import {Alert} from "react-native";
 
 export const BASE_URL = 'https://thinktionary-backend.herokuapp.com'
 export const DELETE = "DELETE"
@@ -29,7 +29,7 @@ export default class Request{
     request(url, type, json, hasReturn, callBack, errorCallBack, errorHandler){
         errorCallBack = errorCallBack == undefined ? ()=>{} :
                         Array.isArray(errorCallBack) ? ()=>errorCallBack.forEach((callBack) => callBack()) : errorCallBack
-        errorHandler = errorHandler == undefined ? (message)=>{alert(message); errorCallBack()} : ()=>{errorHandler(); errorCallBack()}
+        errorHandler = errorHandler == undefined ? (message)=>{Alert.alert("Oh no!", message); errorCallBack()} : ()=>{errorHandler(); errorCallBack()}
 
         let init = { method: type};
         init.headers = {};

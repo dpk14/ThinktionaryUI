@@ -61,6 +61,7 @@ export default class LoginScreen extends Screen {
                         new Login(username, password).fetchAndExecute(
                             _onLogin(this.props.navigation, username, password), () => this.setState({loading: false}));
                     }}
+
                 />
                 <SelectableText
                     text="Forgot Password?"

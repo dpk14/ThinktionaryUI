@@ -12,7 +12,7 @@ export class StyledInputBox extends Component{
     }
     render() {
         const {title, scale, width, height, multiline, attrName, returnKeyType, blurOnSubmit,
-            value, keyboardType, updateMasterState, secureTextEntry, editable, onChangeText, style}  = this.props
+            value, keyboardType, updateMasterState, secureTextEntry, editable, onChangeText, style, reset}  = this.props
         return (<View>
             <EntryBox title={title}
                           scale={scale}
@@ -20,6 +20,7 @@ export class StyledInputBox extends Component{
                           height={style.flex == undefined ? height : '100%'}
                           style = {style}
                           value = {value}
+                          reset = {reset}
             >
                     <StyledTextInput multiline = {multiline}
                                  attrName={attrName}

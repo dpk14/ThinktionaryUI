@@ -1,7 +1,7 @@
 
 import React, {Component} from "react";
 import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
-import {View, Text} from 'react-native'
+import {View, Text, Alert} from 'react-native'
 import {StyleSheet} from "react-native";
 import {string} from 'prop-types'
 import {AsyncStorage} from "react-native";
@@ -129,14 +129,28 @@ export default class AccountScreen extends Component {
                             text="Delete Account"
                             disabled = {this.state.loading}
                             onPress={async () => {
-                                if (confirm("This action will delete all of your information. Are you sure you want to proceed?")) {
-                                    new Logout(journal.username, await AsyncStorage.getItem(PWD))
-                                        .fetchAndExecute(
-                                            () => new DeleteAccount(journal.userID).fetchAndExecute(),
-                                                    () => this.setState({loading: false}))
-                                } else {
+                                Alert.alert("Delete Account?",
+                                    "This action will delete all of your information. Are you sure you want to proceed?",
+                                    [
+                                        {
+                                            text: "Delete",
+                                            onPress: async () => {
+                                                this.setState({loading : true})
+                                                new Logout(await AsyncStorage.getItem(USER_KEY), await AsyncStorage.getItem(PWD))
+                                                    .fetchAndExecute(
+                                                        () => {
+                                                            this.props.navigation.navigate(screenNames.HOME_SCREEN);
+                                                            new DeleteAccount(journal.userID).fetchAndExecute()
+                                                        },
+                                                        () => this.setState({loading: false}))
+                                                }
+                                        },
+                                        {
+                                            text: "Cancel"
+                                        }
+                                    ]
+                                )
                                 }
-                            }
                             }
                             style= {{width : 270, marginTop : 40}}
                             scale = {.8}

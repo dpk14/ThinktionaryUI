@@ -7,7 +7,7 @@ import {TOPIC_HEIGHT} from "../../../strings";
 import {TopicCreatorBox} from "../../../EntryBox/TopicBox/TopicCreatorBox";
 import StyledBase from "../StyledBase";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
-import {_onCreate, loginAndInitialize, save} from "../functions/callBacks";
+import {_onCreate, declareSaving, loginAndInitialize, save, saving} from "../functions/callBacks";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import AppLoading from "expo/build/launch/AppLoading";
@@ -24,8 +24,7 @@ export default class WriteScreen extends Screen {
     constructor(props) {
         super(props);
         this.state = {
-        ...this.state, ...{journalLoading : true,
-                saving : false}}
+        ...this.state, ...{journalLoading : true, saving : false, initializing : false}}
     }
 
     _updateMasterState = (attrName, value) => {
@@ -47,7 +46,8 @@ export default class WriteScreen extends Screen {
             activeTopics : new Set(),
             journalLoading : false,
             loading : false,
-            entryMade : entryID != undefined
+            entryMade : entryID != undefined,
+            initializing : true,
         }
     }
 
@@ -60,7 +60,7 @@ export default class WriteScreen extends Screen {
             date: '',
             currTopic: '',
             topics: new Set(),
-            topicBank : this.state.journal.topics,
+            topicBank: this.state.journal.topics,
             activeTopics: new Set(),
             saving : false
         }
@@ -72,10 +72,11 @@ export default class WriteScreen extends Screen {
     }
 
     async componentDidMount() {
-        this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
+        this._blurUnsubscribe = this.props.navigation.addListener('blur', async () => {
             if (this.state.text != '' || this.state.title != '' || this.state.topics.size > 0) {
+                this.props.navigation.setParams({saving : false})
                 save(this.state,
-                    () => this.setState(this.clear()))
+                    () => {declareSaving(false).then(() => this.setState(this.clear()))})
             } else {
                 this.setState(this.clear())
             }
@@ -93,6 +94,12 @@ export default class WriteScreen extends Screen {
     componentWillUnmount() {
         this._blurUnsubscribe()
         this._focusUnsubscribe()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.initializing) {
+            this.setState({initializing : false})
+        }
     }
 
     _onTopicDelete = (topic) => {
@@ -127,7 +134,7 @@ export default class WriteScreen extends Screen {
         return (1 / ENTRY_BOX_SCALE) * (getScreenHeight()
             -(HEADER_HEIGHT)
             -(ENTRY_BOX_HEIGHT*ENTRY_BOX_SCALE)
-            -(TOPIC_BOX_HEIGHT*2*ENTRY_BOX_SCALE)
+            -(TOPIC_BOX_HEIGHT*2.5*ENTRY_BOX_SCALE)
             //-(BUTTON_SCALE*BUTTON_HEIGHT)
             -(8*ENTRY_BOX_VERT_MARGIN)
             -(BOTTOM_FRAME_TOP_MARGIN)
@@ -135,24 +142,27 @@ export default class WriteScreen extends Screen {
         )
     }
 
-    autoSave(nextState){
-        let {journal, text, title, topics, entryID, entryMade, saving} = this.state
-        if (journal != undefined && (title != nextState.title || text != nextState.text || topics.size != nextState.topics.size)) {
+    async autoSave(nextState) {
+        let {journal, text, title, topics, entryID, entryMade} = this.state
+        if (journal != undefined && (title != nextState.title || text != nextState.text || topics.size != nextState.topics.size) && !nextState.initializing) {
             if (!entryMade) {
                 nextState.entryMade = true
                 new BuildEntry(this.state.journal.userID, title == '' ? "Untitled" : title, text, topics, undefined).fetchAndExecute(_onCreate(this.setEntryID))
-            } else if (entryID != undefined && !saving){
+            } else if (entryID != undefined && !this.state.saving) {
                 nextState.saving = true
                 this.props.navigation.setParams({saving : true})
                 save(this.state, () =>
-                    setTimeout(()=>
-                        {this.props.navigation.setParams({saving : false}); this.setState({saving : false});
-                        }, 3000))
+                    setTimeout(() => {
+                        this.props.navigation.setParams({saving : false})
+                        this.setState({saving : false})
+                        declareSaving(false);
+                    }, 3000))
             }
         }
     }
 
     render() {
+        let {initializing} = this.state
         if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
         return (
                 <StyledBase>
@@ -165,6 +175,7 @@ export default class WriteScreen extends Screen {
                                 updateMasterState={this._updateMasterState}
                                 scale = {ENTRY_BOX_SCALE}
                                 width = '100%'
+                                reset = {initializing}
                                 />
                             <StyledInputBox
                                 attrName='text'
@@ -176,6 +187,7 @@ export default class WriteScreen extends Screen {
                                 height = {this.getWriteBoxHeight()}
                                 multiline = {true}
                                 blurOnSubmit={false}
+                                reset = {initializing}
                             />
                             <TopicCreatorBox
                                 attrName = 'currTopic'
@@ -192,6 +204,7 @@ export default class WriteScreen extends Screen {
                                 onTopicDelete = {this._onTopicDelete}
                                 onTopicPress = {this._onTopicCreatorPress}
                                 blurOnSubmit = {false}
+                                reset = {initializing}
                             />
                             <TopicBank
                                 attrName='topicBank'
@@ -203,11 +216,12 @@ export default class WriteScreen extends Screen {
                                 topicScale = {.62}
                                 topics = {this.state.topicBank}
                                 width= '100%'
-                                height={TOPIC_BOX_HEIGHT}
+                                height={TOPIC_BOX_HEIGHT*1.5}
                                 onTopicActivityChange={this._onTopicActivityChange}
                                 activeTopicsName ={'activeTopics'}
                                 activeTopics = {this.state.activeTopics}
                                 value = {''}
+                                reset = {initializing}
                             />
                         </View>
                     </View>
