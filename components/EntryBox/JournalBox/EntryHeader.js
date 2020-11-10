@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import {StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
-import {ORANGE, PURPLE} from "../../utils/baseStyles";
+import {ORANGE, PURPLE, SOFT_ORANGE} from "../../utils/baseStyles";
 import {string, func, object, number, bool, PropTypes} from 'prop-types';
 import CustomButton from "../../Buttons/CustomButton";
 import ScreenNames from "../../../navigation/ScreenNames"
@@ -105,16 +105,16 @@ export default class EntryHeader extends Component {
                 </View>
                 <View style={entryHeaderStyle.rightFrame}>
                     <CustomButtonImg
-                        source={require("../../../assets/images/pencil1.png")}
+                        source={require("../../../assets/images/pencil2.png")}
                         scale={_scale(.8, scale)}
-                        style={{borderRadius: 5, alignItems: "flex-start"}}
-                        imageStyle={{width: 20, height: 20}}
+                        style={{borderRadius: 5, alignItems: "flex-start", backgroundColor : SOFT_ORANGE, shadowRadius: 5, shadowOpacity: .1}}
+                        imageStyle={{width: 20, height: 20, shadowRadius: 2, shadowOpacity: .1}}
                         onPress={this._editEntry}
                     />
-                    <CustomButtonImg source={require("../../../assets/images/trash_can.png")}
-                                     imageStyle={{width: 20, height: 20, flex: 1}}
+                    <CustomButtonImg source={require("../../../assets/images/trashcan2.png")}
+                                     imageStyle={{width: 20, height: 20, flex: 1, shadowRadius: 5, shadowOpacity: .1}}
                                      scale={_scale(.8, scale)}
-                                     style={{borderRadius: 5, marginLeft: 15}}
+                                     style={{borderRadius: 5, marginLeft: 15, backgroundColor : SOFT_ORANGE,  shadowRadius: 5, shadowOpacity: .2}}
                                      onPress={this._removeEntry}
                     />
                 </View>

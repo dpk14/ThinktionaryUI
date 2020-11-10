@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, TouchableWithoutFeedback} from 'react-native'
 import {ORANGE, PURPLE} from "../../../utils/baseStyles";
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
-import {AppLoading} from "expo";
 import {getScreenHeight, getScreenWidth} from "../../../utils/scaling";
 import {PWD, USER_KEY} from "../../../../assets/config";
 import Logout from "../../../../requestHandler/Requests/AccountRequests/Logout";
@@ -21,6 +20,7 @@ import {
     NOTIFICATIONS_SCREEN,
     NOTIFICATIONS_SCREEN_FRAME
 } from "./MenuScreenNames";
+import LoadingScreen from "../../LoadingScreen";
 
 export class OptionsMenu extends Component{
 
@@ -41,7 +41,7 @@ export class OptionsMenu extends Component{
     }
 
     render() {
-        if (this.state.loading) return <AppLoading/>
+        if (this.state.loading) return <LoadingScreen/>
         let {username, pwd} = this.state
         let {navigation} = this.props
         let scrollViewStyle = {...this.props, ...{style : {flex: 1}}}
@@ -58,7 +58,7 @@ export class OptionsMenu extends Component{
                     <DrawerItem
                         label="Account"
                         labelStyle={menuStyles.headerText}
-                        icon = {() => {return <Icon source={require("../../../../assets/images/about.png")}/>}}
+                        icon = {() => {return <Icon source={require("../../../../assets/images/account.png")}/>}}
                         onPress={() => navigation.navigate(ACCOUNT_SCREEN_FRAME)}
                     />
                     <DrawerItem

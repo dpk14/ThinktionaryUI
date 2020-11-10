@@ -7,7 +7,7 @@ export default class BackButtonImage extends Component{
         super(props);
     }
 
-    render(){
+    render() {
         return(
                 <Image
                     style={{width : 40, height : 40}}

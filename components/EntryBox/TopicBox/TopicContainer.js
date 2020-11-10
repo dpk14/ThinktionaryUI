@@ -90,19 +90,31 @@ export default class TopicContainer extends Component {
         let currentChar = "A";
         if (this.props.topics.size > 0  && !this.props.active) this.props.updateContainerState(true)
         this.props.topics.forEach(topic => {
-            while (!(currentChar === topic.substring(0, 1) || currentChar.toLowerCase() === topic.substring(0, 1))
+            if (!this.isAlphabetic(topic.substring(0, 1))) {
+                if (TopicBoxes.length == 0) {
+                    TopicBoxes.push(
+                        <View style={{width: this.props.width, marginTop: TopicBoxes.length == 0 ? 2 : 0}}>
+                            <Text style={addStyles.alphabetText}>
+                                Non-Alphabetic
+                            </Text>
+                        </View>
+                    )
+                }
+            } else {
+                while (!(currentChar === topic.substring(0, 1) || currentChar.toLowerCase() === topic.substring(0, 1))
                 && currentChar.toLowerCase() != 'z' + 1) {
-                currentChar = String.fromCharCode(currentChar.charCodeAt() + 1);
-            }
-            if (!lettersUsed.has(currentChar)) {
-                TopicBoxes.push(
-                    <View style={{width : this.props.width, marginTop: TopicBoxes.length == 0 ? 2 : 0}}>
-                        <Text style = {addStyles.alphabetText} >
-                            {currentChar}
-                        </Text>
-                    </View>
-                )
-                lettersUsed.add(currentChar)
+                    currentChar = String.fromCharCode(currentChar.charCodeAt() + 1);
+                }
+                if (!lettersUsed.has(currentChar)) {
+                    TopicBoxes.push(
+                        <View style={{width: this.props.width, marginTop: TopicBoxes.length == 0 ? 2 : 0}}>
+                            <Text style={addStyles.alphabetText}>
+                                {currentChar}
+                            </Text>
+                        </View>
+                    )
+                    lettersUsed.add(currentChar)
+                }
             }
             TopicBoxes.push(
             <CustomButton
@@ -112,6 +124,10 @@ export default class TopicContainer extends Component {
                 style ={this.props.activeTopics.has(topic) ? {...this.props.activeTopicStyle, ...{alignItems : "flex-start"}} : {}}
             />)});
         return TopicBoxes
+    }
+
+    isAlphabetic(char) {
+        return (char.charCodeAt() >= 65 && char.charCodeAt() <= 90) || (char.charCodeAt() >= 97 && char.charCodeAt() <= 122)
     }
 
     _handleBlur = () => {
@@ -195,7 +211,8 @@ const addStyles = StyleSheet.create({
     },
     alphabetText: {
         fontFamily: HP_SIMPLIFIED_BOLD,
-        fontSize : 13,
+        fontSize : 11,
+        marginLeft : 5,
         color: '#512da8',
         position: 'relative',
         borderRadius: 20,

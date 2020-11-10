@@ -7,6 +7,7 @@ import {
     AsyncStorage
 } from 'react-native'
 import {USER_KEY} from "../assets/config";
+import LoadingScreen from "../components/screens/LoadingScreen";
 
 export default class Initializer extends React.Component {
 
@@ -38,9 +39,7 @@ export default class Initializer extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>Loading</Text>
-            </View>
+            <LoadingScreen/>
         )
     }
 }

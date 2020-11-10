@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import * as Font from 'expo-font';
-import {AppLoading} from 'expo';
+import {Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View, Image} from 'react-native';
 
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
-import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
-import makeAccount from "../../../../requestHandler/Requests/AccountRequests/MakeAccount";
 import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";
-import {_onLogin, parseOrAlert} from "../functions/callBacks";
 import VerifyAccountInfo from "../../../../requestHandler/Requests/AccountRequests/VerifyAccountInfo";
 import ScreenNames from "../../../../navigation/ScreenNames";
+import {getScreenWidth} from "../../../utils/scaling";
 
 let USERNAME_MIN_LENGTH = 1
 let PASSWORD_MIN_LENGTH = 6
@@ -70,7 +65,16 @@ export default class NewAccountScreen extends Screen {
     render() {
         return (
             <StyledBase>
-                    <Text style={baseStyles.title}>Thinktionary</Text>
+                <Image
+                    style ={{
+                        aspectRatio : 1928/578,
+                        width : getScreenWidth()*.8,
+                        height : undefined,
+                        marginBottom : 15
+                    }}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinktionary.png")}
+                />
                     <StyledInputBox
                         attrName='username'
                         title='Username'
@@ -114,6 +118,11 @@ export default class NewAccountScreen extends Screen {
                             this.verifyAccountInfo(this.state.username, this.state.password, this.state.confirmPassword, this.state.email)
                         }}
                     />
+                <Image
+                    style ={{aspectRatio : 1499/1151, marginTop : 30, width : getScreenWidth()*.4, height : undefined}}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinkart2.png")}
+                />
             </StyledBase>
         );
     }

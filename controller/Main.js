@@ -7,14 +7,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import ScreenNames from "../navigation/ScreenNames";
 import * as Font from "expo-font";
 
-import HomeScreen from "../components/screens/base/AuthScreens/HomeScreen";
-import LoginScreen from "../components/screens/base/AuthScreens/LoginScreen";
-import NewAccountScreen from "../components/screens/base/AuthScreens/NewAccountScreen";
 import WriteScreen from "../components/screens/base/JournalScreens/WriteScreen";
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "../components/utils/FontUtils";
 import ReadScreen from "../components/screens/base/JournalScreens/ReadScreen";
-import {screenOptions} from "../App";
-import AppLoading from "expo/build/launch/AppLoading";
+import LoadingScreen from "../components/screens/LoadingScreen";
+
 
 //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
 
@@ -28,7 +25,7 @@ export default class Main extends Component {
     }
 
     render(){
-        if(this.state.loading) return <AppLoading></AppLoading>
+        if(this.state.loading) return <LoadingScreen/>
         let Stack = createStackNavigator()
     return (
           <Stack.Navigator

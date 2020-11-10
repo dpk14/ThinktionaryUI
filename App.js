@@ -9,7 +9,6 @@ import Initializer from "./controller/Initializer";
 import React, {Component} from "react";
 import Auth from "./controller/Auth";
 import Main from "./controller/Main";
-import AppLoading from "expo/build/launch/AppLoading";
 import HomeScreen from "./components/screens/base/AuthScreens/HomeScreen";
 import LoginScreen from "./components/screens/base/AuthScreens/LoginScreen";
 import NewAccountScreen from "./components/screens/base/AuthScreens/NewAccountScreen";
@@ -19,6 +18,7 @@ import VerifyAccount from "./requestHandler/Requests/AccountRequests/VerifyAccou
 import VerifyEmailScreen from "./components/screens/base/AuthScreens/VerifyEmailScreen";
 import ForgotPwdScreen from "./components/screens/base/AuthScreens/ForgotPwdScreen";
 import ResetPwdScreen from "./components/screens/base/AuthScreens/ResetPwdScreen";
+import LoadingScreen from "./components/screens/LoadingScreen";
 
 export default class App extends Component {
 
@@ -35,7 +35,7 @@ export default class App extends Component {
     }
 
     render() {
-        if (this.state.loading) return <AppLoading></AppLoading>
+        if (this.state.loading) return <LoadingScreen/>
         let Stack = createStackNavigator()
         return (
             <NavigationContainer>

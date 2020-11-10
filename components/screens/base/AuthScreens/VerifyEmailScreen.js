@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } from 'react-native';
+import {Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View, Image} from 'react-native';
 
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
@@ -10,6 +10,7 @@ import StyledBase from "../StyledBase";
 import {_onLogin} from "../functions/callBacks";
 import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 import ResetEmail from "../../../../requestHandler/Requests/AccountRequests/ResetEmail";
+import {getScreenWidth} from "../../../utils/scaling";
 
 export default class VerifyEmailScreen extends Screen {
 
@@ -46,7 +47,16 @@ export default class VerifyEmailScreen extends Screen {
     render() {
         return (
             <StyledBase>
-                <Text style={verifyEmailStyles.title}>Thinktionary</Text>
+                <Image
+                    style ={{
+                        aspectRatio : 1928/578,
+                        width : getScreenWidth()*.8,
+                        height : undefined,
+                        marginBottom : 15
+                    }}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinktionary.png")}
+                />
                 <StyledInputBox
                     attrName='emailKey'
                     title='Email Verification Key'
@@ -69,6 +79,11 @@ export default class VerifyEmailScreen extends Screen {
                             this.props.route.params.newAccount ? this.confirmEmailKeyAndCreateAccount() : this.confirmEmailKeyAndRegister()
                         }
                     }}
+                />
+                <Image
+                    style ={{aspectRatio : 1499/1151, marginTop : 30, width : getScreenWidth()*.4, height : undefined}}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinkart2.png")}
                 />
             </StyledBase>
         );

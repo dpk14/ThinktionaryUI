@@ -10,8 +10,8 @@ import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/Buil
 import {_onCreate, declareSaving, loginAndInitialize, save, saving} from "../functions/callBacks";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
-import AppLoading from "expo/build/launch/AppLoading";
 import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
+import LoadingScreen from "../../LoadingScreen";
 
 const MARGIN_HORIZONTAL = 15
 export const TOPIC_BOX_HEIGHT = 1.5 * TOPIC_HEIGHT
@@ -163,7 +163,7 @@ export default class WriteScreen extends Screen {
 
     render() {
         let {initializing} = this.state
-        if (this.state.fontLoading || this.state.journalLoading) return <AppLoading/>
+        if (this.state.fontLoading || this.state.journalLoading) return <LoadingScreen/>
         return (
                 <StyledBase>
                     <View style = {newStyles.outerFrame}>

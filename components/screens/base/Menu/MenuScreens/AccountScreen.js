@@ -1,7 +1,6 @@
 
 import React, {Component} from "react";
-import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
-import {View, Text, Alert} from 'react-native'
+import {View, Text, Alert, Image} from 'react-native'
 import {StyleSheet} from "react-native";
 import {string} from 'prop-types'
 import {AsyncStorage} from "react-native";
@@ -10,12 +9,13 @@ import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../../../utils/Fo
 import CustomButton from "../../../../Buttons/CustomButton";
 import StyledBase from "../../StyledBase";
 import {StyledInputBox} from "../../../../EntryBox/TextInputBox/StyledInputBox";
-import {HEADER_HEIGHT} from "../../../../utils/scaling";
+import {getScreenWidth, HEADER_HEIGHT} from "../../../../utils/scaling";
 import screenNames from "../../../../../navigation/ScreenNames";
 import DeleteAccount from "../../../../../requestHandler/Requests/JournalCommands/DeleteAccount";
 import {PWD, USER_KEY} from "../../../../../assets/config";
 import Logout from "../../../../../requestHandler/Requests/AccountRequests/Logout";
 import SendConfKey from "../../../../../requestHandler/Requests/AccountRequests/SendConfKey";
+import LoadingScreen from "../../../LoadingScreen";
 const VERT_MARGIN = 20
 
 export default class AccountScreen extends Component {
@@ -81,7 +81,7 @@ export default class AccountScreen extends Component {
 
     render() {
         let {email, loading, fontLoading, journal} = this.state
-        if (fontLoading) return <AppLoading/>
+        if (fontLoading) return <LoadingScreen/>
         let {header, text} = this.props
         return(
             <StyledBase>
@@ -154,6 +154,11 @@ export default class AccountScreen extends Component {
                             }
                             style= {{width : 270, marginTop : 40}}
                             scale = {.8}
+                        />
+                        <Image
+                            style ={{aspectRatio : 1499/1151, marginTop : 30, width : getScreenWidth()*.4, height : undefined}}
+                            resizeMode={'contain'}
+                            source={require("../../../../../assets/images/thinkart2.png")}
                         />
                     </View>
                 </View>

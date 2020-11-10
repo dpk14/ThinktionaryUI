@@ -7,6 +7,7 @@ import {baseStyles} from "../Screen";
 import Screen from "../Screen"
 import StyledBase from "../StyledBase";
 import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
+import {getScreenWidth} from "../../../utils/scaling";
 
 export default class HomeScreen extends Screen {
 
@@ -29,28 +30,34 @@ export default class HomeScreen extends Screen {
         this.setState({loading: true})
         this.props.navigation.navigate(toScreen)
     }
-
+//<Text style={homeStyles.title}>Thinktionary</Text>
     renderScreen() {
             return (
                 <StyledBase>
-                        <Text style={homeStyles.title}>Thinktionary</Text>
-                        <View style = {homeStyles.buttonOuterLayout}
-                            >
-                            <CustomButton
-                                text="Login"
-                                disabled = {this.state.loading}
-                                onPress={() => this.navigateAndDisable(screenNames.LOGIN_SCREEN)}
-                                style= {{width : 320, marginTop : 30}}
-                                scale={.85}
-                            />
-                            <CustomButton
-                                text="Create Account"
-                                disabled = {this.state.loading}
-                                onPress={() => this.navigateAndDisable(screenNames.NEW_ACCT_SCREEN)}
-                                style = {{width : 320, marginTop : 30}}
-                                scale={.85}
-                            />
-                        </View>
+                    <Image
+                        style ={{aspectRatio : 1928/578, marginTop : -(getScreenWidth()*.2), width : getScreenWidth()*.8, height : undefined}}
+                        resizeMode={'contain'}
+                        source={require("../../../../assets/images/thinktionary.png")}
+                    />
+                <CustomButton
+                        text="Login"
+                        disabled = {this.state.loading}
+                        onPress={() => this.navigateAndDisable(screenNames.LOGIN_SCREEN)}
+                        style= {{width : 320, marginTop : 30}}
+                        scale={.85}
+                    />
+                    <CustomButton
+                        text="Create Account"
+                        disabled = {this.state.loading}
+                        onPress={() => this.navigateAndDisable(screenNames.NEW_ACCT_SCREEN)}
+                        style = {{width : 320, marginTop : 30}}
+                        scale={.85}
+                    />
+                    <Image
+                        style ={{aspectRatio : 1499/1151, marginTop : 30, width : getScreenWidth()*.4, height : undefined}}
+                        resizeMode={'contain'}
+                        source={require("../../../../assets/images/thinkart2.png")}
+                    />
                 </StyledBase>
             );
         }
@@ -58,10 +65,7 @@ export default class HomeScreen extends Screen {
 
 export const homeStyles = StyleSheet.create({
     buttonOuterLayout: {
-        flex : 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom : 500
+        alignItems: 'center'
     }, title: {
         fontSize: 60,
         textAlign: 'center',

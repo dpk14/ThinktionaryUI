@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View } from 'react-native';
+import {Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View, Image} from 'react-native';
 
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
@@ -12,6 +12,7 @@ import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 import VerifyAccount from "../../../../requestHandler/Requests/AccountRequests/VerifyAccountInfo";
 import ScreenNames from "../../../../navigation/ScreenNames";
 import ResetPassword from "../../../../requestHandler/Requests/AccountRequests/ResetPassword";
+import {getScreenWidth} from "../../../utils/scaling";
 
 let PASSWORD_MIN_LENGTH = 6
 
@@ -64,7 +65,16 @@ export default class ResetPwdScreen extends Screen {
     render() {
         return (
             <StyledBase>
-                <Text style={verifyEmailStyles.title}>Thinktionary</Text>
+                <Image
+                    style ={{
+                        aspectRatio : 1928/578,
+                        width : getScreenWidth()*.8,
+                        height : undefined,
+                        marginBottom : 15
+                    }}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinktionary.png")}
+                />
                 <StyledInputBox
                     attrName='password'
                     title='New Password'
@@ -103,6 +113,11 @@ export default class ResetPwdScreen extends Screen {
                             this.resetPassword();
                         }
                     }}
+                />
+                <Image
+                    style ={{aspectRatio : 1499/1151, marginTop : 30, width : getScreenWidth()*.4, height : undefined}}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinkart2.png")}
                 />
             </StyledBase>
         );

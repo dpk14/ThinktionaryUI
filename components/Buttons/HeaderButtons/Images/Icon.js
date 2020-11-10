@@ -9,7 +9,7 @@ export default class Icon extends Component{
 
     render() {
         return(<Image
-            style={{width : 22, height : 20, marginLeft : 10, shadowRadius: 5, shadowOpacity: .2}}
+            style={{width : 22, height : 20, marginLeft : 10, shadowRadius: 1, shadowOpacity: .1}}
             source={this.props.source}/>)
     }
 

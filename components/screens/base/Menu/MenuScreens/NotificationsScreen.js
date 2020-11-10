@@ -1,11 +1,11 @@
 
 import React, {Component} from "react";
-import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
 import {ENTRY_BOX_VERT_MARGIN, HEADER_STYLES} from "../../../../utils/baseStyles";
 import StyledBase from "../../StyledBase";
 import {StyledInputBox} from "../../../../EntryBox/TextInputBox/StyledInputBox";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../../utils/scaling";
 import FontUtils from "../../../../utils/FontUtils";
+import LoadingScreen from "../../../LoadingScreen";
 
 const TOP_MARGIN = 10;
 
@@ -22,7 +22,7 @@ export default class NotificationsScreen extends Component {
     }
 
     render() {
-        if (this.state.fontLoading) return <AppLoading/>
+        if (this.state.fontLoading) return <LoadingScreen/>
         let {active} = this.state
         return(
             <StyledBase>

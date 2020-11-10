@@ -52,7 +52,7 @@ class customButton extends Component {
                     <ButtonFrame
                         onPress={onPress}
                         scale={scale}
-                        style={disabled ? {...style, ...styles.disabledButtonStyle} : style}
+                        style={[styles.baseButtonFrame, disabled ? {...style, ...styles.disabledButtonStyle} : style]}
                         disabled={disabled}
                     >
                             <Text
@@ -87,6 +87,9 @@ const styles = StyleSheet.create({
         shadowOffset: { height: 1},
     }, disabledButtonStyle : {
         opacity : .7
+    }, baseButtonFrame : {
+        alignItems : 'center',
+        justifyContent : 'center'
     }
 });
 

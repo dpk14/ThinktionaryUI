@@ -1,4 +1,4 @@
-import {Text} from 'react-native';
+import {Image, Text} from 'react-native';
 
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
@@ -10,6 +10,7 @@ import Screen from "../Screen"
 import {_onLogin, parseOrAlert} from "../functions/callBacks";
 import SelectableText from "../../../SelectableText/SelectableText";
 import ScreenNames from "../../../../navigation/ScreenNames";
+import {getScreenWidth} from "../../../utils/scaling";
 
 export default class LoginScreen extends Screen {
 
@@ -36,7 +37,17 @@ export default class LoginScreen extends Screen {
         let {username, password} = this.state;
         return (
             <StyledBase>
-                <Text style={[baseStyles.title]}>Thinktionary</Text>
+                <Image
+                    style ={{
+                        aspectRatio : 1928/578,
+                        marginTop : -(getScreenWidth()*.2),
+                        width : getScreenWidth()*.8,
+                        height : undefined,
+                        marginBottom : 15
+                    }}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinktionary.png")}
+                />
                 <StyledInputBox
                     attrName='username'
                     title='Username'
@@ -66,6 +77,11 @@ export default class LoginScreen extends Screen {
                 <SelectableText
                     text="Forgot Password?"
                     onPress={() => this.props.navigation.navigate(ScreenNames.FORGOT_PWD_SCREEN)}
+                />
+                <Image
+                    style ={{aspectRatio : 1499/1151, marginTop : 8, width : getScreenWidth()*.4, height : undefined}}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinkart2.png")}
                 />
             </StyledBase>)
 

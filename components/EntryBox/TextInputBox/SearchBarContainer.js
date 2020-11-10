@@ -17,7 +17,9 @@ export class SearchBarContainer extends Component{
         })
         return (
                 <View style = {{flexDirection : 'row', justifyContent: 'center', alignItems: 'center', flex : 1}}>
-                    <Image style = {{flex : .07, height : .025 * getScreenHeight(), marginLeft : "2%"}}
+                    <Image resizeMethod='scale'
+                            resizeMode='contain'
+                            style = {{height : "80%", width : "7.5%", marginLeft : "2%"}}
                            source = {require("../../../assets/images/magnifying_glass.png")}
                     />
                     {children}

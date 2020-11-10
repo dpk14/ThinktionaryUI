@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {Image, StyleSheet, Text} from 'react-native';
 
 import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
@@ -8,6 +8,7 @@ import StyledBase from "../StyledBase";
 import {HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
 import SendConfKey from "../../../../requestHandler/Requests/AccountRequests/SendConfKey";
 import ScreenNames from "../../../../navigation/ScreenNames";
+import {getScreenWidth} from "../../../utils/scaling";
 
 export default class ForgotPwdScreen extends Screen {
 
@@ -32,7 +33,16 @@ export default class ForgotPwdScreen extends Screen {
         let {username, email} = this.state
         return (
             <StyledBase>
-                <Text style={verifyEmailStyles.title}>Thinktionary</Text>
+                <Image
+                    style ={{
+                        aspectRatio : 1928/578,
+                        width : getScreenWidth()*.8,
+                        height : undefined,
+                        marginBottom : 15
+                    }}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinktionary.png")}
+                />
                 <StyledInputBox
                     attrName='username'
                     title='Username'
@@ -60,6 +70,11 @@ export default class ForgotPwdScreen extends Screen {
                                 {username : username, email : email})},
                             () => this.setState({loading: false}));
                     }}
+                />
+                <Image
+                    style ={{aspectRatio : 1499/1151, marginTop : 30, width : getScreenWidth()*.4, height : undefined}}
+                    resizeMode={'contain'}
+                    source={require("../../../../assets/images/thinkart2.png")}
                 />
             </StyledBase>
         );

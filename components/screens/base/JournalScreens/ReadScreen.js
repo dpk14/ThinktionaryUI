@@ -8,12 +8,12 @@ import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
-import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
 import {loginAndInitialize, saving} from "../functions/callBacks";
 import {TOPIC_BOX_HEIGHT} from "./WriteScreen";
 import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
 import {AsyncStorage} from "react-native-web";
 import {SAVING} from "../../../../assets/config";
+import LoadingScreen from "../../LoadingScreen";
 
 let MARGIN_HORIZONTAL = 15
 let MARGIN_BOTTOM = 30
@@ -142,7 +142,7 @@ export default class ReadScreen extends Screen {
     }
 
     render() {
-        if (this.state.fontLoading || this.state.journalLoading || this.state.journalSaving) return <AppLoading/>
+        if (this.state.fontLoading || this.state.journalLoading || this.state.journalSaving) return <LoadingScreen/>
         let journalTitle = this._getJournalTitle()
         let {navigation} = this.props
         let {journal, topics, activeTopics, entries, activeEntries, searched, journalLoading} = this.state

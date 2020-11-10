@@ -1,6 +1,5 @@
 
 import React, {Component} from "react";
-import AppLoading from "expo/build/launch/AppLoadingNativeWrapper";
 import {ENTRY_BOX_VERT_MARGIN, HEADER_STYLES} from "../../../../../utils/baseStyles";
 import StyledBase from "../../../StyledBase";
 import {StyledInputBox} from "../../../../../EntryBox/TextInputBox/StyledInputBox";
@@ -9,6 +8,7 @@ import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../../../../utils
 import {View, Text} from 'react-native'
 import {StyleSheet} from "react-native";
 import {string} from 'prop-types'
+import LoadingScreen from "../../../../LoadingScreen";
 
 const VERT_MARGIN = 20
 
@@ -30,7 +30,7 @@ export default class InfoScreen extends Component {
     }
 
     render() {
-        if (this.state.fontLoading) return <AppLoading/>
+        if (this.state.fontLoading) return <LoadingScreen/>
         let {header, text} = this.props
         return(
             <StyledBase>

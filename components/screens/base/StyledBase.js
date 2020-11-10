@@ -14,6 +14,7 @@ export default class StyledBase extends Component{
     render() {
             return (
                 <KeyboardAwareScrollView
+                    showsVerticalScrollIndicator={false}
                  contentContainerStyle = {{flexGrow : 1}}
                                 keyboardShouldPersistTaps = {'handled'}
                         >
@@ -44,6 +45,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         marginVertical : 200,
         alignItems : 'center',
+        justifyContent : 'center'
     },
 });
 

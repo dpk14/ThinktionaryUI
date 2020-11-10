@@ -13,7 +13,7 @@ export default class WriteBackButtonImg extends Component{
             <View style={{flex : 1, flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
                 <Image
                     style={{width : 20, height : 20, shadowRadius: 2, shadowOpacity: .1}}
-                    source={require("../../../../assets/images/book.png")}/>
+                    source={require("../../../../assets/images/book2.png")}/>
                 <FwdButtonImg/>
             </View>)
     }

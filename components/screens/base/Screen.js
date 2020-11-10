@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoidingView} from 'react-native';
-import * as Font from 'expo-font';
-import {AppLoading} from 'expo';
-
-import { LinearGradient } from 'expo-linear-gradient';
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 import {ABSTRACT_CLASS, ABSTRACT_METHOD} from "../../utils/abstraction";
+import LoadingScreen from "../LoadingScreen";
 
 export default class Screen extends Component{
 
@@ -28,7 +25,7 @@ export default class Screen extends Component{
 
     render() {
             if(this.state.fontLoading){
-                return <AppLoading/>
+                return <LoadingScreen/>
             }
             return this.renderScreen()
         }
