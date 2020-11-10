@@ -26,8 +26,8 @@ export default class OptionButton extends Component {
                 width : 20,
                 height : 20,
                 marginLeft : SIDE_MARGIN,
-                shadowRadius: 5,
-                shadowOpacity: .2
+                shadowRadius: 1,
+                shadowOpacity: .05
         }
         if (position == 'right') {
             style.marginLeft = 0
@@ -38,7 +38,7 @@ export default class OptionButton extends Component {
                               style={{flex : 1, alignItems : 'center', justifyContent : 'center'}}>
                 <Image
                     style={style}
-                    source={require("../../../../assets/images/options.png")}/>
+                    source={require("../../../../assets/images/gear.png")}/>
             </TouchableOpacity>
         )
 
