@@ -1,16 +1,21 @@
 {
-  "name": "thinktionary",
-  "displayName": "thinktionary",
+  "name": "Thinktionary",
+  "displayName": "Thinktionary",
   "expo": {
-    "name": "thinktionary",
+    "name": "Thinktionary",
     "slug": "thinktionary",
-    "privacy": "unlisted",
+    "icon": "./assets/images/logo.png",
+    "privacy": "public",
     "version": "1.0.0",
     "entryPoint": "node_modules/expo/AppEntry.js",
     "platforms": [
       "ios",
       "android",
       "web"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "com.thinktionary.thinktionary",
+      "buildNumber": "1.0.0"
+    }
   }
 }
