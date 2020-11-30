@@ -1,1 +1,4 @@
 *.pbxproj -text
+*.ipa filter=lfs diff=lfs merge=lfs -text
+thinktionary-fcdc8320-9f6e-49df-8d32-4e2166d34648-archive.ipa filter=lfs diff=lfs merge=lfs -text
+assets/thinktionary-fcdc8320-9f6e-49df-8d32-4e2166d34648-archive.ipa filter=lfs diff=lfs merge=lfs -text
