@@ -1,7 +1,5 @@
 ## Welcome to Thinktionary
 
-### About
-
 Welcome to Thinktionary, the dictionary for your thoughts!
 
 Traditional journaling mediums–from paper to note apps–may provide an efficient means for storing your thoughts, but not for recalling them.
@@ -23,18 +21,23 @@ With Thinktionary, you can create a chronological database for your:
 ### Support (FAQ)
 
 **How do I save my work?**
+
 You don't! As soon as you start writing an entry, it'll be added to the front of your journal.
 
 **I moved from writing to reading and then back, and my work disappeared!**
+
 As it should! Whenever you move away from the writing screen, your work is saved at the front of your journal, and the writing screen is reset so you can make a new entry. If you want to keep working on that entry, just pull it up in the journal and hit the pencil button.
 
 **How do I remove a tag from an entry I'm writing?**
+
 Go to the "What tags do you want to use?" section on the write screen, then tap the unwanted tag once and it will disappear.
 
 **I just looked up a tag and no entries are showing up! What should I do?**
+
 First of all, don't panic! Make sure that tag is the only one you've selected, and make sure you've cleared the searchbar. If this doesn't work, navigate away from the journal screen and back, then try again.
 
 **I have a question that isn't answered in this FAQ. Where should I go for help?**
+
 If you have any additional questions, reach out to thinktionary.app@gmail.com and we'll get back to you as soon as possible.
 
 ### Privacy Policy
