@@ -76,6 +76,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>hp-simplified.ttf</string>
+		<string>hp-simplified-556.ttf</string>
+		<string>hp-simplified-bold.ttf</string>
 	</array>
 </dict>
 </plist>

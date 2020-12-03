@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, View, Alert, Image} from 'react-native';
 import * as Font from 'expo-font';
 import FontUtils, {HP_SIMPLIFIED_BOLD} from "../utils/FontUtils";
 import {_scale} from "../utils/scaling";
+import {SOFT_ORANGE} from "../utils/baseStyles";
+import {CustomButtonImg} from "./CustomButtonImg";
 
 
 export default class RightLeftNavigator extends Component {
@@ -113,23 +115,17 @@ export default class RightLeftNavigator extends Component {
                         style={[styles.buttonStyle, this.getButtonStyles(), styles.leftStyle]}
                         onPress={onLeftPress}
                     >
-                        <Text
-                            onLayout = {this.props.onLayout}
-                            style={[styles.textStyle, this.getFontSpecs()]}
-                        >
-                            {"<     "}
-                        </Text>
+                        <Image source={require("../../assets/images/left_arrow.png")}
+                                         style={{width: 20, height: 20, flex: 1, shadowRadius: 5, shadowOpacity: .1}}
+                                         />
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.buttonStyle, this.getButtonStyles(), styles.rightStyle]}
                         onPress={onRightPress}
                     >
-                        <Text
-                            onLayout = {this.props.onLayout}
-                            style={[styles.textStyle, this.getFontSpecs()]}
-                        >
-                            {"     >"}
-                        </Text>
+                        <Image source={require("../../assets/images/right_arrow.png")}
+                               style={{width: 20, height: 20, flex: 1, shadowRadius: 5, shadowOpacity: .1}}
+                        />
                     </TouchableOpacity>
                     <View style={[styles.connector, this.getCustomConnectorStyle()]}>
                         <Text

@@ -214,6 +214,7 @@ const addStyles = StyleSheet.create({
         fontSize : 11,
         marginLeft : 5,
         color: '#512da8',
+        fontWeight: 'bold',
         position: 'relative',
         borderRadius: 20,
         opacity: .9

@@ -33,6 +33,7 @@ export const selectableTextStyles = StyleSheet.create({
         fontSize: 16,
         marginVertical : 10,
         textAlign: 'center',
+        fontWeight: 'bold',
         color : '#FFFFFF',
         fontFamily: HP_SIMPLIFIED_BOLD,
         shadowOffset: { height: 4},

@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import {StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Alert, StyleSheet, Text, TouchableWithoutFeedback, View} from "react-native";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 import {ORANGE, PURPLE, SOFT_ORANGE} from "../../utils/baseStyles";
 import {string, func, object, number, bool, PropTypes} from 'prop-types';
@@ -62,7 +62,6 @@ export default class EntryHeader extends Component {
 
     _editEntry = () => {
         let {navigation, journal, entry} = this.props
-        console.log("edit entry")
         navigation.navigate(ScreenNames.WRITE_SCREEN, {journal: journal, entry: entry})
     }
 
@@ -90,18 +89,6 @@ export default class EntryHeader extends Component {
                           style={[entryHeaderStyle.titleText, this._textDimensions()]}>
                         {title}
                     </Text>
-                    <Text numberOfLines={1}
-                          style={[entryHeaderStyle.dateText, this._textDimensions()]}>
-                        {"Created on " + created}
-                    </Text>
-                    <Text numberOfLines={1}
-                          style={[entryHeaderStyle.dateText, this._textDimensions()]}>
-                        {"Last modified on " + modified}
-                    </Text>
-                    <Text numberOfLines={1}
-                          style={[entryHeaderStyle.dateText, this._textDimensions(), {marginBottom: MARGIN_BOTTOM}]}>
-                        {this.getTopicText()}
-                    </Text>
                 </View>
                 <View style={entryHeaderStyle.rightFrame}>
                     <CustomButtonImg
@@ -117,6 +104,12 @@ export default class EntryHeader extends Component {
                                      style={{borderRadius: 5, marginLeft: 15, backgroundColor : SOFT_ORANGE,  shadowRadius: 5, shadowOpacity: .2}}
                                      onPress={this._removeEntry}
                     />
+                    <CustomButtonImg source={require("../../../assets/images/help.png")}
+                                     imageStyle={{width: 20, height: 20, flex: 1, shadowRadius: 5, shadowOpacity: .1}}
+                                     scale={_scale(.8, scale)}
+                                     style={{borderRadius: 5, marginLeft: 15, marginRight:15, backgroundColor : SOFT_ORANGE,  shadowRadius: 5, shadowOpacity: .2}}
+                                     onPress={() => Alert.alert("About", "Created on " + created + "\nLast modified on " + modified + "\n" + this.getTopicText())}
+                    />
                 </View>
             </View>
         )
@@ -126,7 +119,7 @@ export default class EntryHeader extends Component {
         return (entryHeaderStyle.titleText.marginTop +
             entryHeaderStyle.titleText.marginBottom +
             entryHeaderStyle.titleText.fontSize +
-            (3 * (
+            (1 * (
                 (entryHeaderStyle.dateText.marginVertical * 2) +
                 entryHeaderStyle.dateText.fontSize
             )) + (2 * MARGIN_BOTTOM))
@@ -143,30 +136,32 @@ export default class EntryHeader extends Component {
         borderRadius : 3,
     },
     leftFrame: {
+        marginRight : 15,
         flex : .8,
-        justifyContent: 'flex-start'
+        justifyContent: 'center',
     },
     rightFrame: {
-        flex : .3,
+        flex : .55,
         alignItems: 'center',
         justifyContent: 'flex-start',
         flexDirection: 'row'
     },
     titleText:{
-        fontFamily: HP_SIMPLIFIED_BOLD,
-        fontSize: 20,
+        fontSize: 18,
         color: 'white',
+        fontWeight: 'bold',
         marginLeft : 10,
         marginTop : 7,
         marginBottom : 5,
         shadowOffset: { height: 1,},
         shadowRadius: 4,
         shadowOpacity: .3,
-        opacity : .85
+        opacity : .85,
+        fontFamily: HP_SIMPLIFIED_BOLD
     },
     dateText:{
-        fontFamily: HP_SIMPLIFIED_BOLD,
-        fontSize: 13,
+        fontWeight: 'bold',
+        fontSize: 12,
         color: 'white',
         shadowOffset: { height: 1,},
         shadowRadius: 2,

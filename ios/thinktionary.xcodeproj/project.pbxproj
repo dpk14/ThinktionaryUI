@@ -13,6 +13,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3DE4DAD41476765101945408 /* libPods-thinktionary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D43FF9D506E70904424FA7E9 /* libPods-thinktionary.a */; };
 		56F1897B09D84E7ABBA47B40 /* hp-simplified.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72BDD24CCBEB44E59EB0045E /* hp-simplified.ttf */; };
+		312AF91D650241BDAE4451C3 /* hp-simplified-556.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 975D8DC9EA9141718AD44603 /* hp-simplified-556.ttf */; };
+		865B06D960094AC4A9DA79FC /* hp-simplified-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98832ABE98E9447B8CFDE297 /* hp-simplified-bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		72BDD24CCBEB44E59EB0045E /* hp-simplified.ttf */ = {isa = PBXFileReference; name = "hp-simplified.ttf"; path = "../assets/fonts/hp-simplified.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		975D8DC9EA9141718AD44603 /* hp-simplified-556.ttf */ = {isa = PBXFileReference; name = "hp-simplified-556.ttf"; path = "../assets/fonts/hp-simplified-556.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		98832ABE98E9447B8CFDE297 /* hp-simplified-bold.ttf */ = {isa = PBXFileReference; name = "hp-simplified-bold.ttf"; path = "../assets/fonts/hp-simplified-bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,8 @@
 			isa = "PBXGroup";
 			children = (
 				72BDD24CCBEB44E59EB0045E /* hp-simplified.ttf */,
+				975D8DC9EA9141718AD44603 /* hp-simplified-556.ttf */,
+				98832ABE98E9447B8CFDE297 /* hp-simplified-bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -183,6 +189,8 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				56F1897B09D84E7ABBA47B40 /* hp-simplified.ttf in Resources */,
+				312AF91D650241BDAE4451C3 /* hp-simplified-556.ttf in Resources */,
+				865B06D960094AC4A9DA79FC /* hp-simplified-bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +294,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = thinktionary;
+				PRODUCT_NAME = thinktionary1.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;

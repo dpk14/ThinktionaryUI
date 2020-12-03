@@ -33,6 +33,7 @@ export class Header extends Component{
                         fontFamily: HP_SIMPLIFIED_BOLD,
                         shadowOffset: {height: 4},
                         shadowRadius: 20,
+                        fontWeight: 'bold',
                         shadowOpacity: .5}}>
                     {"Thinktionary"}
                 </Text>

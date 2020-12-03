@@ -111,11 +111,22 @@ export default class ReadScreen extends Screen {
     _getJournalTitle = () => {
         let {activeTopics} = this.state
         if (activeTopics.size == 0) return ReadScreen.DEFAULT_JOURNAL_TITLE
-        else {
-            let journalTitle = ReadScreen.BASE_JOURNAL_TITLE
-            activeTopics.forEach((topic) => journalTitle += topic + ", ")
-            return journalTitle.substring(0, journalTitle.length-2) + ":"
+        let journalTitle = ReadScreen.BASE_JOURNAL_TITLE
+        let activeTopicsArray = Array.from(activeTopics)
+        if (activeTopicsArray.length == 1) {
+            return journalTitle + activeTopicsArray[0] + ":";
+        } else if (activeTopicsArray.length == 2) {
+            return journalTitle + activeTopicsArray[0] + " and " + activeTopicsArray[1] + ":";
+        } else {
+            for (let i = 0; i < activeTopicsArray.length; i++) {
+                if (i == (activeTopicsArray.length - 1)) {
+                    return journalTitle + "and " + activeTopicsArray[i] + ":";
+                } else {
+                    journalTitle +=  activeTopicsArray[i] + ", "
+                }
+            }
         }
+        return ReadScreen.DEFAULT_JOURNAL_TITLE
     }
 
     _search = (searched) => {

@@ -93,7 +93,7 @@ export let createOrSave = (state, setEntryID, onSave=()=>{}) => {
 }
 
 export function save(state, onSave=()=>{}) {
-    AsyncStorage.setItem(SAVING, "true").then(() => {console.log("BEFOREBEFORE")
+    AsyncStorage.setItem(SAVING, "true").then(() => {
     const {title, text, date, topics} = state
     new ModifyEntry(state.journal.userID, state.entryID, title=='' ? "Untitled" : title, text, topics).
     fetchAndExecute(onSave())})

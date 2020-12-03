@@ -225,7 +225,8 @@ export const Styles = StyleSheet.create({
         position: 'absolute',
         flexWrap : 'wrap',
         fontFamily: HP_SIMPLIFIED_BOLD,
-        fontWeight: '300',
+        //fontWeight: '300',
+        fontWeight: 'bold',
         lineHeight: 24,
     }
 

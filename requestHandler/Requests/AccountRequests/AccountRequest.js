@@ -13,7 +13,6 @@ export class AccountRequest extends Request {
                 confirmationKey = null,
                 parser = () => {}) {
         let url = BASE_URL + path;
-        console.log(url);
         super(url, type, JSONBuilder.buildCredentials(username, password, email, confirmationKey), hasReturn, parser);
     }
 }

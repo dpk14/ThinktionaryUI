@@ -37,7 +37,6 @@ function buildCredentials(username, password, email, confirmationKey){
     entry[PASSWORD] = password
     entry[EMAIL] = email
     entry[CONF_KEY] = confirmationKey
-    console.log(entry)
     return entry
 }
 

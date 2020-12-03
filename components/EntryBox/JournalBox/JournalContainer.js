@@ -128,7 +128,7 @@ export default class JournalContainer extends Component {
                     <View style={journalContainerStyles.bottomFrame}>
                     <RightLeftNavigator onLeftPress={this._pageLeft}
                                         onRightPress={this._pageRight}
-                                        width={200}
+                                        style={{flex : 1, marginTop: 5}}
                                         height={NAVIGATOR_HEIGHT}
                                         minimum={1}
                                         maximum={entries.length}
@@ -151,7 +151,8 @@ const journalContainerStyles = StyleSheet.create({
     },
     bottomFrame:{
         height : ENTRY_BOX_HEIGHT,
-        alignItems : 'center'
+        alignItems : 'center',
+        marginBottom: 15
     }
 
 })
