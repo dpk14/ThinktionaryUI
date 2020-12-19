@@ -6,7 +6,7 @@
     "slug": "thinktionary",
     "icon": "./assets/images/logo.png",
     "privacy": "public",
-    "version": "1.0.2",
+    "version": "1.0.6",
     "entryPoint": "node_modules/expo/AppEntry.js",
     "platforms": [
       "ios",
@@ -15,7 +15,7 @@
     ],
     "ios": {
       "bundleIdentifier": "org.reactjs.native.example.thinktionary1.0",
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.6"
     }
   }
 }
