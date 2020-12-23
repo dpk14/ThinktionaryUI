@@ -114,14 +114,6 @@ export default class RichEditorInput extends Component {
         this.props.updateRichTextEditor(undefined)
     }
 
-    /*
-        componentDidUpdate(prevProps, prevState, snapshot) {
-            if (prevProps.active != this.props.active) {
-                if (this.props.active)
-            }
-        }
-    */
-
     _onKeyPress = () => {}
     _onSubmitEditing = () => {}
 

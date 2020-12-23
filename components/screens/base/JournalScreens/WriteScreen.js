@@ -5,7 +5,6 @@ import Screen from "../Screen";
 import React from "react";
 import {TOPIC_HEIGHT} from "../../../strings";
 import {TopicCreatorBox} from "../../../EntryBox/TopicBox/TopicCreatorBox";
-import StyledBase from "../StyledBase";
 import BuildEntry from "../../../../requestHandler/Requests/JournalCommands/BuildEntry";
 import {_onCreate, declareSaving, loginAndInitialize, save, saving} from "../functions/callBacks";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
@@ -35,6 +34,10 @@ export default class WriteScreen extends Screen {
 
     initialize(journal, entry = this.state.entry) {
         let entryID = entry == undefined ? undefined : entry.entryID
+        if (this.state.richTextEditor) {
+            this.state.richTextEditor.setContentHTML('');
+            this.state.richTextEditor.blurContentEditor();
+        }
         return {
             journal : journal,
             entry : entry,
