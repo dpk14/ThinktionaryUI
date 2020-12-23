@@ -56,7 +56,10 @@ export default class ReadScreen extends Screen {
         this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
             setTimeout(() => this.tryLoad(), 50);
         })
-        this._blurUnsubscribe = this.props.navigation.addListener('blur', () => setTimeout(() => this.setState({journalSaving: true}), 100));
+        this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
+            this.setState(this.initialize(this.state.journal))
+            setTimeout(() => this.setState({journalSaving: true}), 100)
+        });
     }
 
     async tryLoad() {

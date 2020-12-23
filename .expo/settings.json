@@ -2,7 +2,7 @@
   "urlRandomness": "sv-bv4",
   "hostType": "lan",
   "lanType": "ip",
-  "dev": true,
-  "minify": false,
+  "dev": false,
+  "minify": true,
   "https": false
 }

@@ -3,7 +3,7 @@ import ResponseHandler from "../Utils/ResponseHandler";
 import {ABSTRACT_CLASS} from "../../components/utils/abstraction";
 import {Alert} from "react-native";
 
-export const BASE_URL = 'https://thinktionary-backend.herokuapp.com'
+export const BASE_URL = 'https://thinktionary-backend-alpha.herokuapp.com'
 export const DELETE = "DELETE"
 export const GET = "GET"
 export const PUT = "PUT"

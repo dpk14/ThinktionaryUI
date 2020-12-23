@@ -12,6 +12,8 @@ import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
 import LoadingScreen from "../../LoadingScreen";
+import {RichEditorBox} from "../../../EntryBox/TextInputBox/RichEditorBox";
+import StyledBaseRichText from "../StyledBaseRichText";
 
 const MARGIN_HORIZONTAL = 15
 export const TOPIC_BOX_HEIGHT = 1.5 * TOPIC_HEIGHT
@@ -48,6 +50,7 @@ export default class WriteScreen extends Screen {
             loading : false,
             entryMade : entryID != undefined,
             initializing : true,
+            barUpdated : false,
         }
     }
 
@@ -129,6 +132,12 @@ export default class WriteScreen extends Screen {
         this.setState({entryID : entryID})
     }
 
+    updateRichTextEditor = (richTextEditor, barUpdated, active) => {
+        if (richTextEditor != this.state.richTextEditor) {
+            this.setState({richTextEditor: richTextEditor, barUpdated: true})
+        }
+    }
+
     getWriteBoxHeight() {
         let ERROR_MARGIN = 20
         return (1 / ENTRY_BOX_SCALE) * (getScreenHeight()
@@ -165,7 +174,9 @@ export default class WriteScreen extends Screen {
         let {initializing} = this.state
         if (this.state.fontLoading || this.state.journalLoading) return <LoadingScreen/>
         return (
-                <StyledBase>
+            <StyledBaseRichText
+                richTextEditor = {this.state.richTextEditor}
+            >
                     <View style = {newStyles.outerFrame}>
                         <View style = {newStyles.topFrame}>
                             <StyledInputBox
@@ -177,7 +188,7 @@ export default class WriteScreen extends Screen {
                                 width = '100%'
                                 reset = {initializing}
                                 />
-                            <StyledInputBox
+                            <RichEditorBox
                                 attrName='text'
                                 title='What are you thinking about?'
                                 value={this.state.text}
@@ -188,6 +199,8 @@ export default class WriteScreen extends Screen {
                                 multiline = {true}
                                 blurOnSubmit={false}
                                 reset = {initializing}
+                                autoCorrect={true}
+                                updateRichTextEditor={this.updateRichTextEditor}
                             />
                             <TopicCreatorBox
                                 attrName = 'currTopic'
@@ -225,7 +238,7 @@ export default class WriteScreen extends Screen {
                             />
                         </View>
                     </View>
-                </StyledBase>
+            </StyledBaseRichText>
             );
         }
 }
