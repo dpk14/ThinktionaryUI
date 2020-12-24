@@ -8,7 +8,7 @@ import {loginAndInitialize} from "../../functions/callBacks";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../../../utils/FontUtils";
 import CustomButton from "../../../../Buttons/CustomButton";
 import StyledBase from "../../StyledBase";
-import {StyledInputBox} from "../../../../EntryBox/TextInputBox/StyledInputBox";
+import {StyledInputBox} from "../../../../EntryBox/TextInputBox/StyledTextInput/StyledInputBox";
 import {getScreenWidth, HEADER_HEIGHT} from "../../../../utils/scaling";
 import screenNames from "../../../../../navigation/ScreenNames";
 import DeleteAccount from "../../../../../requestHandler/Requests/JournalCommands/DeleteAccount";

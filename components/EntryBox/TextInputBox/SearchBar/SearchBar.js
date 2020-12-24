@@ -1,5 +1,5 @@
-import EntryBox from "../EntryBox";
-import StyledTextInput from "./StyledTextInput";
+import EntryBox from "../../EntryBox";
+import StyledTextInput from "../StyledTextInput/StyledTextInput";
 import React, {Component} from "react";
 import {View, Image} from "react-native"
 import {SearchBarContainer} from "./SearchBarContainer";

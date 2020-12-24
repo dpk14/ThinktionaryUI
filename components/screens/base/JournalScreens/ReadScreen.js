@@ -1,5 +1,5 @@
 import Screen, {baseStyles} from "../Screen";
-import {StyleSheet} from "react-native";
+import {StyleSheet, Keyboard} from "react-native";
 import {View} from "react-native";
 import {TOPIC_HEIGHT} from "../../../strings";
 import React from "react";
@@ -7,7 +7,7 @@ import StyledBase from "../StyledBase";
 import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {JournalContainerBox} from "../../../EntryBox/JournalBox/JournalContainerBox";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
-import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar";
+import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar/SearchBar";
 import {loginAndInitialize, saving} from "../functions/callBacks";
 import {TOPIC_BOX_HEIGHT} from "./WriteScreen";
 import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
@@ -47,17 +47,32 @@ export default class ReadScreen extends Screen {
             topics: journal.topics,
             searched: '',
             journalLoading: false,
-            initializing: true,
+            journalSaving : false,
+            initializing: true
+        }
+    }
+
+    clear(journal) {
+        return {
+            activeTopics: new Set(),
+            journal: journal,
+            entries: journal.entries,
+            activeEntries: journal.entries,
+            topics: journal.topics,
+            searched: '',
+            journalLoading: false,
+            initializing: true
         }
     }
 
     async componentDidMount() {
         setTimeout(() => this.tryLoad(), 50);
         this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
+            Keyboard.dismiss()
             setTimeout(() => this.tryLoad(), 50);
         })
         this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
-            this.setState(this.initialize(this.state.journal))
+            this.setState(this.clear(this.state.journal))
             setTimeout(() => this.setState({journalSaving: true}), 100)
         });
     }
@@ -68,8 +83,10 @@ export default class ReadScreen extends Screen {
             if (saving) {
                 this.tryLoad()
             } else {
-                this.setState({journalSaving: false})
-                loginAndInitialize((journal) => this.setState(this.initialize(journal)))
+                //this.setState({journalSaving: false})
+                loginAndInitialize((journal) => {
+                    this.setState(this.initialize(journal))
+                })
             }
         })
     }
@@ -206,6 +223,7 @@ export default class ReadScreen extends Screen {
                         navigation={navigation}
                         onEntryRemoval={this._onEntryRemoval}
                         value={''}
+                        updateRichTextEditor={this.updateRichTextEditor}
                     />
                     <TopicBank
                         attrName='topicBank'

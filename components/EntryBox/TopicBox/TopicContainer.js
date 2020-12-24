@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Animated, StyleSheet, TextInput, ScrollView, Text, Keyboard } from 'react-native';
 import { string, func, object, number, bool, PropTypes } from 'prop-types';
-import StyledTextInput, {Styles} from "../TextInputBox/StyledTextInput";
+import StyledTextInput, {Styles} from "../TextInputBox/StyledTextInput/StyledTextInput";
 import CustomButton from "../../Buttons/CustomButton";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../utils/FontUtils";
 const MULTILINE_TOPMARGIN_ADJUSTER = 4

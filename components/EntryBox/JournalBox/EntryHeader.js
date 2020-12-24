@@ -131,9 +131,10 @@ export default class EntryHeader extends Component {
         backgroundColor: PURPLE,
         opacity : .95,
         shadowOffset: { height: 3,},
-        shadowRadius: 15,
+        shadowRadius: 3,
         shadowOpacity: .3,
         borderRadius : 3,
+        marginBottom: 2
     },
     leftFrame: {
         marginRight : 15,

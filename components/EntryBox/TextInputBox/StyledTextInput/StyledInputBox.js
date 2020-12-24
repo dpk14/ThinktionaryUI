@@ -1,4 +1,4 @@
-import EntryBox from "../EntryBox";
+import EntryBox from "../../EntryBox";
 import StyledTextInput from "./StyledTextInput";
 import React, {Component} from "react";
 import {View} from "react-native";

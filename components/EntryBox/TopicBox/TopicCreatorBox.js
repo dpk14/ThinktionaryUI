@@ -1,6 +1,6 @@
 import {bool} from "prop-types";
 import EntryBox from "../EntryBox";
-import StyledTextInput from "../TextInputBox/StyledTextInput";
+import StyledTextInput from "../TextInputBox/StyledTextInput/StyledTextInput";
 import TopicContainer from "./TopicContainer";
 import React, { Component } from 'react';
 

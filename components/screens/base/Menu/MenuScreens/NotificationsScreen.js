@@ -2,7 +2,7 @@
 import React, {Component} from "react";
 import {ENTRY_BOX_VERT_MARGIN, HEADER_STYLES} from "../../../../utils/baseStyles";
 import StyledBase from "../../StyledBase";
-import {StyledInputBox} from "../../../../EntryBox/TextInputBox/StyledInputBox";
+import {StyledInputBox} from "../../../../EntryBox/TextInputBox/StyledTextInput/StyledInputBox";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../../utils/scaling";
 import FontUtils from "../../../../utils/FontUtils";
 import LoadingScreen from "../../../LoadingScreen";

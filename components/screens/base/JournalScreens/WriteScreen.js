@@ -1,6 +1,6 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Keyboard} from 'react-native';
 
-import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
+import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledTextInput/StyledInputBox";
 import Screen from "../Screen";
 import React from "react";
 import {TOPIC_HEIGHT} from "../../../strings";
@@ -11,7 +11,7 @@ import {TopicBank} from "../../../EntryBox/TopicBox/TopicBank";
 import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/scaling";
 import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
 import LoadingScreen from "../../LoadingScreen";
-import {RichEditorBox} from "../../../EntryBox/TextInputBox/RichEditorBox";
+import {RichEditorBox} from "../../../EntryBox/TextInputBox/RichTextInput/RichEditorBox";
 import StyledBaseRichText from "../StyledBaseRichText";
 
 const MARGIN_HORIZONTAL = 15
@@ -34,10 +34,6 @@ export default class WriteScreen extends Screen {
 
     initialize(journal, entry = this.state.entry) {
         let entryID = entry == undefined ? undefined : entry.entryID
-        if (this.state.richTextEditor) {
-            this.state.richTextEditor.setContentHTML('');
-            this.state.richTextEditor.blurContentEditor();
-        }
         return {
             journal : journal,
             entry : entry,
@@ -53,7 +49,7 @@ export default class WriteScreen extends Screen {
             loading : false,
             entryMade : entryID != undefined,
             initializing : true,
-            barUpdated : false,
+            clearRichText : false,
         }
     }
 
@@ -68,7 +64,8 @@ export default class WriteScreen extends Screen {
             topics: new Set(),
             topicBank: this.state.journal.topics,
             activeTopics: new Set(),
-            saving : false
+            saving : false,
+            clearRichText : true,
         }
     }
 
@@ -84,15 +81,18 @@ export default class WriteScreen extends Screen {
                 save(this.state,
                     () => {declareSaving(false).then(() => this.setState(this.clear()))})
             } else {
-                this.setState(this.clear())
+                this.setState(this.clear());
             }
         })
         this._focusUnsubscribe = this.props.navigation.addListener('focus', () => {
+            Keyboard.dismiss()
             if (this.props.route.params && this.props.route.params.journal) {
                 this.setState(this.initialize(this.props.route.params.journal, this.props.route.params.entry));
                 this.props.navigation.setParams({journal : undefined, entry : undefined})
             } else {
-                loginAndInitialize((journal) => this.setState(this.initialize(journal)))
+                loginAndInitialize((journal) => {
+                    this.setState(this.initialize(journal))
+                })
             }
         })
     }
@@ -135,9 +135,9 @@ export default class WriteScreen extends Screen {
         this.setState({entryID : entryID})
     }
 
-    updateRichTextEditor = (richTextEditor, barUpdated, active) => {
+    updateRichTextEditor = (richTextEditor) => {
         if (richTextEditor != this.state.richTextEditor) {
-            this.setState({richTextEditor: richTextEditor, barUpdated: true})
+            this.setState({richTextEditor: richTextEditor})
         }
     }
 
@@ -176,6 +176,36 @@ export default class WriteScreen extends Screen {
     render() {
         let {initializing} = this.state
         if (this.state.fontLoading || this.state.journalLoading) return <LoadingScreen/>
+        let RichText = this.state.clearRichText ?
+            <StyledInputBox
+                attrName='text'
+                title='What are you thinking about?'
+                value={this.state.text}
+                updateMasterState={this._updateMasterState}
+                scale = {ENTRY_BOX_SCALE}
+                width='100%'
+                height = {this.getWriteBoxHeight()}
+                multiline = {true}
+                blurOnSubmit={false}
+                reset = {initializing}
+                autoCorrect={true}
+                editable={false}
+            />
+            : (
+            <RichEditorBox
+                attrName='text'
+                title='What are you thinking about?'
+                value={this.state.text}
+                updateMasterState={this._updateMasterState}
+                scale = {ENTRY_BOX_SCALE}
+                width='100%'
+                height = {this.getWriteBoxHeight()}
+                multiline = {true}
+                blurOnSubmit={false}
+                reset = {initializing}
+                autoCorrect={true}
+                updateRichTextEditor={this.updateRichTextEditor}
+            />)
         return (
             <StyledBaseRichText
                 richTextEditor = {this.state.richTextEditor}
@@ -191,20 +221,7 @@ export default class WriteScreen extends Screen {
                                 width = '100%'
                                 reset = {initializing}
                                 />
-                            <RichEditorBox
-                                attrName='text'
-                                title='What are you thinking about?'
-                                value={this.state.text}
-                                updateMasterState={this._updateMasterState}
-                                scale = {ENTRY_BOX_SCALE}
-                                width='100%'
-                                height = {this.getWriteBoxHeight()}
-                                multiline = {true}
-                                blurOnSubmit={false}
-                                reset = {initializing}
-                                autoCorrect={true}
-                                updateRichTextEditor={this.updateRichTextEditor}
-                            />
+                            {RichText}
                             <TopicCreatorBox
                                 attrName = 'currTopic'
                                 setName = 'topics'

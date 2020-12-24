@@ -1,6 +1,6 @@
 import {bool, string} from "prop-types";
 import EntryBox from "../EntryBox";
-import StyledTextInput from "../TextInputBox/StyledTextInput";
+import StyledTextInput from "../TextInputBox/StyledTextInput/StyledTextInput";
 import JournalContainer from "./JournalContainer";
 import React, { Component } from 'react';
 import {_scale} from "../../utils/scaling";
@@ -25,7 +25,7 @@ export class JournalContainerBox extends Component {
     render() {
         const {
             title, scale, width, active, journal, entries, navigation,
-            style, onEntryRemoval, value
+            style, onEntryRemoval, value, clearRichText
         }
             = this.props
         return (<EntryBox title={title}
@@ -47,6 +47,7 @@ export class JournalContainerBox extends Component {
                     entries = {entries}
                     navigation = {navigation}
                     onEntryRemoval = {onEntryRemoval}
+                    clearRichText = {clearRichText}
                 />
             </EntryBox>
         )

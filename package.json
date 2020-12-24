@@ -29,7 +29,7 @@
     "react-native-gesture-handler": "~1.6.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-keyboard-height": "^1.1.2",
-    "react-native-pell-rich-editor": "^1.5.4",
+    "react-native-pell-rich-editor": "github:dpk14/react-native-rich-editor",
     "react-native-reanimated": "~1.7.0",
     "react-native-safe-area-context": "0.7.3",
     "react-native-screens": "~2.2.0",

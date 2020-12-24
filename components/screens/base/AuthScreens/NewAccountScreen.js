@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Keyboard, TouchableWithoutFeedback, Platform, StyleSheet, Text, View, Image} from 'react-native';
 
-import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
+import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledTextInput/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
 import Screen, {baseStyles, styles} from "../Screen";
 import StyledBase from "../StyledBase";

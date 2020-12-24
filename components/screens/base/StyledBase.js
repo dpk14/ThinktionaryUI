@@ -4,8 +4,6 @@ import {Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoi
 import { LinearGradient } from 'expo-linear-gradient';
 import {ORANGE, PURPLE} from "../../utils/baseStyles";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import VerifyAccountInfo from "../../../requestHandler/Requests/AccountRequests/VerifyAccountInfo";
-import RichToolbar from "react-native-pell-rich-editor/src/RichToolbar";
 
 export default class StyledBase extends Component{
 

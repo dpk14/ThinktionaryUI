@@ -1,5 +1,5 @@
-import EntryBox from "../EntryBox";
-import StyledTextInput from "./StyledTextInput";
+import EntryBox from "../../EntryBox";
+import StyledTextInput from "../StyledTextInput/StyledTextInput";
 import React, {Component} from "react";
 import {View} from "react-native";
 import RichEditorInput from "./RichEditorInput";

@@ -1,9 +1,9 @@
-import EntryBox from "../EntryBox";
-import StyledTextInput from "./StyledTextInput";
+import EntryBox from "../../EntryBox";
+import StyledTextInput from "../StyledTextInput/StyledTextInput";
 import React, {Component} from "react";
 import {View, Image} from "react-native"
-import {childrenWithProps} from "../../utils/general";
-import {getScreenHeight, getScreenWidth} from "../../utils/scaling";
+import {childrenWithProps} from "../../../utils/general";
+import {getScreenHeight, getScreenWidth} from "../../../utils/scaling";
 
 export class SearchBarContainer extends Component{
 
@@ -20,7 +20,7 @@ export class SearchBarContainer extends Component{
                     <Image resizeMethod='scale'
                             resizeMode='contain'
                             style = {{height : "80%", width : "7.5%", marginLeft : "2%"}}
-                           source = {require("../../../assets/images/magnifying_glass.png")}
+                           source = {require("../../../../assets/images/magnifying_glass.png")}
                     />
                     {children}
                 </View>

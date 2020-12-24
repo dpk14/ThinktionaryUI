@@ -1,6 +1,6 @@
 import {Image, Text} from 'react-native';
 
-import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledInputBox";
+import {StyledInputBox} from "../../../EntryBox/TextInputBox/StyledTextInput/StyledInputBox";
 import CustomButton from "../../../Buttons/CustomButton";
 import Login from "../../../../requestHandler/Requests/AccountRequests/Login"
 import {baseStyles, styles} from "../Screen";

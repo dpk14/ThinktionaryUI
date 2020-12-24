@@ -4,11 +4,11 @@ import {Keyboard, TouchableWithoutFeedback, StyleSheet, ScrollView, KeyboardAvoi
 import { LinearGradient } from 'expo-linear-gradient';
 import {ORANGE, PURPLE} from "../../utils/baseStyles";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import RichToolbar from "react-native-pell-rich-editor/src/RichToolbar";
 import {childrenWithProps} from "../../utils/general";
 import {useKeyboard} from "react-native-keyboard-height";
 
 import {Animated} from 'react-native';
+import RichToolbar from "../../EntryBox/TextInputBox/RichTextInput/react-native-rich-editor-master/src/RichToolbar";
 
 export default class StyledBase extends Component{
 
