@@ -23,7 +23,9 @@ export default class ReadScreenFrame extends Component{
 
         return (<Stack.Navigator screenOptions={({navigation, route}) => {
                                             let entryHeader = !route || !route.params ? undefined : route.params.entryHeader
-                                            let EntryHeaderOrNull = !entryHeader || !entryHeader.currentEntry?
+                                            let loading = !entryHeader || !entryHeader.currentEntry
+                                            let emptyEntry = entryHeader && !entryHeader.currentEntry
+                                            let EntryHeaderOrNull = (loading || emptyEntry) ?
                                                 <View/>
                                                 :
                                                 <EntryHeader
@@ -37,12 +39,13 @@ export default class ReadScreenFrame extends Component{
                                                     scale = {_scale(entryHeader.scale, entryHeader.journalScale)}
                                                     onEntryRemoval = {entryHeader.onEntryRemoval}
                                                 />
+
                                                 return ({...HEADER_STYLES,
-                                                ...{headerLeft : () => <WriteBackButton navigation={navigation}/>,
-                                                    headerRight : () => <OptionButton position={'right'}
+                                                ...{headerLeft : () => loading ? <View/> : <WriteBackButton navigation={navigation}/>,
+                                                    headerRight : () => loading ? <View/> :<OptionButton position={'right'}
                                                                                       navigation={navigation}
                                                                         />,
-                                                    headerBackground: () => {return <LinearGradient colors={['rgba(127, 63, 191, 1)', 'rgba(127, 63, 191, .6)']} end={[0, 1, 1]}
+                                                    headerBackground: () => {return loading ? <View/> : <LinearGradient colors={['rgba(127, 63, 191, 1)', 'rgba(127, 63, 191, .6)']} end={[0, 1, 1]}
                                                                                                       start={[1, 0, 0]} style={{height : HEADER_HEIGHT + EntryHeader.calculateEntryHeaderHeight()}}>
                                                         <View style = {{height:HEADER_HEIGHT}}/>
 

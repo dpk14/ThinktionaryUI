@@ -10,13 +10,9 @@ import EntryHeader from "./EntryHeader";
 import EntryBox from "../EntryBox";
 import {_scale} from "../../utils/scaling";
 import RightLeftNavigator from "../../Buttons/RightLeftNavigator";
-import {ENTRY_BOX_HEIGHT} from "../../utils/baseStyles";
+import {ENTRY_BOX_HEIGHT, NAVIGATOR_HEIGHT} from "../../utils/baseStyles";
 import RichEditorInput from "../TextInputBox/RichTextInput/RichEditorInput";
-
-const TEXT_BOX_SCALE = .8
-const NAVIGATOR_HEIGHT = 40
-const MARGIN_VERTICAL = 15
-const SCALE =  .8
+import ReadScreen from "../../screens/base/JournalScreens/ReadScreen";
 
 export default class JournalContainer extends Component {
 
@@ -44,8 +40,7 @@ export default class JournalContainer extends Component {
         let entryIndex = entries.length == 0 ? 0 : entries.length-1
         this.state = {
             loading: true,
-            textLeftOffset: 0,
-            lastLength : entries.length,
+            textLeftOffset: 0
         }
     }
 
@@ -92,14 +87,14 @@ export default class JournalContainer extends Component {
         if (nextProps.entries.size != lastLength) {
             if(nextProps.entries.size == 0 && active) updateContainerState(false)
             else if (nextProps.entries.size > 0 && !active) updateContainerState(true)
-            return false;
+            //return false;
         }
         return true;
     }
 
     getTextInputHeight(){
         let ttl_height = this.props.style.height == undefined ? this.props.height : this.props.style.height
-        return ttl_height - ENTRY_BOX_HEIGHT
+        return ttl_height
     }
 
     updateRichTextEditor = (richTextEditor) => {
@@ -110,31 +105,27 @@ export default class JournalContainer extends Component {
 
     render() {
         let {navigation, journal, scale, style, onEntryRemoval, entryIndex, entries, currentEntry} = this.props
-        if (entries.size == 0) return (<View/>)
+        if (entries.size == 0 || !currentEntry) return (<View/>)
         return(
             <View style={[journalContainerStyles.outerFrame, this._outerDimensions(), style]}>
-                <View style = {{height : this.getTextInputHeight()}}>
                     <RichEditorInput
                         multiline={true}
                         attrName={''}
                         value={currentEntry.text}
                         updateMasterState={() => {
                         }}
-                        style={{marginTop: 5, height: this.getTextInputHeight()}}
-                        scale={_scale(TEXT_BOX_SCALE, scale)}
+                        style={{height: '107.5%', marginTop: 7}}
+                        scale={scale}
                         editable={false}
                         updateRichTextEditor={this.updateRichTextEditor}/>
-                </View>
-                    <View style={journalContainerStyles.bottomFrame}>
                     <RightLeftNavigator onLeftPress={this._pageLeft}
                                         onRightPress={this._pageRight}
-                                        style={{flex : 1, marginTop: 5}}
+                                        style={{flex : 1, position : 'absolute', top : _scale(ReadScreen.getJournalContainerHeight(), scale) + (NAVIGATOR_HEIGHT / 2)}}
                                         height={NAVIGATOR_HEIGHT}
                                         minimum={1}
                                         maximum={entries.size}
                                         current={entries.size - entryIndex}
                                         />
-                </View>
             </View>
         )
     }
@@ -143,8 +134,9 @@ export default class JournalContainer extends Component {
 const journalContainerStyles = StyleSheet.create({
     outerFrame : {
         flex : 1,
-        marginVertical : 15,
-        justifyContent : 'space-between'
+        //marginVertical : 15,
+        alignItems: 'center'
+        //justifyContent : 'space-between'
     },
     middleFrame:{
         width : '100%'

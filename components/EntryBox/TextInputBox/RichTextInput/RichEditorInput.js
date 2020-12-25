@@ -105,14 +105,14 @@ export default class RichEditorInput extends Component {
 
     _handleFocus = () => {
         this.props.updateContainerState(true)
-        //this.props.updateRichTextEditor(this.state.richTextEditor)
+        this.props.updateRichTextEditor(this.state.richTextEditor)
     }
 
     _handleBlur = () => {
         if (!this.props.value) {
             this.props.updateContainerState(false)
         }
-        //this.props.updateRichTextEditor(undefined)
+        this.props.updateRichTextEditor(undefined)
     }
 
     _onKeyPress = () => {}

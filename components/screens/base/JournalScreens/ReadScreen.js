@@ -10,13 +10,13 @@ import {getScreenHeight, getScreenWidth, HEADER_HEIGHT} from "../../../utils/sca
 import {SearchBar} from "../../../EntryBox/TextInputBox/SearchBar/SearchBar";
 import {loginAndInitialize, saving} from "../functions/callBacks";
 import {TOPIC_BOX_HEIGHT} from "./WriteScreen";
-import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles";
+import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN, NAVIGATOR_HEIGHT} from "../../../utils/baseStyles";
 import {AsyncStorage} from "react-native-web";
 import {SAVING} from "../../../../assets/config";
 import LoadingScreen from "../../LoadingScreen";
 import EntryHeader from "../../../EntryBox/JournalBox/EntryHeader";
 
-let MARGIN_HORIZONTAL = 15 //15
+let MARGIN_HORIZONTAL = 0
 let MARGIN_BOTTOM = 30  //30
 let BAR_SCALE = .6
 let TOPIC_BANK_SCALE = .75
@@ -51,7 +51,8 @@ export default class ReadScreen extends Screen {
             journalSaving : false,
             initializing: true,
             entryIndex : journal.entries.size-1,
-            lastLength : journal.entries.size
+            lastLength : journal.entries.size,
+            clearing : false
         }
     }
 
@@ -66,7 +67,8 @@ export default class ReadScreen extends Screen {
             journalLoading: false,
             initializing: true,
             entryIndex : journal.entries.size-1,
-            lastLength : journal.entries.size
+            lastLength : journal.entries.size,
+            clearing : true,
         }
     }
 
@@ -77,16 +79,16 @@ export default class ReadScreen extends Screen {
             setTimeout(() => this.tryLoad(), 50);
         })
         this._blurUnsubscribe = this.props.navigation.addListener('blur', () => {
+            this.props.navigation.setParams({entryHeader : undefined})
             this.setState(this.clear(this.state.journal))
-            setTimeout(() => this.setState({journalSaving: true}), 100)
+            setTimeout(() => this.setState({journalSaving: true}), 10)
         });
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         let {lastLength} = this.state
         if (nextState.activeEntries && nextState.activeEntries.size != lastLength) {
-            let entries = Array.from(nextState.activeEntries)
-            this.setState({lastLength : entries.length, entryIndex: entries.length == 0 ? 0 : entries.length-1})
+            this.setState({lastLength : nextState.activeEntries.size, entryIndex: nextState.activeEntries.size == 0 ? 0 : nextState.activeEntries.size-1})
         }
         return true;
     }
@@ -198,10 +200,11 @@ export default class ReadScreen extends Screen {
         this.setState({activeEntries: newActiveSet})
     }
 
-    getJournalContainerHeight() {
+    static getJournalContainerHeight = () => {
         return (getScreenHeight() -
             HEADER_HEIGHT -
             EntryHeader.calculateEntryHeaderHeight()
+            - NAVIGATOR_HEIGHT / 2 - 15 //(15 is margin added between navigation bar and searchbar
             - MARGIN_BOTTOM -
             (TOPIC_BANK_SCALE * 1.5 * TOPIC_BOX_HEIGHT) -
             (BAR_HEIGHT * BAR_SCALE)
@@ -213,9 +216,9 @@ export default class ReadScreen extends Screen {
         if (this.state.fontLoading || this.state.journalLoading || this.state.journalSaving) return <LoadingScreen/>
         let journalTitle = this._getJournalTitle()
         let {navigation, scale} = this.props
-        let {journal, topics, activeTopics, entries, activeEntries, searched, journalLoading, entryIndex} = this.state
-        let currentEntry = Array.from(entries)[entryIndex]
-        if (!this.props.route || !this.props.route.params || !this.props.route.params.entryHeader || currentEntry != this.props.route.params.entryHeader.currentEntry) {
+        let {journal, topics, activeTopics, entries, activeEntries, searched, journalLoading, entryIndex, clearing} = this.state
+        let currentEntry = Array.from(activeEntries)[entryIndex]
+        if (!clearing && (!this.props.route || !this.props.route.params || !this.props.route.params.entryHeader || currentEntry != this.props.route.params.entryHeader.currentEntry)) {
             this.props.navigation.setParams({
                 entryHeader: {
                     currentEntry : currentEntry,
@@ -234,7 +237,7 @@ export default class ReadScreen extends Screen {
                         updateMasterState={this._updateMasterState}
                         scale={JOURNAL_CONTAINER_SCALE}
                         width={'100%'}
-                        style={{height: this.getJournalContainerHeight()}}
+                        style={{height: ReadScreen.getJournalContainerHeight(), borderRadius: 0, marginTop : 0, marginBottom : (NAVIGATOR_HEIGHT / 2) + 10}}
                         blurOnSubmit={false}
                         active={entries.size > 0}
                         entries={activeEntries}
@@ -247,32 +250,35 @@ export default class ReadScreen extends Screen {
                         currentEntry={currentEntry}
                         lastLength={this.state.lastLength}
                     />
-                    <SearchBar attrName={'searched'}
-                               value={searched}
-                               title={'Search'}
-                               width={'100%'}
-                               updateMasterState={this._updateMasterState}
-                               style={{height: BAR_HEIGHT}}
-                               scale={BAR_SCALE}
-                               onChangeText={this._search}
-                    />
-                    <TopicBank
-                        attrName='topicBank'
-                        setName='topicBankCurr'
-                        title='Look up your thoughts in the Thinktionary!'
-                        active={topics.size > 0}
-                        updateMasterState={this._updateMasterState}
-                        scale={TOPIC_BANK_SCALE}
-                        topicScale={.62}
-                        topics={topics}
-                        width='100%'
-                        height={1.5 * TOPIC_BOX_HEIGHT}
-                        onTopicActivityChange={this._onTopicActivityChange}
-                        activeTopicsName={'activeTopics'}
-                        activeTopics={activeTopics}
-                        value={''}
-                        reset={this.state.initializing}
-                    />
+                    <View style={{marginHorizontal : 15, alignItems:'center'}}>
+                        <SearchBar attrName={'searched'}
+                                   value={searched}
+                                   title={'Search'}
+                                   width={'100%'}
+                                   updateMasterState={this._updateMasterState}
+                                   style={{height: BAR_HEIGHT}}
+                                   scale={BAR_SCALE}
+                                   onChangeText={this._search}
+                        />
+                        <TopicBank
+                            attrName='topicBank'
+                            setName='topicBankCurr'
+                            title='Look up your thoughts in the Thinktionary!'
+                            active={topics.size > 0}
+                            updateMasterState={this._updateMasterState}
+                            scale={TOPIC_BANK_SCALE}
+                            topicScale={.62}
+                            topics={topics}
+                            width='98%'
+                            height={1.5 * TOPIC_BOX_HEIGHT}
+                            onTopicActivityChange={this._onTopicActivityChange}
+                            activeTopicsName={'activeTopics'}
+                            activeTopics={activeTopics}
+                            value={''}
+                            //style={'marginLeft'}
+                            reset={this.state.initializing}
+                        />
+                    </View>
                 </View>
             </StyledBase>
         )
@@ -282,6 +288,9 @@ export default class ReadScreen extends Screen {
 export const readStyles = StyleSheet.create({
     bottomFrame: {
         flex: .15,
+        //justifyContent: 'center',
+        alignItems : 'center',
+        //marginHorizontal: 15//MARGIN_HORIZONTAL
     },
     leftFrame: {},
     rightFrame: {},
@@ -291,6 +300,8 @@ export const readStyles = StyleSheet.create({
         width: getScreenWidth() - 2 * MARGIN_HORIZONTAL,
         marginHorizontal: MARGIN_HORIZONTAL,
         marginBottom: MARGIN_BOTTOM,
+        //justifyContent: 'center',
+        alignItems : 'center',
     }
 
 });

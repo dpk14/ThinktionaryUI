@@ -39,10 +39,7 @@ export class JournalContainerBox extends Component {
                 <JournalContainer
                     width = {"100%"}
                     height = {"100%"}
-                    style = {{height : this.getJournalContainerHeight(style, scale) -
-                        _scale(EntryBox.defaultProps.titleActivePos
-                        + EntryBox.defaultProps.titleActiveSize, scale)}}
-                    scale = {1}
+                    scale = {scale}
                     journal = {journal}
                     entries = {entries}
                     navigation = {navigation}

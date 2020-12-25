@@ -57,6 +57,7 @@ export default class RightLeftNavigator extends Component {
             height: _scale(height, scale),
             borderRadius : _scale(RightLeftNavigator.defaultScalableStyles.borderRadius, scale),
             shadowRadius : _scale(RightLeftNavigator.defaultScalableStyles.shadowRadius, scale),
+            marginTop : 15
         }
     }
 
@@ -146,6 +147,7 @@ const styles = StyleSheet.create({
         flex: 1,
 //        alignItems : 'center',
         flexDirection: 'row',
+        marginTop : 15
     },
     textStyle: {
         color: 'white',

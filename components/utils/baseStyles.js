@@ -9,6 +9,7 @@ export const SOFT_ORANGE = '#FFB03F';
 export const ENTRY_BOX_HEIGHT = 65
 export const BUTTON_HEIGHT = 56
 export const ENTRY_BOX_VERT_MARGIN = 6
+export const NAVIGATOR_HEIGHT = 40
 export let HEADER_STYLES = {
     headerTitle: "Thinktionary",
     headerBackTitle: " ",
