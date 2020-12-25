@@ -25,7 +25,7 @@ export class JournalContainerBox extends Component {
     render() {
         const {
             title, scale, width, active, journal, entries, navigation,
-            style, onEntryRemoval, value, clearRichText
+            style, onEntryRemoval, value, clearRichText, updateMasterState, entryIndex, currentEntry
         }
             = this.props
         return (<EntryBox title={title}
@@ -48,6 +48,10 @@ export class JournalContainerBox extends Component {
                     navigation = {navigation}
                     onEntryRemoval = {onEntryRemoval}
                     clearRichText = {clearRichText}
+                    updateMasterState={updateMasterState}
+                    entryIndex={entryIndex}
+                    currentEntry={currentEntry}
+                    lastLength={this.props.lastLength}
                 />
             </EntryBox>
         )

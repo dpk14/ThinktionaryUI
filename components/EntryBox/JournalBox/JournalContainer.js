@@ -46,27 +46,12 @@ export default class JournalContainer extends Component {
             loading: true,
             textLeftOffset: 0,
             lastLength : entries.length,
-            entryIndex : entryIndex,
         }
     }
 
     async componentWillMount() {
         await FontUtils.loadFonts();
         this.setState({loading : false})
-    }
-
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        let {lastLength} = this.state
-        let {active, updateContainerState} = this.props
-        let entries = Array.from(nextProps.entries)
-        if (entries.length != lastLength) {
-            this.setState({lastLength : entries.length,
-                                entryIndex : entries.length == 0 ? 0 : entries.length-1})
-            if(entries.length == 0 && active) updateContainerState(false)
-            else if (entries.length > 0 && !active) updateContainerState(true)
-            return false;
-        }
-        return true;
     }
 
     _outerDimensions = () => {
@@ -78,17 +63,17 @@ export default class JournalContainer extends Component {
     }
 
     _pageRight = () => {
-        let {entryIndex} = this.state
+        let {entryIndex, updateMasterState} = this.props
         if (entryIndex > 0){
-            this.setState({entryIndex : entryIndex - 1})
+            updateMasterState('entryIndex' , entryIndex - 1)
         }
 
     }
 
     _pageLeft = () => {
-        let {entryIndex} = this.state
+        let {entryIndex, updateMasterState} = this.props
         if(entryIndex < Array.from(this.props.entries).length - 1){
-            this.setState({entryIndex : entryIndex + 1})
+            updateMasterState('entryIndex' , entryIndex + 1)
         }
     }
 
@@ -102,9 +87,19 @@ export default class JournalContainer extends Component {
 
      */
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        let {lastLength, active, updateContainerState} = this.props
+        if (nextProps.entries.size != lastLength) {
+            if(nextProps.entries.size == 0 && active) updateContainerState(false)
+            else if (nextProps.entries.size > 0 && !active) updateContainerState(true)
+            return false;
+        }
+        return true;
+    }
+
     getTextInputHeight(){
         let ttl_height = this.props.style.height == undefined ? this.props.height : this.props.style.height
-        return ttl_height - ENTRY_BOX_HEIGHT - EntryHeader.calculateEntryHeaderHeight()
+        return ttl_height - ENTRY_BOX_HEIGHT
     }
 
     updateRichTextEditor = (richTextEditor) => {
@@ -114,25 +109,10 @@ export default class JournalContainer extends Component {
     }
 
     render() {
-        let entries = Array.from(this.props.entries)
-        let {entryIndex} = this.state
-        let {navigation, journal, scale, style, onEntryRemoval} = this.props
-        if (entries.length == 0) return (<View/>)
-        let currentEntry = entries[entryIndex]
-
+        let {navigation, journal, scale, style, onEntryRemoval, entryIndex, entries, currentEntry} = this.props
+        if (entries.size == 0) return (<View/>)
         return(
             <View style={[journalContainerStyles.outerFrame, this._outerDimensions(), style]}>
-                <EntryHeader
-                    title = {currentEntry.title}
-                    created = {currentEntry.created}
-                    modified = {currentEntry.modified}
-                    navigation = {navigation}
-                    entry = {currentEntry}
-                    journal = {journal}
-                    width = '100%'
-                    scale = {_scale(scale, SCALE)}
-                    onEntryRemoval = {onEntryRemoval}
-                />
                 <View style = {{height : this.getTextInputHeight()}}>
                     <RichEditorInput
                         multiline={true}
@@ -151,8 +131,8 @@ export default class JournalContainer extends Component {
                                         style={{flex : 1, marginTop: 5}}
                                         height={NAVIGATOR_HEIGHT}
                                         minimum={1}
-                                        maximum={entries.length}
-                                        current={entries.length - this.state.entryIndex}
+                                        maximum={entries.size}
+                                        current={entries.size - entryIndex}
                                         />
                 </View>
             </View>

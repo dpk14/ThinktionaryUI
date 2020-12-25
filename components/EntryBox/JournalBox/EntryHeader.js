@@ -128,11 +128,11 @@ export default class EntryHeader extends Component {
     const entryHeaderStyle = StyleSheet.create({
     outerFrame: {
         flexDirection : 'row',
-        backgroundColor: PURPLE,
-        opacity : .95,
-        shadowOffset: { height: 3,},
-        shadowRadius: 3,
-        shadowOpacity: .3,
+//        backgroundColor: PURPLE,
+        //opacity : .95,
+//        shadowOffset: { height: 10,},
+//        shadowRadius: 3,
+//        shadowOpacity: .3,
         borderRadius : 3,
         marginBottom: 2
     },

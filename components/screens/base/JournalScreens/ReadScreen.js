@@ -14,9 +14,10 @@ import {ENTRY_BOX_HEIGHT, ENTRY_BOX_VERT_MARGIN} from "../../../utils/baseStyles
 import {AsyncStorage} from "react-native-web";
 import {SAVING} from "../../../../assets/config";
 import LoadingScreen from "../../LoadingScreen";
+import EntryHeader from "../../../EntryBox/JournalBox/EntryHeader";
 
-let MARGIN_HORIZONTAL = 15
-let MARGIN_BOTTOM = 30
+let MARGIN_HORIZONTAL = 15 //15
+let MARGIN_BOTTOM = 30  //30
 let BAR_SCALE = .6
 let TOPIC_BANK_SCALE = .75
 let BAR_HEIGHT = getScreenHeight() * .055
@@ -48,7 +49,9 @@ export default class ReadScreen extends Screen {
             searched: '',
             journalLoading: false,
             journalSaving : false,
-            initializing: true
+            initializing: true,
+            entryIndex : journal.entries.size-1,
+            lastLength : journal.entries.size
         }
     }
 
@@ -61,7 +64,9 @@ export default class ReadScreen extends Screen {
             topics: journal.topics,
             searched: '',
             journalLoading: false,
-            initializing: true
+            initializing: true,
+            entryIndex : journal.entries.size-1,
+            lastLength : journal.entries.size
         }
     }
 
@@ -76,6 +81,16 @@ export default class ReadScreen extends Screen {
             setTimeout(() => this.setState({journalSaving: true}), 100)
         });
     }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        let {lastLength} = this.state
+        if (nextState.activeEntries && nextState.activeEntries.size != lastLength) {
+            let entries = Array.from(nextState.activeEntries)
+            this.setState({lastLength : entries.length, entryIndex: entries.length == 0 ? 0 : entries.length-1})
+        }
+        return true;
+    }
+
 
     async tryLoad() {
         this.setState()
@@ -186,7 +201,8 @@ export default class ReadScreen extends Screen {
     getJournalContainerHeight() {
         return (getScreenHeight() -
             HEADER_HEIGHT -
-            MARGIN_BOTTOM -
+            EntryHeader.calculateEntryHeaderHeight()
+            - MARGIN_BOTTOM -
             (TOPIC_BANK_SCALE * 1.5 * TOPIC_BOX_HEIGHT) -
             (BAR_HEIGHT * BAR_SCALE)
             - (6 * ENTRY_BOX_VERT_MARGIN)
@@ -196,20 +212,23 @@ export default class ReadScreen extends Screen {
     render() {
         if (this.state.fontLoading || this.state.journalLoading || this.state.journalSaving) return <LoadingScreen/>
         let journalTitle = this._getJournalTitle()
-        let {navigation} = this.props
-        let {journal, topics, activeTopics, entries, activeEntries, searched, journalLoading} = this.state
+        let {navigation, scale} = this.props
+        let {journal, topics, activeTopics, entries, activeEntries, searched, journalLoading, entryIndex} = this.state
+        let currentEntry = Array.from(entries)[entryIndex]
+        if (!this.props.route || !this.props.route.params || !this.props.route.params.entryHeader || currentEntry != this.props.route.params.entryHeader.currentEntry) {
+            this.props.navigation.setParams({
+                entryHeader: {
+                    currentEntry : currentEntry,
+                    journal : journal,
+                    scale : JOURNAL_CONTAINER_SCALE,
+                    journalScale : .8,
+                    onEntryRemoval : this._onEntryRemoval
+                }
+            })
+        }
         return (
             <StyledBase>
                 <View style={[readStyles.outerFrame]}>
-                    <SearchBar attrName={'searched'}
-                               value={searched}
-                               title={'Search'}
-                               width={'100%'}
-                               updateMasterState={this._updateMasterState}
-                               style={{height: BAR_HEIGHT}}
-                               scale={BAR_SCALE}
-                               onChangeText={this._search}
-                    />
                     <JournalContainerBox
                         title={journalTitle}
                         updateMasterState={this._updateMasterState}
@@ -224,6 +243,18 @@ export default class ReadScreen extends Screen {
                         onEntryRemoval={this._onEntryRemoval}
                         value={''}
                         updateRichTextEditor={this.updateRichTextEditor}
+                        entryIndex={this.state.entryIndex}
+                        currentEntry={currentEntry}
+                        lastLength={this.state.lastLength}
+                    />
+                    <SearchBar attrName={'searched'}
+                               value={searched}
+                               title={'Search'}
+                               width={'100%'}
+                               updateMasterState={this._updateMasterState}
+                               style={{height: BAR_HEIGHT}}
+                               scale={BAR_SCALE}
+                               onChangeText={this._search}
                     />
                     <TopicBank
                         attrName='topicBank'
@@ -255,7 +286,7 @@ export const readStyles = StyleSheet.create({
     leftFrame: {},
     rightFrame: {},
     outerFrame: {
-        marginTop: HEADER_HEIGHT,
+        marginTop: HEADER_HEIGHT + EntryHeader.calculateEntryHeaderHeight(),
         height: getScreenHeight() - HEADER_HEIGHT - MARGIN_BOTTOM,
         width: getScreenWidth() - 2 * MARGIN_HORIZONTAL,
         marginHorizontal: MARGIN_HORIZONTAL,
