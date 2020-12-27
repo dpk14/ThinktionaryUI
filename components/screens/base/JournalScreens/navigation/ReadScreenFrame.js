@@ -23,7 +23,7 @@ export default class ReadScreenFrame extends Component{
 
         return (<Stack.Navigator screenOptions={({navigation, route}) => {
                                             let entryHeader = !route || !route.params ? undefined : route.params.entryHeader
-                                            let loading = !entryHeader || !entryHeader.currentEntry
+                                            let loading = !entryHeader
                                             let emptyEntry = entryHeader && !entryHeader.currentEntry
                                             let EntryHeaderOrNull = (loading || emptyEntry) ?
                                                 <View/>

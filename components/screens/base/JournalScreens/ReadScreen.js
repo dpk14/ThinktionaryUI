@@ -17,11 +17,12 @@ import LoadingScreen from "../../LoadingScreen";
 import EntryHeader from "../../../EntryBox/JournalBox/EntryHeader";
 
 let MARGIN_HORIZONTAL = 0
+let MARGIN_HORIZONTAL_BOTTOM_FRAME = 15
 let MARGIN_BOTTOM = 30  //30
 let BAR_SCALE = .6
-let TOPIC_BANK_SCALE = .75
-let BAR_HEIGHT = getScreenHeight() * .055
-let JOURNAL_CONTAINER_SCALE = .85
+export const TOPIC_BANK_SCALE = .75
+export const BAR_HEIGHT = getScreenHeight() * .055
+export const JOURNAL_CONTAINER_SCALE = .85
 
 export default class ReadScreen extends Screen {
 
@@ -200,15 +201,15 @@ export default class ReadScreen extends Screen {
         this.setState({activeEntries: newActiveSet})
     }
 
-    static getJournalContainerHeight = () => {
+    static getJournalContainerHeight = (entriesSize) => {
         return (getScreenHeight() -
             HEADER_HEIGHT -
             EntryHeader.calculateEntryHeaderHeight()
-            - NAVIGATOR_HEIGHT / 2 - 15 //(15 is margin added between navigation bar and searchbar
-            - MARGIN_BOTTOM -
-            (TOPIC_BANK_SCALE * 1.5 * TOPIC_BOX_HEIGHT) -
+            - (entriesSize > 0 ? NAVIGATOR_HEIGHT / 2 : 0) //(15 is margin added between navigation bar and searchbar
+            - MARGIN_BOTTOM
+            - (TOPIC_BANK_SCALE * 1.5 * TOPIC_BOX_HEIGHT) -
             (BAR_HEIGHT * BAR_SCALE)
-            - (6 * ENTRY_BOX_VERT_MARGIN)
+            - (5 * ENTRY_BOX_VERT_MARGIN)
         )
     }
 
@@ -237,7 +238,7 @@ export default class ReadScreen extends Screen {
                         updateMasterState={this._updateMasterState}
                         scale={JOURNAL_CONTAINER_SCALE}
                         width={'100%'}
-                        style={{height: ReadScreen.getJournalContainerHeight(), borderRadius: 0, marginTop : 0, marginBottom : (NAVIGATOR_HEIGHT / 2) + 10}}
+                        style={{height: ReadScreen.getJournalContainerHeight(activeEntries.size), borderRadius: 0, marginTop : 0, marginBottom : (activeEntries.size > 0 ? (NAVIGATOR_HEIGHT / 2) : 0) + 6}}
                         blurOnSubmit={false}
                         active={entries.size > 0}
                         entries={activeEntries}
@@ -250,7 +251,7 @@ export default class ReadScreen extends Screen {
                         currentEntry={currentEntry}
                         lastLength={this.state.lastLength}
                     />
-                    <View style={{marginHorizontal : 15, alignItems:'center'}}>
+                    <View style={{alignItems:'center', width : getScreenWidth() - 2*MARGIN_HORIZONTAL_BOTTOM_FRAME}}>
                         <SearchBar attrName={'searched'}
                                    value={searched}
                                    title={'Search'}
@@ -269,7 +270,7 @@ export default class ReadScreen extends Screen {
                             scale={TOPIC_BANK_SCALE}
                             topicScale={.62}
                             topics={topics}
-                            width='98%'
+                            width='100%'
                             height={1.5 * TOPIC_BOX_HEIGHT}
                             onTopicActivityChange={this._onTopicActivityChange}
                             activeTopicsName={'activeTopics'}

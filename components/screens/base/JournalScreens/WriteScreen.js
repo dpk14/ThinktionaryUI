@@ -50,6 +50,7 @@ export default class WriteScreen extends Screen {
             entryMade : entryID != undefined,
             initializing : true,
             clearRichText : false,
+            richTextEditor : undefined
         }
     }
 
@@ -66,6 +67,7 @@ export default class WriteScreen extends Screen {
             activeTopics: new Set(),
             saving : false,
             clearRichText : true,
+            richTextEditor : undefined
         }
     }
 
@@ -136,9 +138,7 @@ export default class WriteScreen extends Screen {
     }
 
     updateRichTextEditor = (richTextEditor) => {
-        if (richTextEditor != this.state.richTextEditor) {
             this.setState({richTextEditor: richTextEditor})
-        }
     }
 
     getWriteBoxHeight() {

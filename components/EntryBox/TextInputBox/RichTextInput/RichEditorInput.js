@@ -5,14 +5,7 @@ import { string, func, object, number, bool } from 'prop-types';
 import {_scale, invScale, scalePercentage} from "../../../utils/scaling";
 import {Override, setOrDefault} from "../../../utils/defaultHandling";
 import FontUtils, {HP_SIMPLIFIED, HP_SIMPLIFIED_BOLD} from "../../../utils/FontUtils";
-import {ABSTRACT_METHOD} from "../../../utils/abstraction";
-import EntryBox from "../../EntryBox";
-
-import {ORANGE} from "../../../utils/baseStyles";
-import RichEditor from "./react-native-rich-editor-master/src/RichEditor";
-import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-
-let font = "'http//db.onlinewebfonts.com/t/6cb78fb592f9a8244397b1bd220d6453.woff2'"
+import RichEditor from "./react-native-rich-editor/src/RichEditor";
 
 export default class RichEditorInput extends Component {
     static propTypes = {
@@ -130,24 +123,24 @@ export default class RichEditorInput extends Component {
             marginLeft: _scale(this.props.textMarginLeft, scale),
             paddingRight : _scale(this.props.textMarginRight, scale)*1.5,
             borderRadius : _scale(this.props.borderRadius, scale),
-            height : typeof this.props.height === 'string' ? scalePercentage(this.props.height, .90) : _scale(this.props.height, scale)*(.90) - marginTop,
+            height : active ? typeof this.props.height === 'string' ? scalePercentage(this.props.height, .90) : _scale(this.props.height, scale)*(.90) - marginTop : typeof this.props.height === 'string' ? scalePercentage(this.props.height, .90) : _scale(this.props.height, scale)*(.90) - marginTop,
             backgroundColor: 'rgba(250,250,250,0.0)'
         }
     }
 
     render() {
         const{secureTextEntry, multiline, returnKeyType, blurOnSubmit, value, style,
-            onFocus, onBlur, keyboardType, onKeyPress, onSubmitEditing, editable, autoCorrect} = this.props
+            onFocus, onBlur, keyboardType, onKeyPress, onSubmitEditing, editable, autoCorrect, active} = this.props
         return (<View style = {[TextInputStyles.baseStyles, this._returnAnimatedInputStyles(), style]}>
             <RichEditor
                 ref={(r) => {
                     if (!this.state.richTextEditor) {
-                        this.props.updateRichTextEditor(r)
+                        //this.props.updateRichTextEditor(r)
                         this.setState({richTextEditor: r})
                     }
                 }}
                 initialContentHTML = {value}
-                initialHeight = "100%"
+                initialHeight = {active ? "100%" : "90%"}
                 scrollEnabled = 'true'
                 useContainer='true'
                 editorStyle = {{

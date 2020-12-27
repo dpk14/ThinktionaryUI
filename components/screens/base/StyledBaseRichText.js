@@ -8,7 +8,8 @@ import {childrenWithProps} from "../../utils/general";
 import {useKeyboard} from "react-native-keyboard-height";
 
 import {Animated} from 'react-native';
-import RichToolbar from "../../EntryBox/TextInputBox/RichTextInput/react-native-rich-editor-master/src/RichToolbar";
+import {actions} from "../../EntryBox/TextInputBox/RichTextInput/react-native-rich-editor/src/const";
+import RichToolbar from "../../EntryBox/TextInputBox/RichTextInput/react-native-rich-editor/src/RichToolbar";
 
 export default class StyledBase extends Component{
 
@@ -46,6 +47,9 @@ export default class StyledBase extends Component{
             if (!this.props.richTextEditor) {
                 return <View></View>
             } else {
+                let icons = {}
+                icons[actions.setUnderline] = require("../../../assets/images/underline_gray.png")
+                icons[actions.checkboxList] = require("../../../assets/images/checklist_gray.png")
                 return (
                     <Animated.View style={{ marginBottom: this.paddingInput }}>
                     <RichToolbar
@@ -53,6 +57,18 @@ export default class StyledBase extends Component{
                         //unselectedButtonStyle={{backgroundColor: 'white'}}
                         disabledButtonStyle={{backgroundColor: 'white'}}
                         iconTint={{backgroundColor: 'white'}}
+                        actions={[
+                            actions.setBold,
+                            actions.setItalic,
+                            actions.setUnderline,
+                            actions.insertBulletsList,
+                            actions.insertOrderedList,
+                            //actions.insertLine,
+                            actions.checkboxList,
+                            //actions.removeFormat,
+
+                        ]}
+                        iconMap={icons}
                     />
                     </Animated.View>)
                 }

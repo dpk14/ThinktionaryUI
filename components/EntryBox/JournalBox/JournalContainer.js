@@ -12,7 +12,7 @@ import {_scale} from "../../utils/scaling";
 import RightLeftNavigator from "../../Buttons/RightLeftNavigator";
 import {ENTRY_BOX_HEIGHT, NAVIGATOR_HEIGHT} from "../../utils/baseStyles";
 import RichEditorInput from "../TextInputBox/RichTextInput/RichEditorInput";
-import ReadScreen from "../../screens/base/JournalScreens/ReadScreen";
+import ReadScreen, {JOURNAL_CONTAINER_SCALE} from "../../screens/base/JournalScreens/ReadScreen";
 
 export default class JournalContainer extends Component {
 
@@ -72,16 +72,6 @@ export default class JournalContainer extends Component {
         }
     }
 
-
-    /*
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if ((this.state.entryIndex && prevState.entryIndex != this.state.entryIndex)) {
-            this.state.richTextEditor.setContentHTML(Array.from(this.props.entries)[this.state.entryIndex].text)
-        }
-    }
-
-     */
-
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         let {lastLength, active, updateContainerState} = this.props
         if (nextProps.entries.size != lastLength) {
@@ -120,7 +110,20 @@ export default class JournalContainer extends Component {
                         updateRichTextEditor={this.updateRichTextEditor}/>
                     <RightLeftNavigator onLeftPress={this._pageLeft}
                                         onRightPress={this._pageRight}
-                                        style={{flex : 1, position : 'absolute', top : _scale(ReadScreen.getJournalContainerHeight(), scale) + (NAVIGATOR_HEIGHT / 2)}}
+                                        style={
+                                            {
+                                                flex : 1,
+                                                position : 'absolute',
+                                                top : ReadScreen.getJournalContainerHeight(entries.size)
+                                                    - 2*_scale(EntryBox.defaultProps.titleActivePos + EntryBox.defaultProps.titleActiveSize + 1,
+                                                        JOURNAL_CONTAINER_SCALE)
+                                                        - (NAVIGATOR_HEIGHT / 2)
+                                            }}
+                                        /*
+                                        1 comes from the extra margin between Entry Box text and inner view.
+                                        EntryBox.defaultProps.titleActivePos + EntryBox.defaultProps.titleActiveSize is the space occupied by the title.
+                                        Because the Entry Box has this margin applied to the inner view, you must double it bc you first have to undo the margin by reaching to the top of the text, then repeat it to make the top of the box
+                                        */
                                         height={NAVIGATOR_HEIGHT}
                                         minimum={1}
                                         maximum={entries.size}
