@@ -5942,10 +5942,15 @@ react-native-keyboard-aware-scroll-view@^0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
-react-native-pell-rich-editor@^1.5.4:
+react-native-keyboard-height@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-height/-/react-native-keyboard-height-1.1.2.tgz#f0d6d8b7fb857b937775df9288aac270d3d31929"
+  integrity sha512-N3tsr7X0Ql97H61xPWe8uyadOG0K7ZYvOaRPpQci5P/D3Q7mAENvHpAnF/fd26SBHVrRn+4IiPMuIZzGxaZQug==
+
+"react-native-pell-rich-editor@github:dpk14/react-native-rich-editor":
   version "1.5.4"
-  resolved "https://registry.yarnpkg.com/react-native-pell-rich-editor/-/react-native-pell-rich-editor-1.5.4.tgz#8ad61f414df545e6ba70e7fe67c90d07804395f3"
-  integrity sha512-4Ac2zSPl+2rbMI1bPNSoe5LCv3ckxs2ZbwQuxK+xd40Ujj5Fk48OA4WZqz0Z2aMKpgvpbuXCTDFeYwUv7kddyQ==
+  uid b1bf03970855f131ee2022d85041950d3b5d2ad0
+  resolved "https://codeload.github.com/dpk14/react-native-rich-editor/tar.gz/b1bf03970855f131ee2022d85041950d3b5d2ad0"
 
 react-native-reanimated@~1.7.0:
   version "1.7.1"
@@ -5953,6 +5958,11 @@ react-native-reanimated@~1.7.0:
   integrity sha512-aBwhoQdH4shkeTPbi7vKcAwYOzBp/6zElEKuIOgby11TceoM7y5SgNImC3HbDWWld3QV2PA2AgQGwAy51WgF3Q==
   dependencies:
     fbjs "^1.0.0"
+
+react-native-rich-editor@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-rich-editor/-/react-native-rich-editor-0.1.1.tgz#e2cea4c05d883d8fef9e8cb092832651c7baf785"
+  integrity sha1-4s6kwF2IPY/vnoywkoMmUce694U=
 
 react-native-safe-area-context@0.7.3:
   version "0.7.3"
@@ -7255,9 +7265,9 @@ urix@^0.1.0:
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
 
 url-parse@^1.4.4:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.7.tgz#00780f60dbdae90181f51ed85fb24109422c932a"
+  integrity sha512-HxWkieX+STA38EDk7CE9MEryFeHCKzgagxlGvsdS7WBImq9Mk+PGwiT56w82WI3aicwJA8REp42Cxo98c8FZMA==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
