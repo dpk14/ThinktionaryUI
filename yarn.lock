@@ -1971,9 +1971,9 @@ badgin@^1.1.2:
   integrity sha512-XtoSjNhy2D09qGiLhFWBJmBwBlmleQuwyYyjddWNCJ3gqGRBOBR25VGcd8CAOSghpEUmghB3LD4NpHrUG89zCg==
 
 balanced-match@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
-  integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
+  integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
 base64-js@^1.1.2, base64-js@^1.2.3:
   version "1.5.1"
@@ -2469,7 +2469,7 @@ compression@^1.7.1:
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
-  integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
+  integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
 concat-stream@^1.6.0, concat-stream@^1.6.2:
   version "1.6.2"
@@ -5146,9 +5146,9 @@ mimic-fn@^2.0.0:
   integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
 
 minimatch@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
-  integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.2.tgz#19cd194bfd3e428f049a70817c038d89ab4be35b"
+  integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
   dependencies:
     brace-expansion "^1.1.7"
 
@@ -5942,10 +5942,15 @@ react-native-keyboard-aware-scroll-view@^0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
-react-native-pell-rich-editor@^1.5.4:
+react-native-keyboard-height@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-height/-/react-native-keyboard-height-1.1.2.tgz#f0d6d8b7fb857b937775df9288aac270d3d31929"
+  integrity sha512-N3tsr7X0Ql97H61xPWe8uyadOG0K7ZYvOaRPpQci5P/D3Q7mAENvHpAnF/fd26SBHVrRn+4IiPMuIZzGxaZQug==
+
+"react-native-pell-rich-editor@github:dpk14/react-native-rich-editor":
   version "1.5.4"
-  resolved "https://registry.yarnpkg.com/react-native-pell-rich-editor/-/react-native-pell-rich-editor-1.5.4.tgz#8ad61f414df545e6ba70e7fe67c90d07804395f3"
-  integrity sha512-4Ac2zSPl+2rbMI1bPNSoe5LCv3ckxs2ZbwQuxK+xd40Ujj5Fk48OA4WZqz0Z2aMKpgvpbuXCTDFeYwUv7kddyQ==
+  uid b1bf03970855f131ee2022d85041950d3b5d2ad0
+  resolved "https://codeload.github.com/dpk14/react-native-rich-editor/tar.gz/b1bf03970855f131ee2022d85041950d3b5d2ad0"
 
 react-native-reanimated@~1.7.0:
   version "1.7.1"
@@ -5953,6 +5958,11 @@ react-native-reanimated@~1.7.0:
   integrity sha512-aBwhoQdH4shkeTPbi7vKcAwYOzBp/6zElEKuIOgby11TceoM7y5SgNImC3HbDWWld3QV2PA2AgQGwAy51WgF3Q==
   dependencies:
     fbjs "^1.0.0"
+
+react-native-rich-editor@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-rich-editor/-/react-native-rich-editor-0.1.1.tgz#e2cea4c05d883d8fef9e8cb092832651c7baf785"
+  integrity sha512-NKqYTfkvCIHgNRNfLCTsa/Df/jn6bFLnvZaRP5HgulCpxrVJpNgCs31giNIfppzEnWFNXye+VcENst169yy7AQ==
 
 react-native-safe-area-context@0.7.3:
   version "0.7.3"
