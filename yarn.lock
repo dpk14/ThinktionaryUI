@@ -2654,9 +2654,9 @@ decamelize@^1.1.1, decamelize@^1.2.0:
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 deep-assign@^3.0.0:
   version "3.0.0"
@@ -5942,10 +5942,15 @@ react-native-keyboard-aware-scroll-view@^0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
-react-native-pell-rich-editor@^1.5.4:
+react-native-keyboard-height@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-height/-/react-native-keyboard-height-1.1.2.tgz#f0d6d8b7fb857b937775df9288aac270d3d31929"
+  integrity sha512-N3tsr7X0Ql97H61xPWe8uyadOG0K7ZYvOaRPpQci5P/D3Q7mAENvHpAnF/fd26SBHVrRn+4IiPMuIZzGxaZQug==
+
+"react-native-pell-rich-editor@github:dpk14/react-native-rich-editor":
   version "1.5.4"
-  resolved "https://registry.yarnpkg.com/react-native-pell-rich-editor/-/react-native-pell-rich-editor-1.5.4.tgz#8ad61f414df545e6ba70e7fe67c90d07804395f3"
-  integrity sha512-4Ac2zSPl+2rbMI1bPNSoe5LCv3ckxs2ZbwQuxK+xd40Ujj5Fk48OA4WZqz0Z2aMKpgvpbuXCTDFeYwUv7kddyQ==
+  uid b1bf03970855f131ee2022d85041950d3b5d2ad0
+  resolved "https://codeload.github.com/dpk14/react-native-rich-editor/tar.gz/b1bf03970855f131ee2022d85041950d3b5d2ad0"
 
 react-native-reanimated@~1.7.0:
   version "1.7.1"
@@ -5953,6 +5958,11 @@ react-native-reanimated@~1.7.0:
   integrity sha512-aBwhoQdH4shkeTPbi7vKcAwYOzBp/6zElEKuIOgby11TceoM7y5SgNImC3HbDWWld3QV2PA2AgQGwAy51WgF3Q==
   dependencies:
     fbjs "^1.0.0"
+
+react-native-rich-editor@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-rich-editor/-/react-native-rich-editor-0.1.1.tgz#e2cea4c05d883d8fef9e8cb092832651c7baf785"
+  integrity sha512-NKqYTfkvCIHgNRNfLCTsa/Df/jn6bFLnvZaRP5HgulCpxrVJpNgCs31giNIfppzEnWFNXye+VcENst169yy7AQ==
 
 react-native-safe-area-context@0.7.3:
   version "0.7.3"
